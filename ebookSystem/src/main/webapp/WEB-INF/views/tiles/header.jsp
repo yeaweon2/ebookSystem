@@ -61,8 +61,9 @@
 				</li>
 				<li class="dropdown"><a href="#"><span>도서관리</span><i class="bi bi-chevron-down"></i></a>
 					<ul>
-						<li><a href="#">BOOK등록</a></li>
-						<li><a href="#">BOOK조회</a></li>
+						<li><a href="bookInsertForm">BOOK등록</a></li>
+						<li><a href="bookList">BOOK조회</a></li>
+						<li><a href="ctgyList">카테고리관리</a></li>
 					</ul>				
 				</li>
 				<li class="dropdown"><a href="#"><span>회원관리</span><i class="bi bi-chevron-down"></i></a>

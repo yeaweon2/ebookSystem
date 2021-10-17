@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.ebook.prj.category.mapper.CtgyMapper">
+	<select id="ctgyList" resultType="co.ebook.prj.category.vo.CtgyVO">
+	 	SELECT *
+		  FROM CATEGORY
+		 WHERE CTGY_GR_ID IS NULL
+	</select>
+	
+	<select id="ctgyDetailList" resultType="co.ebook.prj.category.vo.CtgyVO">
+		 	SELECT CTGY_ID 
+	 	     , CTGY_NM
+		  FROM CATEGORY
+		 WHERE CTGY_ID = #{ctgyId}
+	</select>
+	
+	<insert id="ctgyInsert" parameterType="co.ebook.prj.category.vo.CtgyVO">
+		INSERT INTO CATEGORY
+		VALUES ( #{ctgyId} , #{ctgyNm} , #{ctgyGrId}, #{ctgyUseYn}, #{ctgyWriter} , sysdate, sysdate )
+	</insert> 
+	
+	<update id="ctgyUpdate" parameterType="co.ebook.prj.category.vo.CtgyVO">
+		UPDATE CATEGORY
+		   SET CTGY_NM = #{ctgyNm}
+		 WHERE CTGY_ID = #{ctgyId}
+	</update>
+	
+	<delete id="ctgyDelete" parameterType="co.ebook.prj.category.vo.CtgyVO">
+		DELETE FROM CATEGORY
+		 WHERE CTGY_ID = #{ctgyId}
+	</delete>
+</mapper>
