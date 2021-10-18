@@ -16,16 +16,9 @@ public class CmmntyController {
 	private CmmntyService cmmntyDao; 
 	
 	@RequestMapping("/noticeList")
-	String noticeList(Model model) {
-		CmmntyVO vo = new CmmntyVO();
+	String noticeList(Model model, CmmntyVO vo) {
 		vo.setCmmntyFlCd("01");
-		System.out.println("==========================>");
 		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
-		System.out.println( lists.size());
-		
-		for( CmmntyVO v : lists) {
-			System.out.println(v.toString());
-		}
 		
 		model.addAttribute("notices", lists);
 		return "notice/noticeList";

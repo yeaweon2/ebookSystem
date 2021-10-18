@@ -2,9 +2,6 @@ package co.ebook.prj.cmmnty.vo;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class CmmntyVO {
 	private int cmmntyId ;
 	private String cmmntyWriter;
