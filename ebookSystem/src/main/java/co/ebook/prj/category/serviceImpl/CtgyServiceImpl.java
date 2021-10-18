@@ -27,4 +27,22 @@ public class CtgyServiceImpl implements CtgyService {
 		return map.ctgyDetailList(vo);
 	}
 
+	@Override
+	public int ctgyInsert(CtgyVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int ctgyUpdate(CtgyVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int ctgyDelete(CtgyVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

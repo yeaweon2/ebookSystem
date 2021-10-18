@@ -8,10 +8,9 @@
 	</select>
 	
 	<select id="ctgyDetailList" resultType="co.ebook.prj.category.vo.CtgyVO">
-		 	SELECT CTGY_ID 
-	 	     , CTGY_NM
+		SELECT *
 		  FROM CATEGORY
-		 WHERE CTGY_ID = #{ctgyId}
+		 WHERE CTGY_GR_ID = #{ctgyGrId}
 	</select>
 	
 	<insert id="ctgyInsert" parameterType="co.ebook.prj.category.vo.CtgyVO">

@@ -14,7 +14,7 @@
 
 </head>
 <body>
-<div class="site-section">
+<div class="inner-page pt-4">
 	<div class="container">
 		<div class="row mb-1" style="margin-top: 40px">
 			<div class="section-header">
@@ -32,8 +32,8 @@
 								<th>대분류명</th>
 							</tr>
 							<c:forEach var="list" items="${lists}" >
-								<tr id="lcodeTr">
-									<td>${list.ctgyId}</td>
+								<tr class="lcodeTr">
+									<td class="idTd">${list.ctgyId}</td>
 									<td>${list.ctgyNm}</td>
 								</tr>
 							</c:forEach>	
@@ -50,7 +50,16 @@
 					<br/>
 					<h3 class="text-danger">소분류</h3>
 						<table id="scodeTb" class="table table-hover">
+							<thead>
+								<tr>
+									<th>소분류</th>
+									<th>소분류명</th>
+								</tr>
+							</thead>
+							<tbody id="scodeContents">
+							</tbody>
 						</table>
+						
 					<p>
 						<a href="#" class="btn btn-success btn-custom-1 mt-4">추가</a>
 						<a href="#" class="btn btn-success btn-custom-1 mt-4">수정</a>
@@ -63,27 +72,41 @@
 </div>
     	
 <script type="text/javascript">
+$(function(){
 	
-	var lcodeTr = $("#lcodeTr");
+	var lcodeTr = $(".lcodeTr");
+	
 	lcodeTr.on("click", function(event){
-		console.log(event.target);
 		
-		var id = "A00";
+		console.log(event.target.closest("tr"));
+		console.log(event.target.closest("tr").find(".idTd"));
+		
+		var ctgyGrId = "A00";	
+
 		$.ajax({
-			  type: "GET",
-			  url: "ctgyDetailList",  
-			  data: { id : id },  
-			  dataType: "JSON",
-			  success: function(res){
-				  console.log(res);
-			  },
-			  error : function(rej){
-				  console.log(rej);
-			  }
-			});  
-		
-		
+			url: 'ctgyDetailList',    
+			method: 'POST',
+			data : JSON.stringify({ ctgyGrId : ctgyGrId }),
+			contentType : 'application/json',
+			dataType: 'json',
+			success: function(res){
+				console.log(res);
+				$("#scodeContents").empty();
+				$.each(res,function(idx,item){
+					$("#scodeContents").append( 
+							$("<tr>").append($("<td>").html(item.ctgyId))
+									.append($("<td>").html(item.ctgyNm)) 
+									 				 
+					);
+				});
+			},
+			error : function(rej){
+			  console.log(rej);
+			}
+		});  
 	});
+});
+
 </script>
 </body>
 </html>
