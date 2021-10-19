@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.ebook.prj.cmmnty.mapper.CmmntyMapper">
+
+	<!-- 211018 김지연 공지사항전체리스트  -->
+	<select  id="cmmntyList" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO" resultType="co.ebook.prj.cmmnty.vo.CmmntyVO">
+		SELECT cmmnty_id, cmmnty_title || '('|| cmmnty_reply_cnt || ')' as cmmnty_title, cmmnty_writer, ins_dt,cmmnty_hit
+		FROM community
+		where cmmnty_fl_cd=#{cmmntyFlCd}
+	</select>
+
+</mapper>
