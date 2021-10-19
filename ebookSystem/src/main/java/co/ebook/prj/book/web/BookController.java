@@ -61,7 +61,11 @@ public class BookController {
 	
 	@RequestMapping("/bookUpdateForm")
 	public String bookUpdateForm(Model model , BookVO vo) {
-		model.addAttribute("books", bookDao.bookDetail(vo));
+		System.out.println(vo.toString());
+		vo = bookDao.bookDetail(vo);
+		System.out.println(vo.toString());
+		
+		model.addAttribute("books", vo);
 		return "book/bookUpdateForm";
 	}
 	
