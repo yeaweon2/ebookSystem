@@ -1,23 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.ebook.prj.book.mapper.BookMapper">
-	<select id="bookList">
-	
+	<select id="bookList" resultType="co.ebook.prj.book.vo.BookVO">
+		SELECT ROWNUM as bookNo
+	        , ( SELECT scodes.scode_nm FROM scodes 
+	             WHERE lcode = 'BF' AND scode = b.book_fl_cd ) as book_fl_cd
+	        , ins_dt
+	        , book_nm
+	        , book_publ_co
+	        , book_writer
+	        , book_amt
+	        , book_discnt
+	        , book_cnfm_yn
+	        , book_useyn
+	        , book_hit
+	        , ( SELECT member_nm FROM member m  
+	             WHERE m.member_id = b.member_id) member_id
+		 FROM BOOK B 
 	</select>
 	
-	<select id="bookDetail">
-	
+	<select id="bookDetail" resultType="co.ebook.prj.book.vo.BookVO">
+		 SELECT *
+		   FROM BOOK
+		  WHERE BOOK_ID = #{bookId}  
 	</select>
 	
-	<insert id="bookInsert">
-	
+	<insert id="bookInsert" parameterType="co.ebook.prj.book.vo.BookVO">
+		INSERT INTO BOOK (
+		  BOOK_ID 		
+		, CTGY_ID			, BOOK_NM		, BOOK_FL_CD	, BOOK_PUBL_CO
+		, BOOK_WRITER		, BOOK_PUBL_DT	, BOOK_AMT		, BOOK_DISCNT
+		, BOOK_INTRO		, BOOK_CONTENT	, BOOK_ISBN		, BOOK_WRITER_INTRO	
+		, BOOK_DESC			, MEMBER_ID		, BOOK_COVER	, BOOK_COVER_PATH	
+		, INS_DT			, UDT_DT )
+		VALUES (
+		  ( #{ctgyId} || #{bookFlCd} || LPAD( b_seq.nextval , 4, '0') )		
+		, #{ctgyId}		, #{bookNm}		, #{bookFlCd}		, #{bookPublCo}	
+		, #{bookWriter}	, #{bookPublDt}	, #{bookAmt}		, #{bookDiscnt}	
+		, #{bookIntro}	, #{bookContent}, #{bookIsbn}		, #{bookWriterIntro}
+		, #{bookDesc}	, #{memberId}	, #{bookCover}		, #{bookCoverPath}
+		, sysdate, sysdate )	
 	</insert>
 	
-	<update id="bookUpdate">
+	<update id="bookUpdate" parameterType="co.ebook.prj.book.vo.BookVO">
 	
 	</update>
 	
-	<delete id="bookDelete">
-	
-	</delete>
+	<update id="bookDelete" parameterType="co.ebook.prj.book.vo.BookVO">
+		UPDATE BOOK 
+		   SET book_useyn = 'N'
+		 WHERE book_id = #{bookId}
+	</update>
 </mapper>
