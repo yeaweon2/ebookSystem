@@ -49,8 +49,7 @@ public class CmmntyController {
 	//211019 공지사항글쓰기입력
 	@RequestMapping("/noticeInsert")
 	String noticeInsert() {
-		
-		return "notice/noticeInsert";
+		return "notice/notice";
 	}
 	
 }
