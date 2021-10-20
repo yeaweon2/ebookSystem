@@ -5,6 +5,24 @@
 <head>
 <meta charset="UTF-8">
 <title>BOOK수정</title>
+<script type="text/javascript">
+	$(function(){
+		$("#bookUpdateBtn").on("click",function(){
+			
+			$.ajax({
+				url : 'bookUpdate' ,
+				data : JSON.stringify( $('#frm').serializeObject() ) ,
+				method : 'PUT' ,
+				contentType : 'application/json;charset=utf-8',
+				dataType : 'json' ,
+				success : function(data){
+					console.log(data);
+					
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body>
 <div class="inner-page pt-6">
@@ -12,6 +30,7 @@
          <div class="row mb-1" style="margin-top: 40px">
             <div class="section-header">
                    <h2>BOOK 관리</h2>
+                   ${msg}
               </div>
          </div>   
          <div>
@@ -76,19 +95,19 @@
 						</tr>				
 						<tr>
 							<th>책소개</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control"  value="${books.bookIntro}"></textarea></td>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control">${books.bookIntro}</textarea></td>
 						</tr>
 						<tr>
 							<th>목차</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookContent" name="bookContent" class="form-control"  value="${books.bookContent}"></textarea></td>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookContent" name="bookContent" class="form-control" >${books.bookContent}</textarea></td>
 						</tr>
 						<tr>
 							<th>저자소개</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookWriterIntro" name="bookWriterIntro" class="form-control"  value="${books.bookWriterIntro}"></textarea></td>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookWriterIntro" name="bookWriterIntro" class="form-control">${books.bookWriterIntro}</textarea></td>
 						</tr>
 					</table>
 					<div>
-						<button type="submit" id="bookUpdateBtn" class="btn btn-outline-primary">등록</button>
+						<button type="button" id="bookUpdateBtn" class="btn btn-outline-primary">수 정</button>
 						<button type="button" class="btn btn-outline-primary" onclick="location.href='bookList'">BOOK목록</button>
 					</div>
 				</form>

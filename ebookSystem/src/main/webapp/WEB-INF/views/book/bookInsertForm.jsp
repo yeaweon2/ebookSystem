@@ -90,7 +90,7 @@
 					</table>
 					<div>
 						<button type="submit" id="bookInsertBtn" class="btn btn-outline-primary">등록</button>
-						<button type="button" class="btn btn-outline-primary" onclick="location.href='bookList'">BOOK목록</button>
+						<button type="button" id="home" class="btn btn-outline-primary" onclick="location.href='bookList'">BOOK목록</button>
 					</div>
 				</form>
 			

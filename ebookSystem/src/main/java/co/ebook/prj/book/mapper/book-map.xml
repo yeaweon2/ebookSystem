@@ -15,7 +15,7 @@
 	        , book_useyn
 	        , book_hit
 	        , ( SELECT member_nm FROM member m  
-	             WHERE m.member_id = b.member_id) member_id
+	             WHERE m.member_id = b.member_id ) member_id
 	        , book_id
 		 FROM BOOK B 
 	</select>
@@ -40,11 +40,28 @@
 		, #{bookWriter}	, #{bookPublDt}	, #{bookAmt}		, #{bookDiscnt}	
 		, #{bookIntro}	, #{bookContent}, #{bookIsbn}		, #{bookWriterIntro}
 		, #{bookDesc}	, #{memberId}	, #{bookCover}		, #{bookCoverPath}
-		, sysdate, sysdate )	
+		, sysdate		, sysdate )	
 	</insert>
 	
 	<update id="bookUpdate" parameterType="co.ebook.prj.book.vo.BookVO">
-	
+		UPDATE book 
+		   SET CTGY_ID = #{ctgyId}
+		   	 , BOOK_NM = #{bookNm}
+		   	 , BOOK_FL_CD = #{bookFlCd}
+		     , BOOK_PUBL_CO = #{bookPublCo}
+		     , BOOK_WRITER = #{bookWriter}
+		     , BOOK_PUBL_DT = #{bookPublDt}
+		     , BOOK_AMT = #{bookAmt}	
+		     , BOOK_DISCNT = #{bookDiscnt}
+		     , BOOK_INTRO = #{bookIntro}
+		     , BOOK_CONTENT = #{bookContent}
+		     , BOOK_ISBN = #{bookIsbn}
+		     , BOOK_WRITER_INTRO = #{bookWriterIntro}
+		     , BOOK_DESC = #{bookDesc}
+		     , BOOK_COVER = #{bookCover}
+		     , BOOK_COVER_PATH = #{bookCoverPath}
+		     , UDT_DT = sysdate
+		 WHERE BOOK_ID = #{bookId} 
 	</update>
 	
 	<update id="bookDelete" parameterType="co.ebook.prj.book.vo.BookVO">

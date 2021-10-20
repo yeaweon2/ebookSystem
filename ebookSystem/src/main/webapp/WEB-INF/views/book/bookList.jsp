@@ -9,10 +9,37 @@
 <script type="text/javascript">
 $(function(){
 	$("table").on("click", "tr", function(){ 
+		event.stopPropagation();
 		var id = $(this).closest("tr").data("id");
 		$("#bookId").val(id);
 		console.log()
 		frm.submit();
+	});
+	
+	$("#bookCnfm").on("click", function(){
+		var cnfmBookId = $("#chkTr:checked").closest("tr").data("id");
+		console.log(cnfmBookId);
+		
+		 $.ajax({
+			url : 'bookCnfrmReq' ,
+			data : JSON.stringify({ no : no , todoYn : todoYn }) ,
+			method : 'PUT' ,
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json' ,
+			success : function(data){
+				console.log(data);
+				$li.toggleClass('checked');
+			}
+		}); 
+	});
+	
+	$(".chkTd").on("click", function(){
+		event.stopPropagation();
+		if($(this).find("#chkInput").prop('checked') == false){
+			$(this).find("#chkInput").prop('checked', true);
+		}else{
+			$(this).find("#chkInput").prop('checked', false);
+		}
 	});
 });
 </script>
@@ -39,12 +66,11 @@ $(function(){
 						<th>할인율</th>
 						<th>승인여부</th>
 						<th>사용여부</th>
-						<th>조회수</th>
 						<th>매니저</th>
 					</tr>
 					<c:forEach var="list" items="${lists}" >
 						<tr data-id="${list.bookId}">
-							<td><input type="checkbox"></td>
+							<td class="chkTd" ><input type="checkbox" id="chkInput" ></td>
 							<td>${list.bookNo}</td>
 							<td>${list.bookFlCd}</td>
 							<td>${list.insDt}</td>
@@ -55,15 +81,14 @@ $(function(){
 							<td>${list.bookDiscnt}</td>
 							<td>${list.bookCnfmYn}</td>
 							<td>${list.bookUseyn}</td>
-							<td>${list.bookHit}</td>
 							<td>${list.memberId}</td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 			<div class="row">
-				<button class="btn">수 정</button>
-				<button class="btn">승 인</button>
+				<button  class="btn btn-primary">수 정</button>
+				<button id="bookCnfm" class="btn btn-primary">승 인</button>
 			</div>
 		</div>
 	</div>
@@ -73,3 +98,4 @@ $(function(){
 </form>	
 </body>
 </html>
+
