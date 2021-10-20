@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+link href="resources/css/form-validation.css" rel="stylesheet">
+<link href="resources/assets/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.1/examples/checkout/">
 </head>
 <body>
 	<div align="left" class="site-section">
@@ -23,5 +28,7 @@
 				onclick="location.href='managerJoinForm'">회원가입(업체)</button>
 		</div>
 	</div>
+	<script src="resources/js/form-validation.js"></script>
+	<script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

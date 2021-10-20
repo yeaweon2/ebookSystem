@@ -7,21 +7,29 @@
 	</select>
 
 	<select id="memberSelect" resultType="co.ebook.prj.member.vo.MemberVO">
-		select * from member where memberId = #{memberId}
+		select  * 
+		  from  member 
+		 where  member_id = #{memberId}
 	</select>
 
 	<insert id="memberInsert" parameterType="co.ebook.prj.member.vo.MemberVO">
-		insert into	member (memberId, memberPw, memberNm, memberNicknm, memberStCd, memberFlCd, 
-							memberEmail,memberBirth, memberGen, memberMile, memberTel, memberPhoneVld, 
-							managerCnfmYn, memberLikeFld, memberProfileNm,memberProfilePath,insDt, udtDt)
-		values(#{memberId},#{memberPw},#{memberNm},#{memberNicknm},#{memberStCd},#{memberFlCd},
-				#{memberEmail},#{memberBirth},#{memberGen},#{memberMile},#{memberTel},#{memberPhoneVld},
-				#{managerCnfmYn},#{memberLikeFld},#{memberProfileNm},#{memberProfilePath},sysdate,sysdate)
+		insert into	member 
+				(member_id,              member_pw,         member_nm,         member_nicknm,     member_st_cd,
+				member_fl_cd,            member_email,      member_birth,      member_gen,        member_mile,
+				member_tel,              member_phone_vld,  manager_cnfm_yn,   member_like_fld,   member_profile_nm,
+				member_profile_path,     ins_dt,            udt_dt)
+		values
+				(#{memberId},            #{memberPw},       #{memberNm},       #{memberNicknm},   #{memberStCd},
+				 #{memberFlCd},          #{memberEmail},    #{memberBirth},    #{memberGen},      #{memberMile},
+				 #{memberTel},           #{memberPhoneVld}, #{managerCnfmYn},  #{memberLikeFld},  #{memberProfileNm}, 
+				 #{memberProfilePath},   sysdate,           sysdate)
 	</insert>
 	
-	<delete id="memberDelete" parameterType="co.ebook.prj.member.vo.MemberVO">
-		delete from member member_id = #{memberId}
-	</delete>
+	<update id="memberDelete" parameterType="co.ebook.prj.member.vo.MemberVO">
+		update member 
+		   set member_st_cd = '03'
+		 where member_id = #{memberId}
+	</update>
 	
 	<update id="memberUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
 	

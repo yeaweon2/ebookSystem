@@ -7,7 +7,14 @@
 <meta charset="UTF-8">
 <title>도서목록</title>
 <script type="text/javascript">
-	
+$(function(){
+	$("table").on("click", "tr", function(){ 
+		var id = $(this).closest("tr").data("id");
+		$("#bookId").val(id);
+		console.log()
+		frm.submit();
+	});
+});
 </script>
 </head>
 <body>
@@ -19,7 +26,7 @@
 	        	</div>
 			</div>	
 			<div class="row">
-				<table class="table table-hover">
+				<table class="table table-hover" style="cursor: pointer;">
 					<tr>
 						<th></th>
 						<th>No</th>
@@ -36,7 +43,7 @@
 						<th>매니저</th>
 					</tr>
 					<c:forEach var="list" items="${lists}" >
-						<tr>
+						<tr data-id="${list.bookId}">
 							<td><input type="checkbox"></td>
 							<td>${list.bookNo}</td>
 							<td>${list.bookFlCd}</td>
@@ -60,6 +67,9 @@
 			</div>
 		</div>
 	</div>
-
+	
+<form action="bookUpdateForm" method="post" id="frm">
+	<input type="hidden" id="bookId" name="bookId" >
+</form>	
 </body>
 </html>

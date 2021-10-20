@@ -16,6 +16,7 @@
 	        , book_hit
 	        , ( SELECT member_nm FROM member m  
 	             WHERE m.member_id = b.member_id) member_id
+	        , book_id
 		 FROM BOOK B 
 	</select>
 	
