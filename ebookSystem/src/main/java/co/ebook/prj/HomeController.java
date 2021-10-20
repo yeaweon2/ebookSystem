@@ -36,4 +36,10 @@ public class HomeController {
 		return "main/home";  
 	}
 	
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String about(Model model) {
+		
+		return "main/about";  
+	}
+	
 }

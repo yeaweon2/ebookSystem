@@ -54,9 +54,6 @@ public class CtgyRestController {
 		}else {
 			map.put("result", "오류발생");
 		}
-		
-		
 		return map;
-		
 	}
 }

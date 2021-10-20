@@ -11,20 +11,20 @@
 	
 	<insert id="bcnfmInsert" parameterType="co.ebook.prj.bcnfm.vo.BcnfmVO">
 	INSERT INTO BOOK_CONFIRM (
-		BCNFM_ID 	, BOOK_ID		, BCNFM_REQ_DT	, BCNFM_ST_CD , 
-		BCNFM_CNFMR	, BCNFM_CNFM_DT	, BCNFM_REJECT	, INS_DT		,UDT_DT
+		BCNFM_ID 	, BOOK_ID		, BCNFM_REQ_DT	, 
+		BCNFM_ST_CD , INS_DT		, UDT_DT
 	) VALUES ( 
- 		bcnfm_seq.nextval 	, #{bookId}			, #{bcnfmReqDt}		, #{bcnfmStCd} , 
- 		#{bcnfmCnfmr}		, #{bcnfmCnfmDt}	, #{bcnfmReject}	, SYSDATE	   , SYSDATE ) 
+ 		bcnfm_seq.nextval 	, #{bookId}			, SYSDATE			, 
+ 		'01' 				, SYSDATE	   		, SYSDATE ) 
 	</insert>
 	
 	<update id="bcnfmUpdate" parameterType="co.ebook.prj.bcnfm.vo.BcnfmVO">
 		UPDATE BOOK_CONFIRM
 		   SET BCNFM_CNFMR = #{bcnfmCnfmr}
 		   	 , BCNFM_ST_CD = #{bcnfmStCd}
-		     , BCNFM_CNFM_DT = sysdate
+		     , BCNFM_CNFM_DT = SYSDATE
 		     , BCNFM_REJECT = #{bcnfmReject}
-		     , UDT_DT = sysdate
+		     , UDT_DT = SYSDATE
 		 WHERE BCNFM_ID = #{bcnfmId}
 	</update>
 	

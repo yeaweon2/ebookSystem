@@ -6,8 +6,8 @@ import co.ebook.prj.bcnfm.vo.BcnfmVO;
 
 public interface BcnfmMapper {
 	List<BcnfmVO> bcnfmList();
-	BcnfmVO bcnfmDetail();
-	int bcnfmInsert();
-	int bcnfmUpdate();
-	int bcnfmDelete();
+	BcnfmVO bcnfmDetail(BcnfmVO vo);
+	int bcnfmInsert(BcnfmVO vo);
+	int bcnfmUpdate(BcnfmVO vo);
+	int bcnfmDelete(BcnfmVO vo);
 }

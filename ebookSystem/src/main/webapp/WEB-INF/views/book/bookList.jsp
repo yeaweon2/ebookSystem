@@ -8,36 +8,51 @@
 <title>도서목록</title>
 <script type="text/javascript">
 $(function(){
+	// 테이블 클릭시 상세보기로 이동 
 	$("table").on("click", "tr", function(){ 
 		event.stopPropagation();
 		var id = $(this).closest("tr").data("id");
 		$("#bookId").val(id);
+		console.log()
 		frm.submit();
 	});
 	
-	$("#bookCnfm").on("click", function(){
-		var cnfmBookId = $("#chkTr:checked").closest("tr").data("id");
-		console.log(cnfmBookId);
+	// 승인버튼 클릭시
+	$("#bookCnfmBtn").on("click", function(){
 		
-		 $.ajax({
+		var tdArr = new Array();
+		console.log($("tr #chkInput:checked"));
+		$("tr #chkInput:checked").each(function(i){
+			var id = $("tr #chkInput:checked").closest("tr").data("id");
+			if( id != "" ){
+				tdArr.push(id);	
+			}
+	    });
+	
+		
+		
+ 		 $.ajax({
 			url : 'bookCnfrmReq' ,
-			data : JSON.stringify({ no : no , todoYn : todoYn }) ,
-			method : 'PUT' ,
+			data : { tdArr : tdArr  } ,
+			method : 'POST' ,
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json' ,
 			success : function(data){
-				console.log(data);
-				$li.toggleClass('checked');
+			
 			}
-		}); 
+		});  
 	});
 	
-	$(".chkTd").on("click", function(){
+	// 체크박스가 있는 Column 클릭시, 
+	$(".chkTd").on("click",  function(){
 		event.stopPropagation();
-		if($(this).find("#chkInput").prop('checked') == false){
-			$(this).find("#chkInput").prop('checked', true);
+		
+		if($(event.target).find("#chkInput").prop('checked') == false){
+			$(event.target).find("#chkInput").prop('checked', true);
+			$(event.target).closest("tr").css("backgroundColor" , "#50d8af");
 		}else{
-			$(this).find("#chkInput").prop('checked', false);
+			$(event.target).find("#chkInput").prop('checked', false);
+			$(event.target).closest("tr").css("backgroundColor" , "");
 		}
 	});
 });
@@ -52,7 +67,7 @@ $(function(){
 	        	</div>
 			</div>	
 			<div class="row">
-				<table class="table table-hover" style="cursor: pointer;">
+				<table id="bookTb" class="table table-hover" style="cursor: pointer;">
 					<tr>
 						<th></th>
 						<th>No</th>
@@ -67,27 +82,28 @@ $(function(){
 						<th>사용여부</th>
 						<th>매니저</th>
 					</tr>
-					<c:forEach var="list" items="${lists}" >
-						<tr data-id="${list.bookId}">
-							<td class="chkTd" ><input type="checkbox" id="chkInput" ></td>
-							<td>${list.bookNo}</td>
-							<td>${list.bookFlCd}</td>
-							<td>${list.insDt}</td>
-							<td>${list.bookNm}</td>
-							<td>${list.bookPublCo}</td>
-							<td>${list.bookWriter}</td>
-							<td>${list.bookAmt}</td>
-							<td>${list.bookDiscnt}</td>
-							<td>${list.bookCnfmYn}</td>
-							<td>${list.bookUseyn}</td>
-							<td>${list.memberId}</td>
-						</tr>
-					</c:forEach>
+					<tbody>
+						<c:forEach var="list" items="${lists}" >
+							<tr data-id="${list.bookId}">
+								<td class="chkTd" ><input type="checkbox" id="chkInput" ></td>
+								<td>${list.bookNo}</td>
+								<td>${list.bookFlCd}</td>
+								<td>${list.insDt}</td>
+								<td>${list.bookNm}</td>
+								<td>${list.bookPublCo}</td>
+								<td>${list.bookWriter}</td>
+								<td>${list.bookAmt}</td>
+								<td>${list.bookDiscnt}</td>
+								<td>${list.bookCnfmYn}</td>
+								<td>${list.bookUseyn}</td>
+								<td>${list.memberId}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 			</div>
-			<div class="row">
-				<button  class="btn btn-primary">수 정</button>
-				<button id="bookCnfm" class="btn btn-primary">승 인</button>
+			<div class="btn-group">
+				<button id="bookCnfmBtn" class="btn btn-primary">승인신청</button>
 			</div>
 		</div>
 	</div>

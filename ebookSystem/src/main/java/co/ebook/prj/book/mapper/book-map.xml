@@ -5,7 +5,8 @@
 		SELECT ROWNUM as bookNo
 	        , ( SELECT scodes.scode_nm FROM scodes 
 	             WHERE lcode = 'BF' AND scode = b.book_fl_cd ) as book_fl_cd
-	        , ins_dt
+	        , book_id
+	        , to_date( ins_dt , 'YYYY-mm-dd') as ins_dt
 	        , book_nm
 	        , book_publ_co
 	        , book_writer
@@ -16,8 +17,8 @@
 	        , book_hit
 	        , ( SELECT member_nm FROM member m  
 	             WHERE m.member_id = b.member_id ) member_id
-	        , book_id
 		 FROM BOOK B 
+		ORDER BY rownum DESC 
 	</select>
 	
 	<select id="bookDetail" resultType="co.ebook.prj.book.vo.BookVO">

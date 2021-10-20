@@ -40,6 +40,7 @@ function btnLToggle(flag){
 // 대분류 테이블 색상 전체 제거
 function lTableBgColorReset(){
 	$("#lcodeTb").find("tr").css("backgroundColor" , "");
+	//$("#lcodeTb").find("tr").find("checkbox").prop('checked', false);
 }
 
 function btnSToggle(flag){
@@ -57,7 +58,7 @@ function btnSToggle(flag){
 }
 
 $(function(){
-	
+	var ctgyGrId = "";
 	var lcodeTr = $(".lcodeTr");
 	
 	// 대분류 Row 클릭시 소분류 조회 ----------------------------------------
@@ -66,8 +67,9 @@ $(function(){
 		// 클릭시 Row행 색상변경
 		lTableBgColorReset();
 		$(this).closest("tr").css("backgroundColor" , "#50d8af");
+		//$(this).closest("tr").find("checkbox").prop('checked', true);
 		
-		var ctgyGrId = $(this).closest("tr").data("id");	
+		ctgyGrId = $(this).closest("tr").data("id");	
 
 		// 소분류 조회
 		$.ajax({
@@ -85,7 +87,7 @@ $(function(){
 					var option2 = $("<option>미사용</option>");
 					
 					$("#scodeContents").append( 
-							$("<tr>").append($("<input type='checkbox' class='form-check-input'>"))
+							$("<tr class='scodeTr'>").append($("<input type='checkbox' class='form-check-input'>"))
 									.append($("<td>").html(item.ctgyId))
 									.append($("<td>").html(item.ctgyNm))
 									.append($("<td>").append($("<select class='form-control form-control-sm'>").append(option1).append(option2)))
@@ -127,8 +129,8 @@ $(function(){
 	});
 	
 	$("#scodeABtn").on("click", function(){
-		
-		$("#scodeTb").append($("<tr>").css("backgroundColor", "#50d8af")
+		console.log(ctgyGrId);
+		$("#scodeTb").append($("<tr>").css("backgroundColor", "#50d8af").data("ctgyGrId", ctgyGrId)
 				.append($("<td>").append($("<input type='checkbox' class='form-check-input'>")))
 				.append($("<td>").append($("<input type='text' id='scodeId' class='form-control'>")))
 				.append($("<td>").append($("<input type='text' id='scodeNm' class='form-control'>")))
@@ -151,90 +153,87 @@ $(function(){
 	// 수정버튼 클릭시 --------------------------------------------------------
 	
 	
+	
+	
+	
+	
 	// 저장버튼 클릭시 --------------------------------------------------------
-		$("#lcodeSBtn").on("click", function(){
-			console.log( $("#lcodeContents").children(":last").find("#lcodeId").val() );
-			console.log( $("#lcodeContents").children(":last").find("#lcodeNm").val() );	
-			console.log( $("#lcodeContents").children(":last").find("#lcodeSel").children("option:selected").text() );
+	$("#lcodeSBtn").on("click", function(){
+		var ctgyId = $("#lcodeContents").children(":last").find("#lcodeId").val();
+		var ctgyNm = $("#lcodeContents").children(":last").find("#lcodeNm").val();
+		var ctgyUseYnTxt = $("#lcodeContents").children(":last").find("#lcodeSel").children("option:selected").text(); 
+		var ctgyUseYn = "";
 		
-			var ctgyId = $("#lcodeContents").children(":last").find("#lcodeId").val();
-			var ctgyNm = $("#lcodeContents").children(":last").find("#lcodeNm").val();
-			var ctgyUseYnTxt = $("#lcodeContents").children(":last").find("#lcodeSel").children("option:selected").text(); 
-			var ctgyUseYn = "";
-			
-			if( ctgyUseYnTxt == "사용"){
-				ctgyUseYn = "Y";
-			}else{
-				ctgyUseYn = "N";
+		if( ctgyUseYnTxt == "사용"){
+			ctgyUseYn = "Y";
+		}else{
+			ctgyUseYn = "N";
+		}
+		
+		
+		$.ajax({
+			url: 'ctgyInsert',    
+			method: 'POST',
+			data : JSON.stringify({ ctgyId : ctgyId , ctgyNm : ctgyNm , ctgyUseYn : ctgyUseYn }),
+			contentType : 'application/json',
+			dataType: 'json',
+			success: function(res){
+				console.log(res);
+				$("#lcodeContents").children(":last").empty();
+				$("#lcodeTb").append($("<tr>")
+						.append($("<td>").append($("<input type='checkbox' class='form-check-input'>")))
+						.append($("<td>").html(ctgyId))
+						.append($("<td>").html(ctgyNm))
+						.append($("<td>").append($("<select id='lcodeSel' class='form-control form-control-sm'>")
+											.append($("<option>사용</option>")).append($("<option>미사용</option>")))));
+				
+				btnLToggle("C");
+			},
+			error : function(rej){
+				console.log(rej);
 			}
-			
-			
-			$.ajax({
-				url: 'ctgyInsert',    
-				method: 'POST',
-				data : JSON.stringify({ ctgyId : ctgyId , ctgyNm : ctgyNm , ctgyUseYn : ctgyUseYn }),
-				contentType : 'application/json',
-				dataType: 'json',
-				success: function(res){
-					console.log(res);
-					$("#lcodeContents").children(":last").empty();
-					$("#lcodeTb").append($("<tr>")
-							.append($("<td>").append($("<input type='checkbox' class='form-check-input'>")))
-							.append($("<td>").html(ctgyId))
-							.append($("<td>").html(ctgyNm))
-							.append($("<td>").append($("<select id='lcodeSel' class='form-control form-control-sm'>")
-												.append($("<option>사용</option>")).append($("<option>미사용</option>")))));
-					
-					btnLToggle("C");
-				},
-				error : function(rej){
-					console.log(rej);
-				}
-			});
 		});
+	});
 	
-		$("#scodeSBtn").on("click", function(){
-			console.log( $("#scodeContents").children(":last").data("ctgyGrId") );
-			console.log( $("#scodeContents").children(":last").find("#scodeNm").val() );	
-			console.log( $("#scodeContents").children(":last").find("#scodeSel").children("option:selected").text() );
+	
+	
+
+	$("#scodeSBtn").on("click", function(){
+		var ctgyGrId = $("#scodeContents").children(":last").data("ctgyGrId");
+		var ctgyId = $("#scodeContents").children(":last").find("#scodeId").val();
+		var ctgyNm = $("#scodeContents").children(":last").find("#scodeNm").val();
+		var ctgyUseYnTxt = $("#scodeContents").children(":last").find("#scodeSel").children("option:selected").text(); 
+		var ctgyUseYn = "";
 		
-			var ctgyGrId = $("#scodeContents").children(":last").data("ctgyGrId");
-			var ctgyId = $("#scodeContents").children(":last").find("#scodeId").val();
-			var ctgyNm = $("#scodeContents").children(":last").find("#scodeNm").val();
-			var ctgyUseYnTxt = $("#scodeContents").children(":last").find("#scodeSel").children("option:selected").text(); 
-			var ctgyUseYn = "";
-			
-			if( ctgyUseYnTxt == "사용"){
-				ctgyUseYn = "Y";
-			}else{
-				ctgyUseYn = "N";
+		if( ctgyUseYnTxt == "사용"){
+			ctgyUseYn = "Y";
+		}else{
+			ctgyUseYn = "N";
+		}
+		
+		
+		$.ajax({
+			url: 'ctgyInsert',    
+			method: 'POST',
+			data : JSON.stringify({ ctgyId : ctgyId , ctgyNm : ctgyNm , ctgyUseYn : ctgyUseYn , ctgyGrId : ctgyGrId }),
+			contentType : 'application/json',
+			dataType: 'json',
+			success: function(res){
+				console.log(res);
+				$("#scodeContents").children(":last").empty();
+				$("#scodeTb").append($("<tr>").data("ctgyGrId", ctgyGrId)
+						.append($("<td>").append($("<input type='checkbox' class='form-check-input'>")))
+						.append($("<td>").html(ctgyId))
+						.append($("<td>").html(ctgyNm))
+						.append($("<td>").append($("<select id='scodeSel' class='form-control form-control-sm'>")
+											.append($("<option>사용</option>")).append($("<option>미사용</option>")))));
+				btnSToggle("C");
+			},
+			error : function(rej){
+				console.log(rej);
 			}
-			
-			
-			$.ajax({
-				url: 'ctgyInsert',    
-				method: 'POST',
-				data : JSON.stringify({ ctgyId : ctgyId , ctgyNm : ctgyNm , ctgyUseYn : ctgyUseYn , ctgyGrId : ctgyGrId }),
-				contentType : 'application/json',
-				dataType: 'json',
-				success: function(res){
-					console.log(res);
-					$("#scodeContents").children(":last").empty();
-					$("#scodeTb").append($("<tr>")
-							.append($("<td>").append($("<input type='checkbox' class='form-check-input'>")))
-							.append($("<td>").html(ctgyId))
-							.append($("<td>").html(ctgyNm))
-							.append($("<td>").append($("<select id='scodeSel' class='form-control form-control-sm'>")
-												.append($("<option>사용</option>")).append($("<option>미사용</option>")))));
-					btnSToggle("C");
-				},
-				error : function(rej){
-					console.log(rej);
-				}
-			});
-		});	
-		
-	
+		});
+	});	
 });
 </script>
 </head>
