@@ -25,18 +25,18 @@ public class CmmntyServiceImpl implements CmmntyService {
 	}
 	
 	@Override //2021.10.17 커뮤니티 글쓰기
-	public int CmmntyInsert(CmmntyVO vo) {
-		return map.CmmntyInsert(vo);
+	public int cmmntyInsert(CmmntyVO vo) {
+		return map.cmmntyInsert(vo);
 	}
 
 	@Override //2021.10.17 커뮤니티 글수정
-	public int CmmntyUpdate(CmmntyVO vo) {
-		return map.CmmntyUpdate(vo);
+	public int cmmntyUpdate(CmmntyVO vo) {
+		return map.cmmntyUpdate(vo);
 	}
 
 	@Override //2021.10.17 커뮤니티 글삭제
-	public int CmmntyDelete(CmmntyVO vo) {
-		return map.CmmntyDelete(vo);
+	public int cmmntyDelete(CmmntyVO vo) {
+		return map.cmmntyDelete(vo);
 	}
 
 }

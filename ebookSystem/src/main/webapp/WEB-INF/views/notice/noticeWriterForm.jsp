@@ -17,20 +17,20 @@
 			<div>
 				<form id="frm" name="frm" action="noticeInsert" method="post">
 					<div>
-						<table border="1">
+						<table class="table table-hover">
 							<tr>
 								<th width="100">제 목</th>
-								<td width="200"><input type="text" name="title" id="title" size="50"></td>
+								<td width="200"><input type="text" name="cmmntyTitle" id="cmmntyTitle" size="50"></td>
 							</tr>
 
 							<tr>
 								<th width="100">내 용</th>
-								<td width="200"><textarea rows="6" cols="52" name="contents"></textarea></td>
+								<td width="200"><textarea rows="6" cols="52" name="cmmntyContents"></textarea></td>
 							</tr>
 
 							<tr>
 								<th width="100">파일업로드</th>
-								<td width="200"><input type="file" name="attchfile" id="attchfile"></td>
+								<td width="200"><input type="file" name="cmmntyAtchNm" id="cmmntyAtchNm"></td>
 							</tr>
 						</table>
 						<br>

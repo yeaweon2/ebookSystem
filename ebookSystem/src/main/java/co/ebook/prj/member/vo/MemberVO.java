@@ -22,6 +22,8 @@ public class MemberVO {
 	private Date insDt;
 	private Date udtDt;
 	
+	
+	
 	public String getMemberId() {
 		return memberId;
 	}

@@ -18,23 +18,29 @@
 			<div>
 
 
-				<table class="table table-hover">
+				<table >
 					<c:forEach var="notice" items="${notices }">
+					
 						<tr>
-							<th>${notice.cmmntyTitle}</th>
+							<th colspan="6">${notice.cmmntyTitle}</th>
 						</tr>
-						<tr>
-							<th>작성자:${notice.cmmntyWriter} 작성일자:${insDt}
-								조회수:${notice.cmmntyHit}</th>
+						<tr >
+							<th>작성자:</th>
+							<td>${notice.cmmntyWriter}</td>
+							<th>작성일자:</th>
+							<td>${notice.insDt}</td>
+							<th>조회수:</th>
+							<td>${notice.cmmntyHit}</td>
 						</tr>
+					
 						<tr>
-							<td>${notice.cmmntyContents}</td>
+							<td colspan="6" height="400">${notice.cmmntyContents}</td>
 						</tr>
 					</c:forEach>
 				</table>
-				<input type="button" onclick="location.href='noticeList'" value="뒤로가기">
-				<input type="button" onclick="'" value="수정">
-				<input type="button" onclick="'" value="삭제">
+				<input type="button" onclick="location.href='noticeList'" value="목록보기" class="btn btn-success">
+				<input type="button" onclick="" value="수정" class="btn btn-primary">
+				<input type="button" onclick="" value="삭제" class="btn btn-danger" onclick="del">
 			</div>
 		</div>
 	</div>

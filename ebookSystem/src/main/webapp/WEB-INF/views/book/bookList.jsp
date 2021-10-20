@@ -12,7 +12,6 @@ $(function(){
 		event.stopPropagation();
 		var id = $(this).closest("tr").data("id");
 		$("#bookId").val(id);
-		console.log()
 		frm.submit();
 	});
 	

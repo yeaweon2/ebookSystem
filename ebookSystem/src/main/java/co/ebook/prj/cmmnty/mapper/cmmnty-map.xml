@@ -4,27 +4,57 @@
 
 	<!-- 211018 공지사항전체조회  -->
 	<select  id="cmmntyList" resultType="co.ebook.prj.cmmnty.vo.CmmntyVO">
-		SELECT rownum as cmmnty_no , cmmnty_id, cmmnty_title || '('|| cmmnty_reply_cnt || ')' as cmmnty_title, cmmnty_writer, ins_dt,cmmnty_hit
-		  FROM community
-		 WHERE cmmnty_fl_cd = #{cmmntyFlCd}
-		 ORDER BY cmmnty_no desc
+		SELECT rownum as cmmnty_no,
+			   CMMNTY_ID,
+			   CMMNTY_TITLE || '('|| CMMNTY_REPLY_CNT || ')' as CMMNTY_TITLE,
+		 	   CMMNTY_WRITER,
+			   INS_DT,
+			   CMMNTY_hit,
+			   CMMNTY_ATCH_NM
+			   CMMNTY_ATCH_PATH
+		FROM COMMUNITY
+		WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
+		ORDER BY cmmnty_no desc
+
 	</select>
 	
 	<!-- 211019 공지사항세부조회 -->
 	<select id="cmmntySelectList" resultType="co.ebook.prj.cmmnty.vo.CmmntyVO">
-		SELECT cmmnty_title,cmmnty_contents,cmmnty_writer,cmmnty_hit,ins_dt,udt_dt
+		SELECT CMMNTY_TITLE,
+			   CMMNTY_CONTENTS,
+			   CMMNTY_WRITER,
+			   CMMNTY_HIT,
+			   INS_DT,UDT_DT
 		  FROM community
-		 WHERE cmmnty_fl_cd = #{cmmntyFlCd}
-		   AND cmmnty_id = #{cmmntyId}
+		 WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
+		   AND CMMNTY_ID = #{cmmntyId}
 	</select>
 	
-	<!-- 211019 공지사항글쓰기입력 -->
-	<insert id="cmmntInsert" >
-		INSERT 
-		  INTO community
-		VALUES (${C_SEQ.nextval},${cmmntyId},${cmmntyWriter},${cmmntyFlCd},${cmmntyTitle},${cmmntyContents},${},sysdate,sysdate)
-		
-		'N','0','0','','');
+	<!-- 211019 공지사항 글쓰기입력 -->
+	<insert id="cmmntyInsert" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
+		INSERT INTO COMMUNITY(
+		  CMMNTY_ID,		CMMNTY_WRITER,
+		  CMMNTY_TITLE,		CMMNTY_FL_CD,
+		  CMMNTY_CONTENTS,	CMMNTY_HIT,
+		  INS_DT,			UDT_DT,
+		  CMMNTY_ATCH_NM,	CMMNTY_ATCH_PATH
+		)
+		VALUES (
+		 C_SEQ.nextval,		#{cmmntyWriter},
+		 #{cmmntyTitle},	#{cmmntyFlCd},
+		 #{cmmntyContents},	default,
+		 sysdate,			sysdate,
+		 null,				null)
 	</insert>
+	
+	<!--  211020 공지사항 글쓰기삭제 -->
+	<update id="cmmntyDelete" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
+		UPDATE COMMUNITY
+		   SET CMMNTY_DELYN = 'Y'
+		 WHERE CMMNTY_ID = #{cmmntyId}
+	</update>
+	<!--  211020 공지사항 글쓰기수정 -->
+	<update id="cmmntyUpdate"></update>
+	<!--  211020 공지사항 글쓰기 조회수 -->
 	
 </mapper>

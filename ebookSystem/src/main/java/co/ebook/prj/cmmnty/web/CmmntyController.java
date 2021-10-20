@@ -1,15 +1,12 @@
 package co.ebook.prj.cmmnty.web;
 
-import java.io.File;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 import co.ebook.prj.cmmnty.service.CmmntyService;
 import co.ebook.prj.cmmnty.vo.CmmntyVO;
@@ -33,6 +30,9 @@ public class CmmntyController {
 	//211018 공지사항세부조회
 	@RequestMapping("/noticeSelectList")
 	String noticeSelectList(Model model, CmmntyVO vo) {
+		System.out.println("-------------------------------------");
+		System.out.println(vo.getCmmntyId());
+		
 		vo.setCmmntyFlCd("01");
 		vo.setCmmntyDelyn("N");
 		List<CmmntyVO> lists = cmmntyDao.cmmntySelectList(vo);
@@ -48,8 +48,18 @@ public class CmmntyController {
 	
 	//211019 공지사항글쓰기입력
 	@RequestMapping("/noticeInsert")
-	String noticeInsert() {
-		return "notice/notice";
+	String noticeInsert(Model model, CmmntyVO vo) {
+		vo.setCmmntyFlCd("01");
+		vo.setCmmntyWriter("admin");
+		int lists = cmmntyDao.cmmntyInsert(vo);
+		
+		System.out.println("공지사항:"+ lists +"건 입력완료 --------------");
+		if(lists > 0) {
+			model.addAttribute("msg", "성공");
+		}else {
+			model.addAttribute("msg", "실패");
+		}
+		return "redirect:noticeList";
 	}
 	
 }
