@@ -61,12 +61,12 @@
 	<!--  211020 공지사항 글수정 -->
 	<update id="cmmntyUpdate" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
 		UPDATE COMMUNITY
-		   SET CMMNTY_TITLE =#{cmmntyId}, 
-		       CMMNTY_CONTENTS =#{cmmntyContents}
-		       CMMNTY_ATCH_NM =#{cmmntyAtchNm}
-			   CMMNTY_ATCH_PATH=#{cmmntyAtchPath}
+		   SET CMMNTY_TITLE 	= #{cmmntyTitle} 
+		     , CMMNTY_CONTENTS 	= #{cmmntyContents}
+		     , CMMNTY_ATCH_NM 	= #{cmmntyAtchNm}
+			 , CMMNTY_ATCH_PATH = #{cmmntyAtchPath}
 		     , UDT_DT = sysdate
-		WHERE CMMNTY_ID = #{cmmntyId} 
+		 WHERE CMMNTY_ID = #{cmmntyId} 
 	</update>
 	
 	<!--  211020 공지사항 글 조회수 -->

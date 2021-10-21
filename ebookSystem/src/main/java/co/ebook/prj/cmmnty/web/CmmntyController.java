@@ -77,7 +77,6 @@ public class CmmntyController {
 		vo.setCmmntyFlCd("01");
 		vo.setCmmntyWriter("admin");
 		vo = cmmntyDao.cmmntySelectList(vo);
-		System.out.println(vo.toString());
 		
 		model.addAttribute("notice", vo);
 		return "notice/noticeUpdateForm";
@@ -86,6 +85,11 @@ public class CmmntyController {
 	// 211020 공지사항 글수정
 	@RequestMapping(value="/noticeUpdate")
 	public String noticeUpdate(Model model, CmmntyVO vo) {
+		System.out.println("============== 수 정 >>");
+		System.out.println(vo.toString());
+		
+		
+		
 		int list = cmmntyDao.cmmntyUpdate(vo);
 		if(list != 0) {
 			model.addAttribute("msg", "성공");
