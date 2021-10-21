@@ -36,8 +36,8 @@
 						<br>
 
 						<div>
-							<input type="submit" value="등록">
-							<input type="button" onclick="location.href='noticeList'" value="취소">
+							<input type="submit" value="등록" class="btn btn-primary">
+							<input type="button" onclick="location.href='noticeList'" value="취소" class="btn btn-danger">
 						</div>
 					</div>
 				</form>

@@ -20,7 +20,7 @@ public class CmmntyServiceImpl implements CmmntyService {
 	}
 
 	@Override //20201.10.17 커뮤니티 상세목록조회
-	public List<CmmntyVO> cmmntySelectList(CmmntyVO vo) {
+	public CmmntyVO cmmntySelectList(CmmntyVO vo) {
 		return map.cmmntySelectList(vo);
 	}
 	

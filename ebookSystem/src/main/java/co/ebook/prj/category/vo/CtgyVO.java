@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Data
 public class CtgyVO {
-	private String ctgyId;
+	private int ctgyId;
 	private String ctgyNm;
 	private String ctgyGrId;
 	private String ctgyUseYn;

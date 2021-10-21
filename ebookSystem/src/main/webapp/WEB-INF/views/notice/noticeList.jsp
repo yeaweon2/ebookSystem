@@ -8,12 +8,10 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 <script>
-	
 	$(function() {
 		//클릭시 글상세조회
 		$("table").on("click", "tr", function() {
 			event.stopPropagation();
-			console.log($(this));
 			var id = $(this).closest("tr").data("id");
 			$("#cmmntyId").val(id);
 
@@ -30,7 +28,7 @@
 			}
 		});
 		
-		//체크박스 선택후 삭제(여러개선택가능 ㅜㅜ)
+		//체크박스 선택삭제
 		
 	});
 
@@ -48,7 +46,7 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th></th>
+							<th class="header" width="30"><input type="checkbox" id="checkall" /></th>
 							<th>번호</th>
 							<th>제목</th>
 							<th>작성자</th>
@@ -59,7 +57,7 @@
 					<tbody>
 						<c:forEach var="notice" items="${notices }">
 							<tr class="noticeSelect" data-id="${notice.cmmntyId}">
-								<td class="chkTd"><input type="checkbox" id="chkInput" class='form-check-input'></td>
+								<td  class="chkTd" width="30"><input id="chkInput" name="rowcheck" type="checkbox"></td>
 								<td>${notice.cmmntyNo}</td>
 								<td>${notice.cmmntyTitle}</td>
 								<td>${notice.cmmntyWriter}</td>
@@ -69,8 +67,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<button type="button" id="write" name="write"
-					onclick="location.href='noticeWriterForm'" class="btn btn-primary">글쓰기</button>
+				<button type="button" id="Insert" name="Insert" onclick="location.href='noticeInsertForm'" class="btn btn-primary">글쓰기</button>
 				<button type="button" id="del" name="del" class="btn btn-danger">삭제</button>
 			</div>
 		</div>

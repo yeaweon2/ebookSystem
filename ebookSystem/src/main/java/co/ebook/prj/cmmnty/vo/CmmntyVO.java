@@ -3,10 +3,12 @@ package co.ebook.prj.cmmnty.vo;
 import java.util.Date;
 
 import lombok.Getter;
-import lombok.Setter;                    
+import lombok.Setter;
+import lombok.ToString;                    
 
 @Getter
 @Setter
+@ToString
 public class CmmntyVO {
 	private int cmmntyId ;
 	private int cmmntyNo ;
