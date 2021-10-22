@@ -2,8 +2,6 @@ package co.ebook.prj.cmmnty.web;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +33,9 @@ public class CmmntyController {
 		vo.setCmmntyFlCd("01");
 		vo.setCmmntyDelyn("N");
 		vo = cmmntyDao.cmmntySelectList(vo);
+		 if( vo.getCmmntyReplyCnt() > 0) {
+			//댓글가져와야함
+		 }
 		model.addAttribute("notice", vo);
 		return "notice/noticeSelectList";
 	}
@@ -99,5 +100,5 @@ public class CmmntyController {
 		return "redirect:noticeList";
 		
 	}
-
+	
 }

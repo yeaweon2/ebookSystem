@@ -27,9 +27,6 @@
 				$(event.target).find("#chkInput").prop('checked', false);
 			}
 		});
-		
-		//체크박스 선택삭제
-		
 	});
 
 </script>
@@ -43,7 +40,7 @@
 				</div>
 			</div>
 			<div>
-				<table class="table table-hover">
+				<table class="table table-hover" style="cursor:pointer">
 					<thead>
 						<tr>
 							<th class="header" width="30"><input type="checkbox" id="checkall" /></th>
@@ -67,8 +64,8 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<button type="button" id="Insert" name="Insert" onclick="location.href='noticeInsertForm'" class="btn btn-primary">글쓰기</button>
-				<button type="button" id="del" name="del" class="btn btn-danger">삭제</button>
+				<button type="button" onclick="location.href='noticeInsertForm'" class="btn btn-primary">글쓰기</button>
+				<button type="button" class="btn btn-danger">삭제</button>
 			</div>
 		</div>
 	</div>

@@ -14,29 +14,31 @@ public class CmmntyServiceImpl implements CmmntyService {
 	@Autowired
 	private CmmntyMapper map;
 	
-	@Override //2021.10.17 커뮤니티 목록조회
+	@Override //커뮤니티 목록조회
 	public List<CmmntyVO> cmmntyList(CmmntyVO vo) {
 		return map.cmmntyList(vo);
 	}
 
-	@Override //20201.10.17 커뮤니티 상세목록조회
+	@Override //커뮤니티 목록상세조회
 	public CmmntyVO cmmntySelectList(CmmntyVO vo) {
+		map.cmmntyHit(vo);
 		return map.cmmntySelectList(vo);
 	}
 	
-	@Override //2021.10.17 커뮤니티 글쓰기
+	@Override //커뮤니티 글쓰기
 	public int cmmntyInsert(CmmntyVO vo) {
 		return map.cmmntyInsert(vo);
 	}
 
-	@Override //2021.10.17 커뮤니티 글수정
+	@Override //커뮤니티 글수정
 	public int cmmntyUpdate(CmmntyVO vo) {
 		return map.cmmntyUpdate(vo);
 	}
 
-	@Override //2021.10.17 커뮤니티 글삭제
+	@Override //커뮤니티 글삭제
 	public int cmmntyDelete(CmmntyVO vo) {
 		return map.cmmntyDelete(vo);
 	}
+
 
 }

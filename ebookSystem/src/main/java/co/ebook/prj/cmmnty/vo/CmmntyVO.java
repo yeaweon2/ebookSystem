@@ -10,8 +10,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CmmntyVO {
-	private int cmmntyId ;
-	private int cmmntyNo ;
+	private int cmmntyId;
+	private int cmmntyNo;
 	private String cmmntyWriter;
 	private String cmmntyFlCd;
 	private String cmmntyTitle;

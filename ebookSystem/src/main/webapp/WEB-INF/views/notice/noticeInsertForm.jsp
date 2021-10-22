@@ -17,24 +17,22 @@
 			<div>
 				<form id="frm" name="frm" action="noticeInsert" method="post">
 					<div>
-						<table class="table table-hover">
+						<table class="table">
 							<tr>
-								<th width="100">제 목</th>
-								<td width="200"><input type="text" name="cmmntyTitle" id="cmmntyTitle" size="50"></td>
+								<th>제 목</th>
+								<td><input type="text" name="cmmntyTitle" id="cmmntyTitle" size="50"></td>
 							</tr>
 
 							<tr>
-								<th width="100">내 용</th>
-								<td width="200"><textarea rows="6" cols="52" name="cmmntyContents"></textarea></td>
+								<th>내 용</th>
+								<td><textarea rows="15" cols="150" name="cmmntyContents"></textarea></td>
 							</tr>
 
 							<tr>
-								<th width="100">파일업로드</th>
-								<td width="200"><input type="file" name="cmmntyAtchNm" id="cmmntyAtchNm"></td>
+								<th>파일업로드</th>
+								<td><input type="file" name="cmmntyAtchNm" id="cmmntyAtchNm"></td>
 							</tr>
 						</table>
-						<br>
-
 						<div>
 							<input type="submit" value="등록" class="btn btn-primary">
 							<input type="button" onclick="location.href='noticeList'" value="취소" class="btn btn-danger">
