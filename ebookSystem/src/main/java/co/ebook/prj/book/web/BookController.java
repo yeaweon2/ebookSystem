@@ -1,9 +1,13 @@
 package co.ebook.prj.book.web;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.ebook.prj.book.service.BookService;
 import co.ebook.prj.book.vo.BookVO;
@@ -23,7 +28,10 @@ public class BookController {
 	@Autowired
 	BookService bookDao;
 	
-   @InitBinder
+	@Autowired
+	private String filePath;		// 파일이 저장될 경로 (개발시 절대경로로 파일저장되도록 사용할 것)	
+	
+	@InitBinder
     protected void initBinder(WebDataBinder binder){
         DateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,true));
@@ -50,14 +58,46 @@ public class BookController {
 		return "book/bookInsertForm";
 	}
 	
-	
+	// MultipartHttpServletRequest request
 	@PostMapping("/bookInsert")
-	public String bookInsert(Model model , BookVO vo) {
+	public String bookInsert(Model model , BookVO vo, MultipartFile bookCover) {
 		
+		int result = 0;
+		vo.setMemberId("admin");	
+		String fileName = "";
 		
-		vo.setMemberId("admin");		
+		try {
+			if ( bookCover != null ) {
+				if (!bookCover.getOriginalFilename().isEmpty()) {
+					fileName = bookCover.getOriginalFilename();	
+					//String filePath = request.getServletContext().getRealPath("/");	// 파일 저장경로
+					filePath =  filePath + "\\fileUp\\";								// 파일이 저장될 최종폴더
+
+					// UUID.randomUUID().toString() + "_" +
+					File fileSave = new File(filePath, fileName);
+					
+					bookCover.transferTo(fileSave);			// 파일 업로드
+				}else {
+					filePath = "";
+					fileName = "";
+				}
+			}	
+		}catch(Exception e) {
+			e.printStackTrace();
+		}			
 		
-		int result = bookDao.bookInsert(vo);
+		System.out.println("----------------------------->> ");
+		System.out.println( fileName );
+		System.out.println( filePath );
+		System.out.println("----------------------------->> ");
+		
+		vo.setBookCover(fileName);
+		vo.setBookCoverPath(filePath);
+	
+		result = bookDao.bookInsert(vo);
+		
+			
+		
 		
 		System.out.println("도서 : " + result + " 건 입력완료 ------->");
 		if(result > 0 ) {

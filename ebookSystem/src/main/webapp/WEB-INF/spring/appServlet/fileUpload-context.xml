@@ -9,6 +9,6 @@
 	</bean>
 
 	<bean id="filePath" class="java.lang.String">
-		<constructor-arg value="C:\Users\admin\Documents\workspace-spring-tool-suite-4-4.11.1.RELEASE\ebookSystem\src\main\webapp\fileUp"></constructor-arg>
+		<constructor-arg value="C:\ebookFile"></constructor-arg>
 	</bean>
 </beans>

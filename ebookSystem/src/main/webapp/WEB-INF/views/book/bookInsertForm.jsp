@@ -8,6 +8,84 @@
 <link href="resources/css/form-validation.css" rel="stylesheet">
 <link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
+<script type="text/javascript">
+	$(function(){
+		
+		// 화면 진입시 카테고리 대분류 조회 후 셋팅 --------------------------------------------------------------------------------------
+		$.ajax({
+			url: 'ctgyLcodeList',    
+			method: 'GET',
+			contentType : 'application/json;charset=utf-8',
+			dataType: 'json',
+			success: function(res){
+				
+				$("#lcodeSelBox").empty();
+				$.each(res, function(idx,item){
+					$("#lcodeSelBox").append($("<option>").val(item.ctgyId).text(item.ctgyNm)); 
+				});
+				$("#lcodeSelBox").change();
+			}
+		});
+
+		// 대분류 카테고리 선택시 소분류 select box에 셋팅 -------------------------------------------------------------------------------- 
+		$("#lcodeSelBox").on("change", function(){
+			var ctgyGrId = $(this).find("option:selected").val();
+				
+			$.ajax({
+				url: 'ctgyDetailList',    
+				method: 'POST',
+				data : JSON.stringify({ ctgyGrId : ctgyGrId }),
+				contentType : 'application/json',
+				dataType: 'json',
+				success: function(res){
+					
+					$("#scodeSelBox").empty();
+					$.each(res, function(idx,item){
+						$("#scodeSelBox").append($("<option>").val(item.ctgyId).text(item.ctgyNm));
+					});
+					$("#ctgyId").val($("#scodeSelBox").find("option:selected").val());
+				}
+			});
+		});
+		
+		// 소분류 카테고리 선택시 카테고리 값 셋팅 -------------------------------------------------------------------------------
+		$("#scodeSelBox").on("change", function(){
+			$("#ctgyId").val($(this).find("option:selected").val());
+		});
+		
+		
+		// 첨부파일 선택시 이미지 파일 및 파일 사이즈 체크 ------------------------------------------------------------------------
+		$("#attchFile").on("change", function(){
+			
+			if($("#attchFile").val() != "") {		
+				
+				var ext = $("#attchFile").val().split(".").pop().toLowerCase();
+				console.log(ext);
+				if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp"]) == -1) {
+					alert("첨부파일은 이미지 파일만 등록 가능합니다.\n ( 첨부가능 확장자 : 'jpg', 'jpeg', 'png', 'gif', 'bmp' )");
+					$("#attchFile").val("");
+					return false;
+				}
+			}
+			
+			var maxSize = 5 * 1024 * 1024; // 5MB
+
+			var fileSize = $("#attchFile")[0].files[0].size;
+			console.log(fileSize);
+			if(fileSize > maxSize){
+				alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+				$("#attchFile").val("");
+				return false;
+			}
+		});
+		
+		
+		$("#bookFileForm").on("click", function(){
+			alert("도서 등록후 수정 페이지에서 진행해 주세요. ==> 차후 수정");
+		});
+	});
+	
+</script>
 </head>
 <body>
 	<div class="inner-page pt-6">
@@ -18,12 +96,16 @@
 	        	</div>
 			</div>	
 			<div>
-				<form action="bookInsert" class="needs-validation"  method="post" id="frm" name ="frm" novalidate>
+				<form action="bookInsert" class="needs-validation"  method="post" id="frm" name ="frm" enctype = "multipart/form-data" novalidate>
 					<table class="table">
 						<tr>
 							<th>카테고리</th>
-							<td><input type="text" id="ctgyId" name="ctgyId" class="form-control"> 
-								<input type="button" class="btn btn-primary" value="카테고리조회">
+							<td>
+								<select id="lcodeSelBox" class="form-select form-select-sm w-30">
+								</select>
+								<select id="scodeSelBox" class="form-select form-select-sm">
+								</select>
+								<input type="hidden" id="ctgyId" name="ctgyId" class="form-control"> 
 								<div class="invalid-feedback">
 									카테고리를 입력해주세요.
 								</div>								
@@ -71,9 +153,9 @@
 						</tr>
 						<tr>
 							<th>표지디자인</th>
-							<td><input type="file" value="파일조회" class="form-control"></td>
+							<td><input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control"></td>
 							<th>BOOK파일</th>
-							<td><input type="file" value="파일조회" class="form-control"></td> 
+							<td><button id="bookFileForm" type="button" class="btn btn-primary"> BOOK파일등록 </button></td> 
 						</tr>				
 						<tr>
 							<th>책소개</th>
@@ -169,8 +251,6 @@
 								.append( $("<td id='apiStatus'>").html(item.status))
 								.append( $("<td id='apiIntro'>").append( $("<input type='hidden' id='apiIntroTxt'>").val(item.contents)))					
 					);	
-					
-					
 				});
 				
 				$("#apiTbody").on("dblclick", "tr#apiTr" , function(){
@@ -184,14 +264,11 @@
 					$("#bookIntro").val($(event.target).closest("tr").find("#apiIntroTxt").val());
 					$("#apiCloseBtn").click();
 				});
-
 			},
 			error : function(rej){
 				console.log(rej);
-				
 			}
 		});
-		
 		return false;
 	}
 	

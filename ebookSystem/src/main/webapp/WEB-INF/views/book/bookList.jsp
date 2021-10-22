@@ -28,8 +28,6 @@ $(function(){
 			}
 	    });
 	
-		
-		
  		 $.ajax({
 			url : 'bookCnfrmReq' ,
 			data : { tdArr : tdArr  } ,

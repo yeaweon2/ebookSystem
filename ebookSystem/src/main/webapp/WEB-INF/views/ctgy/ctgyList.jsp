@@ -86,7 +86,7 @@ $(function(){
 
 	// 대분류 Row 클릭시 소분류 조회 ----------------------------------------
 	 $(document).on("click", "tr#lcodeTr", function(event){
-		
+		console.log("111111");
 		
 		if ( lcodeUpdateFlag ){
 			console.log("here");
@@ -139,10 +139,10 @@ $(function(){
 						
 						sTableBgColorReset();
 						
-/* 						if ( scodeUpdateFlag ){
+ 						if ( scodeUpdateFlag ){
 								alert("수정중인 행을 저장 또는 취소한 후 진행해 주세요.");
 								return false;
-						}  */
+						}  
 						 
 						 $(this).closest("tr").css("backgroundColor" , "#50d8af");
 						 sctgySelTrDataId = $(this).data("id");
