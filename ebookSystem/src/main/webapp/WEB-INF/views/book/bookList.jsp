@@ -18,7 +18,7 @@ $(function(){
 	
 	// 승인버튼 클릭시
 	$("#bookCnfmBtn").on("click", function(){
-		
+		     
 		var tdArr = new Array();
 		console.log($("tr #chkInput:checked"));
 		$("tr #chkInput:checked").each(function(i){
