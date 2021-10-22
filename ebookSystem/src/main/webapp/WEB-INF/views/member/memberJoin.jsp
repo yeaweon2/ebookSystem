@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-link href="resources/css/form-validation.css" rel="stylesheet">
+<link href="resources/css/form-validation.css" rel="stylesheet">
 <link href="resources/assets/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <link rel="canonical"
