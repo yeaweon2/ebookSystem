@@ -3,9 +3,14 @@
 <mapper namespace="co.ebook.prj.member.mapper.MemberMapper">
 
 	<select id="memberSelectList" resultType="co.ebook.prj.member.vo.MemberVO">
- 		select * from member
+ 		select  member_id,       member_nm,        member_nicknm, 
+ 		        member_tel,      ins_dt,           udt_dt, 
+                (select scodes.scode_nm from scodes where lcode = 'MR' and scode =member_fl_cd ) as member_fl_cd,
+ 		        (select scodes.scode_nm from scodes where lcode = 'MS' and scode =member_st_cd ) as member_st_cd, 
+ 		        member_mile 
+        from    member;
 	</select>
-
+	             
 	<select id="memberSelect" resultType="co.ebook.prj.member.vo.MemberVO">
 		select  * 
 		  from  member 
@@ -19,7 +24,7 @@
 				member_tel,              member_phone_vld,  manager_cnfm_yn,   member_like_fld,   member_profile_nm,
 				member_profile_path,     ins_dt,            udt_dt)
 		values
-				(#{memberId},            #{memberPw},       #{memberNm},       #{memberNicknm},   #{memberStCd},
+				(#{memberId},            #{memberPw},       #{memberNm},       #{memberNicknm},   '01',
 				 #{memberFlCd},          #{memberEmail},    #{memberBirth},    #{memberGen},      #{memberMile},
 				 #{memberTel},           #{memberPhoneVld}, #{managerCnfmYn},  #{memberLikeFld},  #{memberProfileNm}, 
 				 #{memberProfilePath},   sysdate,           sysdate)

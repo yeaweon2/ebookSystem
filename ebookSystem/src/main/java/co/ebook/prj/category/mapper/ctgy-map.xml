@@ -5,22 +5,27 @@
 	 	SELECT *
 		  FROM CATEGORY
 		 WHERE CTGY_GR_ID IS NULL
+		 ORDER BY CTGY_ID
 	</select>
 	
 	<select id="ctgyDetailList" resultType="co.ebook.prj.category.vo.CtgyVO">
 		SELECT *
 		  FROM CATEGORY
 		 WHERE CTGY_GR_ID = #{ctgyGrId}
+		 ORDER BY CTGY_ID
 	</select>
 	
 	<insert id="ctgyInsert" parameterType="co.ebook.prj.category.vo.CtgyVO">
 		INSERT INTO CATEGORY
-		VALUES ( #{ctgyId} , #{ctgyNm} , #{ctgyGrId}, #{ctgyUseYn}, #{ctgyWriter} , sysdate, sysdate )
+		VALUES ( #{ctgyId} , #{ctgyNm} , #{ctgyGrId}, #{ctgyUseYn}, #{ctgyWriter} , SYSDATE, SYSDATE )
 	</insert> 
 	
 	<update id="ctgyUpdate" parameterType="co.ebook.prj.category.vo.CtgyVO">
 		UPDATE CATEGORY
 		   SET CTGY_NM = #{ctgyNm}
+		   	 , CTGY_USE_YN = #{ctgyUseYn}
+		   	 , CTGY_WRITER = #{ctgyWriter}
+		   	 , UDT_DT = SYSDATE
 		 WHERE CTGY_ID = #{ctgyId}
 	</update>
 	

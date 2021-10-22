@@ -110,15 +110,33 @@
 			    </div>
 				<!--Body-->
 				<div class="modal-body">
-					<input type="text" class="form-control" id="bookNm" placeholder="" value="" required>
-					<div class="invalid-feedback">
-						검색할 BOOK명을 입력해주세요.
-					</div>	
-					<button type="submit" id="bookApiSearch" class="btn btn-primary" onclick="bookApi()" >검 색</button>			
+					<div class="row">
+						<input type="text" class="form-control" id="bookApiNm" placeholder=""  required>
+						<div class="invalid-feedback">
+							검색할 BOOK명을 입력해주세요.
+						</div>	
+						<button type="submit" id="bookApiSearch" class="btn btn-primary" onclick="bookApi()" >검 색</button>
+					</div>
+					<div class="row">
+						<table id="apiTb" class="table table-hover">
+							<tr>
+								<th>No</th>
+								<th>제목</th>
+								<th>출판사</th>
+								<th>저자</th>
+								<th>정가</th>
+								<th>ISBN</th>
+								<th>상태</th>
+								<th>책소개</th>
+							</tr>
+							<tbody id="apiTbody">
+							</tbody>
+						</table>
+					</div>			
 				</div>
 	      		<!--Footer-->
 		      	<div class="modal-footer">
-		        	<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+		        	<button id="apiCloseBtn" type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
 				</div>
 			</form>
 		</div>
@@ -131,14 +149,42 @@
 <script type="text/javascript">
 
 	function bookApi(){
-		console.log($("#bookNm"));
 		$.ajax({
 			method : "get",
 			url : "https://dapi.kakao.com/v3/search/book",
-			data : { query : $("#bookNm").val() },
+			data : { query : $("#bookApiNm").val() },
 			headers : { Authorization : "KakaoAK f1d4b3c07a4bac151a4340d72fcf349d"} ,
 			success : function(res){
-				console.log(res);	
+				$("#apiTbody").empty();
+				console.log(res.documents);
+				$.each(res.documents,function(idx,item){
+					//console.log(item.contents);
+					$("#apiTbody").append($("<tr id='apiTr'>")
+								.append( $("<td>").html((idx+1)) )
+								.append( $("<td id='apiTitle'>").html(item.title) )
+								.append( $("<td id='apiPublisher'>").html(item.publisher) )
+								.append( $("<td id='apiAuthors'>").html(item.authors) )
+								.append( $("<td id='apiPrice'>").html(item.price) )
+								.append( $("<td id='apiIsbn'>").html(item.isbn) )
+								.append( $("<td id='apiStatus'>").html(item.status))
+								.append( $("<td id='apiIntro'>").append( $("<input type='hidden' id='apiIntroTxt'>").val(item.contents)))					
+					);	
+					
+					
+				});
+				
+				$("#apiTbody").on("dblclick", "tr#apiTr" , function(){
+					event.stopPropagation();
+					console.log($(event.target).closest("tr").find("#apiContents").html());
+					$("#bookNm").val($(event.target).closest("tr").find("#apiTitle").html());
+					$("#bookPublCo").val($(event.target).closest("tr").find("#apiPublisher").html());
+					$("#bookIsbn").val($(event.target).closest("tr").find("#apiIsbn").html());
+					$("#bookAmt").val($(event.target).closest("tr").find("#apiPrice").html());
+					$("#bookWriter").val($(event.target).closest("tr").find("#apiAuthors").html());
+					$("#bookIntro").val($(event.target).closest("tr").find("#apiIntroTxt").val());
+					$("#apiCloseBtn").click();
+				});
+
 			},
 			error : function(rej){
 				console.log(rej);
