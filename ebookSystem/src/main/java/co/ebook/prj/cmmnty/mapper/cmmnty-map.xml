@@ -4,15 +4,15 @@
 
 	<!-- 211018 공지사항 전체조회  -->
 	<select  id="cmmntyList" resultType="co.ebook.prj.cmmnty.vo.CmmntyVO">
-		SELECT rownum as cmmnty_no,
-			   CMMNTY_ID,
-			   CMMNTY_TITLE || '('|| CMMNTY_REPLY_CNT || ')' as CMMNTY_TITLE,
-		 	   CMMNTY_WRITER,
-			   INS_DT,
-			   CMMNTY_hit,
-			   CMMNTY_ATCH_NM,
-			   CMMNTY_ATCH_PATH
-		FROM COMMUNITY
+		SELECT rownum as cmmnty_no
+			, CMMNTY_ID
+			, CMMNTY_TITLE || '('|| CMMNTY_REPLY_CNT || ')' as CMMNTY_TITLE
+			, CMMNTY_WRITER
+			, INS_DT
+			, CMMNTY_hit
+			, CMMNTY_ATCH_NM
+			, CMMNTY_ATCH_PATH
+		 FROM COMMUNITY
 		WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
 		  AND CMMNTY_DELYN ='N'
 		   
@@ -22,32 +22,31 @@
 	
 	<!-- 211019 공지사항 상세조회 -->
 	<select id="cmmntySelectList" resultType="co.ebook.prj.cmmnty.vo.CmmntyVO">
-		SELECT CMMNTY_TITLE,
-			   CMMNTY_ID,
-			   CMMNTY_CONTENTS,
-			   CMMNTY_WRITER,
-			   CMMNTY_HIT,
-			   INS_DT,UDT_DT
-		  FROM community
-		 WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
-		   AND CMMNTY_ID = #{cmmntyId}
+		SELECT CMMNTY_TITLE
+			, CMMNTY_ID
+			, CMMNTY_CONTENTS
+			, CMMNTY_WRITER
+			, CMMNTY_HIT
+			, INS_DT
+			, UDT_DT
+		 FROM community
+		WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
+	      AND CMMNTY_ID = #{cmmntyId}
 	</select>
 	
 	<!-- 211019 공지사항 글입력 -->
 	<insert id="cmmntyInsert" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
 		INSERT INTO COMMUNITY(
-		  CMMNTY_ID,		CMMNTY_WRITER,
-		  CMMNTY_TITLE,		CMMNTY_FL_CD,
-		  CMMNTY_CONTENTS,	CMMNTY_HIT,
-		  INS_DT,			UDT_DT,
-		  CMMNTY_ATCH_NM,	CMMNTY_ATCH_PATH
+		  CMMNTY_ID
+		, CMMNTY_WRITER		, CMMNTY_TITLE		, CMMNTY_FL_CD
+		, CMMNTY_CONTENTS	, CMMNTY_HIT		, INS_DT
+		, UDT_DT			, CMMNTY_ATCH_NM	, CMMNTY_ATCH_PATH
 		)
 		VALUES (
-		 C_SEQ.nextval,		#{cmmntyWriter},
-		 #{cmmntyTitle},	#{cmmntyFlCd},
-		 #{cmmntyContents},	default,
-		 sysdate,			sysdate,
-		 null,				null)
+		 C_SEQ.nextval		, #{cmmntyWriter}	, #{cmmntyTitle}
+		, #{cmmntyFlCd}		, #{cmmntyContents} , default
+		, sysdate			, sysdate			, null
+		, null)
 	</insert>
 	
 	<!--  211020 공지사항 글삭제 -->
@@ -58,7 +57,7 @@
 		 WHERE CMMNTY_ID = #{cmmntyId}
 	</update>
 	
-	<!--  211020 공지사항 글수정 -->
+	<!--  211021 공지사항 글수정 -->
 	<update id="cmmntyUpdate" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
 		UPDATE COMMUNITY
 		   SET CMMNTY_TITLE 	= #{cmmntyTitle} 
@@ -69,6 +68,13 @@
 		 WHERE CMMNTY_ID = #{cmmntyId} 
 	</update>
 	
-	<!--  211020 공지사항 글 조회수 -->
+	<!--  211022 공지사항 글 조회수 -->
+	<update id="cmmntyHit" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
+	 UPDATE COMMUNITY 
+	 	SET CMMNTY_HIT = CMMNTY_HIT+1
+	  WHERE CMMNTY_ID = #{cmmntyId}   
+	</update>
+	
+	
 	
 </mapper>

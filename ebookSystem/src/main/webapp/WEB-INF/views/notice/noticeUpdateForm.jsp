@@ -15,26 +15,29 @@
 				</div>
 			</div>
 			<div>
-				<form id="frm" name="frm" action="noticeInsert" method="post">
+				<form id="frm" name="frm" action="noticeUpdate" method="post">
 					<div>
 						<table class="table">
 							<tr>
 								<th>제 목</th>
-								<td><input type="text" name="cmmntyTitle" id="cmmntyTitle" size="50"></td>
+								<td><input type="text" name="cmmntyTitle" id="cmmntyTitle" value ="${notice.cmmntyTitle }" size="50"></td>
 							</tr>
 
 							<tr>
 								<th>내 용</th>
-								<td><textarea rows="15" cols="150" name="cmmntyContents"></textarea></td>
+								<td><textarea rows="15" cols="150" name="cmmntyContents">${notice.cmmntyContents }</textarea></td>
 							</tr>
 
 							<tr>
 								<th>파일업로드</th>
-								<td><input type="file" name="cmmntyAtchNm" id="cmmntyAtchNm"></td>
+								<td><input type="file" name="cmmntyAtchNm" id="cmmntyAtchNm" value ="${notice.cmmntyAtchNm }"></td>
 							</tr>
 						</table>
+						<br>
+
 						<div>
-							<input type="submit" value="등록" class="btn btn-primary">
+							<input type="hidden" id="cmmntyId" name="cmmntyId" value="${notice.cmmntyId}">
+							<input type="submit" value="수정" class="btn btn-primary">
 							<input type="button" onclick="location.href='noticeList'" value="취소" class="btn btn-danger">
 						</div>
 					</div>

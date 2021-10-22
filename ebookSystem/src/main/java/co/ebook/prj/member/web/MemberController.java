@@ -36,11 +36,16 @@ public class MemberController {
 	
 	@RequestMapping("/memberJoinSuccess")
 	public String memberJoinSuccess(Model model, MemberVO vo) {
-		memberDao.memberInsert(vo);
-		return "member/memberJoinForm";
+		vo.setMemberFlCd("U");
+		int result = memberDao.memberInsert(vo);
+		if(result > 0 ) {
+			model.addAttribute("msg", "성공");
+		}else {
+			model.addAttribute("msg", "에러");
+		}
+		return "main/home";
 	}
-	
-	
+		
 	
 	@RequestMapping("/managerJoinForm")
 	public String managerJoinForm(Model model) {
