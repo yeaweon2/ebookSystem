@@ -8,7 +8,9 @@ public class MemberVO {
 	private String memberNm;
 	private String memberNicknm;
 	private String memberStCd;
+	private String memberStNm;
 	private String memberFlCd;
+	private String memberFlNm;
 	private String memberEmail;
 	private String memberBirth;
 	private String memberGen;
@@ -131,6 +133,18 @@ public class MemberVO {
 	}
 	public void setUdtDt(Date udtDt) {
 		this.udtDt = udtDt;
+	}
+	public String getMemberStNm() {
+		return memberStNm;
+	}
+	public void setMemberStNm(String memberStNm) {
+		this.memberStNm = memberStNm;
+	}
+	public String getMemberFlNm() {
+		return memberFlNm;
+	}
+	public void setMemberFlNm(String memberFlNm) {
+		this.memberFlNm = memberFlNm;
 	}
 		
 }

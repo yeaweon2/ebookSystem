@@ -1,20 +1,81 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
-<meta name="author"
-	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
 <title>개인회원가입 폼</title>
 <link href="resources/css/form-validation.css" rel="stylesheet">
-<link href="resources/assets/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="canonical"
-	href="https://getbootstrap.com/docs/5.1/examples/checkout/">
+<link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
+
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="resources/js/form-validation.js"></script>
+<script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+
+	// 아이디 중복체크
+	function checkMemberId(div) {
+		var memberId = $('#memberId').val();
+		
+		$.ajax({
+			url : 'checkMemberId' ,
+			type : 'post',
+			dataType: 'json',
+			data : { memberId : $('#memberId').val() },
+			success: function(data){
+				if (data > 0) {
+					if ( div == "Y" ) { 
+						alert("중복된 ID입니다.");
+						}
+					return false;				
+				} else {
+					if ( div == "Y" ) { 
+						alert("사용가능한 ID입니다.");
+						}
+					return true;
+				}
+			},
+			error : function(rej){
+				console.log(rej);
+			}
+		}); 
+	}
+
+
+	// 닉네임 중복체크	
+	function checkNickName(div) {
+		var memberNicknm = $('#memberNicknm').val();
+		
+		$.ajax({
+			url : 'checkNickName' ,
+			type : 'post',
+			dataType: 'json',
+			data : { memberNicknm : $('#memberNicknm').val() },
+			success: function(data){
+				if (data > 0) {
+					if ( div == "Y" ) { 
+						alert("중복된 닉네임입니다.");
+						}
+					return false;				
+				} else {
+					if ( div == "Y" ) { 
+						alert("사용가능한 닉네임입니다.");
+						}
+					return true;
+				}
+			},
+			error : function(rej){
+				console.log(rej);
+			}
+		}); 
+	}	
+	
+	
+</script>
 </head>
 <body class="bg-center">
 	<div class="inner-page pt-6">
@@ -26,12 +87,11 @@
 			</div>
 			<div>
 				<h4 class="mb-3"></h4>
-				<form class="needs-validation" novalidate action="memberJoinSuccess">
+				<form class="needs-validation" novalidate action="memberJoinSuccess" id="frm" name ="frm">
 					<div class="row g-3">
 						<div class="col-sm-8">
-							<label for="name" class="form-label">이 름</label> <input
-								type="text" class="form-control" id="memberNm" name="memberNm"
-								placeholder="name" required>
+							<label for="name" class="form-label">이 름</label> 
+							<input type="text" class="form-control" id="memberNm" name="memberNm" placeholder="name" required>
 							<div class="invalid-feedback">이름를 입력하세요.</div>
 						</div>
 					</div>
@@ -39,15 +99,14 @@
 
 					<div class="row g-3">
 						<div class="col-sm-7">
-							<label for="id" class="form-label">아이디</label> <input type="text"
-								class="form-control" id="memberId" name="memberId"
-								placeholder="id" value="" required>
+							<label for="id" class="form-label">아이디</label>
+							<input type="text" class="form-control" id="memberId" name="memberId" placeholder="id" value="" required>
 							<div class="invalid-feedback">ID를 입력하세요.</div>
 						</div>
 
 						<div class="col-sm-2">
 							<br>
-							<button type="button" class="btn btn-primary btn-lg">중복확인</button>
+							<button type="button" onclick="checkMemberId('Y');" class="btn btn-primary btn-lg">중복확인</button>
 							<div class="invalid-feedback">ID 중복확인을 하세요.</div>
 						</div>
 					</div>
@@ -55,16 +114,14 @@
 
 					<div class="row g-3">
 						<div class="col-sm-4">
-							<label for="password" class="form-label">비밀번호</label> <input
-								type="text" class="form-control" id="memberPw" name="memberPw"
-								placeholder="password" required>
+							<label for="password" class="form-label">비밀번호</label>
+							<input type="text" class="form-control" id="memberPw" name="memberPw" placeholder="password" required>
 							<div class="invalid-feedback">비밀번호를 입력하세요.</div>
 						</div>
 
 						<div class="col-sm-4">
-							<label for="password" class="form-label">비밀번호 확인</label> <input
-								type="text" class="form-control" id="password"
-								placeholder="password" required>
+							<label for="password" class="form-label">비밀번호 확인</label>
+							<input type="text" class="form-control" id="password" placeholder="password" required>
 							<div class="invalid-feedback">비밀번호를 한번더 입력하세요.</div>
 						</div>
 					</div>
@@ -72,9 +129,8 @@
 
 					<div class="row g-3">
 						<div class="col-sm-8">
-							<label for="tel" class="form-label">휴대전화</label> <input
-								type="text" class="form-control" id="memberTel" name="memberTel"
-								placeholder="tel" required>
+							<label for="tel" class="form-label">휴대전화</label>
+							<input type="text" class="form-control" id="memberTel" name="memberTel" placeholder="tel" required>
 							<div class="invalid-feedback">전화번호를 입력하세요.</div>
 						</div>
 					</div>
@@ -82,9 +138,8 @@
 
 					<div class="row g-3">
 						<div class="col-sm-8">
-							<label for="email" class="form-label">Email</label> <input
-								type="email" class="form-control" id="memberEmail"
-								name="memberEmail" placeholder="you@example.com">
+							<label for="email" class="form-label">Email</label>
+							<input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="you@example.com">
 							<div class="invalid-feedback">Email을 바르게 입력하세요.</div>
 						</div>
 					</div>
@@ -92,15 +147,14 @@
 
 					<div class="row g-3">
 						<div class="col-sm-7">
-							<label for="nickname" class="form-label">닉네임</label> <input
-								type="text" class="form-control" id="memberNicknm"
-								name="memberNicknm" placeholder="nickname" required>
+							<label for="nickname" class="form-label">닉네임</label>
+							<input type="text" class="form-control" id="memberNicknm" name="memberNicknm" placeholder="nickname" required>
 							<div class="invalid-feedback">닉네임을 입력하세요.</div>
 						</div>
 
 						<div class="col-sm-4">
 							<br>
-							<button type="button" class="btn btn-primary btn-lg">중복확인</button>
+							<button type="button" onclick="checkNickName('Y');" class="btn btn-primary btn-lg">중복확인</button>
 							<div class="invalid-feedback">ID 중복확인을 하세요.</div>
 						</div>
 					</div>
@@ -108,16 +162,16 @@
 
 					<div class="row g-3">
 						<div class="col-md-8">
-							<label for="birth" class="form-label">생년월일</label> <input
-								type="text" class="form-control" id="memberBirth"
-								name="memberBirth" placeholder="birth" required>
+							<label for="birth" class="form-label">생년월일</label>
+							<input type="text" class="form-control" id="memberBirth" name="memberBirth" placeholder="birth" required>
 							<div class="invalid-feedback">생년월일 입력하세요.</div>
 						</div>
 
 						<div class="col-md-2">
-							<label for="gen" class="form-label">성별</label> <br> <input
-								type="radio" name="gen" value="male">남성 <input
-								type="radio" name="gen" value="female">여성
+							<label for="gen" class="form-label">성별</label>
+							<br>
+							<input type="radio" name="gen" value="male">남성
+							<input type="radio" name="gen" value="female">여성
 						</div>
 						<br> <br>
 
@@ -126,30 +180,22 @@
 								<label for="birth" class="form-label">관심분야</label>
 							</div>
 							<div class="form-check-inline" style="word-spacing: 10px">
-								<input type="checkbox" class="form-check-input"
-									id="memberLikeFld" name="memberLikeFld"> <label
-									for="favorite1" class="form-label">경제경영</label> <input
-									type="checkbox" class="form-check-input" id="memberLikeFld"
-									name="memberLikeFld"> <label for="favorite2"
-									class="form-label">자기개발</label> <input type="checkbox"
-									class="form-check-input" id="memberLikeFld"
-									name="memberLikeFld"> <label for="favorite3"
-									class="form-label">소설/시/희곡</label> <input type="checkbox"
-									class="form-check-input" id="memberLikeFld"
-									name="memberLikeFld"> <label for="favorite4"
-									class="form-label">에세이</label> <input type="checkbox"
-									class="form-check-input" id="memberLikeFld"
-									name="memberLikeFld"> <label for="favorite5"
-									class="form-label">인문학</label> <input type="checkbox"
-									class="form-check-input" id="memberLikeFld"
-									name="memberLikeFld"> <label for="favorite6"
-									class="form-label">사회과학</label><br> <input type="checkbox"
-									class="form-check-input" id="memberLikeFld"
-									name="memberLikeFld"> <label for="favorite7"
-									class="form-label">역사</label> <input type="checkbox"
-									class="form-check-input" id="memberLikeFld"
-									name="memberLikeFld"> <label for="favorite8"
-									class="form-label">예술/대중문화</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<label for="favorite1" class="form-label">경제경영</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<label for="favorite2" class="form-label">자기개발</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<label for="favorite3" class="form-label">소설/시/희곡</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<label for="favorite4" class="form-label">에세이</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<label for="favorite5" class="form-label">인문학</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<label for="favorite6" class="form-label">사회과학</label><br>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<label for="favorite7" class="form-label">역사</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<label for="favorite8" class="form-label">예술/대중문화</label>
 							</div>
 						</div>
 					</div>
@@ -158,13 +204,12 @@
 
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="agree">
-						<label class="form-check-label" for="agree" required>개인정보
-							수집 및 이용에 동의합니다.(필수)</label>
+						<label class="form-check-label" for="agree" required>
+							개인정보 수집 및 이용에 동의합니다.(필수)</label>
 					</div>
 
 					<div class="col-sm-8">
-						<textarea name="content" cols="130" rows="10" readonly="readonly"
-							class="container-fluid">
+						<textarea name="content" cols="130" rows="10" readonly="readonly" class="container-fluid">
 Ⅰ. 개인정보의 수집 및 이용 동의서
 	- 이용자가 제공한 모든 정보는 다음의 목적을 위해 활용하며, 하기 목적 이외의 용도로는 사용되지 않습니다.
 	
@@ -189,13 +234,10 @@
 					</div>
 
 					<hr class="col-sm-8">
-					<button class="btn btn-primary btn-lg" type="submit">회원가입</button>
+					<button class="btn btn-primary btn-lg"  type="submit">회원가입</button>
 				</form>
 			</div>
 		</div>
 	</div>
-
-	<script src="resources/js/form-validation.js"></script>
-	<script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

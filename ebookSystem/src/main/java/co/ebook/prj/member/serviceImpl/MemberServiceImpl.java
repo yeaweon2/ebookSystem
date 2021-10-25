@@ -44,5 +44,16 @@ public class MemberServiceImpl implements MemberService {
 	public int memberDelete(MemberVO vo) {
 		return map.memberDelete(vo);
 	}
+	
+//  회원중복체크 (21.10.22.김유리)
+	@Override
+	public int memberCheck(MemberVO vo) {
+		return map.memberCheck(vo);
+	}
 
+//  닉네임중복체크 (21.10.23.김유리)
+	@Override
+	public int nickNnCheck(MemberVO vo) {
+		return map.nickNnCheck(vo);
+	}
 }

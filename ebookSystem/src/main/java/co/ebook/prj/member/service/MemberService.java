@@ -14,4 +14,8 @@ public interface MemberService {
 	int memberUpdate(MemberVO vo);
 
 	int memberDelete(MemberVO vo);
+	
+	int memberCheck(MemberVO vo);
+
+	int nickNnCheck(MemberVO vo);
 }

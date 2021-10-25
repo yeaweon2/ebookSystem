@@ -5,10 +5,10 @@
 	<select id="memberSelectList" resultType="co.ebook.prj.member.vo.MemberVO">
  		select  member_id,       member_nm,        member_nicknm, 
  		        member_tel,      ins_dt,           udt_dt, 
-                (select scodes.scode_nm from scodes where lcode = 'MR' and scode =member_fl_cd ) as member_fl_cd,
- 		        (select scodes.scode_nm from scodes where lcode = 'MS' and scode =member_st_cd ) as member_st_cd, 
+                (select scodes.scode_nm from scodes where lcode = 'MR' and scode = member_fl_cd ) as member_fl_nm,
+ 		        (select scodes.scode_nm from scodes where lcode = 'MS' and scode = member_st_cd ) as member_st_nm, 
  		        member_mile 
-        from    member;
+        from    member
 	</select>
 	             
 	<select id="memberSelect" resultType="co.ebook.prj.member.vo.MemberVO">
@@ -32,12 +32,25 @@
 	
 	<update id="memberDelete" parameterType="co.ebook.prj.member.vo.MemberVO">
 		update member 
-		   set member_st_cd = '03'
+		   set member_st_cd = '01'
 		 where member_id = #{memberId}
+		   and member_st_cd = '02'
 	</update>
 	
 	<update id="memberUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
 	
 	</update>
+	
+	<select id="memberCheck" parameterType="co.ebook.prj.member.vo.MemberVO" resultType="int">
+		select count(*)
+		  from member
+		 where member_id = #{memberId}
+	</select>
+	
+	<select id="nickNnCheck" parameterType="co.ebook.prj.member.vo.MemberVO" resultType="int">
+		select count(*)
+		  from member
+		 where member_nicknm = #{memberNicknm}
+	</select>
 
 </mapper>
