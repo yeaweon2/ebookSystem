@@ -6,7 +6,8 @@
 	<select  id="cmmntyList" resultType="co.ebook.prj.cmmnty.vo.CmmntyVO">
 		SELECT rownum as cmmnty_no
 			, CMMNTY_ID
-			, CMMNTY_TITLE || '('|| CMMNTY_REPLY_CNT || ')' as CMMNTY_TITLE
+			, CMMNTY_TITLE 
+			, CMMNTY_REPLY_CNT
 			, CMMNTY_WRITER
 			, INS_DT
 			, CMMNTY_hit
@@ -29,6 +30,7 @@
 			, CMMNTY_HIT
 			, INS_DT
 			, UDT_DT
+			, CMMNTY_REPLY_CNT
 		 FROM community
 		WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
 	      AND CMMNTY_ID = #{cmmntyId}
@@ -75,6 +77,12 @@
 	  WHERE CMMNTY_ID = #{cmmntyId}   
 	</update>
 	
+	<!-- 댓글 행 카운터 -->
+	<update id="cmmntyReplyCnt" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
+	UPDATE COMMUNITY
+	   SET CMMNTY_REPLY_CNT = CMMNTY_REPLY_CNT + 1; 
+	 WHERE CMMNTY_ID = #{cmmntyId};
+	</update>
 	
-	
+
 </mapper>

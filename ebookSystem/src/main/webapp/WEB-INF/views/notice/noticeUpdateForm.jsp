@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>글쓰기</title>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+
 </head>
 <body>
 	<div class="inner-page pt-6">
@@ -27,6 +29,9 @@
 								<th>내 용</th>
 								<td><textarea rows="15" cols="150" name="cmmntyContents">${notice.cmmntyContents }</textarea></td>
 							</tr>
+							<script>
+								CKEDITOR.replace('cmmntyContents');
+							</script>
 
 							<tr>
 								<th>파일업로드</th>

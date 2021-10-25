@@ -14,7 +14,6 @@ public class ReplyCmmntyVO {
 	private String creplyClass;
 	private String creplyOrd;
 	private String creplyGr;
-	private String creplyCloseYn;
 	private String creplyContents;
 	private String insDt;
 	private String udtDt;

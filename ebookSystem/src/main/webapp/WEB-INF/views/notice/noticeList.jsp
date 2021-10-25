@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -56,9 +57,9 @@
 							<tr class="noticeSelect" data-id="${notice.cmmntyId}">
 								<td  class="chkTd" width="30"><input id="chkInput" name="rowcheck" type="checkbox"></td>
 								<td>${notice.cmmntyNo}</td>
-								<td>${notice.cmmntyTitle}</td>
+								<td>${notice.cmmntyTitle}(${notice.cmmntyReplyCnt})</td>
 								<td>${notice.cmmntyWriter}</td>
-								<td>${notice.insDt}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${notice.insDt}"/></td>
 								<td>${notice.cmmntyHit}</td>
 							</tr>
 						</c:forEach>

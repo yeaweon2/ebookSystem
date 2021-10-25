@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import co.ebook.prj.replycmmnty.mapper.ReplyCmmntyMapper;
-import co.ebook.prj.replycmmnty.servie.ReplyCmmntyService;
+import co.ebook.prj.replycmmnty.service.ReplyCmmntyService;
 import co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO;
 
 @Repository
@@ -19,11 +19,6 @@ public class ReplyCmmntyServiceImpl implements ReplyCmmntyService {
 		return  map.ReplycmmntyList(vo);
 	}
 
-	@Override //댓글 상세조회
-	public ReplyCmmntyVO ReplycmmntySelectList(ReplyCmmntyVO vo) {
-		return  map.ReplycmmntySelectList(vo);
-	}
-
 	@Override //댓글 글쓰기
 	public int ReplycmmntInsert(ReplyCmmntyVO vo) {
 		return map.ReplycmmntInsert(vo);
@@ -31,13 +26,12 @@ public class ReplyCmmntyServiceImpl implements ReplyCmmntyService {
 
 	@Override //댓글 수정
 	public int ReplycmmntUpdate(ReplyCmmntyVO vo) {
-		return 0;
+		return map.ReplycmmntUpdate(vo);
 	}
 
 	@Override //댓글 삭제
 	public int ReplycmmntDelete(ReplyCmmntyVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return map.ReplycmmntDelete(vo);
 	}
 
 }
