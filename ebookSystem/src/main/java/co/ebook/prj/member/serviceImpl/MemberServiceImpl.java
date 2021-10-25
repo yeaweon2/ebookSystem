@@ -27,7 +27,7 @@ public class MemberServiceImpl implements MemberService {
 		return map.memberSelect(vo);
 	}
 
-//	회원추가 (21.10.17.김유리)
+//	개인회원추가 (21.10.17.김유리)
 	@Override
 	public int memberInsert(MemberVO vo) {
 		return map.memberInsert(vo);
@@ -55,5 +55,17 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int nickNnCheck(MemberVO vo) {
 		return map.nickNnCheck(vo);
+	}
+
+//	업체회원추가 (21.10.25.김유리)
+	@Override
+	public int managerInsert(MemberVO vo) {
+		return map.managerInsert(vo);
+	}
+
+//	매니저(업체회원) 승인상태변경 (21.10.25.김유리)
+	@Override
+	public int confirmUpdate(MemberVO vo) {
+		return map.confirmUpdate(vo);
 	}
 }

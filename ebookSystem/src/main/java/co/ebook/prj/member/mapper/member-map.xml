@@ -10,7 +10,7 @@
  		        member_mile 
         from    member
 	</select>
-	             
+	
 	<select id="memberSelect" resultType="co.ebook.prj.member.vo.MemberVO">
 		select  * 
 		  from  member 
@@ -25,7 +25,20 @@
 				member_profile_path,     ins_dt,            udt_dt)
 		values
 				(#{memberId},            #{memberPw},       #{memberNm},       #{memberNicknm},   '01',
-				 #{memberFlCd},          #{memberEmail},    #{memberBirth},    #{memberGen},      #{memberMile},
+				 'U',                    #{memberEmail},    #{memberBirth},    #{memberGen},      #{memberMile},
+				 #{memberTel},           #{memberPhoneVld}, #{managerCnfmYn},  #{memberLikeFld},  #{memberProfileNm}, 
+				 #{memberProfilePath},   sysdate,           sysdate)
+	</insert>
+	
+	<insert id="managerInsert" parameterType="co.ebook.prj.member.vo.MemberVO">
+		insert into	member 
+				(member_id,              member_pw,         member_nm,         member_nicknm,     member_st_cd,
+				member_fl_cd,            member_email,      member_birth,      member_gen,        member_mile,
+				member_tel,              member_phone_vld,  manager_cnfm_yn,   member_like_fld,   member_profile_nm,
+				member_profile_path,     ins_dt,            udt_dt)
+		values
+				(#{memberId},            #{memberPw},       #{memberNm},       #{memberNicknm},   '01',
+				 'M',                    #{memberEmail},    #{memberBirth},    #{memberGen},      #{memberMile},
 				 #{memberTel},           #{memberPhoneVld}, #{managerCnfmYn},  #{memberLikeFld},  #{memberProfileNm}, 
 				 #{memberProfilePath},   sysdate,           sysdate)
 	</insert>
@@ -39,6 +52,13 @@
 	
 	<update id="memberUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
 	
+	</update>
+	
+	<update id="confirmUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
+		update member
+		   set manager_cnfm_yn = 'Y'
+		 where member_id = #{memberId}
+		   and manager_cnfm_yn = 'N'
 	</update>
 	
 	<select id="memberCheck" parameterType="co.ebook.prj.member.vo.MemberVO" resultType="int">

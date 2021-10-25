@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
-<title>개인회원가입 폼</title>
+<title>기업회원가입 폼</title>
 <link href="resources/css/form-validation.css" rel="stylesheet">
 <link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
@@ -74,6 +74,7 @@
 		}); 
 	}	
 	
+	
 </script>
 </head>
 <body class="bg-center">
@@ -81,16 +82,32 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>회원가입(개인회원)</h2>
+					<h2>회원가입(기업회원)</h2>
 				</div>
 			</div>
 			<div>
+			
+						<div class="col-sm-8">
+							<div>
+								<label for="birth" class="form-label">★안내사항★</label>
+							</div>
+							<div>
+							<textarea name="content" cols="100" rows="6" readonly="readonly" class="container-fluid">
+회원가입은 해당업무 담당자명으로 진행 부탁드립니다.
+회원가입 후 업체등록 신청을 해 주세요.
+업체등록 신청 시 사업자등록증 첨부가 필요합니다.
+업체등록 신청 후 관리자의 승인이 이루어지며, 이후 도서등록 신청이 가능합니다.
+다른 자세한 사항은 1:1문의로 문의 바랍니다.
+						  </textarea>
+							</div>
+						</div>
+						
 				<h4 class="mb-3"></h4>
-				<form class="needs-validation" novalidate action="memberJoinSuccess" id="frm" name ="frm">
+				<form class="needs-validation" novalidate action="managerJoinSuccess" id="frm" name ="frm">
 					<div class="row g-3">
 						<div class="col-sm-8">
 							<label for="name" class="form-label">이 름</label> 
-							<input type="text" class="form-control" id="memberNm" name="memberNm" placeholder="name" required>
+							<input type="text" class="form-control" id="memberNm" name="memberNm" placeholder="담당자이름를 입력하세요." required>
 							<div class="invalid-feedback">이름를 입력하세요.</div>
 						</div>
 					</div>
@@ -105,7 +122,7 @@
 
 						<div class="col-sm-2">
 							<br>
-							<button type="button" onclick="checkMemberId('Y');" class="btn btn-primary btn-lg" required>중복확인</button>
+							<button type="button" onclick="checkMemberId('Y');" class="btn btn-primary btn-lg">중복확인</button>
 							<div class="invalid-feedback">ID 중복확인을 하세요.</div>
 						</div>
 					</div>
@@ -153,7 +170,7 @@
 
 						<div class="col-sm-4">
 							<br>
-							<button type="button" onclick="checkNickName('Y');" class="btn btn-primary btn-lg" required>중복확인</button>
+							<button type="button" onclick="checkNickName('Y');" class="btn btn-primary btn-lg">중복확인</button>
 							<div class="invalid-feedback">ID 중복확인을 하세요.</div>
 						</div>
 					</div>
@@ -177,29 +194,6 @@
 						</div>
 						<br> <br>
 
-						<div class="col-sm-8">
-							<div>
-								<label for="favorite" class="form-label">관심분야</label>
-							</div>
-							<div class="form-check-inline" style="word-spacing: 10px">
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
-								<label for="favorite1" class="form-label">경제경영</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
-								<label for="favorite2" class="form-label">자기개발</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
-								<label for="favorite3" class="form-label">소설/시/희곡</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
-								<label for="favorite4" class="form-label">에세이</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
-								<label for="favorite5" class="form-label">인문학</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
-								<label for="favorite6" class="form-label">사회과학</label><br>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
-								<label for="favorite7" class="form-label">역사</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
-								<label for="favorite8" class="form-label">예술/대중문화</label>
-							</div>
-						</div>
 					</div>
 
 					<hr class="col-sm-8">
@@ -236,7 +230,7 @@
 					</div>
 
 					<hr class="col-sm-8">
-					<button class="btn btn-primary btn-lg"  onClick="alert('회원가입이 완료되었습니다. 홈으로 이동합니다.')" type="submit">회원가입</button>
+					<button class="btn btn-primary btn-lg" onClick="alert('회원가입이 완료되었습니다. 홈으로 이동합니다.')" type="submit">회원가입</button>
 				</form>
 			</div>
 		</div>

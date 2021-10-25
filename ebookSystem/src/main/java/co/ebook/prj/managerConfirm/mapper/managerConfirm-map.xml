@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="co.ebook.prj.managerConfirm.mapper.ManagerConfirmMapper">
+	
+	<update id = "managerConfirm" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
+		 update manager_confirm 
+		   set mcnfm_st_cd = '02'
+		 where mcnfm_id = #{mcnfmId}
+		   and mcnfm_st_cd = '01'
+    </update>
+	
+	<select id="managerSelectList" resultType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
+ 		 select  mcnfm_id,       member_id,        mcnfm_co_nm, 
+ 		         mcnfm_rpspr,      mcnfm_req_dt,           mcnfm_cnfm_dt, 
+ 		         mcnfm_st_cd,       mcnfm_cntr_sdt,        mcnfm_cntr_edt,
+ 		          mcnfm_cntr_fl_cd,      mcnfm_cnfmr          
+                 (select scodes.scode_nm from scodes where lcode = 'MF' and scode = mcnfm_cntr_fl_cd ) mcnfm_cntr_fl_nm,
+ 		         (select scodes.scode_nm from scodes where lcode = 'MC' and scode = mcnfm_st_cd ) as mcnfm_st_nm,
+ 		        from  managerConfirm 
+          where  member_fl_cd = 'M'
+	</select>
+	
+	
+	
+	
+	
+</mapper>

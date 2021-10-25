@@ -6,10 +6,12 @@ import co.ebook.prj.member.vo.MemberVO;
 
 public interface MemberMapper {
 	List<MemberVO> memberSelectList();
-
+	
 	MemberVO memberSelect(MemberVO vo);
-
+	
 	int memberInsert(MemberVO vo);
+	
+	int managerInsert(MemberVO vo);
 
 	int memberUpdate(MemberVO vo);
 
@@ -18,4 +20,6 @@ public interface MemberMapper {
 	int memberCheck(MemberVO vo);
 	
 	int nickNnCheck(MemberVO vo);
+	
+	int confirmUpdate(MemberVO vo);
 }

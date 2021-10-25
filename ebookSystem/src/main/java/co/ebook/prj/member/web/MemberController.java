@@ -30,14 +30,14 @@ public class MemberController {
 		model.addAttribute("lists", lists);
 		return "member/memberList";
 	}
-
+	
 //	멤버회원가입
 	@RequestMapping("/memberJoin")
 	public String memberJoin(Model model) {
 		return "member/memberJoin";
 	}
 
-//  회원가입폼
+//  개인회원가입폼
 	@RequestMapping("/memberJoinForm")
 	public String memberJoinForm(Model model) {
 		return "member/memberJoinForm";
@@ -47,13 +47,20 @@ public class MemberController {
 	@RequestMapping("/memberJoinSuccess")
 	public String memberJoinSuccess(Model model, MemberVO vo) {
 		memberDao.memberInsert(vo);
-		return "member/memberJoinForm";
+		return "main/home";
 	}
 	
-//	기업회원가입성공 시
+//	기업회원가입폼
 	@RequestMapping("/managerJoinForm")
 	public String managerJoinForm(Model model) {
-		return "member/managerJoinForm";
+		return "manager/managerJoinForm";
+	}
+	
+//	기업회원가입성공 시 
+	@RequestMapping("/managerJoinSuccess")
+	public String managerJoinSuccess(Model model, MemberVO vo) {
+		memberDao.managerInsert(vo);
+		return "main/home";
 	}
 	
 //	멤버상태코드변경(휴면회원해제)
