@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.ebook.prj.login.mapper.LoginMapper">
+	<select id="getLoginInfo" resultType="co.ebook.prj.login.vo.LoginVO">
+		SELECT member_id
+             , member_pw
+             , member_nm
+             , member_nicknm
+             , member_fl_cd
+             , member_st_cd
+   		  FROM MEMBER
+		 WHERE member_id = #{memberId} 
+		   AND member_pw = #{memberPw}
+	</select>
+</mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
 <!-- ======= Top Bar ======= -->
 <section id="topbar" class="d-flex align-items-center">
 	<div class="container d-flex justify-content-center justify-content-md-between">
@@ -7,11 +8,15 @@
 			<i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>
 			<i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
 		</div>
-		<div class="social-links d-none d-md-flex align-items-center">
-			<a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-			<a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-			<a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-			<a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+		<div class="d-none d-md-flex align-items-center">
+			<c:if test="${empty id}">
+				<a href="login" >로그인</a>
+			</c:if>
+			<c:if test="${not empty id}">
+				<div>${id} : ${name} : ${nicknm} : ${auth} : ${stcd} </div>
+				<a href="logout" >로그아웃</a>
+			</c:if>
+			
 		</div>
 	</div>
 </section><!-- End Top Bar-->    
