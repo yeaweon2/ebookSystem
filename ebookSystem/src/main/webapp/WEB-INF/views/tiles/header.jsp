@@ -58,10 +58,10 @@
 				<li class="dropdown"><a href="#"><span>커뮤니티</span><i class="bi bi-chevron-down"></i></a>
 					<ul>
 						<li><a href="noticeList">공지사항</a></li>
-						<li><a href="#">자유게시판</a></li>
-						<li><a href="#">1 : 1 문의</a></li>
-						<li><a href="#">F A Q</a></li>
-						<li><a href="#">Review</a></li>
+						<li><a href="board">자유게시판</a></li>
+						<li><a href="inquire">1 : 1 문의</a></li>
+						<li><a href="faq">F A Q</a></li>
+						<li><a href="review">Review</a></li>
 					</ul>
 				</li>
 				<li class="dropdown"><a href="#"><span>도서관리</span><i class="bi bi-chevron-down"></i></a>

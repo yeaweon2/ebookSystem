@@ -2,14 +2,11 @@ package co.ebook.prj.cmmnty.web;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import co.ebook.prj.cmmnty.service.CmmntyService;
 import co.ebook.prj.cmmnty.vo.CmmntyVO;
@@ -32,7 +29,7 @@ public class CmmntyController {
 		vo.setCmmntyDelyn("N");
 		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
 		model.addAttribute("notices", lists);
-		return "notice/noticeList";
+		return "cmmnty/noticeList";
 	}
 
 	// 211018 커뮤니티 상세조회
@@ -52,23 +49,20 @@ public class CmmntyController {
 		 }
 		 
 		model.addAttribute("notice", vo);
-		return "notice/noticeSelectList";
+		return "cmmnty/noticeSelectList";
 	}
 
 	// 211019 커뮤니티 글입력양식
 	@RequestMapping("/noticeInsertForm")
 	String noticeInsertForm() {
-		return "notice/noticeInsertForm";
+		return "cmmnty/noticeInsertForm";
 	}
 
 	// 211019커뮤니티 글입력
-	@RequestMapping(value="/noticeInsert", method = RequestMethod.POST)
-	String noticeInsert(Model model, CmmntyVO vo, HttpSession session) throws Exception {
-		//세션에 저장된 userid를 writer에저장
-		String writer = (String) session.getAttribute("memberId");
-		vo.setCmmntyWriter(writer);
+	@RequestMapping("/noticeInsert")
+	String noticeInsert(Model model, CmmntyVO vo) throws Exception {
 		cmmntyDao.cmmntyInsert(vo);
-		
+		vo.setCmmntyWriter("admin");
 		vo.setCmmntyFlCd("01");
 		int lists = cmmntyDao.cmmntyInsert(vo);
 
@@ -99,7 +93,7 @@ public class CmmntyController {
 		vo = cmmntyDao.cmmntySelectList(vo);
 		
 		model.addAttribute("notice", vo);
-		return "notice/noticeUpdateForm";
+		return "cmmnty/noticeUpdateForm";
 	}
 
 	// 211020 커뮤니티 글수정

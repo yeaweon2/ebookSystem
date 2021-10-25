@@ -55,12 +55,12 @@
 				</c:forEach>
 				
 				<!--  댓글 입력양식 -->
-				<div>
+				
 				<form method="post" action="ReplycmmntInsert" id="reply" name="reply">
 				<textarea cols="120" placeholder="댓글을 입력하세요"></textarea>
 				<p><input type="submit" value="댓글등록"></p>
 				</form>
-				</div>
+				
 				
 				<input type="button" onclick="location.href='noticeList'" value="목록보기" class="btn btn-success"> 
 				<input type="button" onclick="NoticeEdit('U')" value="수정" class="btn btn-primary">

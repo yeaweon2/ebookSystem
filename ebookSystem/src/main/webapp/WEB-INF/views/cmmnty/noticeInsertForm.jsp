@@ -21,34 +21,32 @@
 			</div>
 			<div>
 				<form id="frm" name="frm" action="noticeInsert" method="post">
-					<div>
-						<table class="table">
-							<tr>
-								<th>제 목</th>
-								<td><input type="text" name="cmmntyTitle" id="cmmntyTitle"
-									size="50"></td>
-							</tr>
-
-							<tr>
-								<th>내 용</th>
-								<td><textarea rows="15" cols="150" name="cmmntyContents" id="cmmntyContents"></textarea></td>
-							</tr>
-							<tr>
-								<th>파일업로드</th>
-								<td><input type="file" name="cmmntyAtchNm"
-									id="cmmntyAtchNm"></td>
-							</tr>
-						</table>
-						<div>
+					<div class= "mb-3">
+								<label for="title">제목</label>
+								<input type="text" class="form-control" name="cmmntyTitle" id="cmmntyTitle" placeholder="제목을 입력해 주세요">
+					
+				</div>
+				<div class="mb-3">
+					<label for="reg_id">작성자</label>
+					<input type="text" class="form-control" name="cmmntyWriter" id="cmmntyWriter" placeholder="이름을 입력해 주세요">
+				</div>
+				
+				<div class="mb-3">
+					<label for="content">내용</label>
+					<textarea class="form-control" rows="10" name="cmmntyContents" id="cmmntyContents" placeholder="내용을 입력해 주세요" ></textarea>
+				</div>
+				
+				<div class="mb-3">
+					<label for="reg_id">파일첨부</label>
+					<input type="file" class="form-control" name="cmmntyAtchNm" id="cmmntyAtchNm" placeholder="파일을 첨부해 주세요">
+				</div>		
 							<input type="submit" value="등록" class="btn btn-primary">
 							<input type="button" onclick="location.href='noticeList'"
 								value="취소" class="btn btn-danger">
-						</div>
-					</div>
-				</form>
+				</form>		
+				</div>
 			</div>
 		</div>
-	</div>
 	<script>
     $(document).ready(function() {
         $('#cmmntyContents').summernote();
