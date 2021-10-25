@@ -77,6 +77,20 @@
 				$("#attchFile").val("");
 				return false;
 			}
+			
+			
+			
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#bookCoverImg").attr("src", e.target.result);
+				$("#imgContainer").append($("#bookCoverImg"));
+				$("#imgContainer").attr("display" , "block");
+			};
+			
+			console.log(event.target.files[0]);
+			reader.readAsDataURL(event.target.files[0]);
+			
+			
 		});
 		
 		
@@ -153,7 +167,11 @@
 						</tr>
 						<tr>
 							<th>표지디자인</th>
-							<td><input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control"></td>
+							<td>
+								<input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control">
+								
+								<div id="imgContainer" style="display:none"><img id="bookCoverImg" width="150" height="170"></div>
+							</td>
 							<th>BOOK파일</th>
 							<td><button id="bookFileForm" type="button" class="btn btn-primary"> BOOK파일등록 </button></td> 
 						</tr>				

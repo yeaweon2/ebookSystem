@@ -90,6 +90,19 @@
 				$("#attchFile").val("");
 				return false;
 			}
+			
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#bookCoverImg").attr("src", e.target.result);
+				$("#imgContainer").append($("#bookCoverImg"));
+			};
+			
+			console.log(event.target.files[0])
+			reader.readAsDataURL(event.target.files[0]);
+			
+			
+			
+			
 		});
 		
 		
@@ -97,14 +110,23 @@
 		// 수정버튼 클릭시 -----------------------------------------------------------
 		$("#bookUpdateBtn").on("click",function(){
 			//console.log($('#frm').serializeObject());
+			event.preventDefault();  
+			var form = $('#frm')[0];
+			console.log($('#frm'));
+		    console.log(form);
+		    var data = new FormData(form);  
+		    $("#bookUpdateBtn").prop("disabled", true);   
+			
+			
 			$.ajax({
 				url : 'bookUpdate' ,
-				data : JSON.stringify( $('#frm').serializeObject() ) ,
-				method : 'PUT' ,
+				enctype: 'multipart/form-data',  
+				data : data,
+				method : 'put' ,
 				contentType : 'application/json',
 				dataType : 'json' ,
 				success : function(data){
-					console.log();
+					$("#bookUpdateBtn").prop("disabled", false);
 					console.log($("#msg"));
 					if($("#msg").val() == "Success"){
 						alert("수정이 완료되었습니다.");
@@ -112,19 +134,37 @@
 						alert("수정시 오류가 발생하였습니다.");
 					}
 					
+				},
+				error : function(rej){
+					console.log(rej);
+					$("#bookUpdateBtn").prop("disabled", false);
 				}
 			});
 		});
-		
-		$("#bookCoverClick").on("click", function(){
-				
-		});
-		
-		
+
+		// 파일 수정버튼 클릭시 
 		$("#bookCoverEditBtn").on("click", function(){
-			$("#bookCoverTd").empty();
-			$("#bookCover").css("display", "block");
+			$("#bookCover").click();
 		});
+
+		
+		
+		if( $("#bookCoverPath").val() != null ){
+			
+			
+			
+			
+			$("#bookCoverImg").attr("src" , $("#bookCoverPath").val() + $("#bookCover").val());
+			$("#imgContainer").append($("#bookCoverImg"));
+		
+		
+			
+			
+			
+			
+		}
+		
+		
 	});
 	
 </script>
@@ -204,15 +244,19 @@
 						<tr>
 							<th>표지디자인</th>
 							<td id="bookCoverTd">
-							 	&nbsp;&nbsp;<a href="#" id="bookCover" onclick="bookCoverClick()">${books.bookCover}</a>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<c:if test="${empty books.bookCover }">
-									<button id="bookCoverEditBtn" type="button" class="btn btn-primary"> 파일등록 </button>
+									<input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control">
+									<div id="imgContainer"><img id="bookCoverImg" width="150" height="170"></div>
 								</c:if>
 								<c:if test="${not empty books.bookCover }">
+									<a id="bookCoverImg" onclick="bookCoverClick()">${books.bookCover}</a>
 									<button id="bookCoverEditBtn" type="button" class="btn btn-primary"> 파일수정 </button>
+									<input type="file" id="attchFile" name="attchFile" class="form-control" style="display: none">
+									<input type="hidden" id="bookCover" name="bookCover" value="${books.bookCover}">
+									<input type="hidden" id="bookCoverPath" name="bookCoverPath" value="${books.bookCoverPath}">
+									<div id="imgContainer"><img id="bookCoverImg" width="150" height="170" src="/prj/fileUp${books.bookCoverPath}${books.bookCover}"></div>
 								</c:if>
-								<input type="file" id="bookCover" name="bookCover" class="form-control" style="display: none"></td>
+							</td>
 							<th>BOOK파일</th>
 							<td><button id="bookFileForm" type="button" class="btn btn-primary"> BOOK파일등록 </button></td> 
 						</tr>				
@@ -230,7 +274,7 @@
 						</tr>
 					</table>
 					<div>
-						<button type="button" id="bookUpdateBtn" class="btn btn-outline-primary">수 정</button>
+						<button type="submit" id="bookUpdateBtn" class="btn btn-outline-primary">수 정</button>
 						<button type="button" class="btn btn-outline-primary" onclick="location.href='bookList'">BOOK목록</button>
 					</div>
 					<input type="hidden" id="bookId" name="bookId" value="${books.bookId}" >

@@ -8,6 +8,8 @@ public interface BookService {
 	
 	List<BookVO> bookList();
 	
+	List<BookVO> bestSellerBook();
+	
 	BookVO bookDetail(BookVO vo);
 	
 	int bookInsert(BookVO vo);
@@ -15,5 +17,8 @@ public interface BookService {
 	int bookDelete(BookVO vo);
 	
 	int bookUpdate(BookVO vo);
+	
+	
+	
 	
 }

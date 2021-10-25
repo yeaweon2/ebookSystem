@@ -86,7 +86,11 @@ $(function(){
 								<td>${list.bookNo}</td>
 								<td>${list.bookFlCd}</td>
 								<td>${list.insDt}</td>
-								<td>${list.bookNm}</td>
+								<td>
+									<c:if test="${not empty list.bookCoverPath}">
+										<img width="50" height="70" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">&nbsp;&nbsp;
+									</c:if>
+									${list.bookNm}</td>
 								<td>${list.bookPublCo}</td>
 								<td>${list.bookWriter}</td>
 								<td>${list.bookAmt}</td>

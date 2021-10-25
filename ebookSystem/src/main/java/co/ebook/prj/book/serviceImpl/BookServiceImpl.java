@@ -19,6 +19,11 @@ public class BookServiceImpl implements BookService {
 	public List<BookVO> bookList() {
 		return map.bookList();
 	}
+	
+	@Override
+	public List<BookVO> bestSellerBook() { 
+		return map.bestSellerBook();
+	}	
 
 	@Override
 	public BookVO bookDetail(BookVO vo) {
@@ -40,5 +45,7 @@ public class BookServiceImpl implements BookService {
 	public int bookUpdate(BookVO vo) {
 		return map.bookUpdate(vo);
 	}
+
+
 
 }

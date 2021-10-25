@@ -37,7 +37,7 @@
 				<li class="dropdown"><a href="#"><span>e로운BOOK</span> <i class="bi bi-chevron-down"></i></a>
 					<ul>
 						<li><a href="#">BOOK검색</a></li>
-						<li><a href="#">베스트셀러</a></li>
+						<li><a href="bestSeller">베스트셀러</a></li>
 						<li><a href="#">신규BOOK</a></li>
 					</ul>				
 				</li>
@@ -78,7 +78,7 @@
 				</li>
 				<li class="dropdown"><a href="#"><span>매니저관리</span><i class="bi bi-chevron-down"></i></a>
 					<ul>
-						<li><a href="#">매니저목록</a></li>
+						<li><a href="managerList">매니저목록</a></li>
 					</ul>				
 				</li>						
 			</ul>

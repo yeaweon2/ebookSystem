@@ -9,6 +9,6 @@
 	</bean>
 
 	<bean id="filePath" class="java.lang.String">
-		<constructor-arg value="C:\ebookFile"></constructor-arg>
+		<constructor-arg value="C:\Users\admin\git\ebookSystem\ebookSystem\src\main\webapp\fileUp"></constructor-arg>
 	</bean>
 </beans>

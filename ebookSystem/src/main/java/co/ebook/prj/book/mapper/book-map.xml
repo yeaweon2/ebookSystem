@@ -7,6 +7,8 @@
 	             WHERE lcode = 'BF' AND scode = b.book_fl_cd ) as book_fl_cd
 	        , book_id
 	        , to_date( ins_dt , 'YYYY-mm-dd') as ins_dt
+	        , book_cover
+	        , book_cover_path
 	        , book_nm
 	        , book_publ_co
 	        , book_writer
@@ -19,6 +21,24 @@
 	             WHERE m.member_id = b.member_id ) member_id
 		 FROM BOOK B 
 		ORDER BY rownum DESC 
+	</select>
+	
+	<select id="bestSellerBook" resultType="co.ebook.prj.book.vo.BookVO">
+		<!-- 대여정보 기준으로 쿼리 수정해야함  -->
+		<![CDATA[
+			SELECT b.* , substr( b.book_intro , 0 , 100) introSub , 'bestSeller' as bookStd 
+			  FROM book b
+			 where ctgy_id like 'D%'
+			union all
+			SELECT b.* , substr( b.book_intro , 0 , 100) introSub , 'bucket' as bookStd 
+			  FROM book b
+			 where ctgy_id like 'A%'
+			
+			union all
+			SELECT b.* , substr( b.book_intro , 0 , 100) introSub , 'likeit' as bookStd 
+			  FROM book b
+			 where ctgy_id like 'E%'
+		]]>
 	</select>
 	
 	<select id="bookDetail" resultType="co.ebook.prj.book.vo.BookVO">

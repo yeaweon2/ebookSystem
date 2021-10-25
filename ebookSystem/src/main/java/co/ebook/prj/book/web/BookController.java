@@ -28,9 +28,9 @@ public class BookController {
 	@Autowired
 	BookService bookDao;
 	
-	@Autowired
-	private String filePath;		// 파일이 저장될 경로 (개발시 절대경로로 파일저장되도록 사용할 것)	
-	
+	/*
+	 * @Autowired private String filePath; // 파일이 저장될 경로 (개발시 절대경로로 파일저장되도록 사용할 것)
+	 */
 	@InitBinder
     protected void initBinder(WebDataBinder binder){
         DateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -60,23 +60,23 @@ public class BookController {
 	
 	// MultipartHttpServletRequest request
 	@PostMapping("/bookInsert")
-	public String bookInsert(Model model , BookVO vo, MultipartFile bookCover) {
+	public String bookInsert(Model model , BookVO vo, MultipartFile attchFile , HttpServletRequest request) {
 		
 		int result = 0;
 		vo.setMemberId("admin");	
 		String fileName = "";
-		
+		String filePath= "";
 		try {
-			if ( bookCover != null ) {
-				if (!bookCover.getOriginalFilename().isEmpty()) {
-					fileName = bookCover.getOriginalFilename();	
-					//String filePath = request.getServletContext().getRealPath("/");	// 파일 저장경로
-					filePath =  filePath + "\\fileUp\\";								// 파일이 저장될 최종폴더
+			if ( attchFile != null ) {
+				if (!attchFile.getOriginalFilename().isEmpty()) {
+					fileName = attchFile.getOriginalFilename();	
+					//filePath = request.getServletContext().getRealPath("/");	// 파일 저장경로
+					filePath =  filePath + "/book/";								// 파일이 저장될 최종폴더
 
 					// UUID.randomUUID().toString() + "_" +
 					File fileSave = new File(filePath, fileName);
 					
-					bookCover.transferTo(fileSave);			// 파일 업로드
+					attchFile.transferTo(fileSave);			// 파일 업로드
 				}else {
 					filePath = "";
 					fileName = "";
@@ -117,4 +117,33 @@ public class BookController {
 		model.addAttribute("books", vo);
 		return "book/bookUpdateForm";
 	}
+	
+	@RequestMapping("/bestSeller")
+	public String bestSeller(Model model , BookVO vo) {
+		List<BookVO> lists = bookDao.bestSellerBook();
+		// 쿼리 수정해야함 
+		model.addAttribute("lists", lists);
+		
+		return "book/bestSeller";
+	}
+
+	
+	@RequestMapping("/bookDetail")
+	public String bookDetail(Model model , BookVO vo ) {
+		String view = "";
+		vo = bookDao.bookDetail(vo);
+
+		if( vo != null) {
+			model.addAttribute("msg", "성공");
+			model.addAttribute("book", vo);
+			view = "book/bookDetail";
+		}else {
+			model.addAttribute("msg", "자료가 없습니다.");
+			view = "redirect:home";
+		}		
+		
+		return view;
+	}
+		
+	
 }
