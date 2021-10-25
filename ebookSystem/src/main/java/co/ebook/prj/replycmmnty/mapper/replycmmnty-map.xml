@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.ebook.prj.replycmmnty.mapper.ReplyCmmntyMapper">
+
+	<!-- 댓글조회 -->
+	<select id="ReplycmmntyList" resultType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
+	SELECT CREPLY_ID	 	, CMMNTY_ID
+		 , CREPLY_WRITER 	, CREPLY_CONTENTS
+		 , INS_DT			, UDT_DT
+	  FROM COMMUNITY_REPLY
+	 WHERE CMMNTY_ID = #{cmmntyId}
+	</select>
+	
+	<!-- 댓글입력 -->
+	<insert id="ReplycmmntInsert" parameterType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
+	INSERT INTO COMMUNITY_REPLY(CREPLY_ID
+	, CREPLY_WRITER
+	, CREPLY_CONTENTS
+	, INS_DT
+	, UDT_DT) 
+	VALUES(#{creplyId}
+	, #{creplyWriter}
+	, #{creplyContents}
+	, SYSDATE
+	, SYSDATE)
+	</insert>
+	
+	<!-- 댓글수정 -->
+	<update id="ReplycmmntUpdate" parameterType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
+	UPDATE COMMUNITY_REPLY
+	   SET CREPLY_CONTENTS = #{creplyContents}
+	     , UDT_DT		   = NOW()	
+	 WHERE CREPLY_ID	   = #{creplyId}
+	</update>
+	
+	<!-- 댓글삭제 -->
+	<delete id="ReplycmmntDelete" parameterType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
+	DELETE FROM COMMUNITY_REPLY
+	WHERE CREPLY_ID = #{creplyId}
+	</delete>
+	
+	
+</mapper>
