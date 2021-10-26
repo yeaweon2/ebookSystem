@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.ebook.prj.book.mapper.BookMapper">
 	<select id="bookList" resultType="co.ebook.prj.book.vo.BookVO">
-		SELECT ROWNUM as bookNo
+	   SELECT ROWNUM as bookNo
 	        , ( SELECT scodes.scode_nm FROM scodes 
 	             WHERE lcode = 'BF' AND scode = b.book_fl_cd ) as book_fl_cd
 	        , book_id
-	        , to_date( ins_dt , 'YYYY-mm-dd') as ins_dt
+	        , ins_dt
 	        , book_cover
 	        , book_cover_path
 	        , book_nm
@@ -17,10 +17,17 @@
 	        , book_cnfm_yn
 	        , book_useyn
 	        , book_hit
+	        , member_id
 	        , ( SELECT member_nm FROM member m  
-	             WHERE m.member_id = b.member_id ) member_id
+	             WHERE m.member_id = b.member_id ) member_nm
+           , ( select scode_nm 
+               from book_confirm c
+                      , scodes s
+              where c.book_id = b.book_id 
+                  and s.lcode = 'BC'
+                  and s.scode = c.bcnfm_st_cd ) as cnfm_St_Nm
 		 FROM BOOK B 
-		ORDER BY rownum DESC 
+       ORDER BY rownum DESC 
 	</select>
 	
 	<select id="bestSellerBook" resultType="co.ebook.prj.book.vo.BookVO">

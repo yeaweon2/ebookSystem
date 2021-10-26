@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,11 +19,12 @@ $(function(){
 	
 	// 승인버튼 클릭시
 	$("#bookCnfmBtn").on("click", function(){
-		     
-		var tdArr = new Array();
-		console.log($("tr #chkInput:checked"));
-		$("tr #chkInput:checked").each(function(i){
-			var id = $("tr #chkInput:checked").closest("tr").data("id");
+
+		var tdArr = []; 
+		$("#chkInput:checked").each(function(){
+			
+			var id = $(this).closest("tr").data("id");
+			console.log(id);
 			if( id != "" ){
 				tdArr.push(id);	
 			}
@@ -30,12 +32,11 @@ $(function(){
 	
  		 $.ajax({
 			url : 'bookCnfrmReq' ,
-			data : { tdArr : tdArr  } ,
+			data : { tdArr : tdArr } ,
 			method : 'POST' ,
-			contentType : 'application/json;charset=utf-8',
 			dataType : 'json' ,
 			success : function(data){
-			
+				console.log(data);
 			}
 		});  
 	});
@@ -75,9 +76,8 @@ $(function(){
 						<th>저자</th>
 						<th>금액</th>
 						<th>할인율</th>
-						<th>승인여부</th>
-						<th>사용여부</th>
 						<th>매니저</th>
+						<th>승인상태</th>
 					</tr>
 					<tbody>
 						<c:forEach var="list" items="${lists}" >
@@ -85,7 +85,7 @@ $(function(){
 								<td class="chkTd" ><input type="checkbox" id="chkInput" ></td>
 								<td>${list.bookNo}</td>
 								<td>${list.bookFlCd}</td>
-								<td>${list.insDt}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.insDt}"/></td>
 								<td>
 									<c:if test="${not empty list.bookCoverPath}">
 										<img width="50" height="70" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">&nbsp;&nbsp;
@@ -95,9 +95,19 @@ $(function(){
 								<td>${list.bookWriter}</td>
 								<td>${list.bookAmt}</td>
 								<td>${list.bookDiscnt}</td>
-								<td>${list.bookCnfmYn}</td>
-								<td>${list.bookUseyn}</td>
-								<td>${list.memberId}</td>
+								<td>${list.memberNm}</td>
+								<c:if test="${list.cnfmStNm eq '승인'}">
+									<td style="color:red;font-weight:bold">${list.cnfmStNm}</td>
+								</c:if>
+								<c:if test="${list.cnfmStNm eq '보류'}">
+									<td style="color:#0c2e8a;font-weight:bold">${list.cnfmStNm}</td> 
+								</c:if>
+								<c:if test="${list.cnfmStNm eq '처리중'}">
+									<td>${list.cnfmStNm}</td>
+								</c:if>
+								<c:if test="${empty list.cnfmStNm}">
+									<td>${list.cnfmStNm}</td>
+								</c:if>								
 							</tr>
 						</c:forEach>
 					</tbody>

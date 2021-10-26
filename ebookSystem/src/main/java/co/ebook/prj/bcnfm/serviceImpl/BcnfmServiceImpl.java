@@ -27,7 +27,12 @@ public class BcnfmServiceImpl implements BcnfmService {
 
 	@Override
 	public int bcnfmInsert(BcnfmVO vo) {
-		return map.bcnfmInsert(vo);
+		System.out.println("===========================>");
+		System.out.println(vo.toString());
+		System.out.println("===========================>");
+		int reusult = map.bcnfmInsert(vo);		// 승인신청 insert
+		map.bcnfmIdUpdate(vo);					// book테이블에 승인번호 update
+		return reusult;
 	}
 
 	@Override

@@ -5,6 +5,72 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+
+.ppDiv {
+	padding : 20pt;
+}
+
+.button {
+  border-radius: 4px;
+  background-color: #0c2e8a;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  padding: 10px;
+  width: 170px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 20px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+.bucketBtn {
+	background-color: red;
+	border: none;
+	color: white;
+	padding: 12px 16px;
+	font-size: 21px;
+	cursor: pointer;
+	border-radius: 50%;
+}
+
+
+.bucketBtn i {
+	color: white;
+}
+
+.bucketBtn:hover {
+	opacity: 0.6;
+  	background-color: red;
+}
+</style>
 </head>
 <body>
 <div class="inner-page pt-6">
@@ -15,256 +81,91 @@
         	</div>
 		</div>
 		<div class="row">
-	       <div class="container">
-	            <div class="row">
-	                <div class="col-lg-6">
-	                    <div class="product__details__pic">
-	                        <div class="product__details__slider__content">
-	                            <div class="product__details__pic__slider owl-carousel">
-	                                <img src="/prj/fileUp${list.bookCoverPath}${list.bookCover}" alt="">
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-6">
-	                    <div class="product__details__text">
-	                        <h3>${book.bookNm}</span></h3>
-	                        <div class="rating">
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star"></i>
-	                            <span>( 138 reviews )</span>
-	                        </div>
-	                        <div class="product__details__price">${book.bookAmt} <span>$ 83.0</span></div>
-	                        <p>${book.bookIntro}</p>
-	                        <div class="product__details__button">
-	                            <div class="quantity">
-	                                <span>Quantity:</span>
-	                                <div class="pro-qty">
-	                                    <input type="text" value="1">
-	                                </div>
-	                            </div>
-	                            <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
-	                            <ul>
-	                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-	                                <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-	                            </ul>
-	                        </div>
-	                        <div class="product__details__widget">
-	                            <ul>
-	                                <li>
-	                                    <span>Availability:</span>
-	                                    <div class="stock__checkbox">
-	                                        <label for="stockin">
-	                                            In Stock
-	                                            <input type="checkbox" id="stockin">
-	                                            <span class="checkmark"></span>
-	                                        </label>
-	                                    </div>
-	                                </li>
-	                                <li>
-	                                    <span>Available color:</span>
-	                                    <div class="color__checkbox">
-	                                        <label for="red">
-	                                            <input type="radio" name="color__radio" id="red" checked>
-	                                            <span class="checkmark"></span>
-	                                        </label>
-	                                        <label for="black">
-	                                            <input type="radio" name="color__radio" id="black">
-	                                            <span class="checkmark black-bg"></span>
-	                                        </label>
-	                                        <label for="grey">
-	                                            <input type="radio" name="color__radio" id="grey">
-	                                            <span class="checkmark grey-bg"></span>
-	                                        </label>
-	                                    </div>
-	                                </li>
-	                                <li>
-	                                    <span>Available size:</span>
-	                                    <div class="size__btn">
-	                                        <label for="xs-btn" class="active">
-	                                            <input type="radio" id="xs-btn">
-	                                            xs
-	                                        </label>
-	                                        <label for="s-btn">
-	                                            <input type="radio" id="s-btn">
-	                                            s
-	                                        </label>
-	                                        <label for="m-btn">
-	                                            <input type="radio" id="m-btn">
-	                                            m
-	                                        </label>
-	                                        <label for="l-btn">
-	                                            <input type="radio" id="l-btn">
-	                                            l
-	                                        </label>
-	                                    </div>
-	                                </li>
-	                                <li>
-	                                    <span>Promotions:</span>
-	                                    <p>Free shipping</p>
-	                                </li>
-	                            </ul>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-12">
-	                    <div class="product__details__tab">
-	                        <ul class="nav nav-tabs" role="tablist">
-	                            <li class="nav-item">
-	                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
-	                            </li>
-	                            <li class="nav-item">
-	                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Specification</a>
-	                            </li>
-	                            <li class="nav-item">
-	                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews ( 2 )</a>
-	                            </li>
-	                        </ul>
-	                        <div class="tab-content">
-	                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
-	                                <h6>Description</h6>
-	                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-	                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-	                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-	                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-	                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-	                                consequat massa quis enim.</p>
-	                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-	                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-	                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-	                                quis, sem.</p>
-	                            </div>
-	                            <div class="tab-pane" id="tabs-2" role="tabpanel">
-	                                <h6>Specification</h6>
-	                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-	                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-	                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-	                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-	                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-	                                consequat massa quis enim.</p>
-	                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-	                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-	                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-	                                quis, sem.</p>
-	                            </div>
-	                            <div class="tab-pane" id="tabs-3" role="tabpanel">
-	                                <h6>Reviews ( 2 )</h6>
-	                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-	                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-	                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-	                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-	                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-	                                consequat massa quis enim.</p>
-	                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-	                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-	                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-	                                quis, sem.</p>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="row">
-	                <div class="col-lg-12 text-center">
-	                    <div class="related__title">
-	                        <h5>RELATED PRODUCTS</h5>
-	                    </div>
-	                </div>
-	                <div class="col-lg-3 col-md-4 col-sm-6">
-	                    <div class="product__item">
-	                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-1.jpg">
-	                            <div class="label new">New</div>
-	                            <ul class="product__hover">
-	                                <li><a href="img/product/related/rp-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-	                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-	                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-	                            </ul>
-	                        </div>
-	                        <div class="product__item__text">
-	                            <h6><a href="#">Buttons tweed blazer</a></h6>
-	                            <div class="rating">
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                            </div>
-	                            <div class="product__price">$ 59.0</div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-3 col-md-4 col-sm-6">
-	                    <div class="product__item">
-	                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-2.jpg">
-	                            <ul class="product__hover">
-	                                <li><a href="img/product/related/rp-2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-	                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-	                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-	                            </ul>
-	                        </div>
-	                        <div class="product__item__text">
-	                            <h6><a href="#">Flowy striped skirt</a></h6>
-	                            <div class="rating">
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                            </div>
-	                            <div class="product__price">$ 49.0</div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-3 col-md-4 col-sm-6">
-	                    <div class="product__item">
-	                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-3.jpg">
-	                            <div class="label stockout">out of stock</div>
-	                            <ul class="product__hover">
-	                                <li><a href="img/product/related/rp-3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-	                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-	                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-	                            </ul>
-	                        </div>
-	                        <div class="product__item__text">
-	                            <h6><a href="#">Cotton T-Shirt</a></h6>
-	                            <div class="rating">
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                            </div>
-	                            <div class="product__price">$ 59.0</div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-3 col-md-4 col-sm-6">
-	                    <div class="product__item">
-	                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-4.jpg">
-	                            <ul class="product__hover">
-	                                <li><a href="img/product/related/rp-4.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-	                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-	                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-	                            </ul>
-	                        </div>
-	                        <div class="product__item__text">
-	                            <h6><a href="#">Slim striped pocket shirt</a></h6>
-	                            <div class="rating">
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                                <i class="fa fa-star"></i>
-	                            </div>
-	                            <div class="product__price">$ 59.0</div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>		
+			<div class="container">
+				
+				<div class="row p-5 mb-4 bg-light rounded-3">
+					<div class="col-md-8">
+						<div class="container-fluid py-5">
+							<h1 class="display-5 fw-bold">${book.bookNm}</h1>
+							<h3>${book.bookPublCo} ( ${book.bookWriter} )</h3>
+							<p class="col-md-8 fs-7">대여가격: ${book.bookAmt}</p> 
+							<p class="col-md-8 fs-7">할인가격 : ${book.bookDiscnt}</p>
+							<hr>
+							<div>
+								<button type="button" class="button" id="bookCartForm"><span>장바구니 </span></button>
+								<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
+								
+								<button class="bucketBtn" ><i class="fa fa-heart"></i></button>							
+							</div>
+						</div>
+					</div> 
+					<div class="col-md-4" style="margin-right:30;">
+							<img width="300" height="330" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}">
+					</div> 
+				</div>
+				<div class="row g-5">
+				    <div class="col-md-8">			
+				      <article class="blog-post ppDiv">
+				        <h2 class="blog-post-title">책소개</h2>
+				        <p class="blog-post-meta">${book.bookIntro}</p>
+				        
+				        
+				      </article>
+					  <hr>
+				      <article class="blog-post ppDiv">
+				       <h2 class="blog-post-title">저자소개</h2>
+				        <p class="blog-post-meta">${book.bookWriterIntro}</p>
+				      </article>
+					  <hr>
+				      <article class="blog-post ppDiv">
+				       <h2 class="blog-post-title">목차</h2>
+				        <p class="blog-post-meta">${book.bookContent}</p> 
+				      </article>
+				
+				      <nav class="blog-pagination" aria-label="Pagination">
+				        <a class="btn btn-outline-primary" href="#">Older</a>
+				        <a class="btn btn-outline-secondary disabled">Newer</a>
+				      </nav>
+				
+				    </div>
+				
+				    <div class="col-md-4">
+				      <div class="position-sticky" style="top: 2rem;">
+				        <div class="p-4 mb-3 bg-light rounded">
+				          <h4 class="fst-italic">About</h4>
+				          <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+				        </div>
+				
+				        <div class="p-4">
+				          <h4 class="fst-italic">Archives</h4>
+				          <ol class="list-unstyled mb-0">
+				            <li><a href="#">March 2021</a></li>
+				            <li><a href="#">February 2021</a></li>
+				            <li><a href="#">January 2021</a></li>
+				            <li><a href="#">December 2020</a></li>
+				            <li><a href="#">November 2020</a></li>
+				            <li><a href="#">October 2020</a></li>
+				            <li><a href="#">September 2020</a></li>
+				            <li><a href="#">August 2020</a></li>
+				            <li><a href="#">July 2020</a></li>
+				            <li><a href="#">June 2020</a></li>
+				            <li><a href="#">May 2020</a></li>
+				            <li><a href="#">April 2020</a></li>
+				          </ol>
+				        </div>
+				
+				        <div class="p-4">
+				          <h4 class="fst-italic">Elsewhere</h4>
+				          <ol class="list-unstyled">
+				            <li><a href="#">GitHub</a></li>
+				            <li><a href="#">Twitter</a></li>
+				            <li><a href="#">Facebook</a></li>
+				          </ol>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+	       </div>
 		</div>
 	</div>
 </div>	

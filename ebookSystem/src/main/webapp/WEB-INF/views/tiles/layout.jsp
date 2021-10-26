@@ -15,7 +15,7 @@
 	  <!-- Favicons -->
   <link href="resources/assets/img/favicon.png" rel="icon">
   <link href="resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700" rel="stylesheet">
 

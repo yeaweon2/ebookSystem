@@ -2,7 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.ebook.prj.bcnfm.mapper.BcnfmMapper">
 	<select id="bcnfmList" resultType="co.ebook.prj.bcnfm.vo.BcnfmVO">
-	
+   	   SELECT rownum as bcnfmNo
+            , c.bcnfm_id
+            , c.book_id
+            , b.book_cover
+            , b.book_cover_path
+            , ( SELECT member_nm FROM member m where m.member_id = b.member_id ) as bcnfm_req_nm
+            , b.book_nm            
+            , bcnfm_req_dt
+            , ( SELECT scodes.scode_nm FROM scodes 
+                WHERE lcode = 'BC' AND scode = c.bcnfm_st_cd ) as bcnfmStCd
+            , bcnfm_cnfm_dt
+            , ( SELECT member_nm FROM member m where m.member_id = c.bcnfm_cnfmr ) as bcnfm_cnfmr 
+		 FROM book_confirm c 
+		    , book b
+       WHERE c.book_id = b.book_id 
 	</select>
 	
 	<select id="bcnfmDetail" resultType="co.ebook.prj.bcnfm.vo.BcnfmVO">
@@ -20,15 +34,31 @@
 	
 	<update id="bcnfmUpdate" parameterType="co.ebook.prj.bcnfm.vo.BcnfmVO">
 		UPDATE BOOK_CONFIRM
-		   SET BCNFM_CNFMR = #{bcnfmCnfmr}
-		   	 , BCNFM_ST_CD = #{bcnfmStCd}
-		     , BCNFM_CNFM_DT = SYSDATE
-		     , BCNFM_REJECT = #{bcnfmReject}
+		   SET BCNFM_ST_CD = #{bcnfmStCd}
+		   <if test="bcnfmStCd != null and bcnfmStCd != ''">
+				<if test="bcnfmStCd.equals('02')">
+				 , BCNFM_CNFMR = #{bcnfmCnfmr}
+				 , BCNFM_CNFM_DT = SYSDATE
+				 , BCNFM_REJECT = null
+				</if>
+				<if test="bcnfmStCd.equals('03')">
+				 , BCNFM_REJECT = #{bcnfmReject}
+				</if>		   	 
+			</if>
 		     , UDT_DT = SYSDATE
 		 WHERE BCNFM_ID = #{bcnfmId}
 	</update>
 	
 	<delete id="bcnfmDelete" >
 	
+	
 	</delete>
+	
+	
+	<update id="bcnfmIdUpdate">
+		UPDATE BOOK
+       	   SET BCNFM_ID = ( SELECT MAX(BCNFM_ID) FROM BOOK_CONFIRM 
+       	   					 WHERE BOOK_ID = #{bookId} )
+ 		 WHERE BOOK_ID = #{bookId}		
+	</update>
 </mapper>

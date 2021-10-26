@@ -133,8 +133,14 @@ public class BookController {
 		String view = "";
 		vo = bookDao.bookDetail(vo);
 
-		if( vo != null) {
+		if( vo != null ) {
 			model.addAttribute("msg", "성공");
+			if(vo.getBookDiscnt() > 0) {
+				int amt = vo.getBookAmt();
+				int disAmt = vo.getBookDiscnt();
+				disAmt = amt - ( amt*disAmt );
+				vo.setBookDiscnt(disAmt);
+			}
 			model.addAttribute("book", vo);
 			view = "book/bookDetail";
 		}else {
@@ -144,6 +150,12 @@ public class BookController {
 		
 		return view;
 	}
-		
 	
+	@RequestMapping("/bookCartInsert")
+	public String bookCartInsert(Model model , BookVO vo ) {
+		
+		
+		
+		return "book/bookCartForm";
+	}	
 }
