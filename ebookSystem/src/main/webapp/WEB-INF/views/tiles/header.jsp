@@ -69,11 +69,13 @@
 						<li><a href="bookInsertForm">BOOK등록</a></li>
 						<li><a href="bookList">BOOK조회</a></li>
 						<li><a href="ctgyList">카테고리관리</a></li>
+						<li><a href="bcnfmList">BOOK승인관리</a></li>
 					</ul>				
 				</li>
 				<li class="dropdown"><a href="#"><span>회원관리</span><i class="bi bi-chevron-down"></i></a>
 					<ul>
 						<li><a href="memberList">회원목록</a></li>
+						<li><a href="managerRegist">업체등록신청</a></li>
 					</ul>				
 				</li>
 				<li class="dropdown"><a href="#"><span>매니저관리</span><i class="bi bi-chevron-down"></i></a>
