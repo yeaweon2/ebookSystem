@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.ebook.prj.cmmnty.mapper.CmmntyMapper;
+import co.ebook.prj.cmmnty.vo.CmmntyVO;
 import co.ebook.prj.replycmmnty.mapper.ReplyCmmntyMapper;
 import co.ebook.prj.replycmmnty.service.ReplyCmmntyService;
 import co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO;
@@ -13,6 +15,8 @@ import co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO;
 public class ReplyCmmntyServiceImpl implements ReplyCmmntyService {
 	@Autowired
 	private ReplyCmmntyMapper map;
+	@Autowired
+	private CmmntyMapper cmap;
 	
 	@Override //댓글 전체조회
 	public List<ReplyCmmntyVO> ReplycmmntyList(ReplyCmmntyVO vo) {
@@ -21,6 +25,9 @@ public class ReplyCmmntyServiceImpl implements ReplyCmmntyService {
 
 	@Override //댓글 글쓰기
 	public int ReplycmmntInsert(ReplyCmmntyVO vo) {
+		CmmntyVO cvo = new CmmntyVO();
+		cvo.setCmmntyId(vo.getCmmntyId());
+		cmap.cmmntyReplyCnt(cvo);
 		return map.ReplycmmntInsert(vo);
 	}
 

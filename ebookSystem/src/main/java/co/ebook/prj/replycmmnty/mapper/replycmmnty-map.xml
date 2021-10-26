@@ -4,9 +4,12 @@
 
 	<!-- 댓글조회 -->
 	<select id="ReplycmmntyList" resultType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
-	SELECT CREPLY_ID	 	, CMMNTY_ID
-		 , CREPLY_WRITER 	, CREPLY_CONTENTS
-		 , INS_DT			, UDT_DT
+	SELECT CREPLY_ID	 	
+	, CMMNTY_ID
+	, CREPLY_WRITER 	
+	, CREPLY_CONTENTS
+	, INS_DT			
+	, UDT_DT
 	  FROM COMMUNITY_REPLY
 	 WHERE CMMNTY_ID = #{cmmntyId}
 	</select>
@@ -14,22 +17,24 @@
 	<!-- 댓글입력 -->
 	<insert id="ReplycmmntInsert" parameterType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
 	INSERT INTO COMMUNITY_REPLY(CREPLY_ID
-	, CREPLY_WRITER
-	, CREPLY_CONTENTS
-	, INS_DT
-	, UDT_DT) 
-	VALUES(#{creplyId}
-	, #{creplyWriter}
-	, #{creplyContents}
-	, SYSDATE
-	, SYSDATE)
+							, CMMNTY_ID
+							, CREPLY_WRITER
+							, CREPLY_CONTENTS
+							, INS_DT
+							, UDT_DT) 
+	VALUES(CR_SEQ.nextval
+		, #{cmmntyId}
+		, #{creplyWriter}
+		, #{creplyContents}
+		, SYSDATE
+		, SYSDATE)
 	</insert>
 	
 	<!-- 댓글수정 -->
 	<update id="ReplycmmntUpdate" parameterType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
 	UPDATE COMMUNITY_REPLY
 	   SET CREPLY_CONTENTS = #{creplyContents}
-	     , UDT_DT		   = NOW()	
+	     , UDT_DT		   = sysdate
 	 WHERE CREPLY_ID	   = #{creplyId}
 	</update>
 	

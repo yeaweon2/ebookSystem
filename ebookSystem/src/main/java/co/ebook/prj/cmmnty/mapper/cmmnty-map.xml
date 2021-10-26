@@ -80,8 +80,8 @@
 	<!-- 댓글 행 카운터 -->
 	<update id="cmmntyReplyCnt" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
 	UPDATE COMMUNITY
-	   SET CMMNTY_REPLY_CNT = CMMNTY_REPLY_CNT + 1; 
-	 WHERE CMMNTY_ID = #{cmmntyId};
+	   SET CMMNTY_REPLY_CNT = CMMNTY_REPLY_CNT + 1
+	 WHERE CMMNTY_ID = #{cmmntyId}
 	</update>
 	
 
