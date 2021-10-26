@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.ebook.prj.bcnfm.vo.BcnfmVO;
 import co.ebook.prj.category.vo.CtgyVO;
+import co.ebook.prj.cmmnty.vo.CmmntyVO;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
+import co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO;
 
 @Controller
 public class MemberController {
@@ -31,6 +33,15 @@ public class MemberController {
 		return "member/memberList";
 	}
 	
+//	멤버상세조회
+	@RequestMapping("/memberSelect")
+	String memberSelect(Model model, MemberVO vo) {
+		System.out.println("============" + vo.toString());
+		System.out.println("============" + memberDao.memberSelect(vo));
+		model.addAttribute("member", memberDao.memberSelect(vo));
+		return "member/memberSelect";
+	}
+
 //	멤버회원가입
 	@RequestMapping("/memberJoin")
 	public String memberJoin(Model model) {

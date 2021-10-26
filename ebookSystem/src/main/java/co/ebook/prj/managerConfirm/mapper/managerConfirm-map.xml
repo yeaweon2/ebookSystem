@@ -5,20 +5,33 @@
 	
 	<update id = "managerConfirm" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
 		 update manager_confirm 
-		   set mcnfm_st_cd = '02'
-		 where mcnfm_id = #{mcnfmId}
-		   and mcnfm_st_cd = '01'
+		    set mcnfm_st_cd = '02'
+		  where mcnfm_id = #{mcnfmId}
+		    and mcnfm_st_cd = '01'
     </update>
 	
+	<insert id="managerRegistInsert" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
+		 
+	</insert>
+	
+	<update id="managerconfirmUpdate" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
+		update member
+		   set manager_cnfm_yn = 'Y'
+		     , mcnfm_id = ( select max(mcnfm_id) from manager_confirm where member_id = #{memberId})
+		 where member_id = #{memberId}
+		   
+	</update>
+		
 	<select id="managerSelectList" resultType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
- 		 select  mcnfm_id,       member_id,        mcnfm_co_nm, 
- 		         mcnfm_rpspr,      mcnfm_req_dt,           mcnfm_cnfm_dt, 
- 		         mcnfm_st_cd,       mcnfm_cntr_sdt,        mcnfm_cntr_edt,
- 		          mcnfm_cntr_fl_cd,      mcnfm_cnfmr          
-                 (select scodes.scode_nm from scodes where lcode = 'MF' and scode = mcnfm_cntr_fl_cd ) mcnfm_cntr_fl_nm,
- 		         (select scodes.scode_nm from scodes where lcode = 'MC' and scode = mcnfm_st_cd ) as mcnfm_st_nm,
- 		        from  managerConfirm 
-          where  member_fl_cd = 'M'
+ 		 select distinct  b.mcnfm_id,            b. member_id,            b.mcnfm_co_nm, 
+                          b.mcnfm_rpspr,         b.mcnfm_req_dt,          b.mcnfm_cnfm_dt, 
+                          b.mcnfm_st_cd,         b.mcnfm_cntr_sdt,        b.mcnfm_cntr_edt,
+                          b.mcnfm_cntr_fl_cd,    b.mcnfm_cnfmr,  
+                         (select scodes.scode_nm from scodes where lcode = 'MF' and scode = mcnfm_cntr_fl_cd ) as mcnfm_cntr_fl_nm,
+                         (select scodes.scode_nm from scodes where lcode = 'MC' and scode = mcnfm_st_cd ) as mcnfm_st_nm,
+                          a.member_fl_cd
+           from  manager_confirm b, member a
+          where  a.member_fl_cd = 'M'
 	</select>
 	
 	

@@ -63,13 +63,13 @@
 								<th>대표자명</th>
 								<th>승인신청일자</th>
 								<th>승인처리일자</th>
-								<th>승인상태코드</th>
+								<th>승인상태</th>
 								<th>계약시작일자</th>
 								<th>계약종료일자</th>
-								<th>계약구분코드</th>
+								<th>계약구분</th>
 								<th>승인자ID</th>
 							</tr>
-							<c:forEach items="${lists}" var="member" varStatus="status">
+							<c:forEach items="${lists}" var="managerConfirm" varStatus="status">
 								<tr>
 									<td><input type="checkbox" id="member${status.index}" name="checkManager" value="${managerConfirm.mcnfmId}"></td>
 									<td>${managerConfirm.mcnfmId }</td>
@@ -78,10 +78,10 @@
 									<td>${managerConfirm.mcnfmRpspr }</td>
 									<td>${managerConfirm.mcnfmReqDt }</td>
 									<td>${managerConfirm.mcnfmCnfmDt }</td>
-									<td>${managerConfirm.mcnfmStCd }</td>
+									<td>${managerConfirm.mcnfmStNm }</td>
 									<td>${managerConfirm.mcnfmCntrSdt }</td>
 									<td>${managerConfirm.mcnfmCntrEdt }</td>
-									<td>${managerConfirm.mcnfmCntrFlCd }</td>
+									<td>${managerConfirm.mcnfmCntrFlNm }</td>
 									<td>${managerConfirm.mcnfmCnfmr}</td>
 								</tr>
 							</c:forEach>

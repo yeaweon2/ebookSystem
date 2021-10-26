@@ -13,6 +13,7 @@ public class ManagerConfirmVO {
 	private String memberId;
 	private Date mcnfmReqDt;
 	private String mcnfmStCd;
+	private String mcnfmStNm;
 	private String mcnfmCnfmr;
 	private Date mcnfmCnfmDt;
 	private String mcnfmBizno;
@@ -20,6 +21,7 @@ public class ManagerConfirmVO {
 	private String mcnfmCoNm;
 	private String mcnfmRpspr;
 	private String mcnfmCntrFlCd;
+	private String mcnfmCntrFlNm;
 	private Date mcnfmCntrSdt;
 	private Date mcnfmCntrEdt;
 	private String mcnfmReject;

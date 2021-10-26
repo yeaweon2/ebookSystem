@@ -37,10 +37,24 @@ public class ManagerConfirmController {
 		 
 		for(int i = 0; i < managerArr.size() ; i++ ) {
 			vo = new ManagerConfirmVO();
-			vo.setMemberId(managerArr.get(i));
-			System.out.println(vo.getMemberId());
+			vo.setMcnfmId(Integer.parseInt(managerArr.get(i)));
+			System.out.println("=========>>" + vo.getMcnfmId());
 			int result2 = managerCfDao.managerConfirm(vo);
 			System.out.println("=-------------------------------------->> result2 > " + result2 );
 		}
 	}
+	
+//	업체등록폼
+	@RequestMapping("/managerRegist")
+	public String managerRegist(Model model) {
+		return "manager/managerRegist";
+	}
+	
+//	업체등록 성공
+	@RequestMapping("/managerRegistSuccess")
+	public String managerRegistSuccess(Model model, ManagerConfirmVO vo) {
+		managerCfDao.managerRegistInsert(vo);
+		return "main/home";
+	}
+	
 }

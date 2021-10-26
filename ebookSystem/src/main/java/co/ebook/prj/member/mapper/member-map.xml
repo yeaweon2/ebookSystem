@@ -57,7 +57,7 @@
 	<update id="confirmUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
 		update member
 		   set manager_cnfm_yn = 'Y'
-		 where member_id = #{memberId}
+		 where mcnfm_id = #{mcnfmId}
 		   and manager_cnfm_yn = 'N'
 	</update>
 	

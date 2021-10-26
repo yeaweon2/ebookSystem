@@ -10,4 +10,8 @@ public interface ManagerConfirmMapper {
 	ManagerConfirmVO managerSelect(ManagerConfirmVO vo);
 	
 	int managerConfirm(ManagerConfirmVO vo);
+	
+	int managerconfirmUpdate(ManagerConfirmVO vo);
+	
+	int managerRegistInsert(ManagerConfirmVO vo);
 }

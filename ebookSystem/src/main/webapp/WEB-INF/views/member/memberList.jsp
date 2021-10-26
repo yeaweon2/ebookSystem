@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,29 @@
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
+
+$(function() {
+//  클릭시 글상세조회
+	$("table").on("click", "td", function() {
+		event.stopPropagation();
+		var id = $(this).closest("td").data("id");
+		console.log($("#memberId").val(id));
+		$("#memberId").val(id);
+		frm.submit();
+	})
+
+//	체크박스 이벤트중지
+	$(".ckboxTd").on("click", function() {
+		event.stopPropagation();
+		if ($(event.target).find("#member").prop('checked') == false) {
+			$(event.target).find("#member").prop('checked', true);
+		} else {
+			$(event.target).find("#member").prop('checked', false);
+		}
+	});
+});
+
+
 
 //  휴면회원 해제
 	function sleepMember() { 
@@ -68,7 +92,7 @@
 							</tr>
 							<c:forEach items="${lists}" var="member" varStatus="status">
 								<tr>
-									<td><input type="checkbox" id="member${status.index}" name="checkMember" value="${member.memberId}"></td>
+									<td class="ckboxTd"><input type="checkbox" id="member${status.index}" name="checkMember" value="${member.memberId}"></td>
 									<td>${member.memberId }</td>
 									<td>${member.memberNm }</td>
 									<td>${member.memberNicknm }</td>
@@ -78,8 +102,8 @@
 									<td>${member.memberBirth }</td>
 									<td>${member.memberMile }</td>
 									<td>${member.memberStNm }</td>
-									<td>${member.insDt }</td>
-									<td>${member.udtDt }</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${member.insDt }" /></td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${member.udtDt }" /></td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -91,5 +115,8 @@
 			</div>
 		</div>
 	</div>
+	<form action="memberSelect" method="post" id="frm">
+		<input type="hidden" id="memberId" name="memberId">
+	</form>
 </body>
 </html>

@@ -10,5 +10,9 @@ public interface ManagerConfirmService {
 	ManagerConfirmVO managerSelect(ManagerConfirmVO vo);
 
 	int managerConfirm(ManagerConfirmVO vo);
+	
+	int managerconfirmUpdate(ManagerConfirmVO vo);
+	
+	int managerRegistInsert(ManagerConfirmVO vo);
 
 }

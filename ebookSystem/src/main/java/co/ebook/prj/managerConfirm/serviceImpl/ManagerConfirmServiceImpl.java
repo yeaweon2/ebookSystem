@@ -19,11 +19,12 @@ public class ManagerConfirmServiceImpl implements ManagerConfirmService {
 	@Autowired
 	MemberMapper mapp;
 	
-//	매니저(업체회원)승인
+//	매니저(업체회원)승인상태변경 (21.10.26.김유리)
 	@Override
 	public int managerConfirm(ManagerConfirmVO vo) {
 		MemberVO mVo = new MemberVO();
-		mVo.setMemberId(vo.getMemberId());
+		mVo.setMcnfmId(vo.getMcnfmId());
+		
 		mapp.confirmUpdate(mVo);
 		return map.managerConfirm(vo);
 	}
@@ -38,5 +39,16 @@ public class ManagerConfirmServiceImpl implements ManagerConfirmService {
 	@Override
 	public List<ManagerConfirmVO> managerSelectList() {
 		return map.managerSelectList();
+	}
+
+//	매니저승인정보수정
+	@Override
+	public int managerconfirmUpdate(ManagerConfirmVO vo) {
+		return map.managerconfirmUpdate(vo);
+	}
+
+	@Override
+	public int managerRegistInsert(ManagerConfirmVO vo) {
+		return map.managerRegistInsert(vo);
 	}
 }
