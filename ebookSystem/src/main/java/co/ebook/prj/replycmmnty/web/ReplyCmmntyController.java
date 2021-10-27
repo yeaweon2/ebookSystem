@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,43 +23,62 @@ public class ReplyCmmntyController {
 
 	// 댓글조회
 	@RequestMapping(value = "/replyList", method = RequestMethod.GET)
-	public List<ReplyCmmntyVO> ReplycmmntyList(Model model, ReplyCmmntyVO vo) {
-
-		List<ReplyCmmntyVO> lists = replyDao.ReplycmmntyList(vo);
+	public List<ReplyCmmntyVO> replyList(Model model, ReplyCmmntyVO vo) {
+		List<ReplyCmmntyVO> lists = replyDao.replyCmmntyList(vo);
 		return lists;
 	}
 
 	// 댓글입력
 	@RequestMapping(value = "/replyInsert", method = RequestMethod.POST)
-	public void replyInsert(Model model, @RequestBody ReplyCmmntyVO vo) {
-		System.out.println("======================>");
-		System.out.println(vo.toString());
-		
+	public Map replyInsert(Model model, @RequestBody ReplyCmmntyVO vo) {
+
 		vo.setCreplyWriter("admin");
 		
-//		  int result = replyDao.ReplycmmntInsert(vo); 
-//		  HashMap<String, Object> map = new HashMap<String, Object>(); 
-//		  if (result > 0) { 
-//			  map.put("result", "success");
-//			  map.put("reply", map); 
-//		  } else { 
-//			  map.put("result", "fail"); } 
-//		  
-//		  return map;
+		  int result = replyDao.replyCmmntInsert(vo); 
+		  HashMap<String, Object> map = new HashMap<String, Object>(); 
+		  if (result > 0) { 
+			  map.put("result", "success");
+			  map.put("lists", replyDao.replyCmmntyList(vo)); 
+		  } else { 
+			  map.put("result", "fail"); 
+		  } 
+		  
+		  return map;
 		 
 	}
 
 	// 댓글수정
-	@RequestMapping(value = "/replyUpdate", method = RequestMethod.PUT)
-	public Map ReplyUpdate(Model model, @RequestBody ReplyCmmntyVO vo) {
-		int result = replyDao.ReplycmmntInsert(vo);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		if (result > 0) {
-			map.put("result", "success");
-			map.put("reply", map);
-		} else {
-			map.put("result", "fail");
-		}
-		return map;
-	}
+	   @RequestMapping(value = "/replyUpdate", method = RequestMethod.PUT)
+	   public Map replyUpdate(Model model, @RequestBody ReplyCmmntyVO vo) {
+	      int result = replyDao.replyCmmntInsert(vo);
+	      HashMap<String, Object> map = new HashMap<String, Object>();
+	      vo.setCreplyWriter("admin");
+	      
+	      if (result > 0) {
+	         map.put("result", "success");
+	         map.put("reply", replyDao.replyCmmntUpdate(vo));
+	      } else {
+	         map.put("result", "fail");
+	      }
+	      return map;
+	   }
+	   
+	 
+	   //댓글삭제
+	   @RequestMapping(value="/replyDelete{creplyId}", method=RequestMethod.DELETE)
+	   public Map replyDelete (@PathVariable int creplyId, ReplyCmmntyVO vo, Model model){
+	      vo.setCreplyId(creplyId);
+	      int result = replyDao.replyCmmntDelete(vo);
+	      HashMap<String,Object> map = new HashMap<String,Object>();
+	      
+	      if(result > 0) {
+	         map.put("result", "success");   
+	      } else {
+	         map.put("result", "fail");
+	      }
+	      
+	      return map; 
+	   }
+
+
 }

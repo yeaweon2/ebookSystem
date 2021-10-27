@@ -2,6 +2,7 @@ package co.ebook.prj.cmmnty.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +36,7 @@ public class CmmntyController {
 		vo.setCmmntyFlCd("01");
 		vo.setCmmntyDelyn("N");
 		vo = cmmntyDao.cmmntySelectList(vo);
-		 //댓글리스트조회
-		 /* if( vo.getCmmntyReplyCnt() > 0) {
-			 ReplyCmmntyVO rVo = new ReplyCmmntyVO();
-			 rVo.setCmmntyId(vo.getCmmntyId());
-			 
-			 List<ReplyCmmntyVO> lists = replyDao.ReplycmmntyList(rVo);
-			 
-			 model.addAttribute("replys", lists);
-		 }*/
-		 
+	
 		model.addAttribute("notice", vo);
 		return "cmmnty/noticeSelectList";
 	}
@@ -83,9 +75,11 @@ public class CmmntyController {
 
 	// 커뮤니티 게시글수정 양식
 	@PostMapping("/noticeUpdateForm")
-	public String noticeUpdateForm(Model model, CmmntyVO vo, HttpSession session){
+	public String noticeUpdateForm(Model model, CmmntyVO vo, HttpServletRequest request){
 		vo.setCmmntyFlCd("01");
-		vo.setCmmntyWriter((String)session.getAttribute("id"));
+		
+		vo.setCmmntyWriter((String)request.getAttribute("id"));
+		
 		vo = cmmntyDao.cmmntySelectList(vo);
 		
 		model.addAttribute("notice", vo);

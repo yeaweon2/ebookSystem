@@ -17,7 +17,7 @@
 		WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
 		  AND CMMNTY_DELYN ='N'
 		   
-		ORDER BY cmmnty_no desc
+		ORDER BY cmmnty_no DESC
 
 	</select>
 	
