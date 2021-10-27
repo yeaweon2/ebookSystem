@@ -45,7 +45,7 @@ $(function() {
 		
 		$("input[name=checkMember]:checked").each(function() { 
 			memberArr.push($(this).val());
-		});
+		});  
 
 		$.ajax({
 			url : 'memberCdChange' ,

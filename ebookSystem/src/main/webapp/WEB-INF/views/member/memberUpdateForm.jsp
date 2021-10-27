@@ -33,7 +33,7 @@ function MemberEdit(str) {
 		}
 	}
 }
-</script>
+</script>  
 </head>
 <body>
 	<div class="site-section">

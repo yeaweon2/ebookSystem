@@ -17,7 +17,7 @@ public class MemberVO {
 	private String memberNicknm;
 	private String memberStCd;
 	private String memberStNm;
-	private String memberFlCd;
+	private String memberFlCd;  
 	private String memberFlNm;
 	private String memberEmail;
 	private String memberBirth;

@@ -17,7 +17,7 @@ public class MemberServiceImpl implements MemberService {
 	
 //	회원 전체리스트 조회 (21.10.17.김유리)
 	@Override
-	public List<MemberVO> memberSelectList() {
+	public List<MemberVO> memberSelectList() {  
 		return map.memberSelectList();
 	}
 

@@ -18,7 +18,7 @@
 //  업체회원 승인
 	function confirmManager() { 
 		var managerArr = [];
-		
+		  
 		$("input[name=checkManager]:checked").each(function() { 
 			console.log($(this).val());
 			managerArr.push($(this).val());

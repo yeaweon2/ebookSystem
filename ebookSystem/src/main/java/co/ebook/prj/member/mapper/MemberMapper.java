@@ -14,7 +14,7 @@ public interface MemberMapper {
 //	일반회원등록
 	int memberInsert(MemberVO vo);
 	
-//	업체회원등록
+//	업체회원등록  
 	int managerInsert(MemberVO vo);
 
 //	멤버정보수정

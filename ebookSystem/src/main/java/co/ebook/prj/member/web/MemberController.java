@@ -48,7 +48,7 @@ public class MemberController {
 		return "member/memberList";
 	}
 	
-//	멤버상세조회
+//	멤버상세조회  
 	@RequestMapping("/memberSelect")
 	String memberSelect(Model model, MemberVO vo) {
 		System.out.println("============" + vo.toString());

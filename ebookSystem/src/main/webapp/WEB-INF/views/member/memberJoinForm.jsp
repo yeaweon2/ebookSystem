@@ -17,7 +17,7 @@
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 
-//  아이디 중복체크
+//  아이디 중복체크  
 	function checkMemberId(div) {
 		var memberId = $('#memberId').val();
 		

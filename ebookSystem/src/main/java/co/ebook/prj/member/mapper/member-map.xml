@@ -90,7 +90,7 @@
            		mcnfm_id = #{mcnfmId},
            		member_fl_cd =#{memberFlCd} ,
  		        member_st_cd =#{memberStCd} ,
- 		        ins_dt = #{insDt}, 
+ 		        ins_dt = #{insDt},   
            		udt_dt = sysdate
 		 where  member_id = #{memberId}
 	

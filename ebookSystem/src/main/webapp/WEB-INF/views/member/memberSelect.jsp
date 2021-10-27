@@ -99,7 +99,7 @@
 								<th>회원수정일자</th>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${member.udtDt }" /></td>
 								<th></th>
-								<td></td>
+								<td></td>  
 							</tr>
 						</table>
 					</div>
