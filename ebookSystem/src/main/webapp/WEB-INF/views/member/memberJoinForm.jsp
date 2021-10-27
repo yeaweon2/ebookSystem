@@ -17,7 +17,7 @@
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 
-	// 아이디 중복체크
+//  아이디 중복체크
 	function checkMemberId(div) {
 		var memberId = $('#memberId').val();
 		
@@ -205,8 +205,8 @@
 					<hr class="col-sm-8">
 
 					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="agree">
-						<label class="form-check-label" for="agree" required>
+						<input type="checkbox" class="form-check-input" id="agree" required>
+						<label class="form-check-label" for="agree">
 							개인정보 수집 및 이용에 동의합니다.(필수)</label>
 					</div>
 

@@ -18,9 +18,9 @@
 
 $(function() {
 //  클릭시 글상세조회
-	$("table").on("click", "td", function() {
+	$("table").on("click", "tr", function() {
 		event.stopPropagation();
-		var id = $(this).closest("td").data("id");
+		var id = $(this).closest("tr").data("id");
 		console.log($("#memberId").val(id));
 		$("#memberId").val(id);
 		frm.submit();
@@ -82,24 +82,18 @@ $(function() {
 								<th>회원명</th>
 								<th>닉네임</th>
 								<th>회원구분</th>
-								<th>전화번호</th>
-								<th>Email</th>
-								<th>생년월일</th>
 								<th>마일리지</th>
 								<th>회원상태</th>
 								<th>회원등록일자</th>
 								<th>회원수정일자</th>
 							</tr>
 							<c:forEach items="${lists}" var="member" varStatus="status">
-								<tr>
+								<tr data-id="${member.memberId}">
 									<td class="ckboxTd"><input type="checkbox" id="member${status.index}" name="checkMember" value="${member.memberId}"></td>
 									<td>${member.memberId }</td>
 									<td>${member.memberNm }</td>
 									<td>${member.memberNicknm }</td>
 									<td>${member.memberFlNm }</td>
-									<td>${member.memberTel }</td>
-									<td>${member.memberEmail }</td>
-									<td>${member.memberBirth }</td>
 									<td>${member.memberMile }</td>
 									<td>${member.memberStNm }</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${member.insDt }" /></td>
@@ -108,9 +102,9 @@ $(function() {
 							</c:forEach>
 						</table>
 					</div>
-					<div>
+					<div align="right">
 						<button type="submit" onclick="sleepMember()" class="btn btn-outline-primary">휴면해제</button>
-					</div>
+					</div><br><br><br>
 				</div>
 			</div>
 		</div>

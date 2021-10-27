@@ -3,8 +3,9 @@
 <mapper namespace="co.ebook.prj.member.mapper.MemberMapper">
 
 	<select id="memberSelectList" resultType="co.ebook.prj.member.vo.MemberVO">
- 		select  member_id,       member_nm,        member_nicknm, 
- 		        member_tel,      ins_dt,           udt_dt, 
+ 		select  member_id,        		member_nm,        
+ 				member_nicknm,          member_tel,      
+ 		        ins_dt,                 udt_dt, 
                 (select scodes.scode_nm from scodes where lcode = 'MR' and scode = member_fl_cd ) as member_fl_nm,
  		        (select scodes.scode_nm from scodes where lcode = 'MS' and scode = member_st_cd ) as member_st_nm, 
  		        member_mile 
@@ -12,13 +13,24 @@
 	</select>
 	
 	<select id="memberSelect" resultType="co.ebook.prj.member.vo.MemberVO">
-		select  * 
+		select  member_id,   		     	member_pw,       			member_nm,        
+				member_nicknm,     			member_email,				member_birth,       
+				member_gen,         		member_mile,        	
+				member_tel,         
+				member_phone_vld,     		manager_cnfm_yn,    		member_like_fld,        
+				member_profile_nm, 			member_profile_path,   		ins_dt,      
+				udt_dt,                     mcnfm_id,
+				member_fl_cd,
+				member_st_cd,
+				(select scodes.scode_nm from scodes where lcode = 'MR' and scode = member_fl_cd ) as member_fl_nm,
+ 		        (select scodes.scode_nm from scodes where lcode = 'MS' and scode = member_st_cd ) as member_st_nm
 		  from  member 
 		 where  member_id = #{memberId}
 	</select>
 
 	<insert id="memberInsert" parameterType="co.ebook.prj.member.vo.MemberVO">
-		insert into	member 
+		insert 
+		  into	member 
 				(member_id,              member_pw,         member_nm,         member_nicknm,     member_st_cd,
 				member_fl_cd,            member_email,      member_birth,      member_gen,        member_mile,
 				member_tel,              member_phone_vld,  manager_cnfm_yn,   member_like_fld,   member_profile_nm,
@@ -31,7 +43,8 @@
 	</insert>
 	
 	<insert id="managerInsert" parameterType="co.ebook.prj.member.vo.MemberVO">
-		insert into	member 
+		insert  
+		  into	member 
 				(member_id,              member_pw,         member_nm,         member_nicknm,     member_st_cd,
 				member_fl_cd,            member_email,      member_birth,      member_gen,        member_mile,
 				member_tel,              member_phone_vld,  manager_cnfm_yn,   member_like_fld,   member_profile_nm,
@@ -43,14 +56,43 @@
 				 #{memberProfilePath},   sysdate,           sysdate)
 	</insert>
 	
+	<update id="memberCdUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
+		update  member 
+		   set  member_st_cd = '01'
+		 where  member_id = #{memberId}
+		   and  member_st_cd = '02'
+	</update>
+	
 	<update id="memberDelete" parameterType="co.ebook.prj.member.vo.MemberVO">
-		update member 
-		   set member_st_cd = '01'
-		 where member_id = #{memberId}
-		   and member_st_cd = '02'
+		update  member 
+		   set  member_st_cd = '03'
+		 where  member_id = #{memberId}
+		   and  member_st_cd = '01'
+	
 	</update>
 	
 	<update id="memberUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
+		update  member
+		   set  member_id = #{memberId},
+		   		member_pw = #{memberPw}, 
+		   		member_nm = #{memberNm},
+           		member_nicknm = #{memberNicknm}, 
+           		member_email = #{memberEmail},
+           		member_birth = #{memberBirth},
+           		member_gen = #{memberGen},
+           		member_mile = #{memberMile},
+           		member_tel = #{memberTel},
+           		member_like_fld = #{memberLikeFld},
+           		member_profile_nm  = #{memberProfileNm},
+           		member_profile_path = #{memberProfilePath},
+           		member_phone_vld = #{memberPhoneVld},
+           		manager_cnfm_yn = #{managerCnfmYn},
+           		mcnfm_id = #{mcnfmId},
+           		member_fl_cd =#{memberFlCd} ,
+ 		        member_st_cd =#{memberStCd} ,
+ 		        ins_dt = #{insDt}, 
+           		udt_dt = sysdate
+		 where  member_id = #{memberId}
 	
 	</update>
 	

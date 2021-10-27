@@ -39,10 +39,10 @@ public class MemberServiceImpl implements MemberService {
 		return map.memberUpdate(vo);
 	}
 
-//	회원삭제 (21.10.17.김유리)
+//	휴면회원 사용중으로 전환 (21.10.17.김유리)
 	@Override
-	public int memberDelete(MemberVO vo) {
-		return map.memberDelete(vo);
+	public int memberCdUpdate(MemberVO vo) {
+		return map.memberCdUpdate(vo);
 	}
 	
 //  회원중복체크 (21.10.22.김유리)
@@ -67,5 +67,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int confirmUpdate(MemberVO vo) {
 		return map.confirmUpdate(vo);
+	}
+
+//	회원정보 삭제 (21.10.27.김유리)
+	@Override
+	public int memberDelete(MemberVO vo) {
+		return map.memberDelete(vo);
 	}
 }

@@ -1,10 +1,18 @@
 package co.ebook.prj.member.web;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.ebook.prj.bcnfm.vo.BcnfmVO;
+import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.category.vo.CtgyVO;
 import co.ebook.prj.cmmnty.vo.CmmntyVO;
 import co.ebook.prj.member.service.MemberService;
@@ -23,6 +32,12 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberDao;
+	
+	@InitBinder
+    protected void initBinder(WebDataBinder binder){
+        DateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,true));
+    }
 	
 //  멤버전체조회(멤버관리)
 	@RequestMapping("/memberList")
@@ -83,7 +98,8 @@ public class MemberController {
 			vo = new MemberVO();
 			vo.setMemberId(memArr.get(i));
 			
-			memberDao.memberDelete(vo);
+			memberDao.memberCdUpdate(vo);
+			
 		}
 		
 	}
@@ -108,6 +124,35 @@ public class MemberController {
 		MemberVO vo = new MemberVO();
 		vo.setMemberNicknm(memberNicknm);
 		
-		 return memberDao.nickNnCheck(vo); 
+		return memberDao.nickNnCheck(vo); 
 	}
+	
+//	멤버삭제
+	@RequestMapping("/memberDelete")
+	public String memberDelete(Model model, MemberVO vo) {
+		memberDao.memberDelete(vo);
+		
+		return "redirect:memberList";
+	}
+	
+	
+//	멤버수정폼
+	@RequestMapping("memberUpdateForm")
+	public String memberUpdateForm(Model model, MemberVO vo, HttpSession session) {
+		vo = memberDao.memberSelect(vo);
+		// vo.setMemberId((String)session.getAttribute("id")); 개인회원 마이페이지수정시에 session필요
+		model.addAttribute("member", vo);
+		return "member/memberUpdateForm";
+		
+	}
+	
+//	멤버정보수정
+	@RequestMapping("/memberUpdate")
+	public String memberUpdate(Model model, MemberVO vo) {
+		System.out.println("===============================>>>>>>>>"+vo.toString());
+		memberDao.memberUpdate(vo);
+		model.addAttribute("member", vo);
+		return "redirect:memberList";
+	}
+	
 }
