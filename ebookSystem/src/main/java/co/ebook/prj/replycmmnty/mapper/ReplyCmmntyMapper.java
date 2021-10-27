@@ -5,9 +5,9 @@ import java.util.List;
 import co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO;
 
 public interface ReplyCmmntyMapper {
-	List<ReplyCmmntyVO> ReplycmmntyList(ReplyCmmntyVO vo);
-	int ReplycmmntInsert(ReplyCmmntyVO vo);
-	int ReplycmmntUpdate(ReplyCmmntyVO vo);
-	int ReplycmmntDelete(ReplyCmmntyVO vo);
+	List<ReplyCmmntyVO> replyCmmntyList(ReplyCmmntyVO vo);
+	int replyCmmntInsert(ReplyCmmntyVO vo);
+	int replyCmmntUpdate(ReplyCmmntyVO vo);
+	int replyCmmntDelete(ReplyCmmntyVO vo);
 
 }

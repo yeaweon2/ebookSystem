@@ -19,26 +19,26 @@ public class ReplyCmmntyServiceImpl implements ReplyCmmntyService {
 	private CmmntyMapper cmap;
 	
 	@Override //댓글 전체조회
-	public List<ReplyCmmntyVO> ReplycmmntyList(ReplyCmmntyVO vo) {
-		return  map.ReplycmmntyList(vo);
+	public List<ReplyCmmntyVO> replyCmmntyList(ReplyCmmntyVO vo) {
+		return  map.replyCmmntyList(vo);
 	}
 
 	@Override //댓글 글쓰기
-	public int ReplycmmntInsert(ReplyCmmntyVO vo) {
+	public int replyCmmntInsert(ReplyCmmntyVO vo) {
 		CmmntyVO cvo = new CmmntyVO();
 		cvo.setCmmntyId(vo.getCmmntyId());
 		cmap.cmmntyReplyCnt(cvo);
-		return map.ReplycmmntInsert(vo);
+		return map.replyCmmntInsert(vo);
 	}
 
 	@Override //댓글 수정
-	public int ReplycmmntUpdate(ReplyCmmntyVO vo) {
-		return map.ReplycmmntUpdate(vo);
+	public int replyCmmntUpdate(ReplyCmmntyVO vo) {
+		return map.replyCmmntUpdate(vo);
 	}
 
 	@Override //댓글 삭제
-	public int ReplycmmntDelete(ReplyCmmntyVO vo) {
-		return map.ReplycmmntDelete(vo);
+	public int replyCmmntDelete(ReplyCmmntyVO vo) {
+		return map.replyCmmntDelete(vo);
 	}
 
 }
