@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ReplyCmmntyVO {
-	private int creplyId;    //댓글순서
+	private int creplyId;    //댓글번호
 	private int cmmntyId;	//게시글번호
 	private String creplyWriter; //댓글작성자
 	private String creplyClass; //댓글클래스(부모/자식)

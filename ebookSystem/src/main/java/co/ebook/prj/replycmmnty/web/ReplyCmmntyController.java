@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,10 +51,14 @@ public class ReplyCmmntyController {
 
 	// 댓글수정
 	   @RequestMapping(value = "/replyUpdate", method = RequestMethod.PUT)
-	   public Map replyUpdate(Model model, @RequestBody ReplyCmmntyVO vo) {
-	      int result = replyDao.replyCmmntInsert(vo);
+	   public Map replyUpdate(Model model, @RequestBody ReplyCmmntyVO vo, HttpServletRequest request) {
+		   System.out.println(vo.toString());
+		   System.out.println("===============댓글수정");
+		   
+		   vo.setCreplyWriter((String)request.getAttribute("id"));
+		   
+		  int result = replyDao.replyCmmntUpdate(vo);
 	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      vo.setCreplyWriter("admin");
 	      
 	      if (result > 0) {
 	         map.put("result", "success");
