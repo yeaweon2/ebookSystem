@@ -15,7 +15,13 @@
 			<c:if test="${not empty id}">
 				<div>${id} : ${name} : ${nicknm} : ${auth} : ${stcd} </div>
 				<a href="logout" >로그아웃</a>
+				&nbsp;&nbsp;&nbsp;
+				<a href="cartList" >
+					<i class="fa fa-shopping-cart"></i>
+					Cart[${cartCnt}]
+				</a>
 			</c:if>
+			
 			
 		</div>
 	</div>
@@ -41,20 +47,53 @@
 						<li><a href="#">신규BOOK</a></li>
 					</ul>				
 				</li>
-				<li class="dropdown"><a href="#"><span>나의서재</span> <i class="bi bi-chevron-down"></i></a>
-					<ul>
-						<li><a href="#">독서 루틴</a></li>
-						<li><a href="#">버킷 BOOK</a></li>
-						<li><a href="#">BOOK 캘린더</a></li>
-					</ul>				
-				</li>
-				<li class="dropdown"><a href="#"><span>마이페이지</span> <i class="bi bi-chevron-down"></i></a>
-					<ul>
-						<li><a href="#">개인정보관리</a></li>
-						<li><a href="#">대여관리</a></li>
-						<li><a href="#">내글관리</a></li>
-					</ul>				
-				</li>
+				
+				<c:if test="${auth eq 'U'}">
+					<li class="dropdown"><a href="#"><span>나의서재</span> <i class="bi bi-chevron-down"></i></a>
+						<ul>
+							<li><a href="#">독서 루틴</a></li>
+							<li><a href="#">버킷 BOOK</a></li>
+							<li><a href="#">BOOK 캘린더</a></li>
+						</ul>				
+					</li>
+					<li class="dropdown"><a href="#"><span>마이페이지</span> <i class="bi bi-chevron-down"></i></a>
+						<ul>
+							<li><a href="#">개인정보관리</a></li>
+							<li><a href="#">대여관리</a></li>
+							<li><a href="#">내글관리</a></li>
+						</ul>				
+					</li>
+				</c:if>
+				<c:if test="${auth eq 'A'}">
+					<li class="dropdown"><a href="#"><span>회원관리</span><i class="bi bi-chevron-down"></i></a>
+						<ul>
+							<li><a href="memberList">회원목록</a></li>
+							
+							<li><a href="managerList">매니저목록</a></li>
+						</ul>				
+					</li>				
+					<li class="dropdown"><a href="#"><span>도서관리</span><i class="bi bi-chevron-down"></i></a>
+						<ul>
+							<li><a href="ctgyList">카테고리관리</a></li>
+							<li><a href="bcnfmList">BOOK승인관리</a></li>
+						</ul>				
+					</li>				
+				</c:if>
+				<c:if test="${auth eq 'M'}">
+					<li class="dropdown"><a href="#"><span>도서관리</span><i class="bi bi-chevron-down"></i></a>
+						<ul>
+							<li><a href="bookInsertForm">BOOK등록</a></li>
+							<li><a href="bookList">BOOK조회</a></li>
+						</ul>				
+					</li>
+					<li class="dropdown"><a href="#"><span>마이페이지</span><i class="bi bi-chevron-down"></i></a>
+						<ul>
+							<li><a href="#">나의정보관리</a></li>
+							<li><a href="managerRegist">매니저등록신청</a></li>
+							<li><a href="#">내글관리</a></li>
+						</ul>				
+					</li>
+				</c:if>
 				<li class="dropdown"><a href="#"><span>커뮤니티</span><i class="bi bi-chevron-down"></i></a>
 					<ul>
 						<li><a href="noticeList">공지사항</a></li>
@@ -63,26 +102,7 @@
 						<li><a href="faq">F A Q</a></li>
 						<li><a href="review">Review</a></li>
 					</ul>
-				</li>
-				<li class="dropdown"><a href="#"><span>도서관리</span><i class="bi bi-chevron-down"></i></a>
-					<ul>
-						<li><a href="bookInsertForm">BOOK등록</a></li>
-						<li><a href="bookList">BOOK조회</a></li>
-						<li><a href="ctgyList">카테고리관리</a></li>
-						<li><a href="bcnfmList">BOOK승인관리</a></li>
-					</ul>				
-				</li>
-				<li class="dropdown"><a href="#"><span>회원관리</span><i class="bi bi-chevron-down"></i></a>
-					<ul>
-						<li><a href="memberList">회원목록</a></li>
-						<li><a href="managerRegist">업체등록신청</a></li>
-					</ul>				
-				</li>
-				<li class="dropdown"><a href="#"><span>매니저관리</span><i class="bi bi-chevron-down"></i></a>
-					<ul>
-						<li><a href="managerList">매니저목록</a></li>
-					</ul>				
-				</li>						
+				</li>	
 			</ul>
 			<i class="bi bi-list mobile-nav-toggle"></i>
 		</nav><!-- .navbar -->
