@@ -16,7 +16,7 @@
         <div class="row">
           <div class="col-lg-4 col-md-6">
             <div class="member">
-              <div class="pic"><img src="resources/img/song.jpg" alt=""></div>
+              <div class="pic"><img src="resources/assets/img/song.jpg" alt=""></div>
               <div class="details">
                 <h4>최 예 원</h4>
                 <span>팀 장</span>
@@ -32,7 +32,7 @@
 
           <div class="col-lg-4 col-md-6">
             <div class="member">
-              <div class="pic"><img src="resources/img/suji.jpg" alt=""></div>
+              <div class="pic"><img src="resources/assets/img/suji.jpg" alt=""></div>
               <div class="details">
                 <h4>김 유 리</h4>
                 <span>부 팀 장</span>
@@ -48,7 +48,7 @@
 
           <div class="col-lg-4 col-md-6">
             <div class="member">
-              <div class="pic"><img src="resources/img/yeajin.jpg" alt=""></div>
+              <div class="pic"><img src="resources/assets/img/yeajin.jpg" alt=""></div>
               <div class="details">
                 <h4>김 지 연</h4>
                 <span>팀 원</span>

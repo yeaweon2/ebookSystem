@@ -71,6 +71,32 @@
   	background-color: red;
 }
 </style>
+<script type="text/javascript">
+	$(function(){
+		
+		// 장바구니 클릭시 
+		$("#bookCartForm").on("click", function(){
+			
+			var bookId = $("#bookId").val();
+	 		 $.ajax({
+	 			url : 'cartDuplCheck' ,
+	 			data : JSON.stringify({ bookId : bookId }) ,
+	 			contentType : 'application/json',
+	 			method : 'POST' ,
+	 			dataType : 'json' ,
+	 			success : function(data){
+	 				console.log(data);
+	 				if(data.result == "01"){
+	 					alert("이미 카트에 담겨있는 BOOK입니다. ");
+	 					return;
+	 				}else{
+	 					frm.submit();		
+	 				}
+	 			}
+	 		}); 			
+		});
+	});
+</script>
 </head>
 <body>
 <div class="inner-page pt-6">
@@ -169,6 +195,8 @@
 		</div>
 	</div>
 </div>	
-	       
+<form action="cartInsert" method="post" id="frm" name="frm">
+	<input type="hidden" id="bookId" name="bookId" value="${book.bookId}">
+</form>
 </body>
 </html>

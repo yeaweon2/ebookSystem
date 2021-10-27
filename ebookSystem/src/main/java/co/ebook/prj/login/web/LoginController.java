@@ -37,6 +37,7 @@ public class LoginController {
 			session.setAttribute("nicknm"	, vo.getMemberNicknm());
 			session.setAttribute("auth"		, vo.getMemberFlCd());
 			session.setAttribute("stcd"		, vo.getMemberStCd());
+			session.setAttribute("cartCnt"	, vo.getCartCnt());
 
 			views = "redirect:home"; 
 		}else {

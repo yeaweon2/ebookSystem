@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.ebook.prj.cart.mapper.CartMapper">
 	<select id="cartList" resultType="co.ebook.prj.cart.vo.CartVO">
-		 SELECT C.CART_ID
+		 SELECT ROWNUM AS cartNo 
+		 	  , C.CART_ID
 	          , C.BOOK_ID
 	          , B.BOOK_NM
 	          , B.BOOK_COVER
@@ -14,19 +15,29 @@
 	          , C.UDT_DT
 		  FROM BOOK_CART C
 		     , BOOK B
-		 WHERE C.BOOK_ID = B.BOOK_ID		
+		 WHERE C.BOOK_ID = B.BOOK_ID
+		   AND C.MEMBER_ID = #{memberId}		
+	</select>
+	
+	<select id="cartDuplCheck" resultType="co.ebook.prj.cart.vo.CartVO">
+		SELECT *
+		  FROM BOOK_CART
+		 WHERE MEMBER_ID = #{memberId}  
+		   AND BOOK_ID = #{bookId}
 	</select>
 	
 	<insert id="cartInsert" parameterType="co.ebook.prj.cart.vo.CartVO">
 		INSERT INTO book_cart ( 
-			CART_ID 		, BOOK_ID	, MEMBER_ID		, INS_DT	, UDT_DT
+			CART_ID 		, BOOK_ID	, MEMBER_ID		, INS_DT	, UDT_DT 
 		) values (
-			BC_SEQ.NEXTVAL	, #{bookId} , #{memberId}	, SYSDATE 	, SYSDATE
+			BC_SEQ.NEXTVAL	, #{bookId} , #{memberId}	, SYSDATE 	, SYSDATE 
 		)
 	</insert>
 	
 	<delete id="cartDelete" parameterType="co.ebook.prj.cart.vo.CartVO">
-	
+		DELETE FROM BOOK_CART
+  		 WHERE MEMBER_ID = #{memberId}
+		   AND BOOK_ID = #{bookId}
 	
 	</delete>
 

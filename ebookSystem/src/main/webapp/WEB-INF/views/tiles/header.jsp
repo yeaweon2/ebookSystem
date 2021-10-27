@@ -16,9 +16,16 @@
 				<div>${id} : ${name} : ${nicknm} : ${auth} : ${stcd} </div>
 				<a href="logout" >로그아웃</a>
 				&nbsp;&nbsp;&nbsp;
-				<a href="cartList" >
-					<i class="fa fa-shopping-cart"></i>
-					Cart[${cartCnt}]
+				<a href="cartList" class="cartBtn">
+					<c:if test="${cartCnt eq '0'}">
+						<i class="fa fa-shopping-cart"></i>
+						Cart
+					</c:if>
+					<c:if test="${cartCnt != '0'}">
+						<i class="fa fa-shopping-cart"></i>
+						Cart[${cartCnt}]
+					</c:if>
+					
 				</a>
 			</c:if>
 			
@@ -31,7 +38,7 @@
 	<div class="container d-flex justify-content-between">
 
 	<div id="logo">
-		<h1><a href="home"><span>E</span>로운<span>생활</span></a></h1> 
+		<h1><a href="home"><img src="resources/assets/img/logo.jpg" width="240" height="70"></a></h1> 
 		<!-- Uncomment below if you prefer to use an image logo -->
 		<!-- <a href="index.html"><img src="assets/img/logo.png" alt=""></a>-->
 	</div>

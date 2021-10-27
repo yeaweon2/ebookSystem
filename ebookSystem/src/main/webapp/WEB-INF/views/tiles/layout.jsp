@@ -27,7 +27,7 @@
   <link href="resources/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  
+  <link href="resources/css/ebook.css" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="resources/assets/css/style.css" rel="stylesheet">
   
@@ -36,7 +36,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="resources/js/json.min.js"></script>	  
+	<script src="resources/js/json.min.js"></script>
+			
+	  
 </head>
 <body>
 	<tiles:insertAttribute name="header"/>
