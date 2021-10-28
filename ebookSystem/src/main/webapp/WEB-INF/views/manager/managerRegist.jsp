@@ -60,13 +60,12 @@ function mcnfmBizNoApi(){
 							<th>계약기간</th>
 							<td>
 								<div class="form-check-inline" style="word-spacing :10px">
-									<input id="mcnfmCntr1" name="mcnfmCntr1" type="radio" value="A" class="form-check-input" checked required>
-									<label class="form-check-label" for="mcnfmCntr1">1개월 : 100,000원</label><br>
-									<input id="mcnfmCntr2" name="mcnfmCntr2" type="radio" value="B" class="form-check-input" required>
-									<label class="form-check-label" for="mcnfmCntr2">6개월 : 500,000원</label><br>
-									<input id="mcnfmCntr3" name="mcnfmCntr3" type="radio" value="C" class="form-check-input" required>
-									<label class="form-check-label" for="mcnfmCntr3">12개월 : 990,000원</label><br>
-									
+									<input id="mcnfmCntr1" name="mcnfmCntr" type="radio" value="A" class="form-check-input" checked="checked" required>
+									<label class="form-check-label" for="mcnfmCntr">1개월 : 100,000원</label><br>
+									<input id="mcnfmCntr2" name="mcnfmCntr" type="radio" value="B" class="form-check-input" required>
+									<label class="form-check-label" for="mcnfmCntr">6개월 : 500,000원</label><br>
+									<input id="mcnfmCntr3" name="mcnfmCntr" type="radio" value="C" class="form-check-input" required>
+									<label class="form-check-label" for="mcnfmCntr">12개월 : 990,000원</label><br>
 								</div>
 							</td>
 						</tr>
