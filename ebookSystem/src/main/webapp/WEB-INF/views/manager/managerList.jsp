@@ -5,15 +5,34 @@
 <head>
 <meta charset="UTF-8">
 <title>매니저리스트</title>
-<link href="resources/css/form-validation.css" rel="stylesheet">
-<link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
-
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
+
+$(function() {
+//  클릭시 상세조회
+	$("table").on("click", "tr", function() {
+		event.stopPropagation();
+		var id = $(this).closest("tr").data("id");
+		console.log($("#memberId").val(id));
+		$("#memberId").val(id);
+		frm.submit();
+	})
+
+//	체크박스 이벤트중지
+	$(".ckboxTd").on("click", function() {
+		event.stopPropagation();
+		if ($(event.target).find("#member").prop('checked') == false) {
+			$(event.target).find("#member").prop('checked', true);
+		} else {
+			$(event.target).find("#member").prop('checked', false);
+		}
+	});
+});
+
+
 
 //  업체회원 승인
 	function confirmManager() { 
@@ -70,8 +89,8 @@
 								<th>승인자ID</th>
 							</tr>
 							<c:forEach items="${lists}" var="managerConfirm" varStatus="status">
-								<tr>
-									<td><input type="checkbox" id="member${status.index}" name="checkManager" value="${managerConfirm.mcnfmId}"></td>
+								<tr data-id="${managerConfirm.memberId}">
+									<td class="ckboxTd"><input type="checkbox" id="member${status.index}" name="checkManager" value="${managerConfirm.mcnfmId}"></td>
 									<td>${managerConfirm.mcnfmId }</td>
 									<td>${managerConfirm.memberId }</td>
 									<td>${managerConfirm.mcnfmCoNm }</td>
@@ -91,6 +110,9 @@
 						<button type="submit" onclick="confirmManager()" class="btn btn-outline-primary">승인</button>
 					</div>
 				</div>
+				<form action="managerSelect" method="post" id="frm">
+					<input type="hidden" id="memberId" name="memberId">
+				</form>
 			</div>
 		</div>
 	</div>

@@ -5,9 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>매니저등록신청</title>
-<link href="resources/css/form-validation.css" rel="stylesheet">
-<link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
@@ -36,7 +33,6 @@ function mcnfmBizNoApi(){
 							<th>상호명</th>
 							<td colspan="3">
 								<input type="text" id="manfmconm" name="manfmconm" class="form-control" required> 
-								<div class="invalid-feedback">업체 상호명을 입력하세요</div>								
 							</td>
 						</tr>
 						<tr> 
@@ -52,14 +48,12 @@ function mcnfmBizNoApi(){
 							<th>대표자명</th>
 							<td colspan="3">
 								<input type="text" id="mcnfmrpspr" name="mcnfmrpspr" size="100px" class="form-control" required>
-								<div class="invalid-feedback">대표자명을 입력하세요</div>	
 							</td>
 						</tr>
 						<tr>
 							<th>회사번호</th>
 							<td colspan="3">
 								<input type="tel" id="mcnfmcotel" name="mcnfmcotel" size="100px" class="form-control" required>
-								<div class="invalid-feedback">회사전화번호를 입력하세요</div>	
 							</td>
 						</tr>
 						<tr>
@@ -72,12 +66,12 @@ function mcnfmBizNoApi(){
 									<label class="form-check-label" for="mcnfmCntr2">6개월 : 500,000원</label><br>
 									<input id="mcnfmCntr3" name="mcnfmCntr3" type="radio" value="C" class="form-check-input" required>
 									<label class="form-check-label" for="mcnfmCntr3">12개월 : 990,000원</label><br>
-									<div class="invalid-feedback">구분을 선택해주세요.</div>
+									
 								</div>
 							</td>
 						</tr>
 					</table>
-					<div>					
+					<div align="right">					
 						<button class="btn btn-primary btn-lg"  onClick="alert('업체등록신청이 완료되었습니다. 홈으로 이동합니다.')" type="submit">등록</button>
 					</div>
 				</form>

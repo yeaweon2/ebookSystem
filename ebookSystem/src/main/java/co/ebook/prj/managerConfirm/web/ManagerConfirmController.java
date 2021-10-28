@@ -2,6 +2,8 @@ package co.ebook.prj.managerConfirm.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,10 @@ public class ManagerConfirmController {
 	@Autowired
 	ManagerConfirmService managerCfDao;
 	
+	@Autowired
+	MemberService memberDao;
+	
+		
 //  매니저목록조회(매니저관리)
 	@RequestMapping("/managerList")
 	public String managerList(Model model) {
@@ -28,6 +34,19 @@ public class ManagerConfirmController {
 		model.addAttribute("lists", lists);
 		return "manager/managerList";
 	}
+	
+	
+//	매니저상세조회  
+	@RequestMapping("/managerSelect")
+	String managerSelect(Model model, ManagerConfirmVO vo, MemberVO mVo) {
+		
+		System.out.println("============" + vo.toString());
+		System.out.println("============" + managerCfDao.managerSelect(vo));
+		model.addAttribute("member", memberDao.memberSelect(mVo));
+		model.addAttribute("managerConfirm", managerCfDao.managerSelect(vo));
+		return "manager/managerSelect";
+	}
+	
 	
 //	매니저승인상태변경(업체승인)
 	@ResponseBody
@@ -55,6 +74,29 @@ public class ManagerConfirmController {
 	public String managerRegistSuccess(Model model, ManagerConfirmVO vo) {
 		managerCfDao.managerRegistInsert(vo);
 		return "main/home";
+	}
+	
+//	매니저정보수정폼
+	@RequestMapping("managerUpdateForm")
+	public String memberUpdateForm(Model model, ManagerConfirmVO vo, MemberVO mVo, HttpSession session) {
+		vo = managerCfDao.managerSelect(vo);
+		mVo = memberDao.memberSelect(mVo);
+		// vo.setMemberId((String)session.getAttribute("id")); 개인회원 마이페이지수정시에 session필요
+		model.addAttribute("member", mVo);
+		model.addAttribute("managerConfirm", vo);
+		return "manager/managerUpdateForm";
+		
+	}
+	
+//	매니저정보수정
+	@RequestMapping("/managerUpdate")
+	public String managerUpdate(Model model, ManagerConfirmVO vo, MemberVO mVo) {
+		System.out.println("===============================>>>>>>>>"+vo.toString());
+		memberDao.memberUpdate(mVo);
+		managerCfDao.managerUpdate(vo);
+		model.addAttribute("member", mVo);
+		model.addAttribute("managerConfirm", vo);
+		return "redirect:managerList";
 	}
 	
 }

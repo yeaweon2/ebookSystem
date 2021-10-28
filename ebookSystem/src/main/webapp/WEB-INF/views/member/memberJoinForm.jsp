@@ -8,10 +8,6 @@
 <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
 <title>개인회원가입 폼</title>
-<link href="resources/css/form-validation.css" rel="stylesheet">
-<link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
-
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>

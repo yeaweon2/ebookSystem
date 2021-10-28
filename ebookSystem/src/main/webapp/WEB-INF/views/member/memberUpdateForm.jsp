@@ -6,20 +6,58 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보수정</title>
-<link href="resources/css/form-validation.css" rel="stylesheet">
-<link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
-
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 
+$(document).ready(function(){
+//	회원구분 선택
+	$("#memberFlCdY").on("change", function(){
+	 console.log("==============");
+	 alert( $(this).val());
+	 $("#memberFlCd option:selected").text();
+	 $("#memberFlCd option:selected").val();
+	})
+
+//	매니저 승인여부 선택	  
+	 $("#managerCnfmYnY").on("change", function(){
+	 console.log("==============");
+	 alert( $(this).val());
+	 $("#managerCnfmYn option:selected").text();
+	 $("#managerCnfmYn option:selected").val();
+	})
+	
+//	회원상태 선택
+	 $("#memberStCdY").on("change", function(){
+	 console.log("==============");
+	 alert( $(this).val());
+	 $("#memberStCd option:selected").text();
+	 $("#memberStCd option:selected").val();
+	})
+	
+//	회원성별 선택
+	 $("#memberGenY").on("change", function(){
+	 console.log("==============");
+	 alert( $(this).val());
+	 $("#memberGen option:selected").text();
+	 $("#memberGen option:selected").val();
+	})
+	
+})
+
 //버튼 클릭 시 수정 & 취소
 function MemberEdit(str) {
 	if(str == 'U') {
 		if(confirm('수정하시겠습니까?') == true) {
+			 console.log($("#memberFlCdY option:selected").val());
+			 
+			 $("#memberFlCd").val($("#memberFlCdY option:selected").val());
+			 $("#managerCnfmYn").val($("#managerCnfmYnY option:selected").val());
+			 $("#memberStCd").val($("#memberStCdY option:selected").val());
+			 $("#memberGen").val($("#memberGenY option:selected").val());
+			 
 			frm.action = "memberUpdate";
 			frm.submit();
 		} else {
@@ -33,6 +71,7 @@ function MemberEdit(str) {
 		}
 	}
 }
+  
 </script>  
 </head>
 <body>
@@ -44,15 +83,15 @@ function MemberEdit(str) {
 				</div>
 			</div>
 			<div>
-				<div class="col-lg-12 mb-12 mb-lg-0" align="center">
 				<form id="frm" name="frm" method="post" >
+				<div class="col-lg-12 mb-12 mb-lg-0" align="center">
 					<div class="package text-center bg-white"><br />
 						<table id="lcodeTb" class="table table-hover">
 							
 								<tr id="lcodeTr" data-id="${member.memberId}">
 									<th><label for="memberFlNm">회원구분</label><th>
-									<td>
-										<select id="memberFlCd" class="form-control form-control-sm">
+									<td class="lcodememFlNm">
+										<select id="memberFlCdY" class="form-control form-control-sm">
 											<c:if test="${member.memberFlCd eq 'U'}">
 												<option value="U" selected>일반회원</option>
 												<option value="M" >매니저</option>
@@ -77,7 +116,7 @@ function MemberEdit(str) {
 								<tr>
 									<th><label for="managerCnfmYn">매니저승인여부</label><th>
 									<td>
-										<select id="managerCnfmYn" class="form-control form-control-sm">
+										<select id="managerCnfmYnY" class="form-control form-control-sm">
 											<c:if test="${member.managerCnfmYn eq 'N'}">
 												<option value="N" selected>처리중</option>
 												<option value="Y" >승인</option>
@@ -91,7 +130,7 @@ function MemberEdit(str) {
 									<td><input type="text" id="mcnfmId" name="mcnfmId" value="${member.mcnfmId}"></td>
 									<th><label for="memberStNm">회원상태</label></th>
 									<td>
-										<select id="memberStCd" class="form-control form-control-sm">
+										<select id="memberStCdY" class="form-control form-control-sm">
 											<c:if test="${member.memberStCd eq '01'}">
 												<option value="01" selected>사용중</option>
 												<option value="02" >휴면</option>
@@ -117,7 +156,7 @@ function MemberEdit(str) {
 									<td><input type="password" id="memberPw" name="memberPw" value="${member.memberPw}"></td>
 									<th><label for="memberGen">성별</label></th>
 									<td>
-										<select id="memberGen" class="form-control form-control-sm">
+										<select id="memberGenY" class="form-control form-control-sm">
 											<c:if test="${member.memberGen eq 'M'}">
 												<option value="M" selected>남자</option>
 												<option value="W" >여자</option>
@@ -151,7 +190,7 @@ function MemberEdit(str) {
 									
 									<div id="imgContainer" style="display:none"><img id="bookCoverImg" width="150" height="170"></div>
 									</td>
-									<td><button id="bookFileForm" type="button" class="btn btn-primary"> 파일등록 </button></td> 
+									<td><button id="FileForm" type="button" class="btn btn-primary"> 파일등록 </button></td> 
 									<th><label for="memberProfilePath">프로필파일경로</label></th>
 									<td><input type="text" id="memberProfilePath" name="memberProfilePath" value="${member.memberProfilePath}"></td>
 									<th></th>
@@ -167,12 +206,19 @@ function MemberEdit(str) {
 								</tr>
 						</table>
 					</div>
-				</form>
+					<div>
+      				<input type="hidden" id="memberFlCd" name="memberFlCd" value="${member.memberFlCd}">
+      				<input type="hidden" id="managerCnfmYn" name="managerCnfmYn" value="${member.managerCnfmYn}">
+      				<input type="hidden" id="memberStCd" name="memberStCd" value="${member.memberStCd}">
+      				<input type="hidden" id="memberGen" name="memberGen" value="${member.memberGen}">
+					</div> 
+					
 				</div><br><br>
 				<div align="center">
-					<input type="submit" onclick="MemberEdit('U')" value="수정" class="btn btn-primary">
+					<input type="button" onclick="MemberEdit('U')" value="수정" class="btn btn-primary">
 					<input type="button" onclick="MemberEdit('D')" value="취소" class="btn btn-danger">
 				</div><br><br><br>
+				</form>
 			</div>
 		</div>
 	</div>

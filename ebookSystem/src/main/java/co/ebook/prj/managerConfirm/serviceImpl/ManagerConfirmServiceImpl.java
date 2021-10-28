@@ -47,8 +47,19 @@ public class ManagerConfirmServiceImpl implements ManagerConfirmService {
 		return map.managerconfirmUpdate(vo);
 	}
 
+//	매니저등록신청
 	@Override
 	public int managerRegistInsert(ManagerConfirmVO vo) {
 		return map.managerRegistInsert(vo);
+	}
+
+//	매니저정보수정
+	@Override
+	public int managerUpdate(ManagerConfirmVO vo) {
+		MemberVO mVo = new MemberVO();
+		mVo.setMemberId(vo.getMemberId());
+		
+		mapp.confirmUpdate(mVo);
+		return map.managerUpdate(vo);
 	}
 }
