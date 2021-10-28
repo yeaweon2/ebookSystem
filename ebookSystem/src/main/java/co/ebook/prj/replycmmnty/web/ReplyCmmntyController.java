@@ -62,7 +62,6 @@ public class ReplyCmmntyController {
 	      
 	      if (result > 0) {
 	         map.put("result", "success");
-	         map.put("reply", replyDao.replyCmmntUpdate(vo));
 	      } else {
 	         map.put("result", "fail");
 	      }

@@ -25,8 +25,8 @@ public class CmmntyVO {
 	private int cmmntyReplyCnt;
 	private String cmmntyAtchNm;
 	private String cmmntyAtchPath;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern = "yyyy-MM-dd ")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd'T'HH:mm'Z'", timezone = "Asia/Seoul")
 	private Date insDt;
 	private Date udtDt;
 	

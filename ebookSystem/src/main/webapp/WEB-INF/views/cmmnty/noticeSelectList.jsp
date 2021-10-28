@@ -2,30 +2,31 @@
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>공지사항 상세페이지</title>
+
 <style type="text/css">
-
-.hidden {
-	display: none;
+.pointer{
+	cursor:pointer;
 }
-
 </style>
+
 <script>
    $(function() {
-      replySelect();
-      deletReply();
-      updateReply();      
+      replySelect();	//댓글 조회
+      deletReply(); 	//댓글 삭제
+      updateReply();	//댓글 수정
+      rBtnCancle();		//댓글 취소
       
       //댓글 입력
       $("#replyInputBtn").on("click", function(){
          var newReply = $("#replyinput").val();
          var cmmntyId = $("#cmmntyId").val();
-         
-         console.log(cmmntyId);
+       
          if (newReply == null || newReply == '') {
             alert("댓글을 입력해주세요.");
             $("#replyinput").focus();
@@ -60,18 +61,23 @@
       $('#rList').empty();
       $.each(data,function(idx, item) {
 	      $('#rList').append(
-	         $('<tr>').append($('<td>').html(item.creplyWriter))
-	                .append($('<td id="rContents">').html(item.creplyContents))
-	                .append($('<td>').html(item.insDt))
-	                .append($('<td>').html($("<input type='button' value='삭제' class='btnDel' id='btnDel'>")))
-	                .append($('<td>').html($("<input type='button' value='수정' class='btnUp' id='btnUp'>")))
-	                .data("id", item.creplyId )
-	                .data("writer", item.writer )
-	                .data("contents", item.creplyContents)
-	                .data("udtDt", item.udtDt)
-	                .data("insDt", item.insDt)
-	             
+	         $('<table class="table">').append($('<tr>').html(item.creplyWriter),
+	        		             $('<tr>').append($('<td id="rContents">').html(item.creplyContents)),
+	        		     		 $('<tr>').append($('<td>').html(item.insDt),
+	        		     				   $('<td>').html($("<a class='replyWt pointer' id='replyWt'>").html("답글쓰기")),
+	        		     				   $('<td>').html($("<a class='btnUp pointer' id='btnUp'>").html("수정")),
+	        		     				   $('<td>').html($("<a class='pointer' id='btnSave' style='display :none'>").html("저장")),
+	        		     				   $('<td>').html($("<a class='btnDel pointer' id='btnDel' >").html("삭제")),		   				
+	        		     				   $('<td>').html($("<a class='pointer' id='btnCancle' style='display :none'>").html("취소"))
+	        		     					 )
+	        		     					.data("id", item.creplyId )
+	        		    	                .data("writer", item.writer )
+	        		    	                .data("contents", item.creplyContents)
+	        		    	                .data("udtDt", item.udtDt)
+	        		    	                .data("insDt", item.insDt)		
+	        ).attr("id", "rplyTb" + item.creplyId)//table끝
 	      ); //RList
+	     
       })
    }
    
@@ -97,27 +103,72 @@
    function updateReply(){
 	   $("#rList").on("click", '.btnUp', function(){
 		   event.stopPropagation();
-		 
+		   
 		   var no = $(this).closest('tr').data("id");
 		   var contents = $(this).closest('tr').data("contents");
 		   
-		   $(this).closest('tr').find("#rContents").empty();
-		   $(this).closest('tr').find("#rContents").append($("<input type='text'>").val(contents));
-		   $(this).closest('tr').find("#btnUp").
-		   
-		   
-/* 		   $.ajax({
+		   $(this).closest('tr').prev().find("#rContents").empty();
+		   $(this).closest('tr').prev().find("#rContents").append($("<textarea rows='3'>").html(contents));
+		   $(this).closest('tr').find("#btnDel").css('display', 'none');
+		   $(this).closest('tr').find("#btnUp").css('display', 'none');
+		   $(this).closest('tr').find("#btnSave").css('display', 'block');
+		   $(this).closest('tr').find("#btnCancle").css('display', 'block');
+		  
+		   $.ajax({
 			   url : 'replyUpdate',
 			   data : JSON.stringify({creplyId : no , creplyContents : contents}),
 			   method : 'PUT',
 			   contentType: 'application/json',
 			   dataType : 'json' ,
-			   success : function(data){  
+			   success : function(data){
+				   rBtnSave();
+
 			   }
 				
-		   }) ; */
+		   }) 
 	   })
    }
+   
+   //댓글취소
+   function rBtnCancle(){
+	   $("#rList").on("click", '#btnCancle', function(){
+		   event.stopPropagation();
+		   
+		   var contents = $(this).closest('tr').data("contents");
+		   console.log(contents);
+		   
+		   $(this).closest('tr').prev().find("#rContents").empty();
+		   $(this).closest('tr').prev().find("#rContents").html(contents);
+		   $(this).closest('tr').find("#btnSave").css('display', 'none');
+		   $(this).closest('tr').find("#btnCancle").css('display', 'none');
+		   $(this).closest('tr').find("#btnDel").css('display', 'block');
+		   $(this).closest('tr').find("#btnUp").css('display', 'block');
+	   })
+   }
+   
+   //댓글저장(수정후 저장)
+   function rBtnSave(){
+	   $("#rList").on("click", '#btnSave', function(){
+		   event.stopPropagation();
+		   
+		   var no = $(this).closest('tr').data("id");
+		   var contents = $(this).closest('table').find("textarea").val();
+			
+		   $.ajax({
+			   url : 'replyUpdate',
+			   data : JSON.stringify({creplyId : no , creplyContents : contents}),
+			   method : 'PUT',
+			   contentType: 'application/json',
+			   dataType : 'json' ,
+			   success : function(data){
+				   replySelect();
+
+			   }
+				
+		   }) 
+	   })
+   }
+   
    
 </script>
 
@@ -137,7 +188,7 @@
                </tr>
                <tr>
                   <td>작성자: ${notice.cmmntyWriter}</td>
-                  <td>작성일자:<fmt:formatDate pattern="yyyy-MM-dd"
+                  <td>작성일자:<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
                         value="${notice.insDt}" /></td>
                   <td>조회수: ${notice.cmmntyHit}</td>
                </tr>
@@ -147,31 +198,40 @@
                </tr>
             </table>
 
+			<!-- 댓글 입력란-->
             <div id="replyput">
-               ${nicknm}
-               <input type="text" id="replyinput" name="replyinput" placeholder="댓글입력.."> 
-               <button type ="button" id ="replyInputBtn" data-cmmntyId="${notice.cmmntyId}">댓글등록</button>
-            </div>
-            <hr>
-
-            <div id="replyout">
-               <table id="rList">
-               
+               <table class="table">
+               <tr>
+               		<th>${nicknm}</th>
+               </tr>
+               <tr>
+               <td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3"></textarea>
+               </tr>
+               <tr>
+               <td colspan="2"></td>
+               <td class="pull-right"><button type ="button" id ="replyInputBtn" data-cmmntyId="${notice.cmmntyId}">댓글등록</button></td>
+               </tr>               
                </table>
             </div>
-
-            <input type="button" onclick="location.href='noticeList'" value="목록보기" class="btn btn-success"> 
-            <input type="button" onclick="NoticeEdit('U')" value="수정" class="btn btn-primary">
-            <input type="button" onclick="NoticeEdit('D')" value="삭제" class="btn btn-danger">
-
+            <hr>
+            
+			<!--  댓글 리스트 -->
+        	<div id="rList" class="table">
+               
+            </div>
+            
+			<hr>
+            <input type="button" onclick="location.href='noticeList'" value="목록보기" >
+            <input type="button" onclick="NoticeEdit('U')" value="수정" >
+            <input type="button" onclick="NoticeEdit('D')" value="삭제" >
          </div>
       </div>
    </div>
    <form id="frm" name="frm" method="post">
       <input type="hidden" id="cmmntyId" name="cmmntyId" value="${notice.cmmntyId}">
-   </form>
+   </form><br><br>
    <script>
-      //버튼클릭시 글수정,삭제
+      //원글 글수정,삭제
       function NoticeEdit(str) {
          if (str == 'U') {
             frm.action = "noticeUpdateForm";
