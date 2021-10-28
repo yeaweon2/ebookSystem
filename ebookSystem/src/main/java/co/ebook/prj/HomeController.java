@@ -50,4 +50,19 @@ public class HomeController {
 		return "main/about";  
 	}
 	
+	
+	@RequestMapping(value = "/sidebar", method = RequestMethod.GET)
+	public String sidebarSearch(Model model) {
+		
+		// 카테고리 
+		List<CtgyVO> ctgyGrs = ctgyDao.ctgyList();
+		
+		List<CtgyVO> ctgys = ctgyDao.ctgysList();
+		
+		model.addAttribute("ctgyGrs", ctgyGrs);
+		model.addAttribute("ctgys", ctgys);
+		
+		return "no/tiles/sidebar";  
+	}
+	
 }

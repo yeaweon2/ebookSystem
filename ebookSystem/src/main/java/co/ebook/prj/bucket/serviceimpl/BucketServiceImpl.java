@@ -16,8 +16,8 @@ public class BucketServiceImpl implements BucketService {
 	BucketMapper map ; 
 	
 	@Override
-	public List<BucketVO> bucketList() {
-		return map.bucketList();
+	public List<BucketVO> bucketList(BucketVO vo) {
+		return map.bucketList(vo);
 	}
 
 	@Override

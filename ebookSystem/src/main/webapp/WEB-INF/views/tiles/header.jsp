@@ -41,7 +41,7 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								
-								<li><a href="#"><i class="fa fa-star"></i> 버킷BOOK</a></li>
+								<li><a href="bucketList"><i class="fa fa-star"></i> 버킷BOOK</a></li>
 								<li><a href="cartList"><i class="fa fa-shopping-cart"></i>
 									<c:if test="${empty cartCnt}">
 									Cart

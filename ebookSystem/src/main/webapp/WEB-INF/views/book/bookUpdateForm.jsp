@@ -6,11 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>BOOK 관리</title>
-<link href="resources/css/form-validation.css" rel="stylesheet">
-<link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="resources/css/form-validation.css" rel="stylesheet"> 
+<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
 <script type="text/javascript">
 	$(function(){
+		
+		// 첨부파일 수정여부
+		var attchUpFlag = false;
 		
 		// 화면 진입시 카테고리 대분류 조회 후 셋팅 --------------------------------------------------------------------------------------
 		$.ajax({
@@ -91,44 +95,38 @@
 				return false;
 			}
 			
+			attchUpFlag = true;
+			
 			var reader = new FileReader();
 			reader.onload = function(e){
 				$("#bookCoverImg").attr("src", e.target.result);
 				$("#imgContainer").append($("#bookCoverImg"));
 			};
 			
-			console.log(event.target.files[0])
+			console.log(event.target.files[0]);
 			reader.readAsDataURL(event.target.files[0]);
-			
-			
-			
-			
 		});
 		
 		
 		
 		// 수정버튼 클릭시 -----------------------------------------------------------
 		$("#bookUpdateBtn").on("click",function(){
-			//console.log($('#frm').serializeObject());
-			event.preventDefault();  
-			var form = $('#frm')[0];
-			console.log($('#frm'));
-		    console.log(form);
-		    var data = new FormData(form);  
 		    $("#bookUpdateBtn").prop("disabled", true);   
 			
-			
-			$.ajax({
+		    var formData = new FormData($("#frm")[0]);
+
+			 $.ajax({
 				url : 'bookUpdate' ,
-				enctype: 'multipart/form-data',  
-				data : data,
-				method : 'put' ,
-				contentType : 'application/json',
-				dataType : 'json' ,
-				success : function(data){
+				data : formData , 
+				method : 'POST' ,
+				enctype: "multipart/form-data",
+				cache: false, 
+				contentType: false, 
+				processData: false,
+				success : function(res){
 					$("#bookUpdateBtn").prop("disabled", false);
-					console.log($("#msg"));
-					if($("#msg").val() == "Success"){
+					console.log(res.msg);
+					if($("#msg").val() == "success"){
 						alert("수정이 완료되었습니다.");
 					}else{
 						alert("수정시 오류가 발생하였습니다.");
@@ -139,32 +137,20 @@
 					console.log(rej);
 					$("#bookUpdateBtn").prop("disabled", false);
 				}
-			});
+			}); 
 		});
 
 		// 파일 수정버튼 클릭시 
 		$("#bookCoverEditBtn").on("click", function(){
-			$("#bookCover").click();
+			
+			$("#bookCoverEditBtn").css("display", "none");
+			$("#bookCoverNm").css("display", "none");
+			
+			$("#attchFile").css("display", "block");
+			$("#attchFile").click();
+			
 		});
 
-		
-		
-		if( $("#bookCoverPath").val() != null ){
-			
-			
-			
-			
-			$("#bookCoverImg").attr("src" , $("#bookCoverPath").val() + $("#bookCover").val());
-			$("#imgContainer").append($("#bookCoverImg"));
-		
-		
-			
-			
-			
-			
-		}
-		
-		
 	});
 	
 </script>
@@ -178,7 +164,7 @@
 	        	</div>
 			</div>	
 			<div> 
-				<form class="needs-validation form-horizontal" id="frm" name ="frm" enctype = "multipart/form-data" novalidate>
+				<form class="needs-validation form-horizontal" enctype="multipart/form-data" method="POST" id="frm" name ="frm" novalidate>
 					<table class="table">
 						<tr>
 							<th>카테고리</th>
@@ -217,7 +203,7 @@
 							<th>BOOK명</th>
 							<td colspan="3">
 								<input type="text" id="bookNm" name="bookNm" size="100px" class="form-control"  value="${books.bookNm}">
-								<button id="bookSearch" type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookApiModal"> BOOK조회 </button>
+								<button id="bookSearch" type="button" class="btn btn-default" data-toggle="modal" data-target="#bookApiModal"> BOOK조회 </button>
 								<div class="invalid-feedback">
 									BOOK명을 입력해주세요.
 								</div>
@@ -249,12 +235,13 @@
 									<div id="imgContainer"><img id="bookCoverImg" width="150" height="170"></div>
 								</c:if>
 								<c:if test="${not empty books.bookCover }">
-									<a id="bookCoverImg" onclick="bookCoverClick()">${books.bookCover}</a>
-									<button id="bookCoverEditBtn" type="button" class="btn btn-primary"> 파일수정 </button>
+
+									<button id="bookCoverEditBtn" type="button" class="btn btn-default"> 파일수정 </button>
+									<p id="bookCoverNm">${books.bookCover}</p>
 									<input type="file" id="attchFile" name="attchFile" class="form-control" style="display: none">
 									<input type="hidden" id="bookCover" name="bookCover" value="${books.bookCover}">
 									<input type="hidden" id="bookCoverPath" name="bookCoverPath" value="${books.bookCoverPath}">
-									<div id="imgContainer"><img id="bookCoverImg" width="150" height="170" src="/prj/fileUp${books.bookCoverPath}${books.bookCover}"></div>
+									<div id="imgContainer"><img id="bookCoverImg" width="150" height="170" src="/prj/fileUp${books.bookCoverPath}${books.bookCover}"></div>									
 								</c:if>
 							</td>
 							<th>BOOK파일</th>
@@ -274,8 +261,8 @@
 						</tr>
 					</table>
 					<div>
-						<button type="submit" id="bookUpdateBtn" class="btn btn-outline-primary">수 정</button>
-						<button type="button" class="btn btn-outline-primary" onclick="location.href='bookList'">BOOK목록</button>
+						<button type="button" id="bookUpdateBtn" class="btn btn-default">수 정</button>
+						<button type="button" class="btn btn-default" onclick="location.href='bookList'">BOOK목록</button>
 					</div>
 					<input type="hidden" id="bookId" name="bookId" value="${books.bookId}" >
 					<input type="hidden" id="msg" name="msg" value="${msg}" >
@@ -302,7 +289,7 @@
 						<div class="invalid-feedback">
 							검색할 BOOK명을 입력해주세요.
 						</div>	
-						<button type="submit" id="bookApiSearch" class="btn btn-primary" onclick="bookApi()" >검 색</button>
+						<button type="submit" id="bookApiSearch" class="btn btn-default" onclick="bookApi()" >검 색</button>
 					</div>
 					<div class="row">
 						<table id="apiTb" class="table table-hover">
@@ -323,7 +310,7 @@
 				</div>
 	      		<!--Footer-->
 		      	<div class="modal-footer">
-		        	<button id="apiCloseBtn" type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+		        	<button id="apiCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</form>
 		</div>
@@ -332,7 +319,7 @@
 <iframe id="iframe1" name="iframe1" style="display:none"></iframe>
 
 <script src="resources/js/form-validation.js"></script>
-<script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="resources/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 
 	function bookApi(){

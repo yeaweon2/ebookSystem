@@ -138,23 +138,20 @@
 </script>
 </head>
 <body>
-	<div class="inner-page pt-6">
+	<section id="cart_items">
 		<div class="container">
-			<div class="row mb-1" style="margin-top: 40px">
-				<div class="section-header">
-	          		<h2>BOOK 카트</h2>
-	        	</div>
-			</div>	
-			
-			<div class="row">
-				<table class="table table-hover">
-					<tr>
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+				<thead>
+					<tr class="cart_menu">
 						<th><input type="checkbox"></th>
 						<th>등록일자</th>
-						<th>BOOK</th>
+						<th class="image">BOOK</th>
+						<th class="description"></th>
 						<th>버킷 / 삭제</th>
 						<th></th>
 					</tr>
+					</thead>
 					<tbody id="cartTbody">
 					<c:if test="${empty lists}">
 					
@@ -163,17 +160,20 @@
 						</tr>
 						
 					</c:if>
-					<c:forEach var="list" items="${lists}">
-						<tr class="pointer" data-bookid="${list.bookId}">
+					<c:forEach var="book" items="${lists}">
+						<tr class="pointer" data-bookid="${book.bookId}">
 							<td><input id="chkInput" type="checkbox"></td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.insDt}"/></td>
-							<td>
-								<c:if test="${not empty list.bookCoverPath}">
-									<img width="50" height="70" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">&nbsp;&nbsp;
+							<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${book.insDt}"/></td>
+							<td class="cart_product">
+								<c:if test="${not empty book.bookCoverPath}">
+									<img width="50" height="70" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}">&nbsp;&nbsp;
 								</c:if>
-								${list.bookNm}
 							</td>
-							<td><button class="bucketBtn" ><i class="fa fa-heart"></i></button><button class="removeBtn" data-toggle="modal" data-target="#itemDel" ><i class="fa fa-remove"></i></button></td>
+							<td class="cart_description">
+								<h4>${book.bookNm}</h4>
+								<p>${book.bookPublCo}(${book.bookWriter})</p>
+							</td>	
+							<td><button class="cart_quantity_delete" data-toggle="modal" data-target="#itemDel" ><i class="fa fa-times"></i></button></td>
 						</tr>
 					</c:forEach>
 					</tbody>
@@ -185,7 +185,7 @@
 				<button id="lendBtn" class="btn btn-outline-secondary">전체대여</button>
 			</div>
 	</div>
-</div>	 
+</section>	 
 <div  class="modal fade" id="itemDel" style="display: none">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">

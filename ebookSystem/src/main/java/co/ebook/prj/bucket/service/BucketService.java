@@ -6,7 +6,7 @@ import co.ebook.prj.bucket.vo.BucketVO;
 
 public interface BucketService {
 	 
-	List<BucketVO> bucketList();
+	List<BucketVO> bucketList(BucketVO vo);
 	
 	int bucketInsert(BucketVO vo);
 	

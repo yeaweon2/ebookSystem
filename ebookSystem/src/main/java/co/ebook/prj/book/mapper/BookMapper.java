@@ -16,4 +16,7 @@ public interface BookMapper {
 	int bookDelete(BookVO vo);
 	
 	int bookUpdate(BookVO vo);
+	
+	int bookCoverUpdate(BookVO vo);
+	
 }

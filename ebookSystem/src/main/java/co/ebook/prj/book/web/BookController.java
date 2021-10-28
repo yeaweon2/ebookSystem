@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -62,8 +63,9 @@ public class BookController {
 	@PostMapping("/bookInsert")
 	public String bookInsert(Model model , BookVO vo, MultipartFile attchFile , HttpServletRequest request) {
 		
+		HttpSession session = request.getSession();
 		int result = 0;
-		vo.setMemberId("admin");	
+		vo.setMemberId((String)session.getAttribute("id"));	
 		String fileName = "";
 		String filePath= "";
 		try {

@@ -5,7 +5,7 @@ import java.util.List;
 import co.ebook.prj.bucket.vo.BucketVO;
 
 public interface BucketMapper {
-	List<BucketVO> bucketList();
+	List<BucketVO> bucketList(BucketVO vo);
 	
 	int bucketInsert(BucketVO vo);
 	

@@ -18,7 +18,7 @@ public interface BookService {
 	
 	int bookUpdate(BookVO vo);
 	
-	
+	int bookCoverUpdate(BookVO vo);	
 	
 	
 }

@@ -39,23 +39,38 @@ public class bookRestController {
     }
    
    
-	@RequestMapping(value="/bookUpdate", method=RequestMethod.PUT, consumes="application/json"  )
-   public BookVO bookUpdate(Model model, @RequestBody BookVO vo , MultipartFile bookCover, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/bookUpdate", method=RequestMethod.POST )
+   public BookVO bookUpdate(Model model, BookVO vo ) {
+		
+		System.out.println("===============================>> 수정전");
 		System.out.println(vo.toString());
+		System.out.println("===============================>> ");
+		
+		MultipartFile attchFile = vo.getAttchFile();
 		String fileName = "";
-	
+		String filePath= "";
 		
 		try {
-			if ( bookCover != null ) {
-				if (!bookCover.getOriginalFilename().isEmpty()) {
-					fileName = bookCover.getOriginalFilename();	
-					filePath = request.getServletContext().getRealPath("/");	// 파일 저장경로
-					filePath =  filePath + "\\book\\";							// 파일이 저장될 최종폴더
+			if ( attchFile != null ) {
+				if (!attchFile.getOriginalFilename().isEmpty()) {
+					fileName = attchFile.getOriginalFilename();	
+					//filePath = request.getServletContext().getRealPath("/");	// 파일 저장경로
+					filePath =  filePath + "/book/";								// 파일이 저장될 최종폴더
 
 					// UUID.randomUUID().toString() + "_" +
 					File fileSave = new File(filePath, fileName);
 					
-					bookCover.transferTo(fileSave);			// 파일 업로드
+					attchFile.transferTo(fileSave);			// 파일 업로드
+
+					// 기존파일 삭제
+/*					if( vo.getBookCover() != null || !"".equals(vo.getBookCover()) ) {
+						File oldFile =new File(vo.getBookCoverPath(), vo.getBookCover());
+
+						if( oldFile.exists()) {
+							oldFile.delete();
+						}	
+					} */
+					
 				}else {
 					filePath = "";
 					fileName = "";
@@ -70,15 +85,9 @@ public class bookRestController {
 		System.out.println( filePath );
 		System.out.println("----------------------------->> ");
 		
-		if(!"".equals(fileName)) {
-			vo.setBookCover(fileName);
-			vo.setBookCoverPath(filePath);	
-		}else {
-			vo.setBookCover("");
-			vo.setBookCoverPath("");
-		}
-		
-		
+		vo.setBookCover(fileName);
+		vo.setBookCoverPath(filePath);
+
 	   int result = bookDao.bookUpdate(vo);
 	   System.out.println("BOOK수정 : " + result + " ----> ");
 	   if( result > 0) {
@@ -89,4 +98,5 @@ public class bookRestController {
 	   
 	   return vo;
    }
+	
 }

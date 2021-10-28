@@ -124,7 +124,7 @@
 									카테고리를 입력해주세요.
 								</div>								
 							</td>
-							<th>도서구분</th>
+							<th>도서구분</th> 
 							<td>
 								<div class="form-check-inline" style="word-spacing :10px">
 									<input id="eBook" name="bookFlCd" type="radio" value="E" class="form-check-input" checked required>

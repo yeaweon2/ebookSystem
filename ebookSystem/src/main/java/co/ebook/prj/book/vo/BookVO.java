@@ -3,6 +3,7 @@ package co.ebook.prj.book.vo;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -36,6 +37,9 @@ public class BookVO {
 	private String bookCoverPath;
 	private String memberId;
 	private String memberNm;
+	private MultipartFile attchFile;
+
+	
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")

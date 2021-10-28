@@ -13,7 +13,7 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
 	<script src="resources/js/json.min.js"></script>
 	    
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -39,8 +39,8 @@
 	<section>
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-3">
-					<tiles:insertAttribute name="sidebar"/>
+				<div class="col-sm-3 sidebar">
+
 				</div>
 				<div class="col-sm-9 padding-right">
 					<tiles:insertAttribute name="body"/>
@@ -51,13 +51,16 @@
 	
 	<tiles:insertAttribute name="footer"/>
 
-
-   <script src="resources/js/jquery.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/jquery.scrollUp.min.js"></script>
 	<script src="resources/js/price-range.js"></script>
     <script src="resources/js/jquery.prettyPhoto.js"></script>
     <script src="resources/js/main.js"></script>
+    <script type="text/javascript">
+    	
+    $(".sidebar").load("sidebar");
+    
+    </script>
 </body>
 
 </html>

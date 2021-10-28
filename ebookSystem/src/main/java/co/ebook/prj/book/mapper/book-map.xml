@@ -88,9 +88,17 @@
 		     , BOOK_DESC = #{bookDesc}
 		     , BOOK_COVER = #{bookCover}
 		     , BOOK_COVER_PATH = #{bookCoverPath}
-		     , UDT_DT = sysdate
+		     , UDT_DT = SYSDATE
 		 WHERE BOOK_ID = #{bookId} 
 	</update>
+	
+		<update id="bookCoverUpdate" parameterType="co.ebook.prj.book.vo.BookVO">
+		UPDATE book 
+		   SET BOOK_COVER = #{bookCover}
+		     , BOOK_COVER_PATH = #{bookCoverPath}
+		     , UDT_DT = SYSDATE
+		 WHERE BOOK_ID = #{bookId} 
+	</update>		   
 	
 	<update id="bookDelete" parameterType="co.ebook.prj.book.vo.BookVO">
 		UPDATE BOOK 

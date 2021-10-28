@@ -16,6 +16,8 @@ public class CartVO {
 	private String bookNm;
 	private String bookCover;
 	private String bookCoverPath;
+	private String bookPublCo;
+	private String bookWriter;
 	private int bookAmt;
 	private int bookDiscnt;
 	private String memberId;

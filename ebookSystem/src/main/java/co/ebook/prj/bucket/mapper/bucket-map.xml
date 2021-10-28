@@ -1,19 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.ebook.prj.bucket.mapper.BucketMapper">
-	<select id="bucketList">
-
+	<select id="bucketList" resultType="co.ebook.prj.bucket.vo.BucketVO">
+		SELECT bucket_id
+	         , k.book_id 
+	         , b.book_nm
+	         , b.book_cover
+	         , b.book_cover_path
+	         , b.book_publ_co
+	         , b.book_writer
+	         , b.book_Intro
+	         , k.member_id
+	         , bucket_st_cd
+	         , ( select scode_nm from scodes where lcode = 'BS' and scode = k.bucket_st_cd ) as bucket_st_nm
+	         , bucket_ord
+	         , bucket_done_dt
+	         , bucket_del_yn 
+	         , k.ins_dt
+	         , k.udt_dt
+	      FROM BUCKET_BOOK K 
+             , book B 
+	     WHERE K.BOOK_ID = B.BOOK_ID  
+		   AND K.MEMBER_ID = #{memberId} 
+		   AND K.BUCKET_DEL_YN = 'N'
+		 ORDER BY K.bucket_ord  		   
 	</select>
 	
 	<insert id="bucketInsert">
-	
+		INSERT INTO BUCKET_BOOK VALUES 
+		( BUCK_SEQ.NEXTVAL 	, #{bookId}  	, #{memberId} 	, '01' 
+			, (SELECT MAX(bucket_ord)+1 FROM BUCKET_BOOK WHERE MEMBER_ID = #{memberId} ) 
+			, null	, 'N' , SYSDATE , SYSDATE )
 	</insert>
 	
 	<update id="bucketUpdate">
-	
+		UPDATE bucket_book
+		   SET bucket_done_dt = SYSDATE
+		     , bucket_st_cd = '02'
+		     , udt_dt = SYSDATE
+		 WHERE bucket_id = #{bucketId}
+		   AND book_id = #{bookId}
+		   AND MEMBER_ID = #{memberId}
+		     
 	</update>
 	
-	<delete id="bucketDelete">
-	
-	</delete>
+	<update id="bucketDelete">
+		UPDATE bucket_book
+		   SET bucket_del_yn = 'Y'
+		     , udt_dt = SYSDATE
+		 WHERE bucket_id = #{bucketId}
+		   AND book_id = #{bookId}
+		   AND MEMBER_ID = #{memberId}    
+	</update>
 </mapper>
