@@ -6,11 +6,26 @@
 	<!-- 전체 레이아웃 -->	
 	<definition name="layout" template="/WEB-INF/views/tiles/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
+		<put-attribute name="sidebar" value="/WEB-INF/views/tiles/sidebar.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+	</definition>
+	
+	
+	<!-- 전체 레이아웃 -->	
+	<definition name="mainlayout" template="/WEB-INF/views/tiles/mainlayout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
+		<put-attribute name="mainslider" value="/WEB-INF/views/tiles/mainslider.jsp" />
+		<put-attribute name="sidebar" value="/WEB-INF/views/tiles/sidebar.jsp" />
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
 	</definition>
 	
 	<!-- body 설정 -->
+	<definition name="main/home" extends="mainlayout"  >
+		<put-attribute name="body" value="/WEB-INF/views/main/home.jsp" />
+	</definition>
+	
 	<definition name="*/*" extends="layout"  >
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>

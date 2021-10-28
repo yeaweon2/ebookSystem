@@ -7,6 +7,8 @@ import co.ebook.prj.category.vo.CtgyVO;
 public interface CtgyMapper {
 	List<CtgyVO> ctgyList();
 	
+	List<CtgyVO> ctgysList();
+	
 	List<CtgyVO> ctgyDetailList(CtgyVO vo);
 	
 	int ctgyInsert(CtgyVO vo);

@@ -8,6 +8,8 @@ public interface CtgyService {
 
 	List<CtgyVO> ctgyList();
 	
+	List<CtgyVO> ctgysList();
+	
 	List<CtgyVO> ctgyDetailList(CtgyVO vo);
 	
 	int ctgyInsert(CtgyVO vo);

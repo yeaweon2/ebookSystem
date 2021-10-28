@@ -33,30 +33,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="home"><img src="resources/images/home/logo.png" alt="" /></a>
-						</div>
-						<div class="btn-group pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									USA
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Canada</a></li>
-									<li><a href="#">UK</a></li>
-								</ul>
-							</div>
-							
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									DOLLAR
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Canadian Dollar</a></li>
-									<li><a href="#">Pound</a></li>
-								</ul>
-							</div>
+							<a href="home"><img height="70" src="resources/images/home/logo.jpg" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -66,12 +43,18 @@
 								
 								<li><a href="#"><i class="fa fa-star"></i> 버킷BOOK</a></li>
 								<li><a href="cartList"><i class="fa fa-shopping-cart"></i>
-									<c:if test="${cartCnt eq '0'}">
+									<c:if test="${empty cartCnt}">
 									Cart
 									</c:if>
-									<c:if test="${cartCnt != '0'}">
-									Cart [ ${cartCnt} ]
+									<c:if test="${not empty cartCnt}">
+										<c:if test="${cartCnt eq '0'}">
+										Cart
+										</c:if>
+										<c:if test="${cartCnt != '0'}">
+										Cart [ ${cartCnt} ]
+										</c:if>
 									</c:if>
+									
 									</a></li>
 								<c:if test="${empty id}">
 									<li><a href="memberJoin"><i class="fa fa-user"></i>회원가입</a></li>

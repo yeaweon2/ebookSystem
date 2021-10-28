@@ -35,6 +35,7 @@
 </head>
 <body>
 	<tiles:insertAttribute name="header"/>
+	<tiles:insertAttribute name="mainslider"/>
 	
 	<section>
 		<div class="container">

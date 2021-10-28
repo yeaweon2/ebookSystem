@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import co.ebook.prj.book.service.BookService;
 import co.ebook.prj.book.vo.BookVO;
+import co.ebook.prj.category.service.CtgyService;
+import co.ebook.prj.category.vo.CtgyVO;
 
 /**
  * Handles requests for the application home page.
@@ -21,12 +23,24 @@ public class HomeController {
 	@Autowired
 	BookService bookDao;
 	
+	@Autowired
+	CtgyService ctgyDao;
+	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
 		// best seller 
 		List<BookVO> lists = bookDao.bestSellerBook();
 		model.addAttribute("lists", lists);
+		
+		// 카테고리 
+		List<CtgyVO> ctgyGrs = ctgyDao.ctgyList();
+		
+		List<CtgyVO> ctgys = ctgyDao.ctgysList();
+		
+		model.addAttribute("ctgyGrs", ctgyGrs);
+		model.addAttribute("ctgys", ctgys);
+		
 		return "main/home";  
 	}
 	

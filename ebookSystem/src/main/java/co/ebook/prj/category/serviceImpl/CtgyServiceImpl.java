@@ -42,4 +42,10 @@ public class CtgyServiceImpl implements CtgyService {
 		return map.ctgyDelete(vo);
 	}
 
+	// main화면에서 사용할 카테고리 자식노드 조회쿼리 
+	@Override
+	public List<CtgyVO> ctgysList() {
+		return map.ctgysList();
+	}
+
 }

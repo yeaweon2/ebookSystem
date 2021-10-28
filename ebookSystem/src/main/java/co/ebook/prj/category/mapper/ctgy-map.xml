@@ -8,6 +8,13 @@
 		 ORDER BY CTGY_ID
 	</select>
 	
+	<select id="ctgysList" resultType="co.ebook.prj.category.vo.CtgyVO">
+	 	SELECT *
+		  FROM CATEGORY
+		 WHERE CTGY_GR_ID IS NOT NULL
+		 ORDER BY CTGY_ID
+	</select>	
+	
 	<select id="ctgyDetailList" resultType="co.ebook.prj.category.vo.CtgyVO">
 		SELECT *
 		  FROM CATEGORY
