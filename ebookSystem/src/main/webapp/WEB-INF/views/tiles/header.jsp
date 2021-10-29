@@ -40,7 +40,7 @@
 						<div>${id} : ${name} : ${nicknm} : ${auth} : ${stcd} </div>
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								
+								<li><a href="ticketList"><i class="fa fa-credit-card"></i> 월정액구매</a></li>
 								<li><a href="bucketList"><i class="fa fa-star"></i> 버킷BOOK</a></li>
 								<li><a href="cartList"><i class="fa fa-shopping-cart"></i>
 									<c:if test="${empty cartCnt}">
