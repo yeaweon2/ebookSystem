@@ -21,12 +21,18 @@
 							, CMMNTY_ID
 							, CREPLY_WRITER
 							, CREPLY_CONTENTS
+							, CREPLY_CLASS
+							, CREPLY_ORD
+							, CREPLY_GR
 							, INS_DT
 							, UDT_DT) 
 	VALUES(CR_SEQ.nextval
 		, #{cmmntyId}
 		, #{creplyWriter}
 		, #{creplyContents}
+		, #{creplyClass}
+		, null
+		, #{creplyGr}
 		, SYSDATE
 		, SYSDATE)
 	</insert>

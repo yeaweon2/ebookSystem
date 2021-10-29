@@ -77,12 +77,18 @@
 	  WHERE CMMNTY_ID = #{cmmntyId}   
 	</update>
 	
-	<!-- 댓글 행 카운터 -->
+	<!-- 댓글 행 카운터(증가) -->
 	<update id="cmmntyReplyCnt" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
 	UPDATE COMMUNITY
 	   SET CMMNTY_REPLY_CNT = CMMNTY_REPLY_CNT + 1
 	 WHERE CMMNTY_ID = #{cmmntyId}
-	</update>
+	 </update>
 	
+	<!-- 댓글 행 카운터(삭제) -->
+	<update id="cmmntyReplyDel" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
+	UPDATE COMMUNITY
+	   SET CMMNTY_REPLY_CNT = CMMNTY_REPLY_CNT - 1
+	 WHERE CMMNTY_ID = #{cmmntyId}
+	</update>
 
 </mapper>

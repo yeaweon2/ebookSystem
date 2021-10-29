@@ -21,17 +21,21 @@
       deletReply(); 	//댓글 삭제
       updateReply();	//댓글 수정
       rBtnCancle();		//댓글 취소
+      rReplyInput(); 	//대댓글 작성
       
       //댓글 입력
       $("#replyInputBtn").on("click", function(){
+ 
          var newReply = $("#replyinput").val();
          var cmmntyId = $("#cmmntyId").val();
        
-         if (newReply == null || newReply == '') {
+ 	  	 $("Class").val('0');
+  	   
+      if (newReply == null || newReply == '') {
             alert("댓글을 입력해주세요.");
             $("#replyinput").focus();
             return false;   
-         } else{
+     } else{
             
              $.ajax({
                url : 'replyInsert',
@@ -40,12 +44,35 @@
                dataType : 'json',
                data : JSON.stringify({creplyContents : newReply , cmmntyId : cmmntyId }),
                success : function(data){
-                  replySelect();
-               }
+                  		 replySelect();
+                  	     $("#replyinput").val('');
+                        }
             }); 
-         }
-      });
-   });
+      }//else끝 
+    });
+  });
+   
+   //대댓글 입력ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ>>>>>>>>>>>>>>>>>>>>>>>>>>
+   function rReplyInput(){
+	   $("#rList").on("click", "#rreplyInputBtn",function(){
+		   event.stopPropagation();
+		   $("Class").val('1');
+		   
+		   $('#rRList').empty();
+		   
+			      $('#rRList').append(
+			    		  $('<table class="table">').append($('<tr>').html()),
+		        		             $('<tr>').append($('<td>').html($("<textarea >"))),
+		        		     		 $('<tr>').append($('<td>').html(),
+		        		     				   $('<td>').html($("<a class='btnUp pointer' id='btnUp'style='display :none'>").html("수정")),
+		        		     				   $('<td>').html($("<a class='pointer' id='btnSave' >").html("저장")),
+		        		     				   $('<td>').html($("<a class='btnDel pointer' id='btnDel' style='display :none'>").html("삭제")),		   				
+		        		     				   $('<td>').html($("<a class='pointer' id='btnCancle' >").html("취소")),
+		        		     					)
+			    )//rRList 끝
+		   
+   }); 
+   }   //대댓글입력끝
    
    //댓글 조회
    function replySelect() {
@@ -64,20 +91,21 @@
 	         $('<table class="table">').append($('<tr>').html(item.creplyWriter),
 	        		             $('<tr>').append($('<td id="rContents">').html(item.creplyContents)),
 	        		     		 $('<tr>').append($('<td>').html(item.insDt),
-	        		     				   $('<td>').html($("<a class='replyWt pointer' id='replyWt'>").html("답글쓰기")),
-	        		     				   $('<td>').html($("<a class='btnUp pointer' id='btnUp'>").html("수정")),
-	        		     				   $('<td>').html($("<a class='pointer' id='btnSave' style='display :none'>").html("저장")),
-	        		     				   $('<td>').html($("<a class='btnDel pointer' id='btnDel' >").html("삭제")),		   				
-	        		     				   $('<td>').html($("<a class='pointer' id='btnCancle' style='display :none'>").html("취소"))
-	        		     					 )
-	        		     					.data("id", item.creplyId )
-	        		    	                .data("writer", item.writer )
-	        		    	                .data("contents", item.creplyContents)
-	        		    	                .data("udtDt", item.udtDt)
-	        		    	                .data("insDt", item.insDt)		
+	        		     				   		  $('<td>').html($("<a class='rreplyInputBtn pointer' id='rreplyInputBtn'>").html("답글쓰기")),
+	        		     				 		  $('<td>').html($("<a class='btnUp pointer' id='btnUp'>").html("수정")),
+	        		     				 		  $('<td>').html($("<a class='pointer' id='btnSave' style='display :none'>").html("저장")),
+	        		     				 		  $('<td>').html($("<a class='btnDel pointer' id='btnDel' >").html("삭제")),		   				
+	        		     				 		  $('<td>').html($("<a class='pointer' id='btnCancle' style='display :none'>").html("취소")),
+	        		     				)//마지막 tr행끝
+	        		     				.data("cid", item.cmmntyId )
+	        		     				.data("id", item.creplyId )
+	        		    	            .data("writer", item.writer )
+	        		    	            .data("contents", item.creplyContents)
+	        		    	            .data("Class", item.creplyClass)
+	        		    	            .data("udtDt", item.udtDt)
+	        		    	            .data("insDt", item.insDt)		
 	        ).attr("id", "rplyTb" + item.creplyId)//table끝
-	      ); //RList
-	     
+	      )//RList
       })
    }
    
@@ -85,16 +113,20 @@
    function deletReply(){
       $("#rList").on("click", '.btnDel', function(){
          event.stopPropagation();
-         var no = $(this).closest('tr').data("id");
+         var creplyId = $(this).closest('tr').data("id");
+         var cmmntyId = $(this).closest('tr').data("cid");
          
-          $.ajax({
-            url : 'replyDelete' + no,
+         
+            $.ajax({
+            url : 'replyDelete',
+            data : JSON.stringify({creplyId : creplyId , cmmntyId : cmmntyId}),
             method : 'DELETE',
             contentType : 'application/json;charset=utf-8',
             dataType : 'json',
             success : function(){
                replySelect();
-            }
+               
+            } 
          }) 
       });
    }
@@ -104,11 +136,11 @@
 	   $("#rList").on("click", '.btnUp', function(){
 		   event.stopPropagation();
 		   
-		   var no = $(this).closest('tr').data("id");
+		   var creplyId = $(this).closest('tr').data("id");
 		   var contents = $(this).closest('tr').data("contents");
 		   
 		   $(this).closest('tr').prev().find("#rContents").empty();
-		   $(this).closest('tr').prev().find("#rContents").append($("<textarea rows='3'>").html(contents));
+		   $(this).closest('tr').prev().find("#rContents").append($("<textarea rows='3' >").html(contents));
 		   $(this).closest('tr').find("#btnDel").css('display', 'none');
 		   $(this).closest('tr').find("#btnUp").css('display', 'none');
 		   $(this).closest('tr').find("#btnSave").css('display', 'block');
@@ -116,12 +148,12 @@
 		  
 		   $.ajax({
 			   url : 'replyUpdate',
-			   data : JSON.stringify({creplyId : no , creplyContents : contents}),
+			   data : JSON.stringify({creplyId : creplyId , creplyContents : contents}),
 			   method : 'PUT',
 			   contentType: 'application/json',
 			   dataType : 'json' ,
 			   success : function(data){
-				   rBtnSave();
+				   		 rBtnSave();
 
 			   }
 				
@@ -151,12 +183,12 @@
 	   $("#rList").on("click", '#btnSave', function(){
 		   event.stopPropagation();
 		   
-		   var no = $(this).closest('tr').data("id");
+		   var creplyId = $(this).closest('tr').data("id");
 		   var contents = $(this).closest('table').find("textarea").val();
 			
 		   $.ajax({
 			   url : 'replyUpdate',
-			   data : JSON.stringify({creplyId : no , creplyContents : contents}),
+			   data : JSON.stringify({creplyId : creplyId , creplyContents : contents}),
 			   method : 'PUT',
 			   contentType: 'application/json',
 			   dataType : 'json' ,
@@ -216,8 +248,11 @@
             <hr>
             
 			<!--  댓글 리스트 -->
-        	<div id="rList" class="table">
-               
+        	<div id="rList" class="rList">
+           
+            </div>
+            <div id="rRList" class="rRList">
+            
             </div>
             
 			<hr>

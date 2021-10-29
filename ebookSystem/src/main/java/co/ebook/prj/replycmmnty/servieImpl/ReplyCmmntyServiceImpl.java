@@ -38,6 +38,9 @@ public class ReplyCmmntyServiceImpl implements ReplyCmmntyService {
 
 	@Override //댓글 삭제
 	public int replyCmmntDelete(ReplyCmmntyVO vo) {
+		CmmntyVO cvo = new CmmntyVO();
+		cvo.setCmmntyId(vo.getCmmntyId());
+		cmap.cmmntyReplyDel(cvo);
 		return map.replyCmmntDelete(vo);
 	}
 

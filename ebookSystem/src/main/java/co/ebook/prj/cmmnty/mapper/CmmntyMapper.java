@@ -12,4 +12,5 @@ public interface CmmntyMapper {
 	int cmmntyDelete(CmmntyVO vo);
 	int cmmntyHit(CmmntyVO vo);
 	int cmmntyReplyCnt(CmmntyVO vo);
+	int cmmntyReplyDel(CmmntyVO vo);
 }
