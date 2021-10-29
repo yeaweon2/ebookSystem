@@ -32,6 +32,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="resources/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="resources/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="resources/images/ico/apple-touch-icon-57-precomposed.png">
+    <link href="resources/css/ebook.css" rel="stylesheet">
 </head>
 <body>
 	<tiles:insertAttribute name="header"/>
