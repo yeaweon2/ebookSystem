@@ -1,12 +1,18 @@
 package co.ebook.prj.managerConfirm.web;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +30,13 @@ public class ManagerConfirmController {
 	
 	@Autowired
 	MemberService memberDao;
+	
+	@InitBinder
+    protected void initBinder(WebDataBinder binder){
+        DateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,true));
+    }
+	
 	
 		
 //  매니저목록조회(매니저관리)
@@ -91,12 +104,13 @@ public class ManagerConfirmController {
 //	매니저정보수정
 	@RequestMapping("/managerUpdate")
 	public String managerUpdate(Model model, ManagerConfirmVO vo, MemberVO mVo) {
-		System.out.println("===============================>>>>>>>>"+vo.toString());
 		memberDao.memberUpdate(mVo);
 		managerCfDao.managerUpdate(vo);
+		managerCfDao.managerConfirm(vo);
 		model.addAttribute("member", mVo);
 		model.addAttribute("managerConfirm", vo);
 		return "redirect:managerList";
 	}
 	
 }
+

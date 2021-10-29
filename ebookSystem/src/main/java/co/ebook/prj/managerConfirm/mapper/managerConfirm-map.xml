@@ -5,9 +5,11 @@
 	
 	<update id = "managerConfirm" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
 		 update manager_confirm 
-		    set mcnfm_st_cd = '02'
+		    set mcnfm_st_cd = '02',
+		    	mcnfm_cnfm_dt = sysdate
 		  where mcnfm_id = #{mcnfmId}
 		    and mcnfm_st_cd = '01'
+		    	
     </update>
 	
 	<insert id="managerRegistInsert" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
@@ -32,6 +34,7 @@
                           a.member_fl_cd
            from  manager_confirm b, member a
           where  a.member_fl_cd = 'M'
+       order by  mcnfm_st_cd, mcnfm_id, mcnfm_req_dt
 	</select>
 	
 	<select id="managerSelect" resultType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
@@ -41,7 +44,7 @@
                           b.mcnfm_cntr_fl_cd,    b.mcnfm_cnfmr,           a.ins_dt,      
 				          a.udt_dt,              a.member_birth,          a.member_tel,
 				          a.member_email,        a.member_phone_vld,      a.member_profile_nm,
-				          a.member_profile_path,
+				          a.member_profile_path, a.member_pw,
                          (select scodes.scode_nm from scodes where lcode = 'MF' and scode = mcnfm_cntr_fl_cd ) as mcnfm_cntr_fl_nm,
                          (select scodes.scode_nm from scodes where lcode = 'MC' and scode = mcnfm_st_cd ) as mcnfm_st_nm,
                          (select scodes.scode_nm from scodes where lcode = 'MS' and scode = member_st_cd ) as member_st_nm,
@@ -58,11 +61,9 @@
 		   		mcnfm_req_dt = #{mcnfmReqDt},
 		   		mcnfm_cnfm_dt = #{mcnfmCnfmDt},
 		   		mcnfm_st_cd = #{mcnfmStCd},
-		   		mcnfm_cntr_sdt = {mcnfmCntrSdt),
+		   		mcnfm_cntr_sdt = #{mcnfmCntrSdt},
 		   		mcnfm_cntr_edt = #{mcnfmCntrEdt},
 		   		mcnfm_cntr_fl_cd = #{mcnfmCntrFlCd},
-		   		(select scodes.scode_nm from scodes where lcode = 'MC' and scode = mcnfm_st_cd ) as mcnfm_st_nm,
-		   		(select scodes.scode_nm from scodes where lcode = 'MF' and scode = mcnfm_cntr_fl_cd ) as mcnfm_cntr_fl_nm,
 		   		mcnfm_cnfmr = #{mcnfmCnfmr}
 		 where  member_id = #{memberId}	
 	</update>

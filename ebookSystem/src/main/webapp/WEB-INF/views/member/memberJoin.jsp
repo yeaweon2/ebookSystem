@@ -11,13 +11,13 @@
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
 					<h2>E로운 생활 회원가입</h2>
-				</div>
+				</div><br><br><br><br><br>
 			</div>
 		</div>
 		<div align="center">
-			<button type="button" class="btn-projects scrollto" onclick="location.href='memberJoinForm'">회원가입(개인)</button>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button type="button" class="btn-projects scrollto" onclick="location.href='managerJoinForm'">회원가입(업체)</button>
+			<img src="resources/img/개인회원.png" onclick="location.href='memberJoinForm'" style="width:250px; height:300px;" />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<img src="resources/img/기업회원.png" onclick="location.href='managerJoinForm'" style="width:250px; height:300px;" />
 		</div>
 	</div>
 	<script src="resources/js/form-validation.js"></script>

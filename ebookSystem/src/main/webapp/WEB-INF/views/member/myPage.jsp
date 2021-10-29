@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원상세보기</title>
+<title>마이페이지</title>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script src="resources/js/form-validation.js"></script>
@@ -33,12 +33,13 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>회원상세보기</h2>
+					<h2>마이페이지</h2>
 				</div>
 			</div>
 			<div>
 				<div class="col-lg-12 mb-12 mb-lg-0" align="center">
 					<div class="package text-center bg-white"><br />
+					<form action="memberSelect" method="post" id="frm">
 						<table id="lcodeTb" class="table table-hover">
 							<tr>
 								<th>회원구분</th>
@@ -101,6 +102,7 @@
 								</c:if>
 							</tr>
 						</table>
+						</form>
 					</div>
 				</div><br><br>
 				<div align="center">

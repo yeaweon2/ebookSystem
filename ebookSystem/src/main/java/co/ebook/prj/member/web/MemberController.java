@@ -13,19 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.ebook.prj.bcnfm.vo.BcnfmVO;
-import co.ebook.prj.book.vo.BookVO;
-import co.ebook.prj.category.vo.CtgyVO;
-import co.ebook.prj.cmmnty.vo.CmmntyVO;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
-import co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO;
 
 @Controller
 public class MemberController {
@@ -154,5 +147,28 @@ public class MemberController {
 		model.addAttribute("member", vo);
 		return "redirect:memberList";
 	}
+	
+//	마이페이지
+	@RequestMapping("/myPage")
+	public String myPage(Model model, MemberVO vo, HttpSession session) {
+		vo = memberDao.memberSelect(vo);
+		//vo.setMemberId((String)session.getAttribute("id"));
+		model.addAttribute("member", vo);
+		return "member/myPage";
+	}
+	
+//	월정액가입메인페이지
+	@RequestMapping("/ticketList")
+	public String ticketList(Model model) {
+		return "member/ticketList";
+	}
+	
+//	월정액가입폼
+	@RequestMapping("/subscription")
+	public String subscription(Model model) {
+		return "member/subscription";
+	}
+	
+
 	
 }

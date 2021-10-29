@@ -66,9 +66,9 @@
 								<th>승인자ID</th>
 								<td>${managerConfirm.mcnfmCnfmr}</td>
 								<th>승인신청일자</th>
-								<td>${managerConfirm.mcnfmReqDt }</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmReqDt }" /></td>
 								<th>승인처리일자</th>
-								<td>${managerConfirm.mcnfmCnfmDt }</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmCnfmDt }" /></td>
 								<th></th>
 								<td></td>
 							</tr>

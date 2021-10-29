@@ -74,4 +74,5 @@ public class MemberServiceImpl implements MemberService {
 	public int memberDelete(MemberVO vo) {
 		return map.memberDelete(vo);
 	}
+	
 }

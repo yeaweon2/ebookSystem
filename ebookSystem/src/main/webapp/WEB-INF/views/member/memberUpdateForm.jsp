@@ -90,30 +90,37 @@ function MemberEdit(str) {
 							
 								<tr id="lcodeTr" data-id="${member.memberId}">
 									<th><label for="memberFlNm">회원구분</label><th>
-									<td class="lcodememFlNm">
-										<select id="memberFlCdY" class="form-control form-control-sm">
-											<c:if test="${member.memberFlCd eq 'U'}">
-												<option value="U" selected>일반회원</option>
-												<option value="M" >매니저</option>
-												<option value="A" >관리자</option>
-											</c:if>
-											<c:if test="${member.memberFlCd eq 'M'}">
-												<option value="U" >일반회원</option>
-												<option value="M" selected>매니저</option>
-												<option value="A" >관리자</option>
-											</c:if>
-											<c:if test="${member.memberFlCd eq 'A'}">
-												<option value="U" >일반회원</option>
-												<option value="M" >매니저</option>
-												<option value="A" selected>관리자</option>
-											</c:if>
-										</select>
+										<c:if test="${auth ne 'A'}">
+											<td><input type="text" id="memberFlCd1" name="memberFlCd1" value="${member.memberFlCd}" readonly="readonly"></td>
+										</c:if>
+										<c:if test="${auth eq 'A'}">
+										<td class="lcodememFlNm">
+											<select id="memberFlCdY" class="form-control form-control-sm">
+												<c:if test="${member.memberFlCd eq 'U'}">
+													<option value="U" selected>일반회원</option>
+													<option value="M" >매니저</option>
+													<option value="A" >관리자</option>
+												</c:if>
+												<c:if test="${member.memberFlCd eq 'M'}">
+													<option value="U" >일반회원</option>
+													<option value="M" selected>매니저</option>
+													<option value="A" >관리자</option>
+												</c:if>
+												<c:if test="${member.memberFlCd eq 'A'}">
+													<option value="U" >일반회원</option>
+													<option value="M" >매니저</option>
+													<option value="A" selected>관리자</option>
+												</c:if>
+											</select>
+										</td>
+										</c:if>
 									<th><label for="memberNm">회원명</label></th>
 									<td><input type="text" id="memberNm" name="memberNm" value="${member.memberNm}" ></td>
 									<th><label for="memberNicknm">닉네임</label></th>
 									<td><input type="text" id="memberNicknm" name="memberNicknm" value="${member.memberNicknm}"></td>
 								</tr>
 								<tr>
+									<c:if test="${auth ne 'U'}">
 									<th><label for="managerCnfmYn">매니저승인여부</label><th>
 									<td>
 										<select id="managerCnfmYnY" class="form-control form-control-sm">
@@ -126,8 +133,11 @@ function MemberEdit(str) {
 												<option value="Y" selected>승인</option>
 											</c:if>
 										</select>
+									</td>
 									<th><label for="mcnfmId">승인번호</label></th>
 									<td><input type="text" id="mcnfmId" name="mcnfmId" value="${member.mcnfmId}"></td>
+									</c:if>
+									<c:if test="${auth eq 'A'}">
 									<th><label for="memberStNm">회원상태</label></th>
 									<td>
 										<select id="memberStCdY" class="form-control form-control-sm">
@@ -148,6 +158,7 @@ function MemberEdit(str) {
 											</c:if>
 										</select>
 									</td>
+									</c:if>
 								</tr>
 								<tr>
 									<th><label for="memberId">ID</label><th>
@@ -155,7 +166,11 @@ function MemberEdit(str) {
 									<th><label for="memberPw">비밀번호</label></th>
 									<td><input type="password" id="memberPw" name="memberPw" value="${member.memberPw}"></td>
 									<th><label for="memberGen">성별</label></th>
-									<td>
+										<c:if test="${auth ne 'A'}">
+									<td><input type="password" id="memberPw" name="memberPw" value="${member.memberPw}"></td>
+										</c:if>
+										<c:if test="${auth eq 'A'}">
+										<td>
 										<select id="memberGenY" class="form-control form-control-sm">
 											<c:if test="${member.memberGen eq 'M'}">
 												<option value="M" selected>남자</option>
@@ -166,6 +181,8 @@ function MemberEdit(str) {
 												<option value="W" selected>여자</option>
 											</c:if>
 										</select>
+										</td>
+										</c:if>
 								</tr>
 								<tr>
 									<th><label for="memberBirth">생년월일</label><th>
@@ -178,10 +195,12 @@ function MemberEdit(str) {
 								<tr>
 									<th><label for="memberPhoneVld">휴대폰인증</label><th>
 									<td><input type="text" id="memberPhoneVld" name="memberPhoneVld" value="${member.memberPhoneVld}"></td>
+										<c:if test="${auth ne 'M'}">
 									<th><label for="memberMile">마일리지</label></th>
 									<td><input type="text" id="memberMile" name="memberMile" value="${member.memberMile}"></td>
 									<th><label for="memberLikeFld">관심분야</label></th>
 									<td><input type="text" id="memberLikeFld" name="memberLikeFld" value="${member.memberLikeFld}"></td>
+										</c:if>
 								</tr>
 								<tr>
 									<th><label for="memberProfileNm">프로필파일</label><th>
@@ -197,10 +216,12 @@ function MemberEdit(str) {
 									<td></td>
 								</tr>
 								<tr>
+									<c:if test="${auth eq 'A'}">
 									<th><label for="insDt">회원등록일자</label><th>
 									<td><input type="text" id="insDt" name="insDt" value="<fmt:formatDate pattern="yyyy-MM-dd"  value="${member.insDt }" />" readonly="readonly"></td>
 									<th><label for="udtDt">회원수정일자</label></th>
 									<td><input type="date" id="udtDt" name="udtDt"value="<fmt:formatDate pattern="yyyy-MM-dd"  value="${member.insDt }" />"></td>
+									</c:if>
 									<th></th>
 									<td></td>
 								</tr>
@@ -215,8 +236,8 @@ function MemberEdit(str) {
 					
 				</div><br><br>
 				<div align="center">
-					<input type="button" onclick="MemberEdit('U')" value="수정" class="btn btn-primary">
-					<input type="button" onclick="MemberEdit('D')" value="취소" class="btn btn-danger">
+					<input type="button" onclick="MemberEdit('U')" value="수정" class="btn btn-default get" style="background-color: #90EE90">
+					<input type="button" onclick="MemberEdit('D')" value="취소" class="btn btn-default get" style="background-color: #FF6347">
 				</div><br><br><br>
 				</form>
 			</div>

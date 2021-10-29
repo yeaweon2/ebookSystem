@@ -1,6 +1,10 @@
 package co.ebook.prj.managerConfirm.vo;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +19,9 @@ public class ManagerConfirmVO {
 	private String mcnfmStCd;
 	private String mcnfmStNm;
 	private String mcnfmCnfmr;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")
 	private Date mcnfmCnfmDt;
 	private String mcnfmBizno;
 	private String mcnfmCoTel;

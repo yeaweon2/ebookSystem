@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,11 +96,11 @@ $(function() {
 									<td>${managerConfirm.memberId }</td>
 									<td>${managerConfirm.mcnfmCoNm }</td>
 									<td>${managerConfirm.mcnfmRpspr }</td>
-									<td>${managerConfirm.mcnfmReqDt }</td>
-									<td>${managerConfirm.mcnfmCnfmDt }</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmReqDt }" /></td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmCnfmDt }" /></td>
 									<td>${managerConfirm.mcnfmStNm }</td>
-									<td>${managerConfirm.mcnfmCntrSdt }</td>
-									<td>${managerConfirm.mcnfmCntrEdt }</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmCntrSdt }" /></td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmCntrEdt }" /></td>
 									<td>${managerConfirm.mcnfmCntrFlNm }</td>
 									<td>${managerConfirm.mcnfmCnfmr}</td>
 								</tr>

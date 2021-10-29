@@ -58,7 +58,7 @@ public class ManagerConfirmServiceImpl implements ManagerConfirmService {
 	public int managerUpdate(ManagerConfirmVO vo) {
 		MemberVO mVo = new MemberVO();
 		mVo.setMemberId(vo.getMemberId());
-		
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" + vo + mVo);
 		mapp.confirmUpdate(mVo);
 		return map.managerUpdate(vo);
 	}
