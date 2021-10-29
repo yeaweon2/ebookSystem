@@ -22,18 +22,61 @@
              , book B 
 	     WHERE K.BOOK_ID = B.BOOK_ID  
 		   AND K.MEMBER_ID = #{memberId} 
-		   AND K.BUCKET_DEL_YN = 'N'
 		 ORDER BY K.bucket_ord  		   
 	</select>
 	
-	<insert id="bucketInsert">
+	<select id="bucketDuplChk" resultType="co.ebook.prj.bucket.vo.BucketVO">
+		SELECT * 
+		  FROM BUCKET_BOOK
+		 WHERE member_id = #{memberId} 
+		   AND book_id = #{bookId}
+	</select>
+     
+    <select id="bucketDetail" resultType="co.ebook.prj.bucket.vo.BucketVO">
+		SELECT bucket_id
+	         , k.book_id 
+	         , b.book_nm
+	         , b.book_cover
+	         , b.book_cover_path
+	         , b.book_publ_co
+	         , b.book_writer
+	         , b.book_Intro
+	         , k.member_id
+	         , bucket_st_cd
+	         , ( select scode_nm from scodes where lcode = 'BS' and scode = k.bucket_st_cd ) as bucket_st_nm
+	         , bucket_ord
+	         , bucket_done_dt
+	         , bucket_del_yn 
+	         , k.ins_dt
+	         , k.udt_dt
+		  FROM BUCKET_BOOK k
+		  	  , BOOK B
+		 WHERE K.BOOK_ID = B.BOOK_ID		  	  
+		   AND k.member_id = #{memberId} 
+		   AND k.book_id = #{bookId} 
+    </select> 
+	
+	<select id="bucketSearChList" parameterType="String" resultType="co.ebook.prj.book.vo.BookVO">
+	
+	SELECT ( SELECT CTGY_NM FROM CATEGORY C WHERE C.CTGY_ID = B.CTGY_ID ) AS CTGY_NM
+         , B.*
+	  FROM BOOK B
+	 WHERE BOOK_USEYN = 'Y' 
+       AND BOOK_CNFM_YN = 'Y'
+      <if test="value != null">  
+        AND BOOK_NM LIKE '%'|| #{value} || '%'
+      </if>
+	
+	</select>
+	
+	<insert id="bucketInsert" parameterType="co.ebook.prj.bucket.vo.BucketVO">
 		INSERT INTO BUCKET_BOOK VALUES 
 		( BUCK_SEQ.NEXTVAL 	, #{bookId}  	, #{memberId} 	, '01' 
 			, (SELECT MAX(bucket_ord)+1 FROM BUCKET_BOOK WHERE MEMBER_ID = #{memberId} ) 
 			, null	, 'N' , SYSDATE , SYSDATE )
 	</insert>
 	
-	<update id="bucketUpdate">
+	<update id="bucketUpdate" parameterType="co.ebook.prj.bucket.vo.BucketVO">
 		UPDATE bucket_book
 		   SET bucket_done_dt = SYSDATE
 		     , bucket_st_cd = '02'
@@ -44,12 +87,10 @@
 		     
 	</update>
 	
-	<update id="bucketDelete">
-		UPDATE bucket_book
-		   SET bucket_del_yn = 'Y'
-		     , udt_dt = SYSDATE
+	<delete id="bucketDelete" parameterType="co.ebook.prj.bucket.vo.BucketVO">
+		delete bucket_book
 		 WHERE bucket_id = #{bucketId}
 		   AND book_id = #{bookId}
 		   AND MEMBER_ID = #{memberId}    
-	</update>
+	</delete>
 </mapper>

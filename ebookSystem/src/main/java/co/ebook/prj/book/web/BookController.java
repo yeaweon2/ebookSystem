@@ -68,6 +68,7 @@ public class BookController {
 		vo.setMemberId((String)session.getAttribute("id"));	
 		String fileName = "";
 		String filePath= "";
+		
 		try {
 			if ( attchFile != null ) {
 				if (!attchFile.getOriginalFilename().isEmpty()) {
@@ -76,7 +77,11 @@ public class BookController {
 					filePath =  filePath + "/book/";								// 파일이 저장될 최종폴더
 
 					// UUID.randomUUID().toString() + "_" +
-					File fileSave = new File(filePath, fileName);
+					File fileSave = new File( filePath , fileName);
+					System.out.println("----------------------------------------------> fileSave");
+					System.out.println(fileSave);
+					System.out.println("----------------------------------------------> fileSave");
+					
 					
 					attchFile.transferTo(fileSave);			// 파일 업로드
 				}else {

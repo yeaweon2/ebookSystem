@@ -35,7 +35,6 @@
 		<![CDATA[
 			SELECT b.* , substr( b.book_intro , 0 , 100) introSub , 'bestSeller' as bookStd 
 			  FROM book b
-			 where ctgy_id like 'D%'
 			union all
 			SELECT b.* , substr( b.book_intro , 0 , 100) introSub , 'bucket' as bookStd 
 			  FROM book b

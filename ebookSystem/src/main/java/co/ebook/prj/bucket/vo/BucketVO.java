@@ -1,5 +1,9 @@
 package co.ebook.prj.bucket.vo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +23,8 @@ public class BucketVO {
 	private String bucketStCd;
 	private String bucketStNm;
 	private String bucketOrd;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")
 	private String bucketDoneDt;
 	private String bucketDelYn;
 	private String insDt;

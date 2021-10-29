@@ -28,9 +28,9 @@ public class bookRestController {
 	@Autowired
 	BookService bookDao;
 	
-	@Autowired
-	private String filePath;		
-		
+	/*
+	 * @Autowired private String filePath;
+	 */		
 	
     @InitBinder
     protected void initBinder(WebDataBinder binder){
