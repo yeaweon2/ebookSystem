@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +14,7 @@
 	 $('.summernote').summernote({
 			 height: 300
 	 }); 
+	 
  }); 
   </script>
 </head>
@@ -33,18 +33,22 @@
 					<input type="text" class="form-control" name="cmmntyTitle" id="cmmntyTitle" placeholder="제목을 입력해 주세요">
 				</div>
 				<div>
-					<label for="reg_id">작성자</label>
-					<input type="text" class="form-control" name="cmmntyWriter" id="cmmntyWriter" placeholder="이름을 입력해 주세요">
-				</div>
-				
+						<label for="reg_id">작성자 </label>${notice.cmmntyWriter}
+					</div>
+					<input type="text" class="form-control" name="cmmntyWriter" id="cmmntyWriter" value="${notice.cmmntyWriter}" >
 				<div>
 					<label for="content">내용</label>
 					<textarea name="cmmntyContents" id="summernote" class="summernote" placeholder="내용을 입력해 주세요" ></textarea>
 				</div>
-				<div>
-					<label for="reg_id">파일첨부</label>
-					<input type="file" class="form-control" name="cmmntyAtchNm" id="cmmntyAtchNm" placeholder="파일을 첨부해 주세요">
-				</div><br>			
+				<form action="fileupload", method="post" enctype="multipart/form-data">
+  				  <input type="file", name="uploadfile" placeholder="파일 선택" multiple>
+				</form>
+				
+				
+				<!-- 파일리스트 -->
+				<div id="file_view_list">
+				</div>
+				<br>			
 					<input type="submit" value="등록" class="btn-primary">
 					<input type="button" onclick="location.href='noticeList'" value="취소" class="btn-danger">
 				</form>		

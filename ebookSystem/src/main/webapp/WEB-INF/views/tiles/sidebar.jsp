@@ -36,11 +36,11 @@
 			<h2>COMMUNITY</h2>
 			<div class="brands-name">
 				<ul class="nav nav-pills nav-stacked">
-					<li><a href="noticeList"> <span class="pull-right">(50)</span>공지사항</a></li>
-					<li><a href="#"> <span class="pull-right">(56)</span>자유게시판</a></li>
-					<li><a href="#"> <span class="pull-right">(27)</span>1 : 1 문의</a></li>
-					<li><a href="#"> <span class="pull-right">(32)</span>F A Q</a></li>
-					<li><a href="#"> <span class="pull-right">(5)</span>Review</a></li>
+					<li><a href="noticeList"> <span class="pull-right"></span>공지사항</a></li>
+					<li><a href="boardList"> <span class="pull-right"></span>자유게시판</a></li>
+					<li><a href="#"> <span class="pull-right"></span>1 : 1 문의</a></li>
+					<li><a href="#"> <span class="pull-right"></span>F A Q</a></li>
+					<li><a href="#"> <span class="pull-right"></span>Review</a></li>
 				</ul>
 			</div>
 		</div><!--/brands_products-->

@@ -28,6 +28,16 @@ public class CmmntyController {
 		model.addAttribute("notices", lists);
 		return "cmmnty/noticeList";
 	}
+
+	// 커뮤니티 전체조회
+	@RequestMapping("/boardList")
+	String boardList(Model model, CmmntyVO vo) {
+		vo.setCmmntyFlCd("04");
+		vo.setCmmntyDelyn("N");
+		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
+		model.addAttribute("board", lists);
+		return "cmmnty/boardList";
+	}
 	
 	// 커뮤니티 상세조회
 	@RequestMapping("/noticeSelectList")
@@ -42,17 +52,20 @@ public class CmmntyController {
 
 	// 커뮤니티 게시글입력양식
 	@RequestMapping("/noticeInsertForm")
-	String noticeInsertForm(Model model, CmmntyVO vo) {
-		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
-		model.addAttribute("notices", lists);
+	String noticeInsertForm(Model model, CmmntyVO vo, HttpServletRequest request) {
+	
+		vo.setCmmntyWriter((String)request.getAttribute("id"));
+		vo = cmmntyDao.cmmntySelectList(vo);
+		
+		model.addAttribute("notice", vo);
 		return "cmmnty/noticeInsertForm";
 	}
 
 	// 커뮤니티 게시글입력
 	@RequestMapping("/noticeInsert")
-	String noticeInsert(Model model, CmmntyVO vo) throws Exception {
+	String noticeInsert(Model model, CmmntyVO vo ) throws Exception {
+		
 		cmmntyDao.cmmntyInsert(vo);
-		vo.setCmmntyWriter("admin");
 		vo.setCmmntyFlCd("01");
 		int lists = cmmntyDao.cmmntyInsert(vo);
 
@@ -80,7 +93,6 @@ public class CmmntyController {
 		vo.setCmmntyFlCd("01");
 		
 		vo.setCmmntyWriter((String)request.getAttribute("id"));
-		
 		vo = cmmntyDao.cmmntySelectList(vo);
 		
 		model.addAttribute("notice", vo);
@@ -90,10 +102,6 @@ public class CmmntyController {
 	// 커뮤니티 게시글수정
 	@RequestMapping(value="/noticeUpdate")
 	public String noticeUpdate(Model model, CmmntyVO vo) {
-		System.out.println("============== 수 정 >>");
-		System.out.println(vo.toString());
-		
-		
 		
 		int list = cmmntyDao.cmmntyUpdate(vo);
 		if(list != 0) {
@@ -105,6 +113,6 @@ public class CmmntyController {
 		
 	}
 	
-	//
+	
 	
 }
