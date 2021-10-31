@@ -10,7 +10,7 @@
   <!-- iamport.payment.js -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js">
   
-	function iamport(){
+	function iamportApi(){
 		//가맹점 식별코드
 		IMP.init('imp33573268');
 		IMP.request_pay({
@@ -51,8 +51,65 @@
 
 </head>
 <body>
-<div><h1>월정액가입</h1></div>
-<div><button type="button" value="가입하기"></button></div>
+<div class="site-section">
+		<div class="container">
+			<div class="row mb-1" style="margin-top: 40px">
+				<div class="section-header">
+					<h2>월정액 가입</h2>
+				</div>
+			</div>
+			<div>
+				<div class="row g-3">
+						<div class="col-sm-8">
+						<br />
+						<table id="lcodeTb" class="table table-hover">
+							<tr>
+								<th>ID</th>
+								<td>${member.memberId }</td>
+							</tr>
+							<tr>
+								<th>회원명</th>
+								<td>${member.memberNm }</td>
+							</tr>
+							<tr>
+								<th>마일리지</th>
+								<td>${member.memberMile }</td>
+							</tr>
+							<tr>
+								<th>월정액 기간선택</th><br>
+								<td><br>
+									<div class="form-check-inline">
+										<input id="mcnfmCntr1" name="mcnfmCntr" type="radio" value="A" class="form-check-input" checked="checked" required>
+										<label class="form-check-label" for="mcnfmCntr">1개월 : 9,900원</label><br>
+										<input id="mcnfmCntr2" name="mcnfmCntr" type="radio" value="B" class="form-check-input" required>
+										<label class="form-check-label" for="mcnfmCntr">3개월 : 25,900원</label><br>
+										<input id="mcnfmCntr3" name="mcnfmCntr" type="radio" value="C" class="form-check-input" required>
+										<label class="form-check-label" for="mcnfmCntr">12개월 : 90,000원</label><br>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<div align="right">
+							<button type="submit" id=""subscription class="btn btn-outline-primary" onclick = "iamportApi()" value="가입하기"> 가입하기</button>
+					</div><br><br><br>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<form action="memberSelect" method="post" id="frm">
+		<input type="hidden" id="memberId" name="memberId">
+	</form>
+
+
+
+
+
+
+
+
+
+
 
 
 

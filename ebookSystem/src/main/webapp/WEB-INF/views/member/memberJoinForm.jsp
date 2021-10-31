@@ -200,7 +200,7 @@
 
 					<hr class="col-sm-8">
 
-					<div class="form-check">
+					<div class="form-check" align="left">
 						<input type="checkbox" class="form-check-input" id="agree" required>
 						<label class="form-check-label" for="agree">
 							개인정보 수집 및 이용에 동의합니다.(필수)</label>
