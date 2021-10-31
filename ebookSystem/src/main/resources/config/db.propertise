@@ -1,6 +1,6 @@
 #driver = oracle.jdbc.driver.OracleDriver
 driver =net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-#url =  jdbc:oracle:thin:@192.168.0.6:1521:xe
+#url =  jdbc:oracle:thin:@localhost:xe
 url = jdbc:log4jdbc:oracle:thin:@database-1.crdza51enwf1.us-east-2.rds.amazonaws.com:1521:ORCL
 user = admin
 password = efhdns12^^

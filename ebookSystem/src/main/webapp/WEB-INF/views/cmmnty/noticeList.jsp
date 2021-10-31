@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,15 +18,6 @@
 			frm.submit();
 		})
 
-		//체크박스 이벤트중지
-		$(".chkTd").on("click", function() {
-			event.stopPropagation();
-			if ($(event.target).find("#chkInput").prop('checked') == false) {
-				$(event.target).find("#chkInput").prop('checked', true);
-			} else {
-				$(event.target).find("#chkInput").prop('checked', false);
-			}
-		});
 	});
 
 </script>
@@ -37,14 +27,14 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>공지사항</h2>
+					<h2>공지사항</h2><br><br><br><br>
 				</div>
+				
 			</div>
-			<div>
-				<table class="table table-hover" style="cursor:pointer">
+			<div style="width : 800px;">
+				<table class="table table-hover" style="cursor:pointer" >
 					<thead>
 						<tr>
-							<th class="header" width="30"><input type="checkbox" id="checkall" /></th>
 							<th>번호</th>
 							<th>제목</th>
 							<th>작성자</th>
@@ -55,7 +45,6 @@
 					<tbody>
 						<c:forEach var="notice" items="${notices }">
 							<tr class="noticeSelect" data-id="${notice.cmmntyId}">
-								<td  class="chkTd" width="30"><input id="chkInput" name="rowcheck" type="checkbox"></td>
 								<td>${notice.cmmntyNo}</td>
 								<td>${notice.cmmntyTitle}(${notice.cmmntyReplyCnt})</td>
 								<td>${notice.cmmntyWriter}</td>
@@ -65,8 +54,9 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<button type="button" onclick="location.href='noticeInsertForm'" class="btn btn-primary">글쓰기</button>
-				<button type="button" class="btn btn-danger">삭제</button>
+				<c:if test="${id eq 'admin'}">
+				<button type="button" onclick="location.href='noticeInsertForm'" class="btn-primary">글쓰기</button>
+				</c:if>
 			</div>
 		</div>
 	</div>

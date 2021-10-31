@@ -42,7 +42,9 @@ public class CmmntyController {
 
 	// 커뮤니티 게시글입력양식
 	@RequestMapping("/noticeInsertForm")
-	String noticeInsertForm() {
+	String noticeInsertForm(Model model, CmmntyVO vo) {
+		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
+		model.addAttribute("notices", lists);
 		return "cmmnty/noticeInsertForm";
 	}
 
@@ -102,5 +104,7 @@ public class CmmntyController {
 		return "redirect:noticeList";
 		
 	}
+	
+	//
 	
 }

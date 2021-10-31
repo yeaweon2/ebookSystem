@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.ebook.prj.replycmmnty.mapper.ReplyCmmntyMapper">
+<mapper namespace="co.ebook.prj.replycmmnty.mapper.ReplyMapper">
 
 	<!-- 댓글조회 -->
-	<select id="replyCmmntyList" resultType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
+	<select id="replyCmmntyList" resultType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
 	SELECT CREPLY_ID	 	
 		 , CMMNTY_ID
 		 , CREPLY_WRITER 	
@@ -16,13 +16,13 @@
 	</select>
 	
 	<!-- 댓글입력 -->
-	<insert id="replyCmmntInsert" parameterType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
+	<insert id="replyCmmntInsert" parameterType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
 	INSERT INTO COMMUNITY_REPLY(CREPLY_ID
 							, CMMNTY_ID
 							, CREPLY_WRITER
 							, CREPLY_CONTENTS
 							, CREPLY_CLASS
-							, CREPLY_ORD
+							, CREPLY_ORDER
 							, CREPLY_GR
 							, INS_DT
 							, UDT_DT) 
@@ -31,14 +31,14 @@
 		, #{creplyWriter}
 		, #{creplyContents}
 		, #{creplyClass}
-		, null
+		, (SELECT NVL(MAX(#{creplyOrd}),0)+1 FROM COMMUNITY_REPLY WHERE CREPLY_ID = #{creplyId})
 		, #{creplyGr}
 		, SYSDATE
 		, SYSDATE)
 	</insert>
 	
 	<!-- 댓글수정 -->
-	<update id="replyCmmntUpdate" parameterType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
+	<update id="replyCmmntUpdate" parameterType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
 	UPDATE COMMUNITY_REPLY
 	   SET CREPLY_CONTENTS = #{creplyContents}
 	     , UDT_DT		   = sysdate
@@ -46,7 +46,7 @@
 	</update>
 	
 	<!-- 댓글삭제 -->
-	<delete id="replyCmmntDelete" parameterType="co.ebook.prj.replycmmnty.vo.ReplyCmmntyVO">
+	<delete id="replyCmmntDelete" parameterType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
 	DELETE FROM COMMUNITY_REPLY
 	WHERE CREPLY_ID = #{creplyId}
 	</delete>

@@ -6,13 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;                    
+import lombok.Data;
+               
 
-@Getter
-@Setter
-@ToString
+@Data
 public class CmmntyVO {
 	private int cmmntyId;
 	private int cmmntyNo;
