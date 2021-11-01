@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.ebook.prj.replycmmnty.mapper.ReplyMapper">
+<mapper namespace="co.ebook.prj.cmmntyreply.mapper.ReplyMapper">
 
 	<!-- 댓글조회 -->
-	<select id="replyCmmntyList" resultType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
+	<select id="replyList" resultType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
 	SELECT CREPLY_ID	 	
 		 , CMMNTY_ID
 		 , CREPLY_WRITER 	
@@ -16,16 +16,16 @@
 	</select>
 	
 	<!-- 댓글입력 -->
-	<insert id="replyCmmntInsert" parameterType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
+	<insert id="replyInsert" parameterType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
 	INSERT INTO COMMUNITY_REPLY(CREPLY_ID
-							, CMMNTY_ID
-							, CREPLY_WRITER
-							, CREPLY_CONTENTS
-							, CREPLY_CLASS
-							, CREPLY_ORDER
-							, CREPLY_GR
-							, INS_DT
-							, UDT_DT) 
+							 , CMMNTY_ID
+							 , CREPLY_WRITER
+							 , CREPLY_CONTENTS
+						  	 , CREPLY_CLASS
+						 	 , CREPLY_ORDER
+							 , CREPLY_GR
+							 , INS_DT
+							 , UDT_DT) 
 	VALUES(CR_SEQ.nextval
 		, #{cmmntyId}
 		, #{creplyWriter}
@@ -38,7 +38,7 @@
 	</insert>
 	
 	<!-- 댓글수정 -->
-	<update id="replyCmmntUpdate" parameterType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
+	<update id="replyUpdate" parameterType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
 	UPDATE COMMUNITY_REPLY
 	   SET CREPLY_CONTENTS = #{creplyContents}
 	     , UDT_DT		   = sysdate
@@ -46,7 +46,7 @@
 	</update>
 	
 	<!-- 댓글삭제 -->
-	<delete id="replyCmmntDelete" parameterType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
+	<delete id="replyDelete" parameterType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
 	DELETE FROM COMMUNITY_REPLY
 	WHERE CREPLY_ID = #{creplyId}
 	</delete>

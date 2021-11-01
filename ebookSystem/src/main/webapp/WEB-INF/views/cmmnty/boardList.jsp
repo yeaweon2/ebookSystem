@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>자유게시판</title>
 <script>
 	$(function() {
 		//클릭시 글상세조회
@@ -27,7 +27,7 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>공지사항</h2><br><br><br><br>
+					<h2>자유게시판</h2><br><br>
 				</div>
 				
 			</div>
@@ -44,25 +44,25 @@
 					</thead>
 					<tbody>
 					
-						<c:forEach var="notice" items="${notices }">
-							<tr class="noticeSelect" data-id="${notice.cmmntyId}">
-								<td>${notice.cmmntyNo}</td>
-								<td>${notice.cmmntyTitle}(${notice.cmmntyReplyCnt})</td>
-								<td>${notice.cmmntyWriter}</td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${notice.insDt}"/></td>
-								<td>${notice.cmmntyHit}</td>
+						<c:forEach var="board" items="${boards }"> 
+							<tr class="boardSelect" data-id="${board.cmmntyId}">
+								<td>${board.cmmntyNo}</td>
+								<td>${board.cmmntyTitle}(${board.cmmntyReplyCnt})</td>
+								<td>${board.cmmntyWriter}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${board.insDt}"/></td>
+								<td>${board.cmmntyHit}</td>
 							</tr>
 						</c:forEach>
-					
+						
 					</tbody>
 				</table>
-				<c:if test="${id eq 'admin'}">
-				<button type="button" onclick="location.href='noticeInsertForm'" class="btn-primary">글쓰기</button>
+				<c:if test="${not empty id}">
+				<button type="button" onclick="location.href='boardInsertForm'" class="btn-primary">글쓰기</button>
 				</c:if>
 			</div>
 		</div>
 	</div>
-	<form action="noticeSelectList" method="post" id="frm">
+	<form action="boardSelectList" method="post" id="frm">
 		<input type="hidden" id="cmmntyId" name="cmmntyId">
 	</form>
 </body>

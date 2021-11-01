@@ -3,6 +3,7 @@ package co.ebook.prj.cmmnty.web;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,8 @@ public class CmmntyController {
 	// DAO연결하기
 	@Autowired
 	private CmmntyService cmmntyDao;
-	
-	// 커뮤니티 전체조회
+
+	// 공지사항 전체조회
 	@RequestMapping("/noticeList")
 	String noticeList(Model model, CmmntyVO vo) {
 		vo.setCmmntyFlCd("01");
@@ -29,43 +30,32 @@ public class CmmntyController {
 		return "cmmnty/noticeList";
 	}
 
-	// 커뮤니티 전체조회
-	@RequestMapping("/boardList")
-	String boardList(Model model, CmmntyVO vo) {
-		vo.setCmmntyFlCd("04");
-		vo.setCmmntyDelyn("N");
-		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
-		model.addAttribute("board", lists);
-		return "cmmnty/boardList";
-	}
-	
-	// 커뮤니티 상세조회
+	// 공지사항 상세조회
 	@RequestMapping("/noticeSelectList")
 	String noticeSelectList(Model model, CmmntyVO vo) throws Exception {
 		vo.setCmmntyFlCd("01");
 		vo.setCmmntyDelyn("N");
 		vo = cmmntyDao.cmmntySelectList(vo);
-	
+
 		model.addAttribute("notice", vo);
 		return "cmmnty/noticeSelectList";
 	}
 
-	// 커뮤니티 게시글입력양식
+	// 공지사항 게시글입력양식
 	@RequestMapping("/noticeInsertForm")
 	String noticeInsertForm(Model model, CmmntyVO vo, HttpServletRequest request) {
-	
-		vo.setCmmntyWriter((String)request.getAttribute("id"));
-		vo = cmmntyDao.cmmntySelectList(vo);
-		
-		model.addAttribute("notice", vo);
+
+		HttpSession session = request.getSession();
 		return "cmmnty/noticeInsertForm";
 	}
 
-	// 커뮤니티 게시글입력
+	// 공지사항 게시글입력
 	@RequestMapping("/noticeInsert")
-	String noticeInsert(Model model, CmmntyVO vo ) throws Exception {
-		
-		cmmntyDao.cmmntyInsert(vo);
+	String noticeInsert(Model model, CmmntyVO vo) throws Exception {
+
+		System.out.println(vo.toString());
+		System.out.println("=============================게시글입력중");
+
 		vo.setCmmntyFlCd("01");
 		int lists = cmmntyDao.cmmntyInsert(vo);
 
@@ -77,7 +67,8 @@ public class CmmntyController {
 		}
 		return "redirect:noticeList";
 	}
-	// 커뮤니티 게시글삭제
+
+	// 공지사항 게시글삭제
 	@PostMapping("/noticeDelete")
 	public String noticeDelete(Model model, CmmntyVO vo) {
 		vo.setCmmntyFlCd("01");
@@ -87,32 +78,30 @@ public class CmmntyController {
 		return "redirect:noticeList";
 	}
 
-	// 커뮤니티 게시글수정 양식
+	// 공지사항 게시글수정 양식
 	@PostMapping("/noticeUpdateForm")
-	public String noticeUpdateForm(Model model, CmmntyVO vo, HttpServletRequest request){
+	public String noticeUpdateForm(Model model, CmmntyVO vo, HttpServletRequest request) {
 		vo.setCmmntyFlCd("01");
-		
-		vo.setCmmntyWriter((String)request.getAttribute("id"));
+
+		vo.setCmmntyWriter((String) request.getAttribute("id"));
 		vo = cmmntyDao.cmmntySelectList(vo);
-		
+
 		model.addAttribute("notice", vo);
 		return "cmmnty/noticeUpdateForm";
 	}
 
-	// 커뮤니티 게시글수정
-	@RequestMapping(value="/noticeUpdate")
+	// 공지사항 게시글수정
+	@RequestMapping(value = "/noticeUpdate")
 	public String noticeUpdate(Model model, CmmntyVO vo) {
-		
+
 		int list = cmmntyDao.cmmntyUpdate(vo);
-		if(list != 0) {
+		if (list != 0) {
 			model.addAttribute("msg", "성공");
-		}else {
+		} else {
 			model.addAttribute("msg", "실패");
 		}
 		return "redirect:noticeList";
-		
+
 	}
-	
-	
-	
+
 }

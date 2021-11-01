@@ -7,9 +7,11 @@
 		SELECT rownum as cmmnty_no
 			, CMMNTY_ID
 			, CMMNTY_TITLE 
+			, CMMNTY_CONTENTS
 			, CMMNTY_REPLY_CNT
 			, CMMNTY_WRITER
 			, INS_DT
+			, UDT_DT
 			, CMMNTY_hit
 			, CMMNTY_ATCH_NM
 			, CMMNTY_ATCH_PATH
@@ -28,6 +30,7 @@
 			, CMMNTY_CONTENTS
 			, CMMNTY_WRITER
 			, CMMNTY_HIT
+			, CMMNTY_FL_CD
 			, INS_DT
 			, UDT_DT
 			, CMMNTY_REPLY_CNT

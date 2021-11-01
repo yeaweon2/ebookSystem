@@ -26,7 +26,14 @@ public class ReplyRestController {
 	// 댓글조회
 	@RequestMapping(value = "/replyList", method = RequestMethod.GET)
 	public List<ReplyVO> replyList(Model model, ReplyVO vo) {
-		List<ReplyVO> lists = replyDao.replyCmmntyList(vo);
+		System.out.println(vo.toString());
+		System.out.println("===========================댓글리스트");
+		List<ReplyVO> lists = replyDao.replyList(vo);
+		
+		for(ReplyVO v : lists) {
+			System.out.println(v.toString());	
+		}
+		
 		model.addAttribute("list", lists);
 		return lists;
 	}
@@ -38,11 +45,11 @@ public class ReplyRestController {
 		HttpSession session = request.getSession();
 		vo.setCreplyWriter((String) session.getAttribute("id")); //댓글입력시 이름으로저장
 		
-		int result = replyDao.replyCmmntInsert(vo); 
+		int result = replyDao.replyInsert(vo); 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (result > 0) {
 			map.put("result", "success");
-			map.put("lists", replyDao.replyCmmntyList(vo));
+			map.put("lists", replyDao.replyList(vo));
 		} else {
 			map.put("result", "fail");
 		}
@@ -57,7 +64,7 @@ public class ReplyRestController {
 		
 		vo.setCreplyWriter((String) request.getAttribute("id"));
 
-		int result = replyDao.replyCmmntUpdate(vo);
+		int result = replyDao.replyUpdate(vo);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		if (result > 0) {
@@ -72,7 +79,7 @@ public class ReplyRestController {
 	@RequestMapping(value = "/replyDelete", method = RequestMethod.DELETE)
 	public Map replyDelete(@RequestBody ReplyVO vo, Model model) {
 
-		int result = replyDao.replyCmmntDelete(vo);
+		int result = replyDao.replyDelete(vo);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		if (result > 0) {

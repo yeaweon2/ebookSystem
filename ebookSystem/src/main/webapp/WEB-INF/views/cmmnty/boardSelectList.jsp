@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 상세페이지</title>
+<title>자유게시판 상세보기</title>
 
 <style type="text/css">
 .pointer {
@@ -247,15 +247,15 @@
 			<!-- 게시글 -->
 			<table class="table">
 				<tr>
-					<th colspan="6">${notice.cmmntyTitle}</th>
+					<th colspan="6">${board.cmmntyTitle}</th>
 				</tr>
 				<tr>
-					<td>작성자: ${notice.cmmntyWriter}</td>
-					<td>작성일자:<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${notice.insDt}" /></td>
-					<td>조회수: ${notice.cmmntyHit}</td>
+					<td>작성자: ${board.cmmntyWriter}</td>
+					<td>작성일자:<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${board.insDt}" /></td>
+					<td>조회수: ${board.cmmntyHit}</td>
 				</tr>
 				<tr>
-					<td colspan="6" height="300">${notice.cmmntyContents}</td>
+					<td colspan="6" height="300">${board.cmmntyContents}</td>
 				</tr>
 			</table>
 
@@ -271,7 +271,7 @@
 					</tr>
 					<tr>
 						<td colspan="2"></td>
-						<td class="pull-right"><button type="button" id="replyInputBtn" data-cmmntyId="${notice.cmmntyId}"class="btn-primary" >댓글등록</button></td>
+						<td class="pull-right"><button type="button" id="replyInputBtn" data-cmmntyId="${board.cmmntyId}"class="btn-primary" >댓글등록</button></td>
 					</tr>
 				</table>
 			</c:if>
@@ -280,28 +280,28 @@
 			<div id="rList" class="rList">
 			</div>
 					<hr>
-					<input type="button" onclick="location.href='noticeList'" class="btn-info" value="목록보기"> 
+					<input type="button" onclick="location.href='boardList'" class="btn-info" value="목록보기"> 
 					<c:if test="${id eq 'admin'}">
-					<input type="button" onclick="NoticeEdit('U')" class="btn-primary" value="수정">
-					<input type="button" onclick="NoticeEdit('D')"class="btn-danger" value="삭제">
+					<input type="button" onclick="BoardEdit('U')" class="btn-primary" value="수정">
+					<input type="button" onclick="BoardEdit('D')"class="btn-danger" value="삭제">
 					</c:if>
 		</div>
 </div>
 	
 		<form id="frm" name="frm" method="post">
-			<input type="hidden" id="cmmntyId" name="cmmntyId" value="${notice.cmmntyId}">
+			<input type="hidden" id="cmmntyId" name="cmmntyId" value="${board.cmmntyId}">
 		</form>
 	<br><br>
 	</div>
 	<script>
       
 	//원글 수정,삭제
-      function NoticeEdit(str) {
+      function BoardEdit(str) {
          if (str == 'U') {
-            frm.action = "noticeUpdateForm";
+            frm.action = "boardUpdateForm";
      	 } else {
               if (confirm('삭제하시겠습니까?') == true) {
-               frm.action = "noticeDelete";
+               frm.action = "boardDelete";
               } else {
                return false;
             } //else
