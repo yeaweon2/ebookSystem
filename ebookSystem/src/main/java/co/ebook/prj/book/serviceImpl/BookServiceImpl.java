@@ -51,6 +51,11 @@ public class BookServiceImpl implements BookService {
 		return map.bookCoverUpdate(vo);
 	}
 
+	@Override
+	public int bookUseYnUpdate(BookVO vo) {
+		return map.bookUseYnUpdate(vo);
+	}
+
 
 
 }

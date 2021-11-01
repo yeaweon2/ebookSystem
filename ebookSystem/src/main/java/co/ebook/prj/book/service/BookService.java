@@ -14,6 +14,8 @@ public interface BookService {
 	
 	int bookInsert(BookVO vo);
 	
+	int bookUseYnUpdate(BookVO vo);
+	
 	int bookDelete(BookVO vo);
 	
 	int bookUpdate(BookVO vo);

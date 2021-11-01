@@ -48,9 +48,34 @@
 	</select>
 	
 	<select id="bookDetail" resultType="co.ebook.prj.book.vo.BookVO">
-		 SELECT *
+	<![CDATA[
+		 SELECT BOOK_ID
+			  , CTGY_ID
+		 	  , BOOK_NM
+		 	  , BOOK_FL_CD
+			  , BOOK_PUBL_CO
+			  , BOOK_WRITER
+			  , BOOK_PUBL_DT
+			  , BOOK_AMT
+			  , BOOK_DISCNT
+			  , BOOK_USEYN
+			  , BOOK_HIT
+			  , BOOK_LIKEIT
+			  , BOOK_CNFM_YN
+			  , BOOK_ISBN
+			  , MEMBER_ID
+			  , BOOK_COVER
+			  , BOOK_COVER_PATH
+			  , INS_DT
+			  , UDT_DT
+			  , replace(BOOK_INTRO, '<br/>', chr(13)||chr(10)) as BOOK_INTRO
+			  , replace(BOOK_CONTENT, '<br/>', chr(13)||chr(10)) as BOOK_CONTENT
+			  , replace(BOOK_WRITER_INTRO, '<br/>', chr(13)||chr(10)) as BOOK_WRITER_INTRO
+			  , replace(BOOK_DESC, '<br/>', chr(13)||chr(10)) as BOOK_DESC
+			  , BCNFM_ID
 		   FROM BOOK
 		  WHERE BOOK_ID = #{bookId}  
+		  ]]>
 	</select>
 	
 	<insert id="bookInsert" parameterType="co.ebook.prj.book.vo.BookVO">
@@ -99,9 +124,14 @@
 		 WHERE BOOK_ID = #{bookId} 
 	</update>		   
 	
-	<update id="bookDelete" parameterType="co.ebook.prj.book.vo.BookVO">
+	<update id="bookUseYnUpdate" parameterType="co.ebook.prj.book.vo.BookVO">
 		UPDATE BOOK 
 		   SET book_useyn = 'N'
 		 WHERE book_id = #{bookId}
 	</update>
+	
+	<delete id="bookDelete" parameterType="co.ebook.prj.book.vo.BookVO">
+		DELETE FROM book
+		 WHERE book_id = #{bookId} 
+	</delete>
 </mapper>

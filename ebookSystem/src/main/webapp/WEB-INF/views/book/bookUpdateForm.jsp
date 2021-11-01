@@ -150,9 +150,15 @@
 			$("#attchFile").click();
 			
 		});
-
 	});
 	
+	
+	function bookDelete(){
+		console.log("here");
+		frm.action = "bookDelete";
+		frm.submit();
+	}
+
 </script>
 </head>
 <body>
@@ -262,6 +268,7 @@
 					</table>
 					<div>
 						<button type="button" id="bookUpdateBtn" class="btn btn-default">수 정</button>
+						<button type="button" id="bookDeleteBtn" class="btn btn-default" onclick="bookDelete()">삭 제</button>
 						<button type="button" class="btn btn-default" onclick="location.href='bookList'">BOOK목록</button>
 					</div>
 					<input type="hidden" id="bookId" name="bookId" value="${books.bookId}" >

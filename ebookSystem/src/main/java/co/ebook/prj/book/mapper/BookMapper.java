@@ -13,6 +13,8 @@ public interface BookMapper {
 	
 	int bookInsert(BookVO vo);
 	
+	int bookUseYnUpdate(BookVO vo);
+	
 	int bookDelete(BookVO vo);
 	
 	int bookUpdate(BookVO vo);

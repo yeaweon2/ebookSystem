@@ -5,7 +5,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.ebook.prj.book.service.BookService;
+import co.ebook.prj.book.service.BreplyService;
 import co.ebook.prj.book.vo.BookVO;
+import co.ebook.prj.book.vo.BreplyVO;
 
 @Controller
 public class BookController {
@@ -29,6 +30,11 @@ public class BookController {
 	@Autowired
 	BookService bookDao;
 	
+	@Autowired
+	BreplyService breplyDao;
+	
+	@Autowired
+	String filePath;
 	/*
 	 * @Autowired private String filePath; // 파일이 저장될 경로 (개발시 절대경로로 파일저장되도록 사용할 것)
 	 */
@@ -67,14 +73,14 @@ public class BookController {
 		int result = 0;
 		vo.setMemberId((String)session.getAttribute("id"));	
 		String fileName = "";
-		String filePath= "";
+		String folder = "/book/";
 		
 		try {
 			if ( attchFile != null ) {
 				if (!attchFile.getOriginalFilename().isEmpty()) {
 					fileName = attchFile.getOriginalFilename();	
-					//filePath = request.getServletContext().getRealPath("/");	// 파일 저장경로
-					filePath =  filePath + "/book/";								// 파일이 저장될 최종폴더
+					//filePath = request.getServletContext().getRealPath("/fileUp");	// 파일 저장경로
+					filePath =  filePath + folder;								// 파일이 저장될 최종폴더
 
 					// UUID.randomUUID().toString() + "_" +
 					File fileSave = new File( filePath , fileName);
@@ -95,17 +101,14 @@ public class BookController {
 		
 		System.out.println("----------------------------->> ");
 		System.out.println( fileName );
-		System.out.println( filePath );
+		System.out.println( folder );
 		System.out.println("----------------------------->> ");
 		
 		vo.setBookCover(fileName);
-		vo.setBookCoverPath(filePath);
+		vo.setBookCoverPath(folder);
 	
 		result = bookDao.bookInsert(vo);
-		
-			
-		
-		
+
 		System.out.println("도서 : " + result + " 건 입력완료 ------->");
 		if(result > 0 ) {
 			model.addAttribute("msg", "성공");
@@ -141,14 +144,18 @@ public class BookController {
 		vo = bookDao.bookDetail(vo);
 
 		if( vo != null ) {
+			
+			BreplyVO rvo = new BreplyVO();
+			rvo.setBookId(vo.getBookId());
+			List<BreplyVO> rlist = breplyDao.breplyList(rvo);
+			
 			model.addAttribute("msg", "성공");
-			if(vo.getBookDiscnt() > 0) {
-				int amt = vo.getBookAmt();
-				int disAmt = vo.getBookDiscnt();
-				disAmt = amt - ( amt*disAmt );
-				vo.setBookDiscnt(disAmt);
-			}
 			model.addAttribute("book", vo);
+			if( rlist != null ) {
+				model.addAttribute("replys", rlist);	
+			}
+			
+			
 			view = "book/bookDetail";
 		}else {
 			model.addAttribute("msg", "자료가 없습니다.");
@@ -158,10 +165,34 @@ public class BookController {
 		return view;
 	}
 	
+	@RequestMapping("/bookDelete")
+	public String bookDelete(Model model , BookVO vo) {
+		System.out.println("//----------------------------------------");
+		System.out.println(vo.toString());
+		
+		int result = 0;
+		// 승인처리된 도서의 경우 사용여부만 변경 , 삭제불가 
+		if( "Y".equals(vo.getBookCnfmYn())){
+			result = bookDao.bookUseYnUpdate(vo);	
+		}  else {
+			// 승인 미처리된 도서의 경우 삭제처리
+			result = bookDao.bookDelete(vo);
+		}
+		
+		String view = "";
+		if( result > 0 ) {
+			model.addAttribute("msg", "01");	// 성공
+		}else {
+			model.addAttribute("msg", "02");	// 에러	
+		}
+		view = "redirect:bookList";
+		
+		return view;
+	}
+	
+	
 	@RequestMapping("/bookCartInsert")
 	public String bookCartInsert(Model model , BookVO vo ) {
-		
-		
 		
 		return "book/bookCartForm";
 	}	

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.ebook.prj.book.mapper.BreplyMapper">
+	<select id="breplyList" resultType="co.ebook.prj.book.vo.BreplyVO">
+		SELECT b.* ,  m.member_nm as breplyWriterNm
+  		  FROM BOOK_REPLY b
+		     , MEMBER M
+		 WHERE b.breply_writer = m.member_id
+		   AND b.BOOK_ID = #{bookId}
+		 ORDER BY BREPLY_GR  , BREPLY_CLASS,  BREPLY_ORD 
+	</select>
+	
+	<select id="breplyMaxId" resultType="int">
+	   SELECT max(breply_id) as breplyId   
+		 FROM BOOK_REPLY
+		WHERE BOOK_ID = #{bookId}
+	</select>
+	
+	<select id="breplyDetail" resultType="co.ebook.prj.book.vo.BreplyVO">
+		SELECT b.* ,  m.member_nm as breplyWriterNm
+  		  FROM BOOK_REPLY b
+		     , MEMBER M
+		 WHERE b.breply_writer = m.member_id
+		   AND b.BOOK_ID = #{bookId}
+		   AND B.BREPLY_ID = #{breplyId}
+		 ORDER BY BREPLY_GR  , BREPLY_CLASS,  BREPLY_ORD 
+	</select>	
+
+	<insert id="breplyInsert" parameterType="co.ebook.prj.book.vo.BreplyVO">
+		INSERT INTO book_reply
+		VALUES ( BREPLY_SEQ.nextval	, #{bookId}			, #{breplyClass} 	,  
+				( select max(breply_ord)+1 from book_reply where book_id = #{bookId} ), 
+				 BREPLY_SEQ.nextval	, #{breplyContents}	, #{breplyCloseYn} 	, 
+				 #{breplyWriter}	, SYSDATE			, SYSDATE    		, #{breplyStar} ) 
+	</insert> 
+	
+	<update id="breplyUpdate" parameterType="co.ebook.prj.book.vo.BreplyVO">
+		UPDATE BOOK_REPLY
+		   SET breply_contents = #{breplyContents}
+		     , udt_dt = SYSDATE
+		 WHERE book_id = #{bookId}
+		   AND breply_id = #{breplyId}
+	</update>
+	
+	<delete id="breplyDelete" parameterType="co.ebook.prj.book.vo.BreplyVO">
+		DELETE FROM BOOK_REPLY
+		 WHERE book_id = #{bookId}
+		   AND breply_id = #{breplyId}
+	</delete>
+</mapper>

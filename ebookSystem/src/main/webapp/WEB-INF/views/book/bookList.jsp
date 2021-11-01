@@ -88,7 +88,7 @@ $(function(){
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.insDt}"/></td>
 								<td>
 									<c:if test="${not empty list.bookCoverPath}">
-										<img width="50" height="70" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">&nbsp;&nbsp;
+										<img width="50" height="70" src="${pageContext.request.contextPath}/fileUp${list.bookCoverPath}${list.bookCover}">&nbsp;&nbsp;
 									</c:if>
 									${list.bookNm}</td>
 								<td>${list.bookPublCo}</td>
