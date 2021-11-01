@@ -34,4 +34,5 @@ public interface MemberMapper {
 	
 //	멤버삭제
 	int memberDelete(MemberVO vo);
+	
 }

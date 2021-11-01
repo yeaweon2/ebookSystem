@@ -75,13 +75,9 @@
 	
 	<update id="memberUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
 		update  member
-		   set  member_id = #{memberId},
-		   		member_pw = #{memberPw}, 
-		   		member_nm = #{memberNm},
-           		member_nicknm = #{memberNicknm}, 
+		   set  member_pw = #{memberPw}, 
+		   		member_nicknm = #{memberNicknm}, 
            		member_email = #{memberEmail},
-           		member_birth = #{memberBirth},
-           		member_gen = #{memberGen},
            		member_mile = #{memberMile},
            		member_tel = #{memberTel},
            		member_like_fld = #{memberLikeFld},
@@ -92,7 +88,6 @@
            		mcnfm_id = #{mcnfmId},
            		member_fl_cd =#{memberFlCd} ,
  		        member_st_cd =#{memberStCd} ,
- 		        ins_dt = #{insDt},   
            		udt_dt = sysdate
 		 where  member_id = #{memberId}
 	

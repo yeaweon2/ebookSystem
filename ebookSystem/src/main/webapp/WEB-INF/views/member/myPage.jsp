@@ -11,22 +11,36 @@
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-//	버튼 클릭 시 수정페이지로 이동 & 삭제
-	function MemberEdit(str) {
-		if(str == 'U') {
-			frm.action = "memberUpdateForm";
-		}else {
-			if(confirm('회원을 삭제하시겠습니까?') == true) {
-				frm.action = "memberDelete";
-			} else {
-				return false;
-			}
-		}
-		frm.submit();
-	}
-</script>
+<script type="text/javascript">
 
+//관심분야선택
+
+$("input[name=memberLikeFld]:checked").each(function() { 
+	var test = $(this).val(); 
+})
+
+
+//버튼 클릭 시 수정 & 취소
+function myPageUpdate(str) {
+	if(str == 'U') {
+		if(confirm('수정하시겠습니까?') == true) {
+			console.log("--------");
+			frm.action = "myPageUpdate";
+			$("#frm").submit();  
+		} else {
+			return false;
+		}
+	}else {
+		if(confirm('수정을 취소하시겠습니까?') == true) {
+			frm.action = "myPage";
+		} else {
+			return false;
+		}
+	}
+}
+
+
+</script>
 </head>
 <body>
 	<div class="site-section">
@@ -35,70 +49,83 @@
 				<div class="section-header">
 					<h2>마이페이지</h2>
 				</div>
+				<div><p  style="color: #ac2925; margin-top: 30px">*표시된 항목만 수정 가능합니다.</p></div>
 			</div>
 			<div>
 				<div class="col-lg-12 mb-12 mb-lg-0" align="center">
 					<div class="package text-center bg-white"><br />
-					<form action="memberSelect" method="post" id="frm">
+					<form action="#" method="post" id="frm" name="frm">
 						<table id="lcodeTb" class="table table-hover">
 							<tr>
-								<th>회원구분</th>
-								<td>${member.memberFlNm }</td>
-								<th>회원명</th>
-								<td>${member.memberNm }</td>
-								<th>닉네임</th>
-								<td>${member.memberNicknm }</td>
+								<th><label for="memberFlNm">회원구분</label></th>
+									<td><input type="text" id="memberFlNm" name="memberFlNm" value="${member.memberFlNm}" readonly="readonly"></td>
+								<th><label for="memberId">ID</label></th>
+									<td><input type="text" id="memberId" name="memberId" value="${member.memberId}" readonly="readonly"></td>
 							</tr>
 							<tr>
-								<th>ID</th>
-								<td>${member.memberId }</td>
-								<th>비밀번호</th>
-								<td>${member.memberPw }</td>
-								<th>성별</th>
-								<td>${member.memberGen }</td>
+								<th><label for="memberNm">회원명</label></th>
+									<td><input type="text" id="memberNm" name="memberNm" value="${member.memberNm}" readonly="readonly"></td>
+								<th><label for="memberGen">성별</label></th>
+									<td><input type="text" id="memberGen" name="memberGen" value="${member.memberGen}" readonly="readonly"></td>
+							</tr>
+							<tr>	
+								<th><p  style="color: #ac2925">*닉네임</p></th>
+									<td><input type="text" id="memberNicknm" name="memberNicknm" value="${member.memberNicknm}"></td>
+								<th><p  style="color: #ac2925">*비밀번호</p></th>
+									<td><input type="password" id="memberPw" name="memberPw" value="${member.memberPw}"></td>
 							</tr>
 							<tr>
-								<th>생년월일</th>
-								<td>${member.memberBirth }</td>
-								<th>전화번호</th>
-								<td>${member.memberTel }</td>
-								<th>Email</th>
-								<td>${member.memberEmail }</td>
+								<th><label for="memberBirth">생년월일</label></th>
+									<td><input type="text" id="memberBirth" name="memberBirth" value="${member.memberBirth}" readonly="readonly"></td>
+									<th><p  style="color: #ac2925">*전화번호</p></th>
+									<td><input type="text" id="memberTel" name="memberTel" value="${member.memberTel}"></td>
 							</tr>
 							<tr>
-								<th>프로필파일명</th>
-								<td>${member.memberProfileNm }</td>							
-								<th>프로필파일경로</th>
-								<td>${member.memberProfilePath }</td>
-								<th></th>
-								<td></td>
+									<th><p  style="color: #ac2925">*Email</p></th>
+									<td><input type="email" id="memberEmail" name="memberEmail" value="${member.memberEmail}"></td>
 							</tr>
 							<tr>
-								<th>휴대폰인증코드</th>
-								<td>${member.memberPhoneVld }</td>
+								<th><p  style="color: #ac2925">*프로필</p></th>
+									<td>
+									<input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control">
+									<div id="imgContainer" style="display:none"><img id="Img" width="150" height="170"></div>
+									</td>
+									<td><button id="FileForm" type="button" class="btn btn-primary"> 파일등록 </button></td> 
+									<th><label></label></th>
+									<td></td>
+							</tr>
+							<tr>
 								<c:if test="${auth ne 'M' }">
-								<th>마일리지</th>
-								<td>${member.memberMile }</td>
-								<th>관심분야</th>
-								<td>${member.memberLikeFld }</td>
+								<th><label for="memberMile">마일리지</label></th>
+									<td><input type="text" id="memberMile" name="memberMile" value="${member.memberMile}" readonly="readonly"></td>
+								<th><p  style="color: #ac2925; margin-top: 30px">*관심분야</p></th>
+								<td><input type="text" id="memberLikeFld" name="memberLikeFld" value="${member.memberLikeFld}">
+								<div class="form-check-inline" style="word-spacing: 10px">
+								<input type="checkbox" class="form-check-input" id="memberLikeFld1" name="memberLikeFld" value="경제경영">
+								<label for="favorite1" class="form-label">경제경영</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld2" name="memberLikeFld" value="자기개발">
+								<label for="favorite2" class="form-label">자기개발</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld3" name="memberLikeFld" value="소설/시/희곡">
+								<label for="favorite3" class="form-label">소설/시/희곡</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld4" name="memberLikeFld" value="에세이">
+								<label for="favorite4" class="form-label">에세이</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld5" name="memberLikeFld" value="인문학">
+								<label for="favorite5" class="form-label">인문학</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld6" name="memberLikeFld" value="사회과학">
+								<label for="favorite6" class="form-label">사회과학</label><br>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld7" name="memberLikeFld" value="역사">
+								<label for="favorite7" class="form-label">역사</label>
+								<input type="checkbox" class="form-check-input" id="memberLikeFld8" name="memberLikeFld" value="예술/대중문화">
+								<label for="favorite8" class="form-label">예술/대중문화</label>
+							</div>
 								</c:if>
 							</tr>
 							<tr>
 								<c:if test="${auth ne 'U'}">
-								<th>승인여부</th>
-								<td>${member.managerCnfmYn }</td>
-								<th>승인번호</th>
-								<td>${member.mcnfmId }</td>
-								</c:if>
-							</tr>
-							<tr>
-								<c:if test="${auth eq 'A'}">
-								<th>회원등록일자</th>
-								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${member.insDt }" /></td>
-								<th>회원수정일자</th>
-								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${member.udtDt }" /></td>
-								<th>회원상태</th>
-								<td>${member.memberStNm }</td>  
+								<th><label for="managerCnfmYn">승인여부</label></th>
+									<td><input type="text" id="managerCnfmYn" name="managerCnfmYn" value="${member.managerCnfmYn}" readonly="readonly"></td>
+								<th><label for="mcnfmId">승인번호</label></th>
+									<td><input type="text" id="mcnfmId" name="mcnfmId" value="${member.mcnfmId}" readonly="readonly"></td>
 								</c:if>
 							</tr>
 						</table>
@@ -106,15 +133,12 @@
 					</div>
 				</div><br><br>
 				<div align="center">
-					<input type="button" onclick="location.href='memberList'" value="목록보기" class="btn btn-default get" style="background-color: #1E90FF"> 
-					<input type="button" onclick="MemberEdit('U')" value="수정"  class="btn btn-default get" style="background-color: #90EE90">
-					<input type="button" onclick="MemberEdit('D')" value="삭제" class="btn btn-default get" style="background-color: #FF6347">
+					<input type="button" onclick="myPageUpdate('U')" value="수정" class="btn btn-default get" style="background-color: #90EE90">
+					<input type="button" onclick="myPageUpdate('D')" value="취소" class="btn btn-default get" style="background-color: #1E90FF">
+					<input type="button" onclick="location.href=''" value="회원탈퇴" class="btn btn-default get" style="background-color: #FF6347">
 				</div><br><br><br>
 			</div>
 		</div>
 	</div>
-	<form id="frm" name="frm" method="post">
-		<input type="hidden" id="memberId" name="memberId" value="${member.memberId}">
-	</form>
 </body>
 </html>

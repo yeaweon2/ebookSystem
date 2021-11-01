@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.ebook.prj.login.service.LoginService;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
 
@@ -25,6 +27,10 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberDao;
+	
+	@Autowired
+	LoginService loginDao;
+	
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder){
@@ -133,7 +139,6 @@ public class MemberController {
 	@RequestMapping("memberUpdateForm")
 	public String memberUpdateForm(Model model, MemberVO vo, HttpSession session) {
 		vo = memberDao.memberSelect(vo);
-		// vo.setMemberId((String)session.getAttribute("id")); 개인회원 마이페이지수정시에 session필요
 		model.addAttribute("member", vo);
 		return "member/memberUpdateForm";
 		
@@ -150,12 +155,25 @@ public class MemberController {
 	
 //	마이페이지
 	@RequestMapping("/myPage")
-	public String myPage(Model model, MemberVO vo, HttpSession session) {
+	public String myPage(Model model, MemberVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		vo.setMemberId((String)session.getAttribute("id"));
+		System.out.println("==============1===========1==========>>>>" +vo.toString());
 		vo = memberDao.memberSelect(vo);
-		//vo.setMemberId((String)session.getAttribute("id"));
 		model.addAttribute("member", vo);
-		return "member/myPage";
+		return"member/myPage";
 	}
+	
+	
+//	마이페이지수정완료
+	@RequestMapping("/myPageUpdate")
+	public String myPage(Model model, MemberVO vo) {
+		System.out.println("===!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+vo.toString());
+		memberDao.memberUpdate(vo);
+		model.addAttribute("member", vo);
+		return"redirect:myPage";
+	}
+	
 	
 //	월정액가입메인페이지
 	@RequestMapping("/ticketList")
@@ -165,10 +183,12 @@ public class MemberController {
 	
 //	월정액가입폼
 	@RequestMapping("/subscription")
-	public String subscription(Model model) {
+	public String subscription(Model model, MemberVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		vo.setMemberId((String)session.getAttribute("id"));
+		model.addAttribute("member", memberDao.memberSelect(vo));
 		return "member/subscription";
 	}
 	
 
-	
 }

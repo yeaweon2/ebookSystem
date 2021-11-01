@@ -5,62 +5,67 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <!-- jQuery -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-  <!-- iamport.payment.js -->
-  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js">
-  
-	function iamportApi(){
-		//가맹점 식별코드
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script>
+
+function txInput(Obj,Str)
+{
+  document.getElementById(Obj).value = Str;
+}
+
+
+
+$(function(){
+	$("#check_module").click(function () {
+		var IMP = window.IMP; // 생략가능
 		IMP.init('imp33573268');
 		IMP.request_pay({
-		    pg : 'kcp',
-		    pay_method : 'card',
-		    merchant_uid : 'merchant_' + new Date().getTime(),
-		    name : '상품1' , //결제창에서 보여질 이름
-		    amount : 100, //실제 결제되는 가격
-		    buyer_email : 'iamport@siot.do',
-		    buyer_name : '구매자이름',
-		    buyer_tel : '010-1234-5678',
-		    buyer_addr : '서울 강남구 도곡동',
-		    buyer_postcode : '123-456'
-		}, function(rsp) {
+		pg: 'html5_inicis', 
+		pay_method: 'card',
+
+		merchant_uid: 'merchant_' + new Date().getTime(),
+		name: '주문명:월정액1개월',
+		amount: 9900,
+		buyer_email: 'iamport@siot.do',
+		buyer_name: '김미미',
+		buyer_tel: '010-1234-5678',
+		buyer_addr: '서울특별시 강남구 삼성동',
+		buyer_postcode: '123-456',
+		m_redirect_url: 'https://localhost/prj/payments/complete'
+		
+		}, function (rsp) {
 			console.log(rsp);
-			// 결제검증
-			$.ajax({
-	        	type : "POST",
-	        	url : "/verifyIamport/" + rsp.imp_uid 
-	        }).done(function(data) {
-	        	
-	        	console.log(data);
-	        	
-	        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
-	        	if(rsp.paid_amount == data.response.amount){
-		        	alert("결제 및 결제검증완료");
-	        	} else {
-	        		alert("결제 실패");
-	        	}
-	        });
+			if (rsp.success) {
+			var msg = '결제가 완료되었습니다.';
+			msg += '고유ID : ' + rsp.imp_uid;
+			msg += '상점 거래ID : ' + rsp.merchant_uid;
+			msg += '결제 금액 : ' + rsp.paid_amount;
+			msg += '카드 승인번호 : ' + rsp.apply_num;
+			} else {
+				var msg = '결제에 실패하였습니다.';
+				msg += '에러내용 : ' + rsp.error_msg;
+			}
+			alert(msg);
+			});
 		});
-	}
-   
-  </script>
+});
 
-
+</script>
 
 
 </head>
 <body>
-<div class="site-section">
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>월정액 가입</h2>
-				</div>
+					<h3>E로운생활을 즐기기 위한</h3> 
+					<h3>구독방식을 선택해 주세요.</h3>
+				</div><br><br>
 			</div>
 			<div>
 				<div class="row g-3">
-						<div class="col-sm-8">
+						<div class="col-sm-6" align="center">
 						<br />
 						<table id="lcodeTb" class="table table-hover">
 							<tr>
@@ -72,46 +77,40 @@
 								<td>${member.memberNm }</td>
 							</tr>
 							<tr>
-								<th>마일리지</th>
-								<td>${member.memberMile }</td>
+								<th>마일리지 / 사용가능 마일리지</th>
+								<td>${member.memberMile } point / ${member.memberMile } point</td>
 							</tr>
 							<tr>
-								<th>월정액 기간선택</th><br>
-								<td><br>
-									<div class="form-check-inline">
-										<input id="mcnfmCntr1" name="mcnfmCntr" type="radio" value="A" class="form-check-input" checked="checked" required>
-										<label class="form-check-label" for="mcnfmCntr">1개월 : 9,900원</label><br>
-										<input id="mcnfmCntr2" name="mcnfmCntr" type="radio" value="B" class="form-check-input" required>
-										<label class="form-check-label" for="mcnfmCntr">3개월 : 25,900원</label><br>
-										<input id="mcnfmCntr3" name="mcnfmCntr" type="radio" value="C" class="form-check-input" required>
-										<label class="form-check-label" for="mcnfmCntr">12개월 : 90,000원</label><br>
-									</div>
+								<th>월정액 기간선택<p style="color: #ac2925">★결제할 기간을 선택하세요.</p></th>
+								<td>
+									<input id="mcnfmCntr1" name="mcnfmCntr" type="radio" value="9,900원" class="form-check-input" checked="checked" required onclick="txInput('textArea',this.value)">
+									<label class="form-check-label" for="mcnfmCntr">1개월 : 9,900원</label><br>
+									<input id="mcnfmCntr2" name="mcnfmCntr" type="radio" value="25,900원" class="form-check-input" required onclick="txInput('textArea',this.value)">
+									<label class="form-check-label" for="mcnfmCntr">3개월 : 25,900원</label><br>
+									<input id="mcnfmCntr3" name="mcnfmCntr" type="radio" value="90,000원" class="form-check-input" required onclick="txInput('textArea',this.value)">
+									<label class="form-check-label" for="mcnfmCntr">12개월 : 90,000원</label><br>
 								</td>
 							</tr>
 						</table>
+						<div class="row g-3">
+							<div class="row">
+							  <div class="col-75">
+							    
+							  </div>
+							  <div class="col-25">
+							      <h4>총 금액 <textarea id="textArea" rows="1" cols="1"></textarea></h4>
+							      <h4>사용 마일리지 <textarea id="textArea" rows="1" cols="1"></textarea></h4>
+							      <hr>
+							     <h2><p>Total <span class="price" style="color:black"><textarea id="textArea"  rows="1" cols="1"></textarea></span></p></h2>
+							  </div>
+							</div>
+						</div>
 						<div align="right">
-							<button type="submit" id=""subscription class="btn btn-outline-primary" onclick = "iamportApi()" value="가입하기"> 가입하기</button>
+							<button type="button" id="check_module" class="btn btn-outline-primary"  value="가입하기"> 가입하기</button>
 					</div><br><br><br>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<form action="memberSelect" method="post" id="frm">
-		<input type="hidden" id="memberId" name="memberId">
-	</form>
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

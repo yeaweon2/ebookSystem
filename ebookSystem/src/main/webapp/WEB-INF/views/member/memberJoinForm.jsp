@@ -70,6 +70,15 @@
 		}); 
 	}	
 	
+	
+//  관심분야선택
+	$("input[name=memberLikeFld]:checked").each(function() { 
+		var test = $(this).val(); 
+		console.log(test);
+	})
+
+	
+
 </script>
 </head>
 <body class="bg-center">
@@ -178,21 +187,21 @@
 								<label for="favorite" class="form-label">관심분야</label>
 							</div>
 							<div class="form-check-inline" style="word-spacing: 10px">
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<input type="checkbox" class="form-check-input" id="memberLikeFld1" name="memberLikeFld" value="경제경영">
 								<label for="favorite1" class="form-label">경제경영</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<input type="checkbox" class="form-check-input" id="memberLikeFld2" name="memberLikeFld" value="자기개발">
 								<label for="favorite2" class="form-label">자기개발</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<input type="checkbox" class="form-check-input" id="memberLikeFld3" name="memberLikeFld" value="소설/시/희곡">
 								<label for="favorite3" class="form-label">소설/시/희곡</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<input type="checkbox" class="form-check-input" id="memberLikeFld4" name="memberLikeFld" value="에세이">
 								<label for="favorite4" class="form-label">에세이</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<input type="checkbox" class="form-check-input" id="memberLikeFld5" name="memberLikeFld" value="인문학">
 								<label for="favorite5" class="form-label">인문학</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<input type="checkbox" class="form-check-input" id="memberLikeFld6" name="memberLikeFld" value="사회과학">
 								<label for="favorite6" class="form-label">사회과학</label><br>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<input type="checkbox" class="form-check-input" id="memberLikeFld7" name="memberLikeFld" value="역사">
 								<label for="favorite7" class="form-label">역사</label>
-								<input type="checkbox" class="form-check-input" id="memberLikeFld" name="memberLikeFld">
+								<input type="checkbox" class="form-check-input" id="memberLikeFld8" name="memberLikeFld" value="예술/대중문화">
 								<label for="favorite8" class="form-label">예술/대중문화</label>
 							</div>
 						</div>
