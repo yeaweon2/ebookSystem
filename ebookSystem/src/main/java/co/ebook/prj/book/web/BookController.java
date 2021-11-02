@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.ebook.prj.book.service.BookService;
 import co.ebook.prj.book.service.BreplyService;
+import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.book.vo.BreplyVO;
 
@@ -46,9 +47,9 @@ public class BookController {
 
 	
 	@RequestMapping("/bookList")
-	public String bookList(Model model , BookVO vo ) {
+	public String bookList(Model model , BookVO vo , BookSrchVO svo ) {
 		
-		List<BookVO> lists = bookDao.bookList();
+		List<BookVO> lists = bookDao.bookList(svo);
 
 		if(lists.size() > 0) {
 			model.addAttribute("msg", "성공");

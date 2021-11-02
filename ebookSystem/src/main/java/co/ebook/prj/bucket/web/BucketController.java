@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
-import co.ebook.prj.book.vo.bookSrchVO;
 import co.ebook.prj.bucket.service.BucketService;
 import co.ebook.prj.bucket.vo.BucketVO;
 
@@ -37,7 +37,7 @@ public class BucketController {
 	
 	@RequestMapping("/bucketSearchList")
 	@ResponseBody
-	public List<BookVO> bucketSearchList(Model model, @RequestBody bookSrchVO vo ) {
+	public List<BookVO> bucketSearchList(Model model, @RequestBody BookSrchVO vo ) {
 		
 		List<BookVO> lists = bucketDao.bucketSearChList(vo.getBookNm()); 
 		return lists;

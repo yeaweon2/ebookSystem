@@ -4,9 +4,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.ebook.prj.book.service.BookService;
+import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
 
 @RestController
@@ -98,5 +97,17 @@ public class bookRestController {
 	   
 	   return vo;
    }
+	
+	@RequestMapping(value="/bookSrchList", method=RequestMethod.POST )
+	   public List<BookVO> bookSrchList(Model model, @RequestBody BookSrchVO vo) {
+		
+		System.out.println("----------------------------->> ");
+		System.out.println(vo.toString());
+		List<BookVO> lists = bookDao.bookList(vo);	
+		return lists;
+	}
+			
+	
+	
 	
 }

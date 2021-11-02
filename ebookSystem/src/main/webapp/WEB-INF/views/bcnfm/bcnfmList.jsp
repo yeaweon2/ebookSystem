@@ -130,7 +130,7 @@
 </head>
 <body>
 <div class="inner-page pt-6">
-	<div class="container">
+	<div>
 		<div class="row mb-1" style="margin-top: 40px">
 			<div class="section-header">
           		<h2>BOOK 승인목록</h2>

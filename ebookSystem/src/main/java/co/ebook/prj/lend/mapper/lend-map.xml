@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.ebook.prj.lend.mapper.LendMapper">
+	<select id="lendList" resultType="co.ebook.prj.lend.vo.LendVO">
+	<![CDATA[
+	    SELECT L.LEND_ID 
+	         , L.BOOK_ID
+	         , L.LEND_HIT
+	         , L.MEMBER_ID
+	         , L.LEND_DATE
+	         , B.BOOK_NM
+	         , B.BOOK_PUBL_CO 
+	         , B.BOOK_WRITER
+	         ,  REPLACE ( REPLACE(B.BOOK_INTRO , CHR(13), '') , CHR(10), '<br/>') as book_intro
+	         , B.BOOK_COVER
+	         , B.BOOK_COVER_PATH 
+	      FROM LEND L
+	         , BOOK B
+	     WHERE L.BOOK_ID = B.BOOK_ID
+	       AND L.MEMBER_ID = #{memberId}
+	 ]]>        	
+	</select>
+
+	<select id="lendDetail" resultType="co.ebook.prj.lend.vo.LendVO">
+	
+	</select>
+	
+	<insert id="lendInsert" parameterType="co.ebook.prj.lend.vo.LendVO">
+		INSERT INTO LEND ( LEND_ID , LEND_DATE , BOOK_ID,  MEMBER_ID  , LEND_HIT , INS_DT, UDT_DT )
+	    VALUES ( LEND_SEQ.nextval , SYSDATE ,  #{bookId}, #{memberId} , default, SYSDATE , SYSDATE )  
+	</insert>
+
+	<update id="lendUpdate" parameterType="co.ebook.prj.lend.vo.LendVO">
+	
+	</update>
+	
+	<delete id="lendDelete" parameterType="co.ebook.prj.lend.vo.LendVO">
+		DELETE FROM LEND WHERE lend_id = #{lendId}
+	</delete>
+</mapper>

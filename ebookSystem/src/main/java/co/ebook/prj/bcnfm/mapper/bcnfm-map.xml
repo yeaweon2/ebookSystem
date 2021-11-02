@@ -59,6 +59,7 @@
 		UPDATE BOOK
        	   SET BCNFM_ID = ( SELECT MAX(BCNFM_ID) FROM BOOK_CONFIRM 
        	   					 WHERE BOOK_ID = #{bookId} )
+       	   	 , book_cnfm_yn = 'Y'
  		 WHERE BOOK_ID = #{bookId}		
 	</update>
 </mapper>

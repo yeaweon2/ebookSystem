@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import co.ebook.prj.book.mapper.BookMapper;
 import co.ebook.prj.book.service.BookService;
+import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
 
 @Repository
@@ -16,10 +17,10 @@ public class BookServiceImpl implements BookService {
 	BookMapper map;
 	
 	@Override
-	public List<BookVO> bookList() {
-		return map.bookList();
+	public List<BookVO> bookList(BookSrchVO vo) {
+		return map.bookList(vo);
 	}
-	
+
 	@Override
 	public List<BookVO> bestSellerBook() { 
 		return map.bestSellerBook();
@@ -55,7 +56,4 @@ public class BookServiceImpl implements BookService {
 	public int bookUseYnUpdate(BookVO vo) {
 		return map.bookUseYnUpdate(vo);
 	}
-
-
-
 }

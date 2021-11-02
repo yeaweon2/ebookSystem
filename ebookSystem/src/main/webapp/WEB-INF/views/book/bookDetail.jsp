@@ -31,9 +31,9 @@ body {
   border: none;
   color: white;
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   padding: 10px;
-  width: 170px;
+  width: 150px;
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
@@ -140,7 +140,7 @@ body {
 	margin: 0 0 0 50px;
     border: 1px solid #e4e1e3;
     border-radius: 4px;
-    padding: 1em 1em 0;
+    padding: 1em 1em 1em 1em;
 }
 
 #childReply& {
@@ -182,7 +182,7 @@ color : #f15e5e;
 	 		}); 			
 		});
 		
-		
+		// 버킷 클릭시
 		$(".bucketBtn").on("click", function(){
 			var bookId = $("#bookId").val();
 			
@@ -204,6 +204,7 @@ color : #f15e5e;
 			});
 		});
 		
+		// 별 클릭시 
 		$("#stars").on("click", "#star", function(){
 			if(!$(this).data("flag")){
 				$(this).removeClass("far");
@@ -226,6 +227,7 @@ color : #f15e5e;
 			}
 		});
 		
+		// 부모댓글 등록시 
 		$("#breplyInsert").on("click", function(){
 			
 			var bookId = $("#bookId").val();
@@ -244,10 +246,6 @@ color : #f15e5e;
 				dataType : 'json',
 				success : function(res){
 					console.log(res);
-					
-					// $('.dateview2').html(moment(res.insDt).format('YYYY MM DD HH:mm:ss'));
-
-					
 					
 					$("#replyList").append($("<div class='comment-text'>").append(
 							$("<div id='parentReply'>")
@@ -269,6 +267,7 @@ color : #f15e5e;
 			});
 		});
 		
+		// 댓글 삭제버튼 클릭시 
 		$(".description").on("click", '#breplyDelete' , function(){
 			event.preventDefault();
 			
@@ -298,6 +297,90 @@ color : #f15e5e;
 		});
 		
 		
+		var oldContents = "";
+		
+		// 댓글수정 클릭시 
+		$(".description").on("click", '#breplyUpdate' , function(){
+			event.preventDefault();
+
+			oldContents = $(this).closest(".description").find("p").html();
+			
+			$(this).closest(".description").find("p").html("");
+			$(this).closest(".description").find("p").append($("<textarea>").val(oldContents));
+			
+			$(this).addClass("hidden");
+			
+			$(this).siblings("#breplySave").removeClass("hidden");
+			$(this).siblings("#breplyCancel").removeClass("hidden");
+			$(this).siblings("#breplyDelete").addClass("hidden");
+			$(this).siblings("#breplyChildInsert").addClass("hidden");
+		});
+		
+		// 댓글취소 클릭시 
+		$(".description").on("click", '#breplyCancel' , function(){
+			event.preventDefault();
+			
+			$(this).closest(".description").find("p").html("");
+			$(this).closest(".description").find("p").html(oldContents);
+			
+			
+			$(this).addClass("hidden");
+			$(this).siblings("#breplySave").addClass("hidden");
+			$(this).siblings("#breplyUpdate").removeClass("hidden");
+			$(this).siblings("#breplyDelete").removeClass("hidden");
+			$(this).siblings("#breplyChildInsert").removeClass("hidden");
+			
+		});		
+		
+		// 댓글저장 클릭시 
+		$(".description").on("click", '#breplySave' , function(){
+			event.preventDefault();
+			
+			var breplyId = $(this).data("breplyid");
+			var bookId = $("#bookId").val();
+			var breplyContents = $(this).closest(".description").find("textarea").val();
+			
+			var area = $(this).closest(".description").find("p");
+			
+			$.ajax({
+				url : 'breplyUpdate' ,
+				method : 'POST' ,
+				data : JSON.stringify({ bookId : bookId, breplyId : breplyId , breplyContents : breplyContents }),
+				contentType : 'application/json',					
+				dataType : 'json',
+				success : function(res){
+					area.html("");
+					area.html(breplyContents);
+				}
+			});	
+			
+			$(this).addClass("hidden");
+			$(this).siblings("#breplyCancel").addClass("hidden");
+			$(this).siblings("#breplyUpdate").removeClass("hidden");
+			$(this).siblings("#breplyDelete").removeClass("hidden");
+			$(this).siblings("#breplyChildInsert").removeClass("hidden");
+			
+		});
+		
+		// 자식댓글 쓰기 클릭시  
+		$(".description").on("click", '#breplyChildInsert' , function(){
+			event.preventDefault();
+			$("#childBox").removeClass("hidden");
+		
+			$(this).closest(".comment-text").after( $("#childBox") );
+		});
+		
+		// 자식댓글 작성중 취소 클릭시 
+		$("#childCancel").on("click", function(){
+			$("#childBox").addClass("hidden");			
+			$(this).siblings("#childContents").val("");
+		});
+		
+		// 자식댓글 저장 클릭시 
+		$("#childSave").on("click", function(){
+			// breplyChildInsert
+		});
+		
 	});
 </script>
 </head>
@@ -319,7 +402,7 @@ color : #f15e5e;
 		
 		</div>	
 			<div class="pull-right">
-				<button type="button" class="button" id="bookCartForm"><span>장바구니 </span></button>
+				<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
 				<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
 				<button class="bucketBtn" ><i class="fa fa-heart"></i></button>							
 			</div>
@@ -366,7 +449,7 @@ color : #f15e5e;
 		<i id="star" class="far fa-star" data-flag="false" data-no="4"></i>
 		<i id="star" class="far fa-star" data-flag="false" data-no="5"></i>
 	</div>
-	<button id="breplyInsert" type="button" class="btn btn-default pull-right">등록</button>
+	<button id="breplyInsert" type="button" class="btn btn-primary pull-right">등록</button>
 	<textarea id="breplyContentsNew" rows="3" cols="30"></textarea>
 </div>
 <div id="replyList">
@@ -380,10 +463,12 @@ color : #f15e5e;
 					<div class="description" style="padding-left:25px;">
 						<p>${reply.breplyContents}</p>
 						<div class="pull-right">
-							<a>댓글쓰기</a>
+							<a href="#" id="breplyChildInsert" data-breplyid="${reply.breplyId}">댓글쓰기</a>
 							<c:if test="${reply.breplyWriter eq id }">
-								<a>수정</a>
+								<a href="#" id="breplyUpdate" data-breplyid="${reply.breplyId}">수정</a>
 								<a href="#" id="breplyDelete" data-breplyid="${reply.breplyId}">삭제</a>
+								<a href="#" id="breplySave" class="hidden" data-breplyid="${reply.breplyId}">저장</a>
+								<a href="#" id="breplyCancel" class="hidden" data-breplyid="${reply.breplyId}">취소</a>								
 							</c:if>
 						</div>
 					</div>
@@ -408,10 +493,12 @@ color : #f15e5e;
 					<div class="description">
 						<p>${reply.breplyContents}</p>
 						<div class="pull-right">
-							<a>댓글쓰기</a>
+							<a href="#" id="breplyChildInsert" data-breplyid="${reply.breplyId}">댓글쓰기</a>
 							<c:if test="${reply.breplyWriter eq id }">
-								<a>수정</a>
+								<a href="#" id="breplyUpdate" data-breplyid="${reply.breplyId}">수정</a>
 								<a href="#" id="breplyDelete" data-breplyid="${reply.breplyId}">삭제</a>
+								<a href="#" id="breplySave" class="hidden" data-breplyid="${reply.breplyId}">저장</a>
+								<a href="#" id="breplyCancel" class="hidden" data-breplyid="${reply.breplyId}">취소</a>
 							</c:if>
 						</div>
 					</div>
@@ -420,6 +507,18 @@ color : #f15e5e;
 		</div>
 	</c:forEach>
 </div>
+
+
+<div id="childBox" class="comment-text hidden" >
+	<i class="material-icons">subdirectory_arrow_right</i>
+	<strong>${nicknm}</strong>
+	<button id="childInsert" type="button" class="btn btn-primary pull-right">등록</button>
+	<button id="childCancel" type="button" class="btn btn-primary pull-right">취소</button>
+	<textarea id="childContents" rows="3" cols="30"></textarea>
+</div>
+
+
+
 
 <form action="#" method="post" id="frm" name="frm">
 	<input type="hidden" id="bookId" name="bookId" value="${book.bookId}">

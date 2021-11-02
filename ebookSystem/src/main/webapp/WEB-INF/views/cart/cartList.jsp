@@ -44,6 +44,7 @@
 		// 카트에서 book 삭제
 		function itemDel(id){
 			event.preventDefault();
+			event.stopPropagation();
 			$("#itemDel").css("display", "block");
 		}
 
@@ -54,31 +55,37 @@
 		// 선택삭제
 		$("#chkDelBtn").on("click", function(){
 			
-			var books = [];
-			$("#cartTbody").find("#chkInput:checked").each(function(){
-				   
-				var bookId = $(this).closest("tr").data("bookid");
+
+			if( $("#cartTbody").find("#chkInput:checked").length == 0 ){
+				alert("선택한 건이 없습니다.");
+				return false;
+			}else{
+				var books = [];
+				$("#cartTbody").find("#chkInput:checked").each(function(){
+					   
+					var bookId = $(this).closest("tr").data("bookid");
+					
+					var data = {
+							bookId : bookId
+						};
+					
+					if( data != "" ){
+						books.push(data);	
+					}
+				});
 				
-				var data = {
-						bookId : bookId
-					};
-				
-				if( data != "" ){
-					books.push(data);	
-				}
-			});
-			
-			 $.ajax({
-				url : 'cartDelete' ,
-				data :  JSON.stringify(books) ,
-				contentType : 'application/json',
-				method : 'DELETE' ,
-				dataType : 'json' ,
-				success : function(data){
-					console.log(data);
-					cartList();
-				}
-			});  
+				 $.ajax({
+					url : 'cartDelete' ,
+					data :  JSON.stringify(books) ,
+					contentType : 'application/json',
+					method : 'DELETE' ,
+					dataType : 'json' ,
+					success : function(data){
+						console.log(data);
+						cartList();
+					}
+				}); 
+			} 
 		});
 		
 		$("#cartDelete").on("click", function(){
@@ -95,15 +102,6 @@
 			});
 		});
 		
-		$("#cartTbody").on("click", "tr" ,function(){
-			event.stopPropagation();
-			console.log($(this));
-			$("#frm").find("#bookId").val($(this).data("bookid"));
-			frm.submit();
-		});
-		
-		
-		
 		function cartList(){
 			
 			$.ajax({
@@ -118,7 +116,7 @@
 					$.each(data,function(idx,item){
 						$("#cartTbody")
 						.append($("<tr class='pointer'>")
-									.append($("<td>").append( $("<input id='chkInput' type='checkbox'>")))
+									.append($("<td id='chkTd'>").append( $("<input id='chkInput' type='checkbox'>")))
 									.append($("<td>").html(item.insDt))
 									.append($("<td>").append( $("<img>") ).html(item.bookNm))
 									.append($("<td>").append( $("<button class='bucketBtn'>").append($("<i class='fa fa-heart'>")) )
@@ -129,7 +127,63 @@
 					});
 				}
 			}); 
-		} 
+		}
+		
+		$("#lendBtn").on("click", function(){
+			console.log( $("#cartTbody").find("#chkInput:checked").length );
+			
+			if( $("#cartTbody").find("#chkInput:checked").length ==  0 ){
+				alert("선택한 건이 없습니다.");
+				return false;
+			}else{
+				var books = [];
+				$("#cartTbody").find("#chkInput:checked").each(function(){
+					   
+					var bookId = $(this).closest("tr").data("bookid");
+					
+					var data = {
+							bookId : bookId
+						};
+					
+					if( data != "" ){
+						books.push(data);	
+					}
+				});
+				
+				console.log(books);
+				
+				 $.ajax({
+					url : 'lendInsert' ,
+					data :  JSON.stringify(books) ,
+					contentType : 'application/json',
+					method : 'POST' ,
+					dataType : 'json' ,
+					success : function(data){
+						console.log(data);
+						alert("성공");
+					}
+				}); 		
+			}
+			
+		});
+		
+		
+		
+		$("#cartTbody").on("click", ".removeBtn" ,function(){
+			event.stopPropagation();
+		});
+		
+		$("#cartTbody").on("click", "#chkTd" , function(){
+			event.stopPropagation();
+		});
+		
+		$("#cartTbody").on("click", ".cart_description" ,function(){
+			event.stopPropagation();
+			console.log($(this));
+			$("#frm").find("#bookId").val($(this).data("bookid"));
+			frm.submit();
+		});
+		
 		
 	});
 	
@@ -139,7 +193,7 @@
 </head>
 <body>
 	<section id="cart_items">
-		<div class="container">
+		<div>
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 				<thead>
@@ -162,7 +216,7 @@
 					</c:if>
 					<c:forEach var="book" items="${lists}">
 						<tr class="pointer" data-bookid="${book.bookId}">
-							<td><input id="chkInput" type="checkbox"></td>
+							<td id="chkTd"><input id="chkInput" type="checkbox"></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${book.insDt}"/></td>
 							<td class="cart_product">
 								<c:if test="${not empty book.bookCoverPath}">
@@ -173,17 +227,15 @@
 								<h4>${book.bookNm}</h4>
 								<p>${book.bookPublCo}(${book.bookWriter})</p>
 							</td>	
-							<td><button class="cart_quantity_delete" data-toggle="modal" data-target="#itemDel" ><i class="fa fa-times"></i></button></td>
+							<td><button class="removeBtn btn btn-primary pull-right" data-toggle="modal" data-target="#itemDel" ><i class="fa fa-trash-o"></i></button></td>
 						</tr>
 					</c:forEach>
 					</tbody>
 				</table>
 			</div>
-			<div class="btn-group">
-				<button id="chkBucBtn" class="btn btn-outline-secondary">선택버킷</button>
-				<button id="chkDelBtn" class="btn btn-outline-secondary">선택삭제</button>
-				<button id="lendBtn" class="btn btn-outline-secondary">전체대여</button>
-			</div>
+			<button id="chkBucBtn" class="btn btn-primary">선택버킷</button>
+			<button id="chkDelBtn" class="btn btn-primary">선택삭제</button>
+			<button id="lendBtn" class="btn btn-primary pull-right"><i class="fa fa-toggle-right"></i>  대 여</button> 
 	</div>
 </section>	 
 <div  class="modal fade" id="itemDel" style="display: none">
