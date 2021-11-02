@@ -27,7 +27,7 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>공지사항</h2><br><br><br><br>
+					<h2>공지사항</h2><br><br>
 				</div>
 				
 			</div>

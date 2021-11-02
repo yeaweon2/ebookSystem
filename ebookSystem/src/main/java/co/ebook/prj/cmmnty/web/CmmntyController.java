@@ -25,6 +25,7 @@ public class CmmntyController {
 	String noticeList(Model model, CmmntyVO vo) {
 		vo.setCmmntyFlCd("01");
 		vo.setCmmntyDelyn("N");
+		
 		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
 		model.addAttribute("notices", lists);
 		return "cmmnty/noticeList";
@@ -52,10 +53,6 @@ public class CmmntyController {
 	// 공지사항 게시글입력
 	@RequestMapping("/noticeInsert")
 	String noticeInsert(Model model, CmmntyVO vo) throws Exception {
-
-		System.out.println(vo.toString());
-		System.out.println("=============================게시글입력중");
-
 		vo.setCmmntyFlCd("01");
 		int lists = cmmntyDao.cmmntyInsert(vo);
 
@@ -72,7 +69,6 @@ public class CmmntyController {
 	@PostMapping("/noticeDelete")
 	public String noticeDelete(Model model, CmmntyVO vo) {
 		vo.setCmmntyFlCd("01");
-		vo.setCmmntyWriter("admin");
 		cmmntyDao.cmmntyDelete(vo);
 
 		return "redirect:noticeList";

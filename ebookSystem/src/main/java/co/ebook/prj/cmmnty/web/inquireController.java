@@ -25,8 +25,18 @@ public class inquireController {
 		vo.setCmmntyFlCd("03");
 		vo.setCmmntyDelyn("N");
 		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
-		model.addAttribute("inquire", lists);
+		model.addAttribute("inquires", lists);
 		return "cmmnty/inquireList";
+	}
+	// 1:1문의 상세조회
+	@RequestMapping("/inquireSelectList")
+	String noticeSelectList(Model model, CmmntyVO vo) throws Exception {
+		vo.setCmmntyFlCd("03");
+		vo.setCmmntyDelyn("N");
+		vo = cmmntyDao.cmmntySelectList(vo);
+
+		model.addAttribute("inquire", vo);
+		return "cmmnty/inquireSelectList";
 	}
 
 	// 1:1문의 게시글입력양식
@@ -70,7 +80,7 @@ public class inquireController {
 		vo.setCmmntyWriter((String) request.getAttribute("id"));
 		vo = cmmntyDao.cmmntySelectList(vo);
 
-		model.addAttribute("board", vo);
+		model.addAttribute("inquires", vo);
 		return "cmmnty/inquireUpdateForm";
 	}
 

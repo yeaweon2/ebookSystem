@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 public class CmmntyVO {
-	private int cmmntyId;
+	private Integer cmmntyId;
 	private int cmmntyNo;
 	private String cmmntyWriter;
 	private String cmmntyFlCd;
@@ -23,7 +23,7 @@ public class CmmntyVO {
 	private String cmmntyAtchNm;
 	private String cmmntyAtchPath;
 	@DateTimeFormat(pattern = "yyyy-MM-dd ")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd'T'HH:mm'Z'", timezone = "Asia/Seoul")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")
 	private Date insDt;
 	private Date udtDt;
 	

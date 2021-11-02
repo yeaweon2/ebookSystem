@@ -67,8 +67,10 @@
 		UPDATE COMMUNITY
 		   SET CMMNTY_TITLE 	= #{cmmntyTitle} 
 		     , CMMNTY_CONTENTS 	= #{cmmntyContents}
+		    <if test="cmmntyAtchNm != null and cmmntyAtchNm !=''">
 		     , CMMNTY_ATCH_NM 	= #{cmmntyAtchNm}
 			 , CMMNTY_ATCH_PATH = #{cmmntyAtchPath}
+			 </if> 
 		     , UDT_DT = sysdate
 		 WHERE CMMNTY_ID = #{cmmntyId} 
 	</update>

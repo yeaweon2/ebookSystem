@@ -238,7 +238,7 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>상세페이지</h2><br><br><br><br>
+					<h2>상세페이지</h2><br><br>
 				</div>
 			</div>
 			
@@ -251,7 +251,7 @@
 				</tr>
 				<tr>
 					<td>작성자: ${notice.cmmntyWriter}</td>
-					<td>작성일자:<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${notice.insDt}" /></td>
+					<td>작성일자:<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${notice.insDt}" /></td>
 					<td>조회수: ${notice.cmmntyHit}</td>
 				</tr>
 				<tr>

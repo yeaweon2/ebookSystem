@@ -35,8 +35,6 @@ public class BoardController {
 		vo.setCmmntyFlCd("04");
 		vo.setCmmntyDelyn("N");
 		vo = cmmntyDao.cmmntySelectList(vo);
-		System.out.println(vo.toString());
-
 		model.addAttribute("board", vo);
 		return "cmmnty/boardSelectList";
 	}
@@ -68,7 +66,6 @@ public class BoardController {
 	@PostMapping("/boardDelete")
 	public String boardDelete(Model model, CmmntyVO vo) {
 		vo.setCmmntyFlCd("04");
-		vo.setCmmntyWriter("admin");
 		cmmntyDao.cmmntyDelete(vo);
 
 		return "redirect:boardList";
@@ -79,7 +76,7 @@ public class BoardController {
 	public String boardUpdateForm(Model model, CmmntyVO vo, HttpServletRequest request) {
 		vo.setCmmntyFlCd("04");
 
-		vo.setCmmntyWriter((String) request.getAttribute("id"));
+		vo.setCmmntyWriter((String)request.getAttribute("id"));
 		vo = cmmntyDao.cmmntySelectList(vo);
 
 		model.addAttribute("board", vo);

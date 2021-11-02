@@ -251,7 +251,7 @@
 				</tr>
 				<tr>
 					<td>작성자: ${board.cmmntyWriter}</td>
-					<td>작성일자:<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${board.insDt}" /></td>
+					<td>작성일자:<fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${board.insDt}" /></td>
 					<td>조회수: ${board.cmmntyHit}</td>
 				</tr>
 				<tr>

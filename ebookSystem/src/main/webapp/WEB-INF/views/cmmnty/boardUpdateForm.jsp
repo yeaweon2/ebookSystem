@@ -22,7 +22,7 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>글쓰기</h2><br><br><br><br>
+					<h2>자유게시판</h2><br><br>
 				</div>
 			</div>
 			<div style="width : 800px">
