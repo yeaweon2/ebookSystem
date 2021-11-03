@@ -6,10 +6,14 @@
 <meta charset="UTF-8">
 <title>도서등록</title>
 <link href="resources/css/form-validation.css" rel="stylesheet">
-<link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
 <script type="text/javascript">
 	$(function(){
+		
+		
+		$('.summernote').summernote({
+			 height: 300
+	 	}); 
 		
 		// 화면 진입시 카테고리 대분류 조회 후 셋팅 --------------------------------------------------------------------------------------
 		$.ajax({
@@ -84,13 +88,12 @@
 			reader.onload = function(e){
 				$("#bookCoverImg").attr("src", e.target.result);
 				$("#imgContainer").append($("#bookCoverImg"));
-				$("#imgContainer").attr("display" , "block");
+				//$("#imgContainer").attr("display" , "block");
+				$("#imgContainer").css("display" , "block");
 			};
 			
 			console.log(event.target.files[0]);
 			reader.readAsDataURL(event.target.files[0]);
-			
-			
 		});
 		
 		
@@ -156,14 +159,8 @@
 						<tr>
 							<th>출간일</th>
 							<td><input type="date" id="bookPublDt" name="bookPublDt" class="form-control" ></td>
-							<th>가 격</th>
-							<td><input type="text" id="bookAmt" name="bookAmt" class="form-control"></td>
-						</tr>
-						<tr>
 							<th>도서ISBN</th>
 							<td><input type="text" id="bookIsbn" name="bookIsbn" class="form-control"></td>
-							<th>할인율</th>
-							<td><input type="text" id="bookDisCnt" name="bookDisCnt" class="form-control"></td>
 						</tr>
 						<tr>
 							<th>표지디자인</th>
@@ -177,16 +174,20 @@
 						</tr>				
 						<tr>
 							<th>책소개</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control"></textarea></td>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control summernote"></textarea></td>
 						</tr>
 						<tr>
 							<th>목차</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookContent" name="bookContent" class="form-control"></textarea></td>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookContent" name="bookContent" class="form-control summernote"></textarea></td>
 						</tr>
 						<tr>
 							<th>저자소개</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookWriterIntro" name="bookWriterIntro" class="form-control"></textarea></td>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookWriterIntro" name="bookWriterIntro" class="form-control summernote"></textarea></td>
 						</tr>
+						<tr>
+							<th>책설명</th>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookDesc" name="bookDesc" class="form-control summernote"></textarea></td>
+						</tr>						
 					</table>
 					<div>
 						<button type="submit" id="bookInsertBtn" class="btn btn-outline-primary">등록</button>
@@ -245,7 +246,6 @@
 <iframe id="iframe1" name="iframe1" style="display:none"></iframe>
 
 <script src="resources/js/form-validation.js"></script>
-<script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 
 	function bookApi(){
