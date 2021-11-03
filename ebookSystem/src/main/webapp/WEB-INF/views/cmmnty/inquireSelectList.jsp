@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 상세페이지</title>
+<title>1:1문의 상세페이지</title>
 
 <style type="text/css">
 .pointer {
@@ -261,7 +261,7 @@
 
 			<!-- 댓글 입력란-->
 			<div id="replyput">
-			<c:if test="${not empty id}">
+			<c:if test="${id eq 'admin'}">
 				<table class="table">
 					<tr>
 						<th>${nicknm}</th>
@@ -281,8 +281,10 @@
 			</div>
 					<hr>
 					<input type="button" onclick="location.href='inquireList'" class="btn-info" value="목록보기"> 
-					<c:if test="${id eq 'admin'}">
+					<c:if test="${ id eq board.cmmntyWriter}">
 					<input type="button" onclick="inquireEdit('U')" class="btn-primary" value="수정">
+					</c:if>
+					<c:if test="${id eq board.cmmntyWriter || id eq 'admin'}">
 					<input type="button" onclick="inquireEdit('D')"class="btn-danger" value="삭제">
 					</c:if>
 		</div>

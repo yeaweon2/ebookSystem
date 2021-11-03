@@ -133,7 +133,7 @@
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="myInfo">나의정보관리</a></li>
 										<li><a href="managerRegist">매니저신청</a></li>
-										<li><a href="#">내글관리</a></li>
+										<li><a href="myWriting">내글관리</a></li>
                                     </ul>
                                 </li>  
                                 </c:if>

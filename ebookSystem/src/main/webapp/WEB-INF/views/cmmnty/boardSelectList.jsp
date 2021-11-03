@@ -281,8 +281,10 @@
 			</div>
 					<hr>
 					<input type="button" onclick="location.href='boardList'" class="btn-info" value="목록보기"> 
-					<c:if test="${id eq 'admin'}">
+					<c:if test="${ id eq board.cmmntyWriter}">
 					<input type="button" onclick="BoardEdit('U')" class="btn-primary" value="수정">
+					</c:if>
+					<c:if test="${id eq board.cmmntyWriter || id eq 'admin'}">
 					<input type="button" onclick="BoardEdit('D')"class="btn-danger" value="삭제">
 					</c:if>
 		</div>

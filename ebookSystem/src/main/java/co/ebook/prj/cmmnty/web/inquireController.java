@@ -21,7 +21,11 @@ public class inquireController {
 
 	// 1:1문의 전체조회
 	@RequestMapping("/inquireList")
-	String inquireList(Model model, CmmntyVO vo) {
+	String inquireList(Model model, CmmntyVO vo, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		vo.setCmmntyWriter((String) session.getAttribute("id"));
+		
 		vo.setCmmntyFlCd("03");
 		vo.setCmmntyDelyn("N");
 		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
@@ -41,9 +45,8 @@ public class inquireController {
 
 	// 1:1문의 게시글입력양식
 	@RequestMapping("/inquireInsertForm")
-	String inquireInsertForm(Model model, CmmntyVO vo, HttpServletRequest request) {
+	String inquireInsertForm(Model model, CmmntyVO vo) {
 
-		HttpSession session = request.getSession();
 		return "cmmnty/inquireInsertForm";
 	}
 

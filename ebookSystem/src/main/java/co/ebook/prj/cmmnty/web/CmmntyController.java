@@ -33,7 +33,10 @@ public class CmmntyController {
 
 	// 공지사항 상세조회
 	@RequestMapping("/noticeSelectList")
-	String noticeSelectList(Model model, CmmntyVO vo) throws Exception {
+	String noticeSelectList(Model model, CmmntyVO vo, HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		vo.setCmmntyWriter((String) session.getAttribute("id"));
+		
 		vo.setCmmntyFlCd("01");
 		vo.setCmmntyDelyn("N");
 		vo = cmmntyDao.cmmntySelectList(vo);
@@ -44,9 +47,8 @@ public class CmmntyController {
 
 	// 공지사항 게시글입력양식
 	@RequestMapping("/noticeInsertForm")
-	String noticeInsertForm(Model model, CmmntyVO vo, HttpServletRequest request) {
+	String noticeInsertForm(Model model, CmmntyVO vo) {
 
-		HttpSession session = request.getSession();
 		return "cmmnty/noticeInsertForm";
 	}
 
@@ -79,7 +81,8 @@ public class CmmntyController {
 	public String noticeUpdateForm(Model model, CmmntyVO vo, HttpServletRequest request) {
 		vo.setCmmntyFlCd("01");
 
-		vo.setCmmntyWriter((String) request.getAttribute("id"));
+		HttpSession session = request.getSession();
+		vo.setCmmntyWriter((String) session.getAttribute("id"));
 		vo = cmmntyDao.cmmntySelectList(vo);
 
 		model.addAttribute("notice", vo);
