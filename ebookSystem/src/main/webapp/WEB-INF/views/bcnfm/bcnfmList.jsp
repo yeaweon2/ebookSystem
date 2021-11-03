@@ -46,6 +46,10 @@
 	  text-decoration: none;
 	  cursor: pointer;
 	}
+	
+select {
+	width:110px;
+}	
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -135,7 +139,43 @@
 			<div class="section-header">
           		<h2>BOOK 승인목록</h2>
         	</div>
-		</div>	
+		</div>
+		<div class="row">
+				<div class="srchBox">
+					<table class="table">
+						<tr>
+							<th>신청일자 : </th>
+							<td><input type="date" id="srchDate"></td>
+							<th>검색조건 : </th>
+							<td><input type="text" id="srchTxt"></td>
+							<th>BOOK구분 : </th>
+							<td>
+								<input type="radio" id="bookFlCd" name="bookFlCd" value="ALL" checked >전체
+								<input type="radio" id="bookFlCd" name="bookFlCd" value="E" >eBook
+								<input type="radio" id="bookFlCd" name="bookFlCd" value="A" >오디오북
+							</td>
+						</tr>
+						<tr>
+							<th>승인일자</th>
+							<td><input type="date" id="srchDate"></td>
+							<th>신청자</th>
+							<td><input type="text" id="srchTxt"></td>
+							<th>승인상태</th>
+							<td>
+								<select id="srchCnfmCd" class="form-select form-select-sm">
+									<option value="00" selected>전체</option>
+									<option value="04">미신청</option>
+									<option value="01">처리중</option>
+									<option value="03">보류</option>
+									<option value="02">승인</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</div>
+		</div>				
+
+			
 		<div class="row">
 			<table id="bcnfmTb" class="table table-hover" style="cursor: pointer;">
 					<tr>
