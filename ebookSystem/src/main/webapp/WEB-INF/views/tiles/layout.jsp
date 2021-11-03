@@ -16,6 +16,7 @@
 	
 	<script src="resources/js/json.min.js"></script>
 	    
+
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/font-awesome.min.css" rel="stylesheet">
     <link href="resources/css/prettyPhoto.css" rel="stylesheet">
@@ -32,7 +33,12 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="resources/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="resources/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="resources/images/ico/apple-touch-icon-57-precomposed.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="resources/css/ebook.css?after" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+  	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>    
+    
 </head>
 <body>
 	<tiles:insertAttribute name="header"/>
@@ -52,7 +58,7 @@
 	
 	<tiles:insertAttribute name="footer"/>
 
-	<script src="resources/js/bootstrap.min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/jquery.scrollUp.min.js"></script>
 	<script src="resources/js/price-range.js"></script>
     <script src="resources/js/jquery.prettyPhoto.js"></script>
