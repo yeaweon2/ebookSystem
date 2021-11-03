@@ -11,7 +11,6 @@
 <script>
 $(function(){
 	
-	
 	$("#check_module").click(function () {
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp33573268');
@@ -31,7 +30,7 @@ $(function(){
 					$("#resultTxt3").html('카드 승인번호 : ' + rsp.apply_num);
 					
 				} else {
-					alert("결제에 실패하였습니다.   " + '  실패이유 : ' + rsp.error_msg);
+					alert("결제에 실패하였습니다.   " + '\n실패이유 : ' + rsp.error_msg);
 				}
 			});
 		});
@@ -132,6 +131,24 @@ $(function(){
 		
 	});
 	
+	
+	
+	
+//	모달창 버튼 클릭 시 페이지이동
+	function subResult(str) {
+		if(str == 'B') {
+			frm.action = "home";
+			
+		}else {
+			frm.action = "myPage";	
+		}
+	}
+	
+	
+	
+	
+	
+	
 });
 
 </script>
@@ -149,33 +166,35 @@ $(function(){
 		<div class="row">
 			<div class="col-lg-6 mb-6 mb-lg-0" style="margin-right: 40px;">
 				<div class="package text-center bg-white"><br><br>
-					<table id="lcodeTb" class="table table-hover" >
-						<tr>
-							<th>ID</th>
-							<td >${member.memberId }</td>
-						</tr>
-						<tr>
-							<th>회원명</th>
-							<td id="memberNm" data-membermane="${member.memberNm }">${member.memberNm }</td>
-						</tr>
-						<tr>
-						<th>월정액 기간선택<p style="color: #ac2925">★결제기간을 선택하세요.</p></th>
-							<td id="amtCdTd">
-								<input id="amtCd" name="amtCd" type="radio" value="9900" class="form-check-input" checked="checked" required>
-								<label class="form-check-label" for="amtCd">1개월 : 9,900원</label><br>
-								<input id="amtCd" name="amtCd" type="radio" value="25900" class="form-check-input" required>
-								<label class="form-check-label" for="amtCd">3개월 : 25,900원</label><br>
-								<input id="amtCd" name="amtCd" type="radio" value="90000" class="form-check-input" required >
-								<label class="form-check-label" for="mcnfmCntr">12개월 : 90,000원</label><br>
-							</td>
-						</tr>
-						<tr>
-							<th>마일리지 / 사용가능 마일리지</th>
-							<td id="membermile" data-membermile="${member.memberMile }">${member.memberMile } point /  &nbsp;&nbsp;&nbsp;
-								<input type="number" class="form-check-input" id="useMile" name="useMile" value="0" style="text-align:right; width:90px;"> point &nbsp;&nbsp;&nbsp;
-								<input type="checkbox" class="form-check-input" id=chkuse name="chkuse" data-membermile="${member.memberMile }" > 전체사용</td>
-						</tr>
-					</table>
+					<form id="frm" name="frm" action="#">
+						<table id="lcodeTb" class="table table-hover" >
+							<tr>
+								<th>ID</th>
+								<td >${member.memberId }</td>
+							</tr>
+							<tr>
+								<th>회원명</th>
+								<td id="memberNm" data-membermane="${member.memberNm }">${member.memberNm }</td>
+							</tr>
+							<tr>
+							<th>월정액 기간선택<p style="color: #ac2925">★결제기간을 선택하세요.</p></th>
+								<td id="amtCdTd">
+									<input id="amtCd" name="amtCd" type="radio" value="9900" class="form-check-input" checked="checked" required>
+									<label class="form-check-label" for="amtCd">1개월 : 9,900원</label><br>
+									<input id="amtCd" name="amtCd" type="radio" value="25900" class="form-check-input" required>
+									<label class="form-check-label" for="amtCd">3개월 : 25,900원</label><br>
+									<input id="amtCd" name="amtCd" type="radio" value="90000" class="form-check-input" required >
+									<label class="form-check-label" for="mcnfmCntr">12개월 : 90,000원</label><br>
+								</td>
+							</tr>
+							<tr>
+								<th>마일리지 / 사용가능 마일리지</th>
+								<td id="membermile" data-membermile="${member.memberMile }">${member.memberMile } point /  &nbsp;&nbsp;&nbsp;
+									<input type="number" class="form-check-input" id="useMile" name="useMile" value="0" style="text-align:right; width:90px;"> point &nbsp;&nbsp;&nbsp;
+									<input type="checkbox" class="form-check-input" id=chkuse name="chkuse" data-membermile="${member.memberMile }" > 전체사용</td>
+							</tr>
+						</table>
+					</form>
 				</div>
 			</div>
 			<div class="col-lg-2 mb-2 mb-lg-0">
@@ -213,8 +232,8 @@ $(function(){
       </div>
     </div>
     	<div>
-        	<span  class="btn btn-default get" style="background-color: #1E90FF" id="confirm" onclick="location.href='home'">대여하러 가기</span>
-        	<span class="btn btn-default get" style="background-color: #90EE90" id="close" onclick="location.href='myPage'">닫기</span>
+        	<span  class="btn btn-default get" style="background-color: #1E90FF" id="confirm" onclick="subResult('B')">대여하러 가기</span>
+        	<span class="btn btn-default get" style="background-color: #90EE90" id="close" onclick="subResult('C')">결제내역보기</span>
       </div>
     </div>
 </div>

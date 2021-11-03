@@ -102,7 +102,7 @@
                                 </li>
                          		<li class="dropdown"><a href="#">마이페이지<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="#">개인정보관리</a></li>
+                                        <li><a href="myInfo">개인정보관리</a></li>
 										<li><a href="lendList">대여관리</a></li>
 										<li><a href="#">내글관리</a></li>
                                     </ul>
@@ -131,7 +131,7 @@
                                 </li>   
                          		<li class="dropdown"><a href="#">마이페이지<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="memberSelect">나의정보관리</a></li>
+                                        <li><a href="myInfo">나의정보관리</a></li>
 										<li><a href="managerRegist">매니저신청</a></li>
 										<li><a href="#">내글관리</a></li>
                                     </ul>
