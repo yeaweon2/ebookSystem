@@ -36,9 +36,7 @@ public class BookController {
 	
 	@Autowired
 	String filePath;
-	/*
-	 * @Autowired private String filePath; // 파일이 저장될 경로 (개발시 절대경로로 파일저장되도록 사용할 것)
-	 */
+
 	@InitBinder
     protected void initBinder(WebDataBinder binder){
         DateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -47,7 +45,10 @@ public class BookController {
 
 	
 	@RequestMapping("/bookList")
-	public String bookList(Model model , BookVO vo , BookSrchVO svo ) {
+	public String bookList(Model model , BookVO vo , BookSrchVO svo, HttpServletRequest request ) {
+		
+		HttpSession session = request.getSession();
+		svo.setMemberId((String)session.getAttribute("id"));	
 		
 		List<BookVO> lists = bookDao.bookList(svo);
 
@@ -74,6 +75,7 @@ public class BookController {
 		int result = 0;
 		vo.setMemberId((String)session.getAttribute("id"));	
 		String fileName = "";
+		
 		String folder = "/book/";
 		
 		try {
@@ -88,7 +90,6 @@ public class BookController {
 					System.out.println("----------------------------------------------> fileSave");
 					System.out.println(fileSave);
 					System.out.println("----------------------------------------------> fileSave");
-					
 					
 					attchFile.transferTo(fileSave);			// 파일 업로드
 				}else {
@@ -194,7 +195,18 @@ public class BookController {
 	
 	@RequestMapping("/bookCartInsert")
 	public String bookCartInsert(Model model , BookVO vo ) {
-		
 		return "book/bookCartForm";
 	}	
+	
+	@RequestMapping("/bookFileUpload")
+	public String bookFileUpload(Model model , BookVO vo ) {
+		
+		vo = bookDao.bookDetail(vo);
+		model.addAttribute("book", vo);
+		
+		return "book/bookFileUpload";
+	}	
+	
+	
+	
 }

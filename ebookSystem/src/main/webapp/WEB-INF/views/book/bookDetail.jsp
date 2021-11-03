@@ -366,7 +366,6 @@ color : #f15e5e;
 		$(".description").on("click", '#breplyChildInsert' , function(){
 			event.preventDefault();
 			$("#childBox").removeClass("hidden");
-		
 			$(this).closest(".comment-text").after( $("#childBox") );
 		});
 		
@@ -401,56 +400,83 @@ color : #f15e5e;
 		<br/>
 		
 		</div>	
+		<c:if test="${auth eq 'U' || auth eq 'A'}">
 			<div class="pull-right">
 				<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
 				<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
 				<button class="bucketBtn" ><i class="fa fa-heart"></i></button>							
 			</div>
+		</c:if>
 	</div>
 </div>
 <div class="Ere_line"></div>
 
 <div class="wpcmsdev-tabs">
-	<div class="tab">
-		<h3 class="tab-title" data-tab-id="bookIntro">책소개</h3>
-		<div id="tab-bookIntro" class="tab-content">
-			<p>
-				${book.bookIntro}
-			</p>
+
+	<c:if test="${not empty book.bookIntro}">
+		<div class="tab">
+			<h3 class="tab-title" data-tab-id="bookIntro">책소개</h3>
+			<div id="tab-bookIntro" class="tab-content">
+				<p>
+					${book.bookIntro}
+				</p>
+			</div>
 		</div>
-	</div>
-	<div class="tab">
-		<h3 class="tab-title" data-tab-id="bookContent">목차</h3>
-		<div id="tab-bookContent" class="tab-content">
-			<p>
-				${book.bookContent}
-			</p>
+	</c:if>
+	<c:if test="${not empty book.bookContent}">
+		<div class="tab">
+			<h3 class="tab-title" data-tab-id="bookContent">목차</h3>
+			<div id="tab-bookContent" class="tab-content">
+				<p>
+					${book.bookContent}
+				</p>
+			</div>
 		</div>
-	</div>
-	<div class="tab">
-		<h3 class="tab-title" data-tab-id="why-do-we-use-it">저자소개</h3>
-		<div id="tab-why-do-we-use-it" class="tab-content">
-			<p>
-				${book.bookWriterIntro}
-			</p>
+	</c:if>
+	<c:if test="${not empty book.bookWriterIntro}">
+		<div class="tab">
+			<h3 class="tab-title" data-tab-id="bookWriter">저자소개</h3>
+			<div id="tab-bookWriter" class="tab-content">
+				<p>
+					${book.bookWriterIntro}
+				</p>
+			</div>
 		</div>
-	</div>
+	</c:if>
+	<c:if test="${not empty book.bookDesc}">
+		<div class="tab">
+			<h3 class="tab-title" data-tab-id="bookDesc">책설명</h3>
+			<div id="tab-bookDesc" class="tab-content">
+				<p>
+					${book.bookDesc}
+				</p>
+			</div>
+		</div>
+	</c:if>	
 </div>
 <input type="hidden" id="bookId" value="${book.bookId}">
 <input type="hidden" id="breplyStar">
 <div class="Ere_line"></div>
 <h3><i class="fa fa-commenting-o"></i> 댓글</h3>
 <div class="comment-text" >
-	${nicknm}
-	<div id="stars"> 		
-		<i id="star" class="far fa-star" data-flag="false" data-no="1"></i>
-		<i id="star" class="far fa-star" data-flag="false" data-no="2"></i>
-		<i id="star" class="far fa-star" data-flag="false" data-no="3"></i>
-		<i id="star" class="far fa-star" data-flag="false" data-no="4"></i>
-		<i id="star" class="far fa-star" data-flag="false" data-no="5"></i>
+	<div class="row">
+		<div class="col-md-3">${nicknm}	</div>
+		
+		<div id="stars" class="col-md-5"> 		
+			<i id="star" class="far fa-star" data-flag="false" data-no="1"></i>
+			<i id="star" class="far fa-star" data-flag="false" data-no="2"></i>
+			<i id="star" class="far fa-star" data-flag="false" data-no="3"></i>
+			<i id="star" class="far fa-star" data-flag="false" data-no="4"></i>
+			<i id="star" class="far fa-star" data-flag="false" data-no="5"></i>
+		</div>
+		
+		<div class="col-md-3">		
+			<button id="breplyInsert" type="button" class="btn btn-primary pull-right">등록</button>
+		</div>
 	</div>
-	<button id="breplyInsert" type="button" class="btn btn-primary pull-right">등록</button>
-	<textarea id="breplyContentsNew" rows="3" cols="30"></textarea>
+	<div class="row" style="padding-left:20px">
+		<textarea id="breplyContentsNew" rows="3" cols="30"></textarea>
+	</div>
 </div>
 <div id="replyList">
 	<c:forEach var="reply" items="${replys}">

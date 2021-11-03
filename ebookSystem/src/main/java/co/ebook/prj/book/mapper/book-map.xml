@@ -26,7 +26,7 @@
             , BOOK_CONFIRM C
 		WHERE b.book_id = c.book_id(+)
    		  and b.bcnfm_id = c.bcnfm_id (+)
-   		  
+   		  and b.member_Id = #{memberId}
 			 <if test='srchCnfmCd != null and srchCnfmCd != "" '>
 			 	<if test='srchCnfmCd == "01" or srchCnfmCd == "02" or srchCnfmCd == "03"'> 
 			 		 and c.bcnfm_st_cd = #{srchCnfmCd}
@@ -34,7 +34,7 @@
 			 	<if test='srchCnfmCd == "04"'>
 			 		and b.book_cnfm_yn = 'N'
 			 		and b.bcnfm_id is null  
-			 	</if>  
+			 	</if>   
 			 </if>
 		 
 		 	<if test="bookPublCo != null and bookPublCo != '' ">
@@ -96,10 +96,10 @@
 			  , BOOK_COVER_PATH
 			  , INS_DT
 			  , UDT_DT
-			  , REPLACE ( REPLACE(BOOK_INTRO , CHR(13), '') , CHR(10), '<br/>') as BOOK_INTRO
-			  , REPLACE ( REPLACE(book_content , CHR(13), '') , CHR(10), '<br/>')  as BOOK_CONTENT
-			  , REPLACE ( REPLACE(BOOK_WRITER_INTRO , CHR(13), '') , CHR(10), '<br/>') as BOOK_WRITER_INTRO
-			  , REPLACE ( REPLACE(BOOK_DESC , CHR(13), '') , CHR(10), '<br/>') as BOOK_DESC
+			  , BOOK_INTRO 
+			  , book_content
+			  , BOOK_WRITER_INTRO
+			  , BOOK_DESC
 			  , BCNFM_ID
 		   FROM BOOK
 		  WHERE BOOK_ID = #{bookId}  

@@ -8,7 +8,7 @@
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
 
-	<bean id="filePath" class="java.lang.String">
+ 	<bean id="filePath" class="java.lang.String">
 		<constructor-arg value="C:\Users\admin\git\ebookSystem\ebookSystem\src\main\webapp\fileUp"></constructor-arg>
 	</bean>
 </beans>

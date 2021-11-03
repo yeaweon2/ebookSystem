@@ -27,9 +27,9 @@ public class bookRestController {
 	@Autowired
 	BookService bookDao;
 	
-	/*
-	 * @Autowired private String filePath;
-	 */		
+	
+	@Autowired private String filePath;
+			
 	
     @InitBinder
     protected void initBinder(WebDataBinder binder){
@@ -44,49 +44,56 @@ public class bookRestController {
 		System.out.println("===============================>> 수정전");
 		System.out.println(vo.toString());
 		System.out.println("===============================>> ");
+		System.out.println(vo.getAttchUpFlag());
+		// 첨부파일 수정여부 체크
+		if( "true".equals(vo.getAttchUpFlag())) {
+			System.out.println("===============================>> 첨부파일 수정중 >> ");	
+			MultipartFile attchFile = vo.getAttchFile();
+			String fileName = "";
+			String real_filePath = "";
+			String folder = "/book/";
+			
+			try {
+				if ( attchFile != null ) {
+					if (!attchFile.getOriginalFilename().isEmpty()) {
+						fileName = attchFile.getOriginalFilename();	
+						//filePath = request.getServletContext().getRealPath("/");	// 파일 저장경로
+						real_filePath =  filePath + folder;								// 파일이 저장될 최종폴더
+	
+						// UUID.randomUUID().toString() + "_" +
+						File fileSave = new File(real_filePath, fileName);
+						
+						attchFile.transferTo(fileSave);			// 파일 업로드
+	
+						// 기존파일 삭제
+						if( vo.getBookCover() != null || !"".equals(vo.getBookCover()) ) {
+							File oldFile =new File(filePath + vo.getBookCoverPath(), vo.getBookCover());
+							System.out.println("===============================>> 기존파일 삭제처리 >> ");	
+							System.out.println(oldFile);
+							
+							if( oldFile.exists()) {
+								oldFile.delete();
+							}	
+						} 
+						
+					}else {
+						filePath = "";
+						fileName = "";
+					}
+				}	
+			}catch(Exception e) {
+				e.printStackTrace();
+			}			
+			
+			System.out.println("----------------------------->> ");
+			System.out.println( fileName );
+			System.out.println( filePath );
+			System.out.println("----------------------------->> ");
+			
+			vo.setBookCover(fileName);
+			vo.setBookCoverPath(folder);
+	   }
 		
-		MultipartFile attchFile = vo.getAttchFile();
-		String fileName = "";
-		String filePath= "";
-		
-		try {
-			if ( attchFile != null ) {
-				if (!attchFile.getOriginalFilename().isEmpty()) {
-					fileName = attchFile.getOriginalFilename();	
-					//filePath = request.getServletContext().getRealPath("/");	// 파일 저장경로
-					filePath =  filePath + "/book/";								// 파일이 저장될 최종폴더
-
-					// UUID.randomUUID().toString() + "_" +
-					File fileSave = new File(filePath, fileName);
-					
-					attchFile.transferTo(fileSave);			// 파일 업로드
-
-					// 기존파일 삭제
-/*					if( vo.getBookCover() != null || !"".equals(vo.getBookCover()) ) {
-						File oldFile =new File(vo.getBookCoverPath(), vo.getBookCover());
-
-						if( oldFile.exists()) {
-							oldFile.delete();
-						}	
-					} */
-					
-				}else {
-					filePath = "";
-					fileName = "";
-				}
-			}	
-		}catch(Exception e) {
-			e.printStackTrace();
-		}			
-		
-		System.out.println("----------------------------->> ");
-		System.out.println( fileName );
-		System.out.println( filePath );
-		System.out.println("----------------------------->> ");
-		
-		vo.setBookCover(fileName);
-		vo.setBookCoverPath(filePath);
-
 	   int result = bookDao.bookUpdate(vo);
 	   System.out.println("BOOK수정 : " + result + " ----> ");
 	   if( result > 0) {

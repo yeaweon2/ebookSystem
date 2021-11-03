@@ -38,7 +38,7 @@ public class BookVO {
 	private String memberId;
 	private String memberNm;
 	private MultipartFile attchFile;
-
+	private String attchUpFlag;
 	
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

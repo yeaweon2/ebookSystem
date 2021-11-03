@@ -16,6 +16,7 @@ public class BookSrchVO {
 	private String bcnfmStCd;
 	private String bookCnfmYn;
 	private String srchCnfmCd;
+	private String memberId;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")		

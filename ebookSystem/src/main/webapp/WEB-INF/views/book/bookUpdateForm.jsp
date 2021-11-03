@@ -8,13 +8,17 @@
 <title>BOOK 관리</title>
 
 <link href="resources/css/form-validation.css" rel="stylesheet"> 
-<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
 <script type="text/javascript">
 	$(function(){
 		
+		$('.summernote').summernote({
+			 height: 300
+	 	});
+		 
 		// 첨부파일 수정여부
 		var attchUpFlag = false;
+		$("#attchUpFlag").val("false");
 		
 		// 화면 진입시 카테고리 대분류 조회 후 셋팅 --------------------------------------------------------------------------------------
 		$.ajax({
@@ -96,6 +100,7 @@
 			}
 			
 			attchUpFlag = true;
+			$("#attchUpFlag").val("true");
 			
 			var reader = new FileReader();
 			reader.onload = function(e){
@@ -113,6 +118,11 @@
 		$("#bookUpdateBtn").on("click",function(){
 		    $("#bookUpdateBtn").prop("disabled", true);   
 			
+		    if( ! attchUpFlag ){
+		    	$("attchFile").val("");	
+		    	
+		    }
+		    
 		    var formData = new FormData($("#frm")[0]);
 
 			 $.ajax({
@@ -150,6 +160,12 @@
 			$("#attchFile").click();
 			
 		});
+		
+		$("#bookFileForm").on("click", function(){
+			frm.action = "bookFileUpload";
+			frm.submit();
+		});
+		
 	});
 	
 	
@@ -158,6 +174,8 @@
 		frm.action = "bookDelete";
 		frm.submit();
 	}
+	
+	
 
 </script>
 </head>
@@ -255,16 +273,20 @@
 						</tr>				
 						<tr>
 							<th>책소개</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control">${books.bookIntro}</textarea></td>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control summernote">${books.bookIntro}</textarea></td>
 						</tr>
 						<tr>
 							<th>목차</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookContent" name="bookContent" class="form-control">${books.bookContent}</textarea></td>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookContent" name="bookContent" class="form-control summernote">${books.bookContent}</textarea></td>
 						</tr>
 						<tr>
 							<th>저자소개</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookWriterIntro" name="bookWriterIntro" class="form-control">${books.bookWriterIntro}</textarea></td>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookWriterIntro" name="bookWriterIntro" class="form-control summernote">${books.bookWriterIntro}</textarea></td>
 						</tr>
+						<tr>
+							<th>책설명</th>
+							<td colspan="3"><textarea rows="6" cols="90" id="bookDesc" name="bookDesc" class="form-control summernote"></textarea></td>
+						</tr>							
 					</table>
 					<div>
 						<button type="button" id="bookUpdateBtn" class="btn btn-default">수 정</button>
@@ -273,6 +295,7 @@
 					</div>
 					<input type="hidden" id="bookId" name="bookId" value="${books.bookId}" >
 					<input type="hidden" id="msg" name="msg" value="${msg}" >
+					<input type="hidden" id="attchUpFlag" name="attchUpFlag"  >
 				</form>
 			
 			</div>
@@ -325,8 +348,55 @@
 </div>
 <iframe id="iframe1" name="iframe1" style="display:none"></iframe>
 
+
+<div  class="modal fade" id="bookApiModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content"> 
+			<form class="needs-validation" target="iframe1" novalidate>	
+				<!--Header-->
+			    <div class="modal-header">
+			    	<h4 class="modal-title" id="myModalLabel">BOOK검색</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+			        </button>
+			    </div>
+				<!--Body-->
+				<div class="modal-body">
+					<div class="row">
+						<input type="text" class="form-control" id="bookApiNm" placeholder=""  required>
+						<div class="invalid-feedback">
+							검색할 BOOK명을 입력해주세요.
+						</div>	
+						<button type="submit" id="bookApiSearch" class="btn btn-default" onclick="bookApi()" >검 색</button>
+					</div>
+					<div class="row">
+						<table id="apiTb" class="table table-hover">
+							<tr>
+								<th>No</th>
+								<th>제목</th>
+								<th>출판사</th>
+								<th>저자</th>
+								<th>정가</th>
+								<th>ISBN</th>
+								<th>상태</th>
+								<th>책소개</th>
+							</tr>
+							<tbody id="apiTbody">
+							</tbody>
+						</table>
+					</div>			
+				</div>
+	      		<!--Footer-->
+		      	<div class="modal-footer">
+		        	<button id="apiCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
 <script src="resources/js/form-validation.js"></script>
-<script src="resources/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 
 	function bookApi(){
