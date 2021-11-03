@@ -82,8 +82,6 @@
 				return false;
 			}
 			
-			
-			
 			var reader = new FileReader();
 			reader.onload = function(e){
 				$("#bookCoverImg").attr("src", e.target.result);
