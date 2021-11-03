@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.ebook.prj.subscription.mapper.SubscriptionMapper">
+
+	<select id="subSelectList" resultType="co.ebook.prj.subscription.vo.SubscriptionVO"> 
+		select  subsp_id,          member_id, 
+				subsp_sdt,         subsp_edt, 
+				subsp_pay_st,      subsp_amt,
+				subsp_pay_mthd,    subsp_pay_amt,
+				subsp_mile,        imp_uid,
+				ins_dt,            udt_dt,
+				(select scodes.scode_nm from scodes where lcode = 'LM' and scode = subsp_pay_st ) as subsp_pay_nm
+		  from  subscription
+	  order by	subsp_id, member_id, subsp_sdt  
+	</select>
+	
+	
+	<select id="subSelect" resultType="co.ebook.prj.subscription.vo.SubscriptionVO"> 
+		select  subsp_id,          member_id, 
+				subsp_sdt,         subsp_edt, 
+				subsp_pay_st,      subsp_amt,
+				subsp_pay_mthd,    subsp_pay_amt,
+				subsp_mile,        imp_uid,
+				ins_dt,            udt_dt,
+				(select scodes.scode_nm from scodes where lcode = 'LM' and scode = subsp_pay_st ) as subsp_pay_nm
+		  from  subscription
+		 where  member_id = #{memberId}
+	</select>
+	
+
+</mapper>

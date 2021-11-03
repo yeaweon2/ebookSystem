@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import co.ebook.prj.login.service.LoginService;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
+import co.ebook.prj.subscription.service.SubscriptionService;
+import co.ebook.prj.subscription.vo.SubscriptionVO;
 
 @Controller
 public class MemberController {
@@ -30,6 +32,9 @@ public class MemberController {
 	
 	@Autowired
 	LoginService loginDao;
+	
+	@Autowired
+	SubscriptionService subDao;
 	
 	
 	@InitBinder
@@ -41,8 +46,8 @@ public class MemberController {
 //  멤버전체조회(멤버관리)
 	@RequestMapping("/memberList")
 	public String memberList(Model model) {
-		List<MemberVO> lists = memberDao.memberSelectList();	
-		
+		List<MemberVO> lists = memberDao.memberSelectList();
+
 		model.addAttribute("lists", lists);
 		return "member/memberList";
 	}
@@ -50,9 +55,18 @@ public class MemberController {
 //	멤버상세조회  
 	@RequestMapping("/memberSelect")
 	String memberSelect(Model model, MemberVO vo) {
-		System.out.println("============" + vo.toString());
-		System.out.println("============" + memberDao.memberSelect(vo));
-		model.addAttribute("member", memberDao.memberSelect(vo));
+		System.out.println("============>>>>>>>>>>>>>>>여기여기>>>>" + vo.toString());
+		
+		SubscriptionVO sVo =  new SubscriptionVO();
+		sVo.setMemberId(vo.getMemberId());
+		sVo = subDao.subSelect(sVo);
+		vo = memberDao.memberSelect(vo);
+		
+		model.addAttribute("sub", sVo);
+		model.addAttribute("member", vo);
+		
+		
+		
 		return "member/memberSelect";
 	}
 
@@ -155,9 +169,12 @@ public class MemberController {
 	
 //	마이페이지
 	@RequestMapping("/myPage")
-	public String myPage(Model model, MemberVO vo, HttpServletRequest request) {
+	public String myPage(Model model, MemberVO vo, SubscriptionVO sVo, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));
+		sVo.setMemberId((String)session.getAttribute("id"));
+		sVo = subDao.subSelect(sVo);
+		model.addAttribute("sub", sVo);
 		System.out.println("==============1===========1==========>>>>" +vo.toString());
 		vo = memberDao.memberSelect(vo);
 		model.addAttribute("member", vo);
@@ -190,5 +207,16 @@ public class MemberController {
 		return "member/subscription";
 	}
 	
+//	마이페이지 메인
+	@RequestMapping("/myInfo")
+	public String myInfo(Model model, MemberVO vo, SubscriptionVO sVo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		vo.setMemberId((String)session.getAttribute("id"));
+		sVo.setMemberId((String)session.getAttribute("id"));
+		sVo = subDao.subSelect(sVo);
+		model.addAttribute("sub", sVo);
+		model.addAttribute("member", memberDao.memberSelect(vo));
+		return "member/myInfo";
+	}
 
 }
