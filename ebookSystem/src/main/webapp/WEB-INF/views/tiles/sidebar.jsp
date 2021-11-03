@@ -40,7 +40,7 @@
 					<li><a href="boardList"> <span class="pull-right"></span>자유게시판</a></li>
 					<li><a href="inquireList"> <span class="pull-right"></span>1 : 1 문의</a></li>
 					<li><a href="faqList"> <span class="pull-right"></span>F A Q</a></li>
-					<li><a href="reviewList"> <span class="pull-right"></span>Review</a></li>
+					<li><a href="bookReviewList"> <span class="pull-right"></span>Review</a></li>
 				</ul>
 			</div>
 		</div><!--/brands_products-->

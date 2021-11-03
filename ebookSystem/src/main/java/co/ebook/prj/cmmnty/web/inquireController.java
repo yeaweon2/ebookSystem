@@ -72,12 +72,13 @@ public class inquireController {
 		return "redirect:inquireList";
 	}
 
-	// 1:1문의 게시글수정 양식
+	// 1:1문의 게시글수정 양식>>>>>>>>>>>>>>>>>>>>>>>
 	@PostMapping("/inquireUpdateForm")
 	public String inquireUpdateForm(Model model, CmmntyVO vo, HttpServletRequest request) {
 		vo.setCmmntyFlCd("03");
-
-		vo.setCmmntyWriter((String) request.getAttribute("id"));
+		 
+		HttpSession session = request.getSession();
+		vo.setCmmntyWriter((String) session.getAttribute("id"));
 		vo = cmmntyDao.cmmntySelectList(vo);
 
 		model.addAttribute("inquires", vo);

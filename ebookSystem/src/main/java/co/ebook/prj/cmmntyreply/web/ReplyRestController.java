@@ -26,8 +26,6 @@ public class ReplyRestController {
 	// 댓글조회
 	@RequestMapping(value = "/replyList", method = RequestMethod.GET)
 	public List<ReplyVO> replyList(Model model, ReplyVO vo) {
-		System.out.println(vo.toString());
-		System.out.println("===========================댓글리스트");
 		List<ReplyVO> lists = replyDao.replyList(vo);
 		
 		for(ReplyVO v : lists) {

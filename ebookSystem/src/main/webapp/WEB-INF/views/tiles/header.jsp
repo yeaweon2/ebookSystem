@@ -143,7 +143,7 @@
 										<li><a href="boardList">자유게시판</a></li>
 										<li><a href="inquireList">1 : 1 문의</a></li>
 										<li><a href="faqList">F A Q</a></li>
-										<li><a href="reviewList">Review</a></li>
+										<li><a href="bookReviewList">Review</a></li>
                                     </ul>
                                 </li>                                                                                                                                                               
 							</ul>

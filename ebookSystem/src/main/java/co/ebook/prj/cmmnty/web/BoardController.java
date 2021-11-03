@@ -43,7 +43,6 @@ public class BoardController {
 	@RequestMapping("/boardInsertForm")
 	String boardInsertForm(Model model, CmmntyVO vo, HttpServletRequest request) {
 
-		HttpSession session = request.getSession();
 		return "cmmnty/boardInsertForm";
 	}
 

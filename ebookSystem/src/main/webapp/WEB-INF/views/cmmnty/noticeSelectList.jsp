@@ -88,7 +88,6 @@
 
    //댓글 조회
    function replySelect() {
-      console.log($('#cmmntyId').val());
       $.ajax({
          url : 'replyList',
          method : 'GET',
@@ -102,7 +101,7 @@
       $('#rList').empty();
       $.each(data,function(idx, item) {
 	      $('#rList').append(
-	         $('<table class="table">').append($('<tr>').html(item.creplyWriter),
+	         $('<table class="table">').append($('<tr>').append($('<td>').html(item.creplyWriter),
 	        		             $('<tr>').append($('<td id="rContents">').html(item.creplyContents)),
 	        		     		 $('<tr>').append($('<td>').html(item.insDt),
 	        		     				   		  $('<td>').html($("<a class='rreplyInputBtn pointer' id='rreplyInputBtn'>").html("답글쓰기")),
@@ -259,7 +258,7 @@
 				</tr>
 			</table>
 
-			<!-- 댓글 입력란-->
+			<!-- 댓글 입력-->
 			<div id="replyput">
 			<c:if test="${not empty id}">
 				<table class="table">
