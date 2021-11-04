@@ -76,6 +76,7 @@
 	<update id="memberUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
 		update  member
 		   set  member_pw = #{memberPw}, 
+				member_nm = #{memberNm},
 		   		member_nicknm = #{memberNicknm}, 
            		member_email = #{memberEmail},
            		member_mile = #{memberMile},

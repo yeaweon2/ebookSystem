@@ -1,10 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	#st {
+	  border:1px solid LightGoldenRodYellow;
+	  background-color:black;
+	  text-align: center; 
+	  width:120px;
+	  
+	}
+
+	#p {
+		color : Moccasin;
+		
+	}
+	
+	#n {
+		font-weight: bolder;
+		text-align: center; 
+		font-size: x-large; 
+	}
+</style>	
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +61,6 @@
     <script src="resources/js/json.min.js"></script>
  	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>   
-	
 </head>
 <body id="page-top" class="index">
 
@@ -56,77 +76,40 @@
 	<tiles:insertAttribute name="body"/>
 	<tiles:insertAttribute name="footer"/>
  </div>
-
     <div class="flexpanel">
         <div class="viewport-wrap">
             <div class="viewport">
                 <div class="widget mb50">
-                    <h4 class="widget-title">Latest Articles</h4>
-                    <div>
-                        <div class="media">
-                            <div class="pull-left">
-                                <img class="widget-img" src="resources/assets/img/widget/widget1.jpg" alt="">
-                            </div>
-                            <div class="media-body">
-                                <span class="media-heading"><a href="#">Panic In London</a></span>
-                                <small class="muted">Posted 14 April 2015</small>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="pull-left">
-                                <img class="widget-img" src="resources/assets/img/widget/widget2.jpg" alt="">
-                            </div>
-                            <div class="media-body">
-                                <span class="media-heading"><a href="#">New iPhone News</a></span>
-                                <small class="muted">Posted 14 April 2015</small>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="pull-left">
-                                <img class="widget-img" src="resources/assets/img/widget/widget3.jpg" alt="">
-                            </div>
-                            <div class="media-body">
-                                <span class="media-heading"><a href="#">Our Year In Review</a></span>
-                                <small class="muted">Posted 14 April 2015</small>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="pull-left">
-                                <img class="widget-img" src="resources/assets/img/widget/widget4.jpg" alt="">
-                            </div>
-                            <div class="media-body">
-                                <span class="media-heading"><a href="#">jQuery Tutorial</a></span>
-                                <small class="muted">Posted 14 April 2015</small>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="pull-left">
-                                <img class="widget-img" src="resources/assets/img/widget/widget5.jpg" alt="">
-                            </div>
-                            <div class="media-body">
-                                <span class="media-heading"><a href="#">Sheen Interview</a></span>
-                                <small class="muted">Posted 14 April 2015</small>
-                            </div>
-                        </div>
+                    <h4 class="widget-title">My Info</h4>
+                    <div align="center">
+                       <img src="resources/img/기본이미지.png" style="border-radius:400px; width:80px; height:80px;">
+                    </div><br>
+                    <div align="center">
+                       <p id="n">${member.memberNicknm} 님</p>
                     </div>
+					<div align="center" ><br>
+						<table>
+							<tr id="st">
+								<th id="st" onclick="location.href='myInfo'" >내정보보기</th>
+								<th id="st">월정액종료일<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sub.subspEdt }" /></p></th>
+								<th id="st">마일리지<p id="p">${member.memberMile} p</p></th>
+							</tr>
+                   		</table>
+                   	</div>  
                 </div>
                 <div class="widget mb50">
-                    <h4 class="widget-title"><strong>Latest</strong> Books</h4>
+                    <h4 class="widget-title"><strong>My Schedule</strong></h4>
                     <div class="tagcloud">
-                        <a href="#" class="tag-link btn btn-theme btn-xs" title="3 topics">Local</a>
-                        <a href="#" class="tag-link btn btn-theme btn-xs" title="3 topics">Business</a>
-                        <a href="#" class="tag-link btn btn-theme btn-xs" title="3 topics">Media</a>
+                        <a href="#" class="tag-link btn btn-theme btn-xs" title="3 topics">스케쥴리스트 넣기</a>
                     </div>
                 </div>
                 <div class="widget about-us-widget mb50">
-                    <h4 class="widget-title">About Kompleet</h4>
-                    <p>Professionally monetize team building materials for 24/7 results. Holisticly transition corporate platforms vis-a-vis cutting-edge experiences. Dynamically strategize ubiquitous applications for premier initiatives. Interactively seize resource sucking niche markets.</p>
+                    <h4 class="widget-title">내글 댓글 넣기</h4>
                 </div>
             </div>
         </div>
     </div>
-	
- 	
+    
     <script src="resources/assets/js/bootstrap.min.js"></script>
     <script src="resources/assets/js/plugins.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>

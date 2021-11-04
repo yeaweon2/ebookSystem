@@ -9,7 +9,7 @@
 	<div align="left" class="site-section">
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
-				<div class="section-header">
+				<div class="section-header" align="center">
 					<h2>E로운 생활 회원가입</h2>
 				</div><br><br><br><br><br>
 			</div>

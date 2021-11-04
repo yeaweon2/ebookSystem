@@ -106,7 +106,7 @@
 					</div>
 				</div><br><br>
 				<div align="center">
-					<input type="button" onclick="location.href='managerList'" value="목록보기" class="btn btn-default get" style="background-color: ##87CEEB">&nbsp;&nbsp;&nbsp;
+					<input type="button" onclick="location.href='managerList'" value="목록보기" class="btn btn-default get" style="background-color: #1E90FF">&nbsp;&nbsp;&nbsp;
 					<input type="button" onclick="ManagerEdit('U')" value="수정" class="btn btn-default get" style="background-color: #90EE90"> &nbsp;&nbsp;&nbsp;
 					<input type="button" onclick="ManagerEdit('D')" value="삭제" class="btn btn-default get" style="background-color: #FF6347">
 				</div><br><br><br>

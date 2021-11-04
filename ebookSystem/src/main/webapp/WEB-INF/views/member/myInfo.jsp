@@ -34,7 +34,7 @@
 							</tr>
 							<c:if test="${auth eq 'U'}">
 							<tr>
-								<th style="width:500px;">월정액기간  </th>
+								<th style="width:600px;">월정액기간  </th>
 								<th style="width:400px;"></th>
 							</tr>
 							<tr>
@@ -62,6 +62,7 @@
 						</div><br><br><br>
 			    </div><br><br>
 		    </div> 
+		    	<c:if test="${auth ne 'A'}">
 		    <div class="col-lg-8 mb-8 mb-lg-0">
 				<div style="height:150px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
 				<c:if test="${auth eq 'U'}">
@@ -84,7 +85,8 @@
 				</c:if>
 			    </div><br><br>
 		    </div> 
-		     <div class="col-lg-8 mb-8 mb-lg-0" style="margin-left: 235px;">
+				</c:if>
+		     <div class="col-lg-8 mb-8 mb-lg-0" style="margin-left: 270px;">
 				<div style="height:150px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
 			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">내글 관리</h4>
 					<h5 align="left" style="margin-left: 25px;">내가 쓴 글 및 댓글</h5>

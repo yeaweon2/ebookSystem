@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="site-section">
+<div class="site-section" align="center">
 	<div class="container">
 		<div class="row mb-1" style="margin-top: 40px">
-			<div class="section-header">
+			<div class="section-header" >
 				<h2>로그인 실패</h2>
 			</div>
 		</div>
