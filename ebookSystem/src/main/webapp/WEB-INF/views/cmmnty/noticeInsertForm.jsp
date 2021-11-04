@@ -10,7 +10,11 @@
  $(document).ready(function() { 
 	 $('.summernote').summernote({
 			 height: 300
-	 }); 
+	 });
+	 
+	 $("#noticeInsertBtn").on("click", function(){
+			frm.submit(); 
+	 });
 	 
  }); 
   </script>
@@ -23,24 +27,19 @@
 					<h2>공지사항</h2><br><br>
 				</div>
 			</div>
-			<div style="width : 800px">
 				<form id="frm" name="frm" action="noticeInsert" method="post">
 				<div>
 					<label for="title">제목</label>
 					<input type="text" class="form-control" name="cmmntyTitle" id="cmmntyTitle" placeholder="제목을 입력해 주세요">
 				</div>
-				<div>
-					<label for="reg_id">작성자 </label>	
-					<input type="text" class="form-control" name="cmmntyWriter" id="cmmntyWriter" value="${sessionScope.id}" readonly="readonly" >
-					</div>
+				
 				<div>
 					<label for="content">내용</label>
 					<textarea name="cmmntyContents" id="summernote" class="summernote" placeholder="내용을 입력해 주세요" ></textarea>
 				</div>
-					<input type="submit" value="등록" class="btn-primary">
-					<input type="button" onclick="location.href='noticeList'" value="취소" class="btn-danger">
+					<input id="noticeInsertBtn" type="button" value="등록" class="btn-primary">
+					<input type="button" onclick="location.href='noticeList'" value="취소" class="btn">
 				</form>		
-			</div>
 		</div>
 	</div>
 </body>

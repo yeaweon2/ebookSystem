@@ -8,10 +8,17 @@
 <meta charset="UTF-8">
 <title>책리뷰</title>
 </head>
-
 <body>
+	<div class="inner-page pt-6">
+		<div class="container">
+			<div class="row mb-1" style="margin-top: 40px">
+				<div class="section-header">
+					<h2>책리뷰</h2><br><br>
+				</div>
+				
+			</div>
 	<div>
-		<input type="button" onclick="location.href='reviewInsertForm'"  value="글쓰기">
+		<input type="button" onclick="location.href='reviewInsertForm'" class="btn-primary pull-right"  value="글쓰기">
 	</div>
 	<!--  책리뷰 조회 -->
 	<c:forEach var="list" items="${lists }">
@@ -27,6 +34,7 @@
 			</table>
 		</div>
 	</c:forEach>
-	
+	</div>
+	</div>
 </body>
 </html>

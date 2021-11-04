@@ -54,7 +54,10 @@ public class CmmntyController {
 
 	// 공지사항 게시글입력
 	@RequestMapping("/noticeInsert")
-	String noticeInsert(Model model, CmmntyVO vo) throws Exception {
+	String noticeInsert(Model model, CmmntyVO vo, HttpServletRequest request) throws Exception {
+		
+		HttpSession session = request.getSession();
+		vo.setCmmntyWriter((String)session.getAttribute("id"));
 		vo.setCmmntyFlCd("01");
 		int lists = cmmntyDao.cmmntyInsert(vo);
 

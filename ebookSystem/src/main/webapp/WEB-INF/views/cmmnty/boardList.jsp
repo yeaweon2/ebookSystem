@@ -31,7 +31,9 @@
 				</div>
 				
 			</div>
-			<div style="width : 800px;">
+				<c:if test="${not empty id}">
+				<button type="button" onclick="location.href='boardInsertForm'" class="pull-right">글쓰기</button>
+				</c:if>
 				<table class="table table-hover" style="cursor:pointer" >
 					<thead>
 						<tr>
@@ -56,12 +58,10 @@
 						
 					</tbody>
 				</table>
-				<c:if test="${not empty id}">
-				<button type="button" onclick="location.href='boardInsertForm'" class="btn-primary">글쓰기</button>
-				</c:if>
+				
 			</div>
 		</div>
-	</div>
+
 	<form action="boardSelectList" method="post" id="frm">
 		<input type="hidden" id="cmmntyId" name="cmmntyId">
 	</form>

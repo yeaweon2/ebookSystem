@@ -241,9 +241,7 @@
 					<h2>상세페이지</h2><br><br><br><br>
 				</div>
 			</div>
-			
-	       
-	        <div style="width : 800px;">
+	
 			<!-- 게시글 -->
 			<table class="table">
 				<tr>
@@ -275,11 +273,8 @@
 					</tr>
 				</table>
 			</c:if>
-			</div><hr>
-			<!--  댓글 조회 -->
-			<div id="rList" class="rList">
 			</div>
-					<hr>
+			<hr>
 					<input type="button" onclick="location.href='boardList'" class="btn-info" value="목록보기"> 
 					<c:if test="${ id eq board.cmmntyWriter}">
 					<input type="button" onclick="BoardEdit('U')" class="btn-primary" value="수정">
@@ -287,6 +282,10 @@
 					<c:if test="${id eq board.cmmntyWriter || id eq 'admin'}">
 					<input type="button" onclick="BoardEdit('D')"class="btn-danger" value="삭제">
 					</c:if>
+			<!--  댓글 조회 -->
+			<div id="rList" class="rList">
+			</div>
+					
 		</div>
 </div>
 	
@@ -294,7 +293,7 @@
 			<input type="hidden" id="cmmntyId" name="cmmntyId" value="${board.cmmntyId}">
 		</form>
 	<br><br>
-	</div>
+
 	<script>
       
 	//원글 수정,삭제

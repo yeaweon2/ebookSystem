@@ -52,7 +52,10 @@ public class inquireController {
 
 	// 1:1문의 게시글입력
 	@RequestMapping("/inquireInsert")
-	String inquireInsert(Model model, CmmntyVO vo) throws Exception {
+	String inquireInsert(Model model, CmmntyVO vo, HttpServletRequest request) throws Exception {
+		
+		HttpSession session = request.getSession();
+		vo.setCmmntyWriter((String)session.getAttribute("id"));
 		vo.setCmmntyFlCd("03");
 		int lists = cmmntyDao.cmmntyInsert(vo);
 

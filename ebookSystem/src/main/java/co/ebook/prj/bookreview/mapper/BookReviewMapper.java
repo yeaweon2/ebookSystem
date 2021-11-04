@@ -6,7 +6,6 @@ import co.ebook.prj.bookreview.vo.BookReviewVO;
 
 public interface BookReviewMapper {
 	List<BookReviewVO> bookReviewList(BookReviewVO vo);
-	BookReviewVO bookReviewSelectList(BookReviewVO vo);
 	int bookReviewInsert(BookReviewVO vo);
 	int bookReviewUpdate(BookReviewVO vo);
 	int bookReviewDelete(BookReviewVO vo);
