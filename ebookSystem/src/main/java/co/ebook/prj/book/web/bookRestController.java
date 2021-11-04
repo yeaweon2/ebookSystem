@@ -66,7 +66,7 @@ public class bookRestController {
 						attchFile.transferTo(fileSave);			// 파일 업로드
 	
 						// 기존파일 삭제
-						if( vo.getBookCover() != null || !"".equals(vo.getBookCover()) ) {
+						if( vo.getBookCover() != null || !"".equals( vo.getBookCover()) ) {
 							File oldFile =new File(filePath + vo.getBookCoverPath(), vo.getBookCover());
 							System.out.println("===============================>> 기존파일 삭제처리 >> ");	
 							System.out.println(oldFile);

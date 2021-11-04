@@ -198,15 +198,4 @@ public class BookController {
 		return "book/bookCartForm";
 	}	
 	
-	@RequestMapping("/bookFileUpload")
-	public String bookFileUpload(Model model , BookVO vo ) {
-		
-		vo = bookDao.bookDetail(vo);
-		model.addAttribute("book", vo);
-		
-		return "book/bookFileUpload";
-	}	
-	
-	
-	
 }

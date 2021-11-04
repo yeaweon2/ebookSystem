@@ -7,35 +7,18 @@
 <title>도서등록</title>
 <link href="resources/css/form-validation.css" rel="stylesheet">
 <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
-    
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<style type="text/css">
+	.modal-backdrop {
+	  z-index: -1;
+	}
+</style>
 
-
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-   
 <script type="text/javascript">
 	$(function(){
-		
-	    
-
-	  $('#summernote').summernote({
-	        placeholder: 'Hello Bootstrap 4',
-	        tabsize: 2,
-	        height: 100
-	      });
 	      
-		$('.summernote').summernote({
-			  height: 300,                 // 에디터 높이
-			  minHeight: null,             // 최소 높이
-			  maxHeight: null,             // 최대 높이
-			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-			  lang: "ko-KR",					// 한글 설정
-			  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-	          
-		});
+		 $('.summernote').summernote({
+			 height: 300
+	 	}); 
 		
 		// 화면 진입시 카테고리 대분류 조회 후 셋팅 --------------------------------------------------------------------------------------
 		$.ajax({
@@ -120,6 +103,12 @@
 		$("#bookFileForm").on("click", function(){
 			alert("도서 등록후 수정 페이지에서 진행해 주세요. ==> 차후 수정");
 		});
+		
+		
+		$("#bookSearch").click(function(e){
+			e.preventDefault();
+			$("#bookApiModal").modal("show");
+		});
 	});
 	
 </script>
@@ -138,9 +127,9 @@
 						<tr>
 							<th>카테고리</th>
 							<td>
-								<select id="lcodeSelBox" class="form-select form-select-sm w-30">
+								<select id="lcodeSelBox" class="form-control form-control-sm w-30">
 								</select>
-								<select id="scodeSelBox" class="form-select form-select-sm">
+								<select id="scodeSelBox" class="form-control form-control-sm">
 								</select>
 								<input type="hidden" id="ctgyId" name="ctgyId" class="form-control"> 
 								<div class="invalid-feedback">
@@ -163,8 +152,9 @@
 						<tr> 
 							<th>BOOK명</th>
 							<td colspan="3">
+								
 								<input type="text" id="bookNm" name="bookNm" size="100px" class="form-control">
-								<button id="bookSearch" type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookApiModal"> BOOK조회 </button>
+								<button id="bookSearch" type="button" class="btn btn-primary"> BOOK조회 </button>
 								<div class="invalid-feedback">
 									BOOK명을 입력해주세요.
 								</div>
@@ -227,10 +217,10 @@
 			</div>
 		</div>
 	</div>	
-<div  class="modal fade" id="bookApiModal">
-	<div class="modal-dialog modal-lg">
+<div class="modal fade" id="bookApiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
-			<form class="needs-validation" target="iframe1" novalidate>	
+			
 				<!--Header-->
 			    <div class="modal-header">
 			    	<h4 class="modal-title" id="myModalLabel">BOOK검색</h4>
@@ -268,11 +258,10 @@
 		      	<div class="modal-footer">
 		        	<button id="apiCloseBtn" type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
 				</div>
-			</form>
+		
 		</div>
 	</div>
 </div>
-<iframe id="iframe1" name="iframe1" style="display:none"></iframe>
 
 <script src="resources/js/form-validation.js"></script>
 <script type="text/javascript">
