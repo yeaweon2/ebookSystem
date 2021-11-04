@@ -139,9 +139,9 @@
     $(document).ready(function() {
         'use strict';
         jQuery('#headerwrap').backstretch([
-            "resources/assets/img/bg/bg1.jpg",
-            "resources/assets/img/bg/bg2.jpg",
-            "resources/assets/img/bg/bg3.jpg"
+            "resources/assets/img/bg/bgimg1.jpg",
+            "resources/assets/img/bg/bgimg2.jpg",
+            "resources/assets/img/bg/bgimg3.jpg"
         ], {
             duration: 8000,
             fade: 500
