@@ -10,6 +10,10 @@
 	 $('.summernote').summernote({
 			 height: 300
 	 }); 
+	 
+	 $('#boardUpdateBtn').on('click', function(){
+		 frm.submit();
+	 })
  }); 
  </script>
 </head>
@@ -21,16 +25,13 @@
 					<h2>자유게시판</h2><br><br>
 				</div>
 			</div>
-			<div style="width : 800px">
+	
 				<form id="frm" name="frm" action="boardUpdate" method="post">
 					<div>
 						<label for="title">제목</label>
 						<input type="text" class="form-control" name="cmmntyTitle" id="cmmntyTitle" value ="${board.cmmntyTitle}" >
 					</div>
-					<div>
-						<label for="reg_id">작성자</label>
-						<input type="text" class="form-control" name="cmmntyWriter" id="cmmntyWriter" value="${board.cmmntyWriter}" readonly="readonly">
-					</div>
+					
 					<div>
 						<label for="content">내용</label>
 					<textarea name="cmmntyContents" id="summernote" class="summernote">${board.cmmntyContents }</textarea>
@@ -40,11 +41,11 @@
 						<input type="file" class="form-control" multiple id="cmmntyAtchNm" value ="${board.cmmntyAtchNm }">
 					</div><br>	
 							<input type="hidden" id="cmmntyId" name="cmmntyId" value="${board.cmmntyId}">
-							<input type="submit" value="수정" class="btn-primary">
+							<input type="button" id="boardUpdateBtn" value="수정" class="btn-primary">
 							<input type="button" onclick="location.href='boardList'" value="취소" class="btn-danger">
 				</form>
 			</div>
 		</div>
-	</div>
+
 </body>
 </html>

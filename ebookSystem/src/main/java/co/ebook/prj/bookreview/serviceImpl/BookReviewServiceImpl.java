@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.ebook.prj.book.mapper.BookMapper;
 import co.ebook.prj.bookreview.mapper.BookReviewMapper;
 import co.ebook.prj.bookreview.service.BookReviewService;
 import co.ebook.prj.bookreview.vo.BookReviewVO;
@@ -18,11 +17,6 @@ public class BookReviewServiceImpl implements BookReviewService {
 	@Override
 	public List<BookReviewVO> bookReviewList(BookReviewVO vo) {
 		return map.bookReviewList(vo);
-	}
-
-	@Override
-	public BookReviewVO bookReviewSelectList(BookReviewVO vo) {
-		return map.bookReviewSelectList(vo);
 	}
 
 	@Override

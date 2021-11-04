@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+   .modal-backdrop {
+     z-index: -1;
+   }
+</style>
 <style>
 .accordion {
 	margin-block-start: 1em;
@@ -53,6 +58,8 @@
     font-size: 16px;
 }
 
+
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -82,7 +89,6 @@
   color: #aaaaaa;
   float: right;
   font-size: 28px;
-  font-weight: bold;
 }
 
 .close:hover,
@@ -92,11 +98,6 @@
   cursor: pointer;
 }
 </style>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script>
  $(function(){
 	//FAQ수정
@@ -110,7 +111,10 @@
 		 $("#cmmntyTitle").val(faq.find("#title").html());
 		 $("#summernote").val(faq.find(".ac_panel").html());
 		 $("#cmmntyId").val($(this).data("id"));
-		 $("#cmmntyWriter").val($(this).data("writer"));
+		 
+		 $('#faqUpdateBtn').on('click', function(){
+			 frm.submit();
+		 })
 		 //썸머노트높이
 	 	 $('.summernote').summernote({
 			 height: 300
@@ -135,12 +139,15 @@
 		 
 		 $("#cmmntyTitle").val();
 		 $("#summernote").val();
-		 $("#cmmntyWriter").val("${sessionScope.id}");
 		 $('.summernote').summernote({
 			 height: 300
 	 	}); 
-		 
+	
 	$("#frm").attr("action", "faqInsert");
+	
+	 $('#faqUpdateBtn').on('click', function(){
+		 frm.submit();
+	 })
 	});
 	
 	//FAQ삭제
@@ -149,7 +156,7 @@
         location.href="${pageContext.request.contextPath}/faqDelete?cmmntyId="+a
 	});
 	
- })
+ }) //끝
 
 </script>
 </head>
@@ -162,6 +169,7 @@
 					<br> <br>
 				</div>
 			</div>
+			<div class="row mb-1">
 			<c:forEach var="faq" items="${faqs }">
 			<div class="faq">
 				<div class="accordion" id="btnImg" onclick="imgUp()"><span id="title">${faq.cmmntyTitle}</span><i class="fa fa-angle-down pull-right" aria-hidden="true"></i>
@@ -179,6 +187,7 @@
 				<hr>
 				<button type="button" class="faqInsert btn-primary"> 글쓰기</button>
 			</c:if>
+			</div>
 		</div>
 	</div>
 	
@@ -187,23 +196,17 @@
 	<div id="myModal" class="modal">
 		<!-- Modal content -->
 		<div class="modal-content">
-			 <span class="close">&times;</span>
 			 <form id="frm" name="frm" action="faqUpdate" method="post">
 				<div>
 					<label for="title">제목</label>
 					<input type="text" class="form-control" name="cmmntyTitle" id="cmmntyTitle" placeholder="제목을 입력해 주세요" >
 				</div>
 				<div>
-					<label for="reg_id">작성자</label>	
-					<input type="text" class="form-control" name="cmmntyWriter" id="cmmntyWriter"  readonly="readonly" >
-				</div>
-				<div>
 					<label for="content">내용</label>
 					<textarea name="cmmntyContents" id="summernote" class="summernote" placeholder="내용을 입력해 주세요" ></textarea>
 				</div>
 					
-				<input type="submit" value="등록" class="btn-primary">
-				<input type="button" onclick="location.href='faqList'" value="취소" class="btn-danger">
+				<input type="button" id="faqUpdateBtn" value="등록" class="btn-primary">
 				<input type="hidden" name="cmmntyId" id="cmmntyId" value="${feq.cmmntyId}">
 			</form>
 				</div>

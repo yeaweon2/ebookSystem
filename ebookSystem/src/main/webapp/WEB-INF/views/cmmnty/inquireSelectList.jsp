@@ -238,12 +238,13 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>상세페이지</h2><br><br>
+					<h2>상세페이지</h2>
+					<br>
+					<br>
 				</div>
 			</div>
-			
-	       
-	        <div style="width : 800px;">
+
+
 			<!-- 게시글 -->
 			<table class="table">
 				<tr>
@@ -251,7 +252,8 @@
 				</tr>
 				<tr>
 					<td>작성자: ${inquire.cmmntyWriter}</td>
-					<td>작성일자:<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${inquire.insDt}" /></td>
+					<td>작성일자:<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
+							value="${inquire.insDt}" /></td>
 					<td>조회수: ${inquire.cmmntyHit}</td>
 				</tr>
 				<tr>
@@ -261,40 +263,50 @@
 
 			<!-- 댓글 입력란-->
 			<div id="replyput">
-			<c:if test="${id eq 'admin'}">
-				<table class="table">
-					<tr>
-						<th>${nicknm}</th>
-					</tr>
-					<tr>
-						<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3"></textarea>
-					</tr>
-					<tr>
-						<td colspan="2"></td>
-						<td class="pull-right"><button type="button" id="replyInputBtn" data-cmmntyId="${inquire.cmmntyId}"class="btn-primary" >댓글등록</button></td>
-					</tr>
-				</table>
+				<c:if test="${id eq 'admin'}">
+					<table class="table">
+						<tr>
+							<th>${nicknm}</th>
+						</tr>
+						<tr>
+							<td colspan="3"><textarea id="replyinput" name="replyinput"
+									placeholder="댓글입력.." rows="3"></textarea>
+						</tr>
+						<tr>
+							<td colspan="2"></td>
+							<td class="pull-right"><button type="button"
+									id="replyInputBtn" data-cmmntyId="${inquire.cmmntyId}"
+									class="btn-primary">댓글등록</button></td>
+						</tr>
+					</table>
+				</c:if>
+			</div>
+			<hr>
+			<input type="button" onclick="location.href='inquireList'"
+				class="btn-info" value="목록보기">
+			<c:if test="${ id eq board.cmmntyWriter}">
+				<input type="button" onclick="inquireEdit('U')" class="btn-primary"
+					value="수정">
 			</c:if>
-			</div><hr>
+			<c:if test="${id eq board.cmmntyWriter || id eq 'admin'}">
+				<input type="button" onclick="inquireEdit('D')" class="btn-danger"
+					value="삭제">
+			</c:if>
 			<!--  댓글 조회 -->
 			<div id="rList" class="rList">
+			
 			</div>
-					<hr>
-					<input type="button" onclick="location.href='inquireList'" class="btn-info" value="목록보기"> 
-					<c:if test="${ id eq board.cmmntyWriter}">
-					<input type="button" onclick="inquireEdit('U')" class="btn-primary" value="수정">
-					</c:if>
-					<c:if test="${id eq board.cmmntyWriter || id eq 'admin'}">
-					<input type="button" onclick="inquireEdit('D')"class="btn-danger" value="삭제">
-					</c:if>
+			
 		</div>
-</div>
-	
-		<form id="frm" name="frm" method="post">
-			<input type="hidden" id="cmmntyId" name="cmmntyId" value="${inquire.cmmntyId}">
-		</form>
-	<br><br>
 	</div>
+
+	<form id="frm" name="frm" method="post">
+		<input type="hidden" id="cmmntyId" name="cmmntyId"
+			value="${inquire.cmmntyId}">
+	</form>
+	<br>
+	<br>
+
 	<script>
       
 	//원글 수정,삭제

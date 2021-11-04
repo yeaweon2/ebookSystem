@@ -31,7 +31,9 @@
 				</div>
 				
 			</div>
-			<div style="width : 800px;">
+				<c:if test="${id eq 'admin'}">
+				<button type="button" onclick="location.href='noticeInsertForm'" class="btn-primary pull-right">글쓰기</button>
+				</c:if>
 				<table class="table table-hover" style="cursor:pointer" >
 					<thead>
 						<tr>
@@ -56,10 +58,6 @@
 					
 					</tbody>
 				</table>
-				<c:if test="${id eq 'admin'}">
-				<button type="button" onclick="location.href='noticeInsertForm'" class="btn-primary">글쓰기</button>
-				</c:if>
-			</div>
 		</div>
 	</div>
 	<form action="noticeSelectList" method="post" id="frm">

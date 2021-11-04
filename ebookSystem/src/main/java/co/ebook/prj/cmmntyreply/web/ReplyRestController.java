@@ -42,7 +42,7 @@ public class ReplyRestController {
 
 		HttpSession session = request.getSession();
 		vo.setCreplyWriter((String) session.getAttribute("id")); //댓글입력시 이름으로저장
-		
+		//세션(로그인)에 담긴 (id)값을 조건으로 사용할때 필요함 예)검색조건값
 		int result = replyDao.replyInsert(vo); 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (result > 0) {

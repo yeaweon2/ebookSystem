@@ -5,7 +5,8 @@
 	<select id="bookReviewList" resultType="co.ebook.prj.bookreview.vo.BookReviewVO">
 		SELECT *
 		  FROM REVIEW
-		 WHERE REVIEW_DEL_YN = 'N'
-		   
+		 WHERE REVIEW_DEL_YN = 'N'   
 	</select>
+	
+	
 </mapper>

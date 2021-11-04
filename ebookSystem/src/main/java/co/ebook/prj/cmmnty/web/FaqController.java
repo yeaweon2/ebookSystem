@@ -35,7 +35,10 @@ public class FaqController {
 
 	// FAQ 게시글입력
 	@RequestMapping("/faqInsert")
-	String faqInsert(Model model, CmmntyVO vo) throws Exception {
+	String faqInsert(Model model, CmmntyVO vo, HttpServletRequest request ) throws Exception {
+		
+		HttpSession session = request.getSession();
+		vo.setCmmntyWriter((String)session.getAttribute("id"));
 		
 		vo.setCmmntyFlCd("02");
 		int lists = cmmntyDao.cmmntyInsert(vo);
