@@ -4,7 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
+<script type="text/javascript">
+$(function(){
+	$("#loginBtn").on("click", function(){
+		event.preventDefault();
+		frm.submit();
+	});
+});
+
+</script>
 </head>
 <body>
 
@@ -16,15 +25,16 @@
 			</div>
 		</div>
 		<div>
-		<form action="loginProc" method="post">
+			<form id="frm"  action="loginProc" method="post">
 				<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
 				<dl>
 					<dt>로그인 ID</dt>
-					<dd><input type="text"  name="memberId"></dd>
+					<dd><input type="text" id="memberId"  name="memberId"></dd>
 					<dt>패스워드</dt>
-					<dd><input type="password" name="memberPw"></dd>
+					<dd><input type="password" id="memberPw" name="memberPw"></dd>
 				</dl>
-				<button type="submit">로그인</button>
+				<a id="loginBtn" href="#" class="smoothie btn btn-primary">&nbsp;&nbsp;로그인&nbsp;&nbsp;</a>
+				<!-- <button type="button" class="btn btn-primary">&nbsp;&nbsp;로그인&nbsp;&nbsp;</button> -->
 			</form>
 		
 		</div>

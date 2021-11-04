@@ -30,16 +30,16 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		
 		// best seller 
-		List<BookVO> lists = bookDao.bestSellerBook();
-		model.addAttribute("lists", lists);
+		//List<BookVO> lists = bookDao.bestSellerBook();
+		//model.addAttribute("lists", lists);
 		
 		// 카테고리 
-		List<CtgyVO> ctgyGrs = ctgyDao.ctgyList();
+		//List<CtgyVO> ctgyGrs = ctgyDao.ctgyList();
 		
-		List<CtgyVO> ctgys = ctgyDao.ctgysList();
+	//	List<CtgyVO> ctgys = ctgyDao.ctgysList();
 		
-		model.addAttribute("ctgyGrs", ctgyGrs);
-		model.addAttribute("ctgys", ctgys);
+		//model.addAttribute("ctgyGrs", ctgyGrs);
+		//model.addAttribute("ctgys", ctgys);
 		
 		return "main/home";  
 	}

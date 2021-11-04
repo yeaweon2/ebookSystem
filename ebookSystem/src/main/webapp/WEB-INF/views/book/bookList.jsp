@@ -149,8 +149,9 @@ $(function(){
 </script>
 </head>
 <body>
-	<div class="inner-page pt-6">
-		<div>
+<section>
+	<div class="section-inner">		
+		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
 	          		<h2><i class='fas fa-book' style='font-size:24px'></i> BOOK 목록</h2>
@@ -241,7 +242,7 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	
+</section>
 <form action="bookUpdateForm" method="post" id="frm">
 	<input type="hidden" id="bookId" name="bookId" >
 </form>	

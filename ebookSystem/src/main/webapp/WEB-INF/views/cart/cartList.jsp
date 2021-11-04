@@ -192,8 +192,9 @@
 </script>
 </head>
 <body>
-	<section id="cart_items">
-		<div>
+<section>
+	<div class="section-inner">		
+		<div class="container">
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 				<thead>
@@ -236,6 +237,7 @@
 			<button id="chkBucBtn" class="btn btn-primary">선택버킷</button>
 			<button id="chkDelBtn" class="btn btn-primary">선택삭제</button>
 			<button id="lendBtn" class="btn btn-primary pull-right"><i class="fa fa-toggle-right"></i>  대 여</button> 
+		</div>
 	</div>
 </section>	 
 <div  class="modal fade" id="itemDel" style="display: none">

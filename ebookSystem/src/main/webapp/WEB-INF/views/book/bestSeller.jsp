@@ -7,8 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>베스트셀러</title>
-<link rel="stylesheet" href="resources/just/justifiedGallery.css" />
-<script src="resources/just/jquery.justifiedGallery.js"></script>
 <style type="text/css">
 #bookNm {
 	font-weight: bold;
@@ -27,7 +25,7 @@ img {
 			frm.submit();
 		});   
 		  
-		$("#mygallery").justifiedGallery();
+		
 		
 		
 		$("#mygallery").on("click", "#bookClick", function(){
@@ -43,18 +41,32 @@ img {
 </head>
 <body>
  <body>
-		<div class="main">
-			<h1>Best Seller</h1>
-			<div id="mygallery" >
-			<c:forEach var="book" items="${lists}">
-			    <a id= "bookClick" href="#" data-id="${book.bookId}">
-			        <img alt="${book.bookNm}" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}"/>
-			    </a>
-			    </c:forEach>
+
+<section>
+	<div class="section-inner">		
+		<div class="container">
+			<div id="mygallery" class="row mb50">
+				<c:forEach var="book" items="${lists}">
+					<div class="col-md-2">
+						<div  class="hover-item mb30">
+							<img height="200" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}" class="img-responsive smoothie" alt="${book.bookNm}">
+							<div class="overlay-item-caption smoothie"></div>
+								<div class="hover-item-caption smoothie">
+									<div class="vertical-center smoothie">
+										<a id= "bookClick" data-id="${book.bookId}" href="#" class="smoothie btn btn-primary">${book.bookNm}</a>
+									</div>
+								</div>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
-		</div><!--/main-->
+		</div>		
+	</div>	
+</section>		
+		
 <form action="bookDetail" method="post" id="frm">
 	<input type="hidden" id="bookId" name="bookId" >
 </form>
+
 </body>
 </html>

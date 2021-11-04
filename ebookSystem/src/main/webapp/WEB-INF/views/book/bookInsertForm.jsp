@@ -7,13 +7,35 @@
 <title>도서등록</title>
 <link href="resources/css/form-validation.css" rel="stylesheet">
 <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+   
 <script type="text/javascript">
 	$(function(){
 		
-		
+	    
+
+	  $('#summernote').summernote({
+	        placeholder: 'Hello Bootstrap 4',
+	        tabsize: 2,
+	        height: 100
+	      });
+	      
 		$('.summernote').summernote({
-			 height: 300
-	 	}); 
+			  height: 300,                 // 에디터 높이
+			  minHeight: null,             // 최소 높이
+			  maxHeight: null,             // 최대 높이
+			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+			  lang: "ko-KR",					// 한글 설정
+			  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+	          
+		});
 		
 		// 화면 진입시 카테고리 대분류 조회 후 셋팅 --------------------------------------------------------------------------------------
 		$.ajax({
@@ -169,7 +191,12 @@
 							</td>
 							<th>BOOK파일</th>
 							<td><button id="bookFileForm" type="button" class="btn btn-primary"> BOOK파일등록 </button></td> 
-						</tr>				
+						</tr>	
+						<tr>
+							<th>책설명</th>
+							<td colspan="3"><div id="summernote"></div></td>
+						</tr>		
+									
 						<tr>
 							<th>책소개</th>
 							<td colspan="3"><textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control summernote"></textarea></td>
@@ -185,7 +212,11 @@
 						<tr>
 							<th>책설명</th>
 							<td colspan="3"><textarea rows="6" cols="90" id="bookDesc" name="bookDesc" class="form-control summernote"></textarea></td>
-						</tr>						
+						</tr>		
+						
+						
+						
+										
 					</table>
 					<div>
 						<button type="submit" id="bookInsertBtn" class="btn btn-outline-primary">등록</button>
