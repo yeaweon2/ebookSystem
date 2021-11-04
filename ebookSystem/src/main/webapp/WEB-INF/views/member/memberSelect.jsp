@@ -59,7 +59,7 @@
 								<th>비밀번호</th>
 								<td>${member.memberPw }</td>
 							</tr>
-							<tr>
+							<tr> 
 								<th>성별</th>
 								<td>${member.memberGen }</td>
 							</tr>

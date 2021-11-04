@@ -20,4 +20,4 @@
 	<img id="img" src="resources/img/월정액이미지.png"  onclick="location.href='subscription'" /><br>
 </div><br><br><br>	
 </body>
-</html>
+</html> 

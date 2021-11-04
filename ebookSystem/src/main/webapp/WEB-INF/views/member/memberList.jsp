@@ -25,7 +25,7 @@ $(function() {
 		event.stopPropagation();
 		if ($(event.target).find("#member").prop('checked') == false) {
 			$(event.target).find("#member").prop('checked', true);
-		} else {
+		} else { 
 			$(event.target).find("#member").prop('checked', false);
 		}
 	});

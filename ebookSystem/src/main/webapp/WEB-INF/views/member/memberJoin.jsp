@@ -23,4 +23,4 @@
 	<script src="resources/js/form-validation.js"></script>
 	<script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+</html> 

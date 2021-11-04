@@ -17,7 +17,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> 
                             <li class="col-sm-3 col-xs-6 masonry-portfolio-item apps isotope-item mb30">
                                 <div class="hover-item">
                                     <img src="resources/assets/img/homepages/blog-2.jpg" class="img-responsive smoothie" alt="">

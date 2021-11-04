@@ -23,7 +23,7 @@
 				frm.action = "memberDelete";
 			} else {
 				return false;
-			}
+			} 
 		}
 		frm.submit();
 	}

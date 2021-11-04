@@ -30,7 +30,7 @@ function mcnfmBizNoApi(){
 				<form action="managerRegistInsert" class="needs-validation"  method="post" id="frm" name ="frm" enctype = "multipart/form-data" novalidate>
 					<table class="table">
 						<tr>
-							<th>상호명</th>
+							<th>상호명</th> 
 							<td colspan="3">
 								<input type="text" id="manfmconm" name="manfmconm" class="form-control" required> 
 							</td>

@@ -26,7 +26,7 @@ $(function(){
 		}, function (rsp) {
 			console.log(rsp);
 				if (rsp.success) {
-				
+				 
 					$('#myModal').modal();
 					$("#resultTxt").html('고유ID : ' + rsp.imp_uid);
 					$("#resultTxt2").html('결제 금액 : ' + rsp.paid_amount +' 원');

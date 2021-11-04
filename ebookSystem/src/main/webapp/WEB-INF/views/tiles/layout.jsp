@@ -20,7 +20,7 @@
 		
 	}
 	
-	#n {
+	#n { 
 		font-weight: bolder;
 		text-align: center; 
 		font-size: x-large; 

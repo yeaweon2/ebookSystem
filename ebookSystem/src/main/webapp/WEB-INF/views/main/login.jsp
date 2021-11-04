@@ -80,7 +80,7 @@
 							<input id="in" type="password" id="memberPw" name="memberPw">
 						</div><br>
 						<div class="interval_height a_none">
-							<a href="#"> 아이디 / 비밀번호 찾기</a>
+							<a href="#"> 아이디 / 비밀번호 찾기</a> 
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-3" style="float:right; margin-right: 100px; padding-bottom: 50px">

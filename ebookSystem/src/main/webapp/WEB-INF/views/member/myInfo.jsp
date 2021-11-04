@@ -23,7 +23,7 @@
 							<tr>
 								<td style="width:400px;">아이디 : </td>
 								<th style="width:400px;">${member.memberId } </th>
-							</tr>
+							</tr> 
 							<tr>
 								<td style="width:400px;">회원명 : </td>
 								<th style="width:400px;">${member.memberNm } 님</th>

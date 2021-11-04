@@ -21,7 +21,7 @@ $("input[name=memberLikeFld]:checked").each(function() {
 
 
 //버튼 클릭 시 수정 & 취소
-function myPageUpdate(str) {
+function myPageUpdate(str) { 
 	if(str == 'U') {
 		if(confirm('수정하시겠습니까?') == true) {
 			console.log("--------");

@@ -24,7 +24,7 @@
 			data : { memberId : $('#memberId').val() },
 			success: function(data){
 				if (data > 0) {
-					if ( div == "Y" ) { 
+					if ( div == "Y" ) {  
 						alert("중복된 ID입니다.");
 						}
 					return false;				

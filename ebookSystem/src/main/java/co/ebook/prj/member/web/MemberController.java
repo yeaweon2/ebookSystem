@@ -42,7 +42,7 @@ public class MemberController {
         DateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,true));
     }
-	
+	 
 //  멤버전체조회(멤버관리)
 	@RequestMapping("/memberList")
 	public String memberList(Model model) {

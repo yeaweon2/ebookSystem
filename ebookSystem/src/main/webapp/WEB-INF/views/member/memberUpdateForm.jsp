@@ -27,7 +27,7 @@ $(document).ready(function(){
 	 alert( $(this).val());
 	 $("#managerCnfmYn option:selected").text();
 	 $("#managerCnfmYn option:selected").val();
-	})
+	}) 
 	
 //	회원상태 선택
 	 $("#memberStCdY").on("change", function(){

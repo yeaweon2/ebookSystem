@@ -20,7 +20,7 @@ $(function() {
 		console.log($("#memberId").val(id));
 		$("#memberId").val(id);
 		frm.submit();
-	})
+	}) 
 
 //	체크박스 이벤트중지
 	$(".ckboxTd").on("click", function() {

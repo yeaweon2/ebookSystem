@@ -19,7 +19,7 @@
 									<c:if test="${cartCnt != '0'}">
 									Cart [ ${cartCnt} ]
 									</c:if>
-								</c:if>
+								</c:if> 
 								</a>
 							</li>
 							<li><div>${id} : ${name} : ${nicknm} : ${auth} : ${stcd} </div></li>
