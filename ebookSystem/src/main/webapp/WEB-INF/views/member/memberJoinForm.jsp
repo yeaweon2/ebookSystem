@@ -111,7 +111,6 @@
 						<div class="col-sm-2">
 							<br>
 							<button type="button" onclick="checkMemberId('Y');" class="btn btn-primary btn-lg" required>중복확인</button>
-							<div class="invalid-feedback">ID 중복확인을 하세요.</div>
 						</div>
 					</div>
 					<br>
@@ -159,7 +158,6 @@
 						<div class="col-sm-4">
 							<br>
 							<button type="button" onclick="checkNickName('Y');" class="btn btn-primary btn-lg" required>중복확인</button>
-							<div class="invalid-feedback">ID 중복확인을 하세요.</div>
 						</div>
 					</div>
 					<br>
@@ -194,11 +192,11 @@
 								<input type="checkbox" class="form-check-input" id="memberLikeFld3" name="memberLikeFld" value="소설/시/희곡">
 								<label for="favorite3" class="form-label">소설/시/희곡</label>
 								<input type="checkbox" class="form-check-input" id="memberLikeFld4" name="memberLikeFld" value="에세이">
-								<label for="favorite4" class="form-label">에세이</label>
+								<label for="favorite4" class="form-label">에세이</label><br>
 								<input type="checkbox" class="form-check-input" id="memberLikeFld5" name="memberLikeFld" value="인문학">
 								<label for="favorite5" class="form-label">인문학</label>
 								<input type="checkbox" class="form-check-input" id="memberLikeFld6" name="memberLikeFld" value="사회과학">
-								<label for="favorite6" class="form-label">사회과학</label><br>
+								<label for="favorite6" class="form-label">사회과학</label>
 								<input type="checkbox" class="form-check-input" id="memberLikeFld7" name="memberLikeFld" value="역사">
 								<label for="favorite7" class="form-label">역사</label>
 								<input type="checkbox" class="form-check-input" id="memberLikeFld8" name="memberLikeFld" value="예술/대중문화">
@@ -207,16 +205,16 @@
 						</div>
 					</div>
 
-					<hr class="col-sm-8">
+					<hr class="col-sm-8"><br><br>
 
-					<div class="form-check" align="left">
+					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="agree" required>
 						<label class="form-check-label" for="agree">
 							개인정보 수집 및 이용에 동의합니다.(필수)</label>
 					</div>
 
 					<div class="col-sm-8">
-						<textarea name="content" cols="130" rows="10" readonly="readonly" class="container-fluid">
+						<textarea name="content" cols="120" rows="10" readonly="readonly" class="container-fluid">
 Ⅰ. 개인정보의 수집 및 이용 동의서
 	- 이용자가 제공한 모든 정보는 다음의 목적을 위해 활용하며, 하기 목적 이외의 용도로는 사용되지 않습니다.
 	
@@ -240,8 +238,12 @@
 					  </textarea>
 					</div>
 
-					<hr class="col-sm-8">
-					<button class="btn btn-primary btn-lg"  onClick="alert('회원가입이 완료되었습니다. 홈으로 이동합니다.')" type="submit">회원가입</button>
+
+					<hr class="col-sm-8" >
+					
+					<div class="col-sm-8" >
+						<button style="float:right; margin-right: 50px; padding-top: 10px" class="btn btn-primary btn-lg"  onClick="alert('회원가입이 완료되었습니다. 홈으로 이동합니다.')" type="submit">&nbsp;&nbsp;회원가입</button>
+					</div>
 				</form>
 			</div>
 		</div>

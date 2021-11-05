@@ -10,7 +10,7 @@
  		        (select scodes.scode_nm from scodes where lcode = 'MS' and scode = member_st_cd ) as member_st_nm, 
  		        member_mile 
         from    member
-    order by    member_fl_cd, member_st_cd, member_id
+    order by    member_fl_cd, member_st_cd, member_id 
 
 	</select>
 	

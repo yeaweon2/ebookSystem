@@ -45,7 +45,7 @@ public class MemberController {
 	 
 //  멤버전체조회(멤버관리)
 	@RequestMapping("/memberList")
-	public String memberList(Model model) {
+	public String memberList(Model model) { 
 		List<MemberVO> lists = memberDao.memberSelectList();
 
 		model.addAttribute("lists", lists);

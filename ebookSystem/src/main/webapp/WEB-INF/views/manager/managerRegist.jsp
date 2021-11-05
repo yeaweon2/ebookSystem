@@ -13,27 +13,31 @@ function mcnfmBizNoApi(){
 		 
 	 })
 }
-
 </script>
+<style type="text/css">
+ th{
+  width:150px;
+ }
+
+</style>
+
 </head>
 <body>
 <div class="inner-page pt-4">
 	<div class="container">
-		<div class="row mb-1" style="margin-top: 40px">
+		<div class="row mb-1" style="margin-top: 40px; margin-bottom: 20px">
 			<div class="section-header">
           		<h2>업체등록 신청</h2>
         	</div>
-        	<div><h4 class="text-danger" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;계약서</h4></div>
+        	<div><h3 class="text-danger" style="padding-left: 1000px">계약서</h3></div>
 		</div>
 		<div class="row">
-			<div class="col-lg-6 mb-6 mb-lg-0">
+			<div class="col-lg-5 mb-5 mb-lg-0" style="align:right; margin-right: 50px" >
 				<form action="managerRegistInsert" class="needs-validation"  method="post" id="frm" name ="frm" enctype = "multipart/form-data" novalidate>
 					<table class="table">
 						<tr>
 							<th>상호명</th> 
-							<td colspan="3">
-								<input type="text" id="manfmconm" name="manfmconm" class="form-control" required> 
-							</td>
+							<td><input type="text" id="manfmconm" name="manfmconm" class="form-control" required></td> 
 						</tr>
 						<tr> 
 							<th>사업자 등록번호</th>
@@ -77,7 +81,7 @@ function mcnfmBizNoApi(){
 			</div>
 			<div class="col-lg-6 mb-6 mb-lg-0">
 				<div class="package text-center bg-white">
-					<textarea name="content" cols="150" rows="15" readonly="readonly" class="container-fluid">
+					<textarea name="content" cols="100" rows="15" readonly="readonly" class="container-fluid">
 도서 판매 계약서
  도서 발행사 (이하 ‘발행사’라고 함)과(와) 도서 유통사 (이하‘유통사’라고 함)는(은) 도서에 대한 판매 또는 구독서비스를 제공하는 것과 관련하여 다음과 같이 계약을 체결한다. 
  
@@ -144,6 +148,10 @@ function mcnfmBizNoApi(){
  2. 이 계약의 내용을 변경하고자 하는 경우에는 쌍방이 문서로 합의하여 결정한다. 
 					</textarea>								
 				</div>
+			<div class="form-check">
+						<input type="checkbox" id="agree" required>
+						<label class="form-check-label" for="agree">내용을 모두 확인했으며 등의합니다.(필수)</label>
+			</div>
 			</div>
 		</div>
 	</div>

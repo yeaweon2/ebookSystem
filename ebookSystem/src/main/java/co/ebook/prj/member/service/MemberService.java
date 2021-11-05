@@ -18,7 +18,7 @@ public interface MemberService {
 	int managerInsert(MemberVO vo);
 
 //	멤버정보수정
-	int memberUpdate(MemberVO vo);
+	int memberUpdate(MemberVO vo); 
 
 //	멤버휴면상태 사용중으로 전환
 	int memberCdUpdate(MemberVO vo);

@@ -12,7 +12,7 @@ public interface MemberMapper {
 	MemberVO memberSelect(MemberVO vo);
 	
 //	일반회원등록
-	int memberInsert(MemberVO vo);
+	int memberInsert(MemberVO vo); 
 	
 //	업체회원등록  
 	int managerInsert(MemberVO vo);

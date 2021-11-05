@@ -185,14 +185,14 @@
 						<div class="col-md-2">
 							<label for="gen" class="form-label">성별</label>
 							<br>
-							<input type="radio" name="gen" value="male">남성
+							<input type="radio" name="gen" value="male">남성&nbsp;&nbsp;&nbsp;
 							<input type="radio" name="gen" value="female">여성
 						</div>
 						<br> <br>
 
 					</div>
 
-					<hr class="col-sm-8">
+					<hr class="col-sm-8"><br><br>
 
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="agree" required>
@@ -201,7 +201,7 @@
 					</div>
 
 					<div class="col-sm-8">
-						<textarea name="content" cols="130" rows="10" readonly="readonly" class="container-fluid">
+						<textarea name="content" cols="120" rows="10" readonly="readonly" class="container-fluid">
 Ⅰ. 개인정보의 수집 및 이용 동의서
 	- 이용자가 제공한 모든 정보는 다음의 목적을 위해 활용하며, 하기 목적 이외의 용도로는 사용되지 않습니다.
 	
@@ -226,7 +226,9 @@
 					</div>
 
 					<hr class="col-sm-8">
-					<button class="btn btn-primary btn-lg" onClick="alert('회원가입이 완료되었습니다. 홈으로 이동합니다.')" type="submit">회원가입</button>
+					<div class="col-sm-8" >
+						<button style="float:right; margin-right: 50px; padding-top: 10px" class="btn btn-primary btn-lg"  onClick="alert('회원가입이 완료되었습니다. 홈으로 이동합니다.')" type="submit">&nbsp;&nbsp;회원가입</button>
+					</div>
 				</form>
 			</div>
 		</div>

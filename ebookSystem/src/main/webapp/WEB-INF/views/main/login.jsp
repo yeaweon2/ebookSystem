@@ -2,12 +2,15 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>  
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
-<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <script type="text/javascript">
 	$(function(){
@@ -16,8 +19,8 @@
 			frm.submit();
 		});
 	});
-
-
+	
+	
 </script>
 
 
@@ -63,6 +66,17 @@
 </style>
 </head>
 <body>
+	<%
+        String clientId = "fS4shoi86zkoG3WEiReF";//애플리케이션 클라이언트 아이디값";
+        String redirectURI = URLEncoder.encode("http://localhost/prj/home", "UTF-8");
+        SecureRandom random = new SecureRandom();
+        String state = new BigInteger(130, random).toString();
+        String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+        apiURL += "&client_id=" + clientId;
+        apiURL += "&redirect_uri=" + redirectURI;
+        apiURL += "&state=" + state;
+        session.setAttribute("state", state);
+     %>
 	<div class="container" id="di">
 		<div class="area_inputs wow fadeIn">
 			<div class="form-group">
@@ -73,11 +87,11 @@
 					<div>
 						<div>
 							<img id="imge1" src="resources/img/아이디.png" />
-							<input id="in" type="text" id="memberId"  name="memberId">
+							<input id="in" type="text" id="memberId"  name="memberId" placeholder="id">
 						</div><br>
 						<div>
 							<img id="imge" src="resources/img/패스워드.png" />
-							<input id="in" type="password" id="memberPw" name="memberPw">
+							<input id="in" type="password" id="memberPw" name="memberPw" placeholder="password">
 						</div><br>
 						<div class="interval_height a_none">
 							<a href="#"> 아이디 / 비밀번호 찾기</a> 
@@ -88,13 +102,12 @@
 							</div>
 						</div>
 						<div class="form-group socialimage" >
-							<img id="socialimage" src="resources/img/카카오로그인.png" />
+							 <a id="kakao-login-btn" style="width:250px; hight:180px;"></a>
 						</div>
 						<div class="form-group socialimage">
-							<img id="socialimage" src="resources/img/네이버로그인.png"/>
+							 <a id="naver_id_login"></a>
+    						  <a href="<%=apiURL%>"><img style="width:240px; hight:300px;" src="resources/img/네이버로그인.png"/></a>
 						</div>
-						<div class="form-group socialimage" >
-							<img id="socialimage" src="resources/img/구글로그인.png" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -105,31 +118,32 @@
 							</div>
 						</div>
 					</div>
-					
-					
-					
-					<!-- '네이버 아이디로 로그인하기' 버튼 -->
-						<!-- 원하는 곳에 넣습니다. -->
-					<div id="naver_id_login">
-						<button type="button" >네이버로그인</button>
-					</div>
-										
 				</form>
 			</div>
 		</div>
 	</div>
-	
-<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-<script type="text/javascript">
-		var naver_id_login = new naver_id_login("fS4shoi86zkoG3WEiReF", "http://localhost/prj/login");	// Client ID, CallBack URL 삽입
-										// 단 'localhost'가 포함된 CallBack URL
-		var state = naver_id_login.getUniqState();
-	
-		naver_id_login.setButton("white", 2, 40);
-		naver_id_login.setDomain("http://192.168.0.13/prj/home");	//  URL
-		naver_id_login.setState(state);
-		naver_id_login.setPopup();
-		naver_id_login.init_naver_id_login();
-	</script>
+				
+				
+				
+				
+    <script type='text/javascript'>
+    	//카카오 로그인
+        //<![CDATA[
+        // 사용할 앱의 JavaScript 키를 설정해 주세요.
+        Kakao.init('a14afe36c9cbe3e8149b6c194be98c69');
+        // 카카오 로그인 버튼을 생성합니다.
+        Kakao.Auth.createLoginButton({
+            container: '#kakao-login-btn',
+            success: function (authObj) {
+                alert(JSON.stringify(authObj));
+            },
+            fail: function (err) {
+                alert(JSON.stringify(err));
+            }
+        });
+      //]]>
+    	
+    	
+    </script>
 </body>
 </html>

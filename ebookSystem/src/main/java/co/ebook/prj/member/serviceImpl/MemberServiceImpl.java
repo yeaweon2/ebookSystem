@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
 
 //	회원 상세조회 (21.10.17.김유리)
 	@Override
-	public MemberVO memberSelect(MemberVO vo) {
+	public MemberVO memberSelect(MemberVO vo) { 
 		return map.memberSelect(vo);
 	}
 
