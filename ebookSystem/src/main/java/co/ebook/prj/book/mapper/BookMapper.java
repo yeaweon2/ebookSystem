@@ -8,8 +8,6 @@ import co.ebook.prj.book.vo.BookVO;
 public interface BookMapper {
 	List<BookVO> bookList(BookSrchVO vo);
 	
-	List<BookVO> bestSellerBook();
-	
 	BookVO bookDetail(BookVO vo);
 	
 	int bookInsert(BookVO vo);
@@ -23,4 +21,10 @@ public interface BookMapper {
 	int bookCoverUpdate(BookVO vo);
 	
 	int bookListCount(BookSrchVO vo);
+	
+	List<BookVO> newBooks(BookVO vo);
+	
+	List<BookVO> bestSellerBook(BookVO vo);
+	
+	List<BookVO> likeBooks(BookVO vo);
 }
