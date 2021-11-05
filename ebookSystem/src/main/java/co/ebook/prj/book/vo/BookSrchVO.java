@@ -22,4 +22,7 @@ public class BookSrchVO {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")		
 	private String insDt;
 	
+	// 페이징 처리
+	private int start;
+	private int end;
 }

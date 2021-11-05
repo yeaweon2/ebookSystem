@@ -40,7 +40,6 @@ public class BookVO {
 	private MultipartFile attchFile;
 	private String attchUpFlag;
 	
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")
 	private Date insDt;
@@ -50,5 +49,7 @@ public class BookVO {
 	private String bookStd; // 북조회 기준(베스트셀러, 추천순 등 ) 
 	private String cnfmStNm;	// BOOK목록에서 승인상태명 보여주기위해 사용
 	
-
+	// 페이징 처리
+	private int start;
+	private int end;
 }

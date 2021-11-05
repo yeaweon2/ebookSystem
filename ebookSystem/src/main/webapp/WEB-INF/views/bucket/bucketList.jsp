@@ -187,58 +187,55 @@ font-weight: bold;
 		});
 	});
 	
-
 </script>
 </head>
 <body>
 <section>
 	<div class="section-inner">		
 		<div class="container">
-
-			<h2 class="title text-center">버킷북 등록</h2>
-			
-			<div class="row" style='margin-bottom: 30px; margin-left: 20px'>
-				<div id="searchDiv" > 
-					<input id="searchInput" size="40px" type="text" placeholder="검색어 입력">
-					<button id="searchBtn" ><i style="font-size:28px" class="fa">&#xf002;</i></button>
-				</div>
-				<div class="">
-					<table id="bucketSrchList" class="searchDiv pointer">
-					</table>
-				</div>
-			</div>	
-			
-			<div class="row">	
-			<h2 class="title text-center">"${nicknm}" 님의 버킷 BOOK LIST</h2>
-			
-				 
-			<table id="bucketList" class="table">
-				<c:forEach var="bucket" items="${lists}">	
-					<tr>
-						<td style="width:20%">
-							<img class="media-object" height="190" width="140" src="/prj/fileUp${bucket.bookCoverPath}${bucket.bookCover}" alt="${bookNm}">
-						</td>
-						<td id="contentsTd" data-bookid="${bucket.bookId}" data-bucketid="${bucket.bucketId}">
-							<div>
-								<h4>${bucket.bucketOrd}. ${bucket.bookNm}</h4>
-								<h5>${bucket.bookPublCo} / ${bucket.bookWriter}</h5>
-								
-								<c:if test="${ not empty bucket.bucketDoneDt }">
-									<div id="doneYn" style="color:red">완료일자 : ${bucket.bucketDoneDt}</div>
-								</c:if>
-								<button id="bucketDel" class="btn btn-primary pull-right"><i class="fa fa-trash-o"></i> 지우기</button>
-								<button id="bucketDone" class="btn btn-primary pull-right"><i class="fa fa-check-square-o"></i> 버킷완료</button>
-							</div>
-						</td>
-					</tr>
-				</c:forEach>
-			</table> 
+			<div class="row">
+				<div class="col-sm-4">
 				
-			
-			
-			
-				
-		
+					<h2 class="title text-center">버킷북 등록</h2>
+					 <div class="intro-text vertical-center text-left smoothie">
+						<div class="intro-heading wow fadeIn heading-font" data-wow-delay="0.2s">버킷BOOK 등록</div>
+					</div>
+					
+					<div class="row" style='margin-bottom: 30px; margin-left: 20px'>
+						<div id="searchDiv" > 
+							<input id="searchInput" size="40px" type="text" placeholder="검색어 입력">
+							<button id="searchBtn" ><i style="font-size:28px" class="fa">&#xf002;</i></button>
+						</div>
+						<div class="">
+							<table id="bucketSrchList" class="searchDiv pointer">
+							</table>
+						</div>
+					</div>	
+				</div>
+				<div class="col-sm-6">
+					<h2 class="title text-center">"${nicknm}" 님의 버킷 BOOK LIST</h2>
+					<table id="bucketList" class="table">
+						<c:forEach var="bucket" items="${lists}">	
+							<tr>
+								<td style="width:20%">
+									<img class="media-object" height="190" width="140" src="/prj/fileUp${bucket.bookCoverPath}${bucket.bookCover}" alt="${bookNm}">
+								</td>
+								<td id="contentsTd" data-bookid="${bucket.bookId}" data-bucketid="${bucket.bucketId}">
+									<div>
+										<h4>${bucket.bucketOrd}. ${bucket.bookNm}</h4>
+										<h5>${bucket.bookPublCo} / ${bucket.bookWriter}</h5>
+										
+										<c:if test="${ not empty bucket.bucketDoneDt }">
+											<div id="doneYn" style="color:red">완료일자 : ${bucket.bucketDoneDt}</div>
+										</c:if>
+										<button id="bucketDel" class="btn btn-primary pull-right"><i class="fa fa-trash-o"></i> 지우기</button>
+										<button id="bucketDone" class="btn btn-primary pull-right"><i class="fa fa-check-square-o"></i> 버킷완료</button>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+					</table> 				
+				</div>
 			</div>
 		</div>
 	</div>

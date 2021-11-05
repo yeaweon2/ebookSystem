@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,17 +151,25 @@ $(function () {
     	event.stopPropagation();
     	
     	var tr = $(this).closest("tr");
+    	var firstTr = $("#fileList tr:first").attr("id");
     	
-    	console.log(tr); 
-    	
-    	tr.insertBefore(tr.prev());
+    	if( tr.prev().attr("id") != firstTr  ){
+    		tr.insertBefore(tr.prev());	
+        	for( var i = 0 ; i < $(".filenoTd").length ; i++){
+        		$(".filenoTd").eq(i).html(i+1);
+        	}
+    	}else{
+    		return false;
+    	}
     });
     
     $("#attchFiles").on("click", ".downBtn",function(){
     	event.stopPropagation();
     	var tr = $(this).closest("tr")
-    	console.log(tr);
     	tr.insertAfter(tr.next());
+    	for( var i = 0 ; i < $(".filenoTd").length ; i++){
+    		$(".filenoTd").eq(i).html(i+1);
+    	}
     });
     
     
@@ -169,6 +178,139 @@ $(function () {
     		alert("파일 등록후 진행해주세요.");
     		return false;
     	}
+    	
+    	var bookId = $(this).data("bookid");
+    	
+    	console.log(bookId);
+    	console.log(files);
+    	
+    	
+        var formData = new FormData();
+        var fileList = files;
+        if(files.length > 0){
+        	
+        	for(var i = 0 ;i < files.length ; i++){
+        	   formData.append("fileList", files[i]);
+               console.log(files[i]);
+            };
+        }        	
+    	
+    	formData.append("bookId" , bookId );
+    	
+    	
+    	
+         $.ajax({
+			url: 'batchInsert',
+			method: 'post',
+			data: formData ,
+			dataType: 'json',
+			enctype: "multipart/form-data",
+			cache: false, 
+			contentType: false, 
+			processData: false,
+			success: function(res) {
+			    console.log(res);
+			    alert("등록이 완료되었습니다.")
+			}
+        });  
+    });
+    
+    
+    $("#bfileTbody").on("click" , ".bfileUpBtn" , function(){
+    	event.stopPropagation();
+    	var tr = $(this).closest("tr");
+    	var prevTr = tr.prev();
+    	
+    	tr.insertBefore(prevTr);
+    	for( var i = 0 ; i < $(".bfileNoTd").length ; i++){
+    		$(".bfileNoTd").eq(i).html(i+1);
+    	}
+    	
+    	var batchs = [];
+    	
+    	var data = {
+    		batchId : tr.data("batchid") ,
+    		batchOrd : tr.find(".bfileNoTd").html() 
+    	};
+    	
+    	batchs.push(data);
+    	
+    	data = {
+   			batchId : prevTr.data("batchid") ,
+       		batchOrd : prevTr.find(".bfileNoTd").html()	
+    	}
+    	
+    	batchs.push(data); 	
+		
+    	 $.ajax({
+    			url : 'batchOrderUpdate' ,
+    			data :  JSON.stringify(batchs)  ,
+    			contentType : 'application/json',
+    			method : 'POST' ,
+    			dataType : 'json' ,
+    			success : function(data){
+    				console.log(data);
+    			}
+    		}); 
+    	
+    });
+    
+	$("#bfileTbody").on("click" , ".bfileDownBtn" , function(){
+		event.stopPropagation();
+    	var tr = $(this).closest("tr");
+    	var nextTr = tr.next();
+    	tr.insertAfter(nextTr);
+    	for( var i = 0 ; i < $(".bfileNoTd").length ; i++){
+    		$(".bfileNoTd").eq(i).html(i+1);
+    	}
+    	
+    	
+		var batchs = [];
+    	
+    	var data = {
+    		batchId : tr.data("batchid") ,
+    		batchOrd : tr.find(".bfileNoTd").html() 
+    	};
+    	
+    	batchs.push(data);
+    	
+    	data = {
+   			batchId : nextTr.data("batchid") ,
+       		batchOrd : nextTr.find(".bfileNoTd").html()	
+    	}
+    	
+    	batchs.push(data); 	    	
+    	
+    	$.ajax({
+			url : 'batchOrderUpdate' ,
+			data :  JSON.stringify(batchs)  ,
+			contentType : 'application/json',
+			method : 'POST' ,
+			dataType : 'json' ,
+			success : function(data){
+				console.log(data);
+			}
+		});     	
+    });
+	
+	$("#bfileTbody").on("click" , ".bfileDelBtn" , function(){
+		event.stopPropagation();
+		var tr = $(this).closest("tr");
+		var batchId = tr.data("batchid");
+		var bookId = $("#bookId").val();
+		
+		$.ajax({
+			url : 'batchDelete' ,
+			method : 'DELETE' ,
+			data :  JSON.stringify({batchId : batchId, bookId : bookId }) ,
+			contentType : 'application/json',
+			dataType : 'json' ,
+			success : function(data){
+				console.log(data);
+				
+				tr.remove();
+			}
+		});
     });
 
 });
@@ -185,7 +327,7 @@ function F_FileMultiUpload(files, obj) {
         	 $("#noFileTxt").html("");
 	         $("#attchFiles").empty();
 	         $("#attchFiles").append( $("<table id='fileList' class='table'>")
-	         							.append($("<tr>")
+	         							.append($("<tr id='headTr'>")
 	         									.append($("<td>").html("No"))
 	         									.append($("<td>").html("File"))
 	         									.append($("<td>").html("순서"))
@@ -202,12 +344,12 @@ function F_FileMultiUpload(files, obj) {
             var fileNm = files[i].name;
             var ext = fileNm.split(".").pop().toLowerCase();
 			$("#fileList")
-			.append($("<tr class='fileTr' data-filename='"+ fileNm +"'>")
+			.append($("<tr id='bodyTr' class='fileTr' data-filename='"+ fileNm +"'>")
 						.append( $("<td class='filenoTd'>").html(i+1))
 						.append( $("<td class='fileNmTd'>").html(fileNm))
-						.append( $("<td>").append( $("<button class='upBtn btn btn-primary'>").append( $("<i class='fa fa-chevron-up'>")) ))
-						.append( $("<td>").append( $("<button class='downBtn btn btn-primary'>").append( $("<i class='fa fa-chevron-down'>")) ))
-						.append( $("<td>").append($("<button type='button' class='fileDelBtn btn btn-primary'>").append($("<i class='fa fa-trash-o'>")) )));
+						.append( $("<td>").append( $("<button class='upBtn btn btn-default'>").append( $("<i class='fa fa-chevron-up'>")) ))
+						.append( $("<td>").append( $("<button class='downBtn btn btn-default'>").append( $("<i class='fa fa-chevron-down'>")) ))
+						.append( $("<td>").append($("<button type='button' class='fileDelBtn btn btn-default'>").append($("<i class='fa fa-trash-o'>")) )));
 		 	
 			var reader = new FileReader();
 			reader.onload = function(e){
@@ -217,18 +359,7 @@ function F_FileMultiUpload(files, obj) {
          }
          
          
-        /*  var url = "<서버 파일업로드 URL>";
-         $.ajax({
-            url: url,
-            method: 'post',
-            data: data,
-            dataType: 'json',
-            processData: false,
-            contentType: false,
-            success: function(res) {
-                F_FileMultiUpload_Callback(res.files);
-            }
-         }); */
+      
      }
 }
 
@@ -238,48 +369,92 @@ function F_FileMultiUpload_Callback(files) {
          console.log(files[i].file_nm + " - " + files[i].file_size);
 }
 
-
-
-
 </script>
 </head>
 <body>
-
-
-
-	<h2 class="title">BOOK 정보</h2>
-
-<div class="row">
-	<div class="col-sm-4" >
-		<img width="200" height="270" style="margin-top:20px" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}">
-	</div>
-	<div class="col-sm-8 bInfo">
-		<div style="margin-left:20px">	
-			<h2 class="display-5 fw-bold">${book.bookNm}</h2>
-			<h4>${book.bookPublCo} ( ${book.bookWriter} )</h4>
+	<div class="inner-page pt-6">
+		<div class="container">
+			<div class="row" style="margin: 10px">
+				<div class="col-sm-6" >
+					<div class="row" style="margin-top: 40px">
+						<div class="section-header">
+			          		<h2>BOOK 정보</h2>
+			        	</div>
+					</div>	
+					<div class="row">
+						<div class="col-sm-4" >
+							<img width="200" height="270" style="margin-top:20px" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}">
+						</div>
+						<div class="col-sm-8 bInfo">
+							<div style="margin-left:20px">	
+								<h2 class="display-5 fw-bold">${book.bookNm}</h2>
+								<br/>
+								<h4>BOOK 출판사	: ${book.bookPublCo} </h4>
+								<h4>BOOK 저 자	: ${book.bookWriter} </h4>
+								<h4>BOOK 매니저	: ${book.memberNm}</h4>
+								<input type="hidden" id="bookId" name="bookId" value="${book.bookId}">
+							</div>
+							<div>
+							</div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="section-header" style="margin-top: 40px">
+			          		<h2>BOOK FILE 정보</h2>
+			        	</div>
+			        	<div>
+			        		<table class="table m-10">
+			        			<thead>
+				        			<tr>
+				        				<th>NO</th>
+				        				<th>파일명</th>
+				        				<th>등록자</th>
+				        				<th>등록일자</th>
+				        				<th colspan="2">순서변경</th>
+				        				<th>삭제</th>
+				        			</tr>
+			        			</thead>
+			        			<tbody id="bfileTbody">
+				        			<c:forEach var="bfile" items="${list}">
+				        				<tr data-batchid="${bfile.batchId}">
+				        					<td class="bfileNoTd">${bfile.batchOrd}</td>
+				        					<td>${bfile.batchNm}</td>
+				        					<td>${bfile.batchWriterNm}</td>
+				        					<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"  value="${bfile.insDt}"/></td>
+				        					<td><button class='bfileUpBtn btn btn-default'><i class='fa fa-chevron-up'></i></button></td>
+				        					<td><button class='bfileDownBtn btn btn-default'><i class='fa fa-chevron-down'></i></button></td>
+				        					<td><button class='bfileDelBtn btn btn-default'><i class='fa fa-trash-o'></i></button></td>
+				        				</tr>
+				        			
+				        			</c:forEach>
+			        			</tbody>
+			        		</table>
+			        	</div>
+					</div>
+				</div>	
+				<div class="col-sm-6" >	
+					<div class="row" style="margin-top: 40px">
+						<div class="col-sm-8">
+							<div class="section-header" >
+								<h2 class="title" style="top:20px">File UPLOAD</h2>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<a href="#" id="fileInsert" data-bookid="${book.bookId}" class="btn-black smoothie pull-right">파일등록</a>
+						</div>
+					</div>
+					<div class="row">
+						<div id="dropzone">
+							<h1 id="noFileTxt">Drag & Drop Files Here</h1>
+							<div id="attchFiles">
+							</div>
+							<div id="noImgFiles"></div>
+						</div>
+					</div>	
+				</div>	
+			</div>
 		</div>
-		<div>
-		</div>	
 	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-12" >
-		<h2 class="title" style="top:20px">File UPLOAD</h2>
-	</div>
-</div>
-<div class="row">
-	<div id="dropzone">
-		<h1 id="noFileTxt">Drag & Drop Files Here</h1>
-		<div id="attchFiles">
-		</div>
-		<div id="noImgFiles"></div>
-	</div>
-</div>	
-<div class="row">
-	<div class="col-sm-12">
-		<button id="fileInsert" type="button" class="button pull-right" id="bookCartForm"><span>파일등록 </span></button>
-	</div>
-</div>
 </body>
 </html>
+

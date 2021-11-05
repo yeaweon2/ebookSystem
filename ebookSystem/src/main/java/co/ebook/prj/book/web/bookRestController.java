@@ -4,7 +4,11 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -20,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import co.ebook.prj.book.service.BookService;
 import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
+import co.ebook.prj.common.vo.Paging;
 
 @RestController
 public class bookRestController {
@@ -66,7 +71,7 @@ public class bookRestController {
 						attchFile.transferTo(fileSave);			// 파일 업로드
 	
 						// 기존파일 삭제
-						if( vo.getBookCover() != null || !"".equals(vo.getBookCover()) ) {
+						if( vo.getBookCover() != null || !"".equals( vo.getBookCover()) ) {
 							File oldFile =new File(filePath + vo.getBookCoverPath(), vo.getBookCover());
 							System.out.println("===============================>> 기존파일 삭제처리 >> ");	
 							System.out.println(oldFile);
@@ -106,12 +111,34 @@ public class bookRestController {
    }
 	
 	@RequestMapping(value="/bookSrchList", method=RequestMethod.POST )
-	   public List<BookVO> bookSrchList(Model model, @RequestBody BookSrchVO vo) {
+	   public HashMap<String,Object> bookSrchList(Model model, @RequestBody BookSrchVO svo, Paging paging , HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		svo.setMemberId((String)session.getAttribute("id"));
+		
+		paging.setPageUnit(8);
+		paging.setTotalRecord(bookDao.bookListCount(svo));	
 		
 		System.out.println("----------------------------->> ");
-		System.out.println(vo.toString());
-		List<BookVO> lists = bookDao.bookList(vo);	
-		return lists;
+		System.out.println(svo.toString());
+		System.out.println(paging.toString());
+		
+		
+		List<BookVO> lists = bookDao.bookList(svo);
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		if( lists != null ) {
+			map.put("result", "입력완료");
+			map.put("lists", bookDao.bookList(svo));
+			map.put("paging" , paging );
+		
+		}else {
+			map.put("result", "오류발생");
+		}
+		return map;
+		
+		
+		
 	}
 			
 	

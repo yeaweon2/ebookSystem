@@ -133,95 +133,98 @@ select {
 </script>
 </head>
 <body>
-<div class="inner-page pt-6">
-	<div>
-		<div class="row mb-1" style="margin-top: 40px">
-			<div class="section-header">
-          		<h2>BOOK 승인목록</h2>
-        	</div>
-		</div>
-		<div class="row">
-				<div class="srchBox">
-					<table class="table">
-						<tr>
-							<th>신청일자 : </th>
-							<td><input type="date" id="srchDate"></td>
-							<th>검색조건 : </th>
-							<td><input type="text" id="srchTxt"></td>
-							<th>BOOK구분 : </th>
-							<td>
-								<input type="radio" id="bookFlCd" name="bookFlCd" value="ALL" checked >전체
-								<input type="radio" id="bookFlCd" name="bookFlCd" value="E" >eBook
-								<input type="radio" id="bookFlCd" name="bookFlCd" value="A" >오디오북
-							</td>
-						</tr>
-						<tr>
-							<th>승인일자</th>
-							<td><input type="date" id="srchDate"></td>
-							<th>신청자</th>
-							<td><input type="text" id="srchTxt"></td>
-							<th>승인상태</th>
-							<td>
-								<select id="srchCnfmCd" class="form-select form-select-sm">
-									<option value="00" selected>전체</option>
-									<option value="04">미신청</option>
-									<option value="01">처리중</option>
-									<option value="03">보류</option>
-									<option value="02">승인</option>
-								</select>
-							</td>
-						</tr>
-					</table>
-				</div>
-		</div>				
-
+<section>
+	<div class="section-inner">		
+		<div class="container">
 			
-		<div class="row">
-			<table id="bcnfmTb" class="table table-hover" style="cursor: pointer;">
-					<tr>
-						<th></th>
-						<th>No</th>
-						<th>신청일자</th>
-						<th>신청자</th> 
-						<th>BOOK명</th>
-						<th>상태</th>
-						<th>승인일자</th>
-						<th>승인자</th>
-					</tr>
-					<tbody>
-						<c:forEach var="list" items="${lists}" >
-							<tr data-id="${list.bcnfmId}" data-book="${list.bookId}">
-								<td><input type="checkbox" id="chkInput"></td>
-								<td>${list.bcnfmNo}</td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.bcnfmReqDt}"/></td>
-								<td>${list.bcnfmReqNm}</td>
+			<div class="row mb-1" style="margin-top: 40px">
+				<div class="section-header">
+	          		<h2>BOOK 승인목록</h2>
+	        	</div>
+			</div>
+			<div class="row">
+					<div class="srchBox">
+						<table class="table">
+							<tr>
+								<th>신청일자 : </th>
+								<td><input type="date" id="srchDate"></td>
+								<th>검색조건 : </th>
+								<td><input type="text" id="srchTxt"></td>
+								<th>BOOK구분 : </th>
 								<td>
-									<c:if test="${not empty list.bookCoverPath}">
-										<img width="50" height="70" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">&nbsp;&nbsp;
-									</c:if>
-								${list.bookNm}</td>
-								<c:if test="${list.bcnfmStCd eq '승인'}">
-									<td style="color:red;font-weight:bold">${list.bcnfmStCd}</td>
-								</c:if>
-								<c:if test="${list.bcnfmStCd eq '보류'}">
-									<td style="color:#0c2e8a;font-weight:bold">${list.bcnfmStCd}</td> 
-								</c:if>
-								<c:if test="${list.bcnfmStCd eq '처리중'}">
-									<td>${list.bcnfmStCd}</td>
-								</c:if>
-								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.bcnfmCnfmDt}"/></td>
-								<td>${list.bcnfmCnfmr}</td>
+									<input type="radio" id="bookFlCd" name="bookFlCd" value="ALL" checked >전체
+									<input type="radio" id="bookFlCd" name="bookFlCd" value="E" >eBook
+									<input type="radio" id="bookFlCd" name="bookFlCd" value="A" >오디오북
+								</td>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<div>
-					<button type="button" id="cnfmBtn" class="btn btn-primary">승 인</button>
-					<button type="button" id="rejectModalBtn" class="btn btn-primary">보 류</button>
-				</div>
+							<tr>
+								<th>승인일자</th>
+								<td><input type="date" id="srchDate"></td>
+								<th>신청자</th>
+								<td><input type="text" id="srchTxt"></td>
+								<th>승인상태</th>
+								<td>
+									<select id="srchCnfmCd" class="form-select form-select-sm">
+										<option value="00" selected>전체</option>
+										<option value="04">미신청</option>
+										<option value="01">처리중</option>
+										<option value="03">보류</option>
+										<option value="02">승인</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</div>
+			</div>				
+	
+				
+			<div class="row">
+				<table id="bcnfmTb" class="table table-hover" style="cursor: pointer;">
+						<tr>
+							<th></th>
+							<th>No</th>
+							<th>신청일자</th>
+							<th>신청자</th> 
+							<th>BOOK명</th>
+							<th>상태</th>
+							<th>승인일자</th>
+							<th>승인자</th>
+						</tr>
+						<tbody>
+							<c:forEach var="list" items="${lists}" >
+								<tr data-id="${list.bcnfmId}" data-book="${list.bookId}">
+									<td><input type="checkbox" id="chkInput"></td>
+									<td>${list.bcnfmNo}</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.bcnfmReqDt}"/></td>
+									<td>${list.bcnfmReqNm}</td>
+									<td>
+										<c:if test="${not empty list.bookCoverPath}">
+											<img width="50" height="70" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">&nbsp;&nbsp;
+										</c:if>
+									${list.bookNm}</td>
+									<c:if test="${list.bcnfmStCd eq '승인'}">
+										<td style="color:red;font-weight:bold">${list.bcnfmStCd}</td>
+									</c:if>
+									<c:if test="${list.bcnfmStCd eq '보류'}">
+										<td style="color:#0c2e8a;font-weight:bold">${list.bcnfmStCd}</td> 
+									</c:if>
+									<c:if test="${list.bcnfmStCd eq '처리중'}">
+										<td>${list.bcnfmStCd}</td>
+									</c:if>
+									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.bcnfmCnfmDt}"/></td>
+									<td>${list.bcnfmCnfmr}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<div>
+						<button type="button" id="cnfmBtn" class="btn btn-primary">승 인</button>
+						<button type="button" id="rejectModalBtn" class="btn btn-primary">보 류</button>
+					</div>
+			</div>
 		</div>
-	</div>
-</div>		
+	</div>	
+</section>	
 
 <div id="myModal" class="modal">
   <!-- Modal content -->

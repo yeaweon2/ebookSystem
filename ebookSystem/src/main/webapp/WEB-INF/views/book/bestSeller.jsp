@@ -40,29 +40,43 @@ img {
 </script>
 </head>
 <body>
- <body>
-
 <section>
-	<div class="section-inner">		
+	<div class="section-inner">
 		<div class="container">
-			<div id="mygallery" class="row mb50">
-				<c:forEach var="book" items="${lists}">
-					<div class="col-md-2">
-						<div  class="hover-item mb30">
-							<img height="200" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}" class="img-responsive smoothie" alt="${book.bookNm}">
-							<div class="overlay-item-caption smoothie"></div>
-								<div class="hover-item-caption smoothie">
-									<div class="vertical-center smoothie">
-										<a id= "bookClick" data-id="${book.bookId}" href="#" class="smoothie btn btn-primary">${book.bookNm}</a>
-									</div>
-								</div>
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="row">
+						<div class="col-sm-12">
+							<h2 class="section-heading">BEST SELLER</h2>
 						</div>
 					</div>
-				</c:forEach>
+				 	<div id="mygallery" class="row mb50">
+				 		<div class="slide">
+							<c:forEach var="book" items="${lists}">
+								<div class="col-md-2">
+									<div  class="hover-item mb30">
+										<img height="200" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}" class="img-responsive smoothie" alt="${book.bookNm}">
+										<div class="overlay-item-caption smoothie"></div>
+											<div class="hover-item-caption smoothie">
+												<div class="vertical-center smoothie">
+													<a id= "bookClick" data-id="${book.bookId}" href="#" class="smoothie btn btn-primary">${book.bookNm}</a>
+												</div>
+											</div>
+										</div>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-sm-offset-1" style="background-color: yellow">
+				 	<h2 class="section-heading">카테고리</h2>
+				</div>
 			</div>
-		</div>		
-	</div>	
-</section>		
+		</div>
+	</div>
+</section> 
+
+	
 		
 <form action="bookDetail" method="post" id="frm">
 	<input type="hidden" id="bookId" name="bookId" >

@@ -24,6 +24,7 @@ import co.ebook.prj.book.service.BreplyService;
 import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.book.vo.BreplyVO;
+import co.ebook.prj.common.vo.Paging;
 
 @Controller
 public class BookController {
@@ -45,16 +46,27 @@ public class BookController {
 
 	
 	@RequestMapping("/bookList")
-	public String bookList(Model model , BookVO vo , BookSrchVO svo, HttpServletRequest request ) {
+	public String bookList(Model model , BookVO vo , BookSrchVO svo, Paging paging , HttpServletRequest request ) {
 		
 		HttpSession session = request.getSession();
-		svo.setMemberId((String)session.getAttribute("id"));	
+		svo.setMemberId((String)session.getAttribute("id"));
+		
+		System.out.println("================================>");
+		
+		System.out.println(svo.toString());
+		paging.setPageUnit(8);
+		
+		svo.setStart(paging.getFirst());
+		svo.setEnd(paging.getLast());	
+		
+		paging.setTotalRecord(bookDao.bookListCount(svo));		
 		
 		List<BookVO> lists = bookDao.bookList(svo);
 
 		if(lists.size() > 0) {
 			model.addAttribute("msg", "성공");
 			model.addAttribute("lists", lists);
+	//		model.addAttribute("paging", paging );
 		}else {
 			model.addAttribute("msg", "자료가 없습니다.");
 		}		
@@ -197,16 +209,5 @@ public class BookController {
 	public String bookCartInsert(Model model , BookVO vo ) {
 		return "book/bookCartForm";
 	}	
-	
-	@RequestMapping("/bookFileUpload")
-	public String bookFileUpload(Model model , BookVO vo ) {
-		
-		vo = bookDao.bookDetail(vo);
-		model.addAttribute("book", vo);
-		
-		return "book/bookFileUpload";
-	}	
-	
-	
 	
 }

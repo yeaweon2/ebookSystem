@@ -22,4 +22,5 @@ public interface BookMapper {
 	
 	int bookCoverUpdate(BookVO vo);
 	
+	int bookListCount(BookSrchVO vo);
 }

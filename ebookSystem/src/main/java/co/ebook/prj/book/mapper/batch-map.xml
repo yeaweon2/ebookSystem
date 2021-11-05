@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.ebook.prj.book.mapper.BatchMapper">
+	<select id="batchList" resultType="co.ebook.prj.book.vo.BatchVO">
+		 SELECT a.batch_id
+              , a.book_id
+              , a.batch_ord
+              , a.batch_nm
+              , a.batch_path
+              , a.batch_writer
+              , ( select member_nm from member m where m.member_id = a.batch_writer ) batch_writer_nm
+              , a.ins_dt
+              , a.udt_dt
+              , b.book_nm
+              , b.book_intro
+              , b.book_cover
+              , b.book_cover_path
+              , ( select member_nm from member n where n.member_id = b.member_id ) book_manager_nm
+ 		   FROM BOOK_ATTACH a
+              , BOOK b
+		  WHERE a.book_id = b.book_id                                                                                                                                                                                                                                                                                                                                                                                                                      
+            AND a.book_id = #{bookId}
+          ORDER BY a.batch_ord	asc
+		  	
+	</select>
+	
+	<insert id="batchInsert" parameterType="co.ebook.prj.book.vo.BatchVO">
+		INSERT INTO book_attach 
+		VALUES ( batch_seq.nextval , #{bookId} 
+				, ( SELECT MAX(NVL(BATCH_ORD,0))+1 FROM BOOK_ATTACH WHERE BOOK_ID =  #{bookId} ) 
+				, #{batchNm} , #{batchPath} , SYSDATE , SYSDATE , #{batchWriter} )
+	</insert>
+	
+	<delete id="batchDelete" parameterType="co.ebook.prj.book.vo.BatchVO"> 
+		DELETE FROM book_attach 
+		 WHERE book_id = #{bookId} AND batch_id = #{batchId}
+	</delete>
+	
+	<update id="batchOrderUpdate" parameterType="co.ebook.prj.book.vo.BatchVO">
+		UPDATE BOOK_ATTACH
+	       SET BATCH_ORD = #{batchOrd}
+	         , UDT_DT = SYSDATE
+	 	 WHERE batch_id = #{batchId}
+	</update>
+	
+</mapper>
