@@ -2,60 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.ebook.prj.book.mapper.BookMapper">
 	<select id="bookList" resultType="co.ebook.prj.book.vo.BookVO" parameterType="co.ebook.prj.book.vo.BookSrchVO">
-	   SELECT ROWNUM as bookNo
-	        , ( SELECT scodes.scode_nm FROM scodes 
-	             WHERE lcode = 'BF' AND scode = b.book_fl_cd ) as book_fl_cd
-	        , b.book_id
-	        , b.ins_dt
-	        , b.book_cover
-	        , b.book_cover_path
-	        , b.book_nm
-	        , b.book_publ_co
-	        , b.book_writer
-	        , b.book_cnfm_yn
-	        , b.book_useyn
-	        , b.book_hit
-	        , b.member_id
-	        , ( SELECT member_nm FROM member m  
-	             WHERE m.member_id = b.member_id ) member_nm
-            , nvl( ( select scode_nm 
-           		       from scodes s
-              		  where s.lcode = 'BC'
-                  		and s.scode = c.bcnfm_st_cd ), '미신청') as cnfm_St_Nm
-		 FROM BOOK B 
-            , BOOK_CONFIRM C
-		WHERE b.book_id = c.book_id(+)
-   		  and b.bcnfm_id = c.bcnfm_id (+)
-   		  and b.member_Id = #{memberId}
-			 <if test='srchCnfmCd != null and srchCnfmCd != "" '>
-			 	<if test='srchCnfmCd == "01" or srchCnfmCd == "02" or srchCnfmCd == "03"'> 
-			 		 and c.bcnfm_st_cd = #{srchCnfmCd}
-			 	</if>
-			 	<if test='srchCnfmCd == "04"'>
-			 		and b.book_cnfm_yn = 'N'
-			 		and b.bcnfm_id is null  
-			 	</if>   
-			 </if>
-		 
-		 	<if test="bookPublCo != null and bookPublCo != '' ">
-				and b.book_publ_co like '%' || #{bookPublCo} || '%'
-			</if>
-		 	<if test="bookWriter != null and bookWriter != ''">
-				and b.book_writer like '%' || #{bookWriter} || '%'
-			</if>
-			<if test="bookNm != null and bookNm != ''">
-				and b.book_nm like '%' || #{bookNm} || '%'
-			</if>
-			<if test="bookFlCd != null and bookFlCd != ''">
-				and b.book_fl_cd = #{bookFlCd}
-			</if>
-			 
-			<if test="insDt != null and insDt != ''">
-				and b.ins_dt = #{insDt}
-			</if>
-			
-			
-        ORDER BY rownum DESC 
+	 <![CDATA[
+			  SELECT A.*
+			  FROM ( 
+			   SELECT ROWNUM as bookNo
+			        , ( SELECT scodes.scode_nm FROM scodes 
+			             WHERE lcode = 'BF' AND scode = b.book_fl_cd ) as book_fl_cd
+			        , b.book_id
+			        , b.ins_dt
+			        , b.book_cover
+			        , b.book_cover_path
+			        , b.book_nm
+			        , b.book_publ_co
+			        , b.book_writer
+			        , b.book_cnfm_yn
+			        , b.book_useyn
+			        , b.book_hit
+			        , b.member_id
+			        , ( SELECT member_nm FROM member m  
+			             WHERE m.member_id = b.member_id ) member_nm
+		            , nvl( ( select scode_nm 
+		           		       from scodes s
+		              		  where s.lcode = 'BC'
+		                  		and s.scode = c.bcnfm_st_cd ), '미신청') as cnfm_St_Nm
+				 FROM BOOK B 
+		            , BOOK_CONFIRM C
+				WHERE b.book_id = c.book_id(+)
+		   		  and b.bcnfm_id = c.bcnfm_id (+)
+		   		  and b.member_Id = #{memberId}
+		]]>		   		  
+					 <if test='srchCnfmCd != null and srchCnfmCd != "" '>
+					 	<if test='srchCnfmCd == "01" or srchCnfmCd == "02" or srchCnfmCd == "03"'> 
+					 		 and c.bcnfm_st_cd = #{srchCnfmCd}
+					 	</if>
+					 	<if test='srchCnfmCd == "04"'>
+					 		and b.book_cnfm_yn = 'N'
+					 		and b.bcnfm_id is null  
+					 	</if>   
+					 </if>
+				 
+				 	<if test="bookPublCo != null and bookPublCo != '' ">
+						and b.book_publ_co like '%' || #{bookPublCo} || '%'
+					</if>
+				 	<if test="bookWriter != null and bookWriter != ''">
+						and b.book_writer like '%' || #{bookWriter} || '%'
+					</if>
+					<if test="bookNm != null and bookNm != ''">
+						and b.book_nm like '%' || #{bookNm} || '%'
+					</if>
+					<if test="bookFlCd != null and bookFlCd != ''">
+						and b.book_fl_cd = #{bookFlCd}
+					</if>
+					 
+					<if test="insDt != null and insDt != ''">
+						and b.ins_dt = #{insDt}
+					</if>
+					
+		<![CDATA[				
+		        ORDER BY rownum DESC 
+		        ) A
+		        WHERE bookNo >= #{start}  and bookNo <= #{end}
+        ]]>
 	</select>
 	
 	<select id="bestSellerBook" resultType="co.ebook.prj.book.vo.BookVO">
@@ -162,4 +169,60 @@
 		DELETE FROM book
 		 WHERE book_id = #{bookId} 
 	</delete>
+	
+	<select id="bookListCount"  resultType="int" parameterType="co.ebook.prj.book.vo.BookSrchVO" >
+	 SELECT COUNT(*)
+ 	   FROM (  SELECT ROWNUM as bookNo
+			        , ( SELECT scodes.scode_nm FROM scodes 
+			             WHERE lcode = 'BF' AND scode = b.book_fl_cd ) as book_fl_cd
+			        , b.book_id
+			        , b.ins_dt
+			        , b.book_cover
+			        , b.book_cover_path
+			        , b.book_nm
+			        , b.book_publ_co
+			        , b.book_writer
+			        , b.book_cnfm_yn
+			        , b.book_useyn
+			        , b.book_hit
+			        , b.member_id
+			        , ( SELECT member_nm FROM member m  
+			             WHERE m.member_id = b.member_id ) member_nm
+		            , nvl( ( select scode_nm 
+		           		       from scodes s
+		              		  where s.lcode = 'BC'
+		                  		and s.scode = c.bcnfm_st_cd ), '미신청') as cnfm_St_Nm
+				 FROM BOOK B 
+		            , BOOK_CONFIRM C
+				WHERE b.book_id = c.book_id(+)
+		   		  and b.bcnfm_id = c.bcnfm_id (+)
+		   		  and b.member_Id = #{memberId}
+					 <if test='srchCnfmCd != null and srchCnfmCd != "" '>
+					 	<if test='srchCnfmCd == "01" or srchCnfmCd == "02" or srchCnfmCd == "03"'> 
+					 		 and c.bcnfm_st_cd = #{srchCnfmCd}
+					 	</if>
+					 	<if test='srchCnfmCd == "04"'>
+					 		and b.book_cnfm_yn = 'N'
+					 		and b.bcnfm_id is null  
+					 	</if>   
+					 </if>
+				 
+				 	<if test="bookPublCo != null and bookPublCo != '' ">
+						and b.book_publ_co like '%' || #{bookPublCo} || '%'
+					</if>
+				 	<if test="bookWriter != null and bookWriter != ''">
+						and b.book_writer like '%' || #{bookWriter} || '%'
+					</if>
+					<if test="bookNm != null and bookNm != ''">
+						and b.book_nm like '%' || #{bookNm} || '%'
+					</if>
+					<if test="bookFlCd != null and bookFlCd != ''">
+						and b.book_fl_cd = #{bookFlCd}
+					</if>
+					 
+					<if test="insDt != null and insDt != ''">
+						and b.ins_dt = #{insDt}
+					</if>
+			) A
+	</select>	
 </mapper>

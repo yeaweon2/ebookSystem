@@ -351,8 +351,9 @@ body {
 .btn.active:focus,
 .btn:active,
 .btn.active {
-    outline: none;
-    box-shadow: none
+    background-color: black;
+    color:white;
+    font-weight: bold;
 }
 
 .btn-primary {
@@ -436,6 +437,24 @@ fieldset[disabled] .btn-primary.active {
     border-color: #f3f3f3;
     color: #f3f3f3;
 }
+
+.btn-black {
+    border-color: black;
+    color: black;
+    border-radius: 0;
+    padding: 5px 12px;
+    text-transform: uppercase;
+    margin: 0 1px 5px 0;
+    border: 1px solid;    
+    font-family: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.btn-black:hover {
+    background-color: black;
+    color:white;
+    font-weight: bold;
+}
+
 
 .btn-primary:hover,
 .btn-primary:focus,
@@ -1627,11 +1646,28 @@ footer.white-wrapper .social-links li a {
 /*  16 - FORM CONTROL
 /*-----------------------------------------------------------------------------------*/
 
+select.form-control {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 10px 10px; 
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #222;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    border-bottom: 3px solid #222;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+
 .form-control {
     display: block;
     width: 100%;
     height: 40px;
-    padding: 30px 30px;
+    padding: 20px 20px; 
     font-size: 14px;
     line-height: 1.42857143;
     color: #222;

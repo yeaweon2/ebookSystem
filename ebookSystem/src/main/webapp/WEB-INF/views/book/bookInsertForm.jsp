@@ -5,12 +5,37 @@
 <head>
 <meta charset="UTF-8">
 <title>도서등록</title>
-<link href="resources/css/form-validation.css" rel="stylesheet">
-<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
+
 <style type="text/css">
 	.modal-backdrop {
 	  z-index: -1;
 	}
+		
+	.row {
+		margin-bottom : 10px;
+	}
+	
+	.ebookBtn {
+		width:150px;
+		height:50px;
+		font-size: 20px;
+		color : black;
+		background-color: white;
+		border : 1px solid black;		
+		
+	}
+	
+	.ebookBtn:hover {
+		font-weight: bold;
+		color : white;
+		background-color: black;
+	}	
+	
+	input[type=text] {
+		height:20px;
+		font-size:20px;
+	}
+	
 </style>
 
 <script type="text/javascript">
@@ -109,6 +134,10 @@
 			e.preventDefault();
 			$("#bookApiModal").modal("show");
 		});
+		
+		$("#bookInsertBtn").on("click" , function(){
+			frm.submit();
+		});
 	});
 	
 </script>
@@ -116,111 +145,124 @@
 <body>
 	<div class="inner-page pt-6">
 		<div class="container">
-			<div class="row mb-1" style="margin-top: 40px">
+			<div class="row mb-20" style="margin-top: 40px">
 				<div class="section-header">
 	          		<h2>BOOK 등록</h2>
 	        	</div>
 			</div>	
-			<div>
-				<form action="bookInsert" class="needs-validation"  method="post" id="frm" name ="frm" enctype = "multipart/form-data" novalidate>
-					<table class="table">
-						<tr>
-							<th>카테고리</th>
-							<td>
-								<select id="lcodeSelBox" class="form-control form-control-sm w-30">
+			<form action="bookInsert" class="needs-validation"  method="post" id="frm" name ="frm" enctype = "multipart/form-data" novalidate>
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="row">
+							<label style="float: left">BOOK COVER</label>	
+						</div>			
+						<div class="row">
+							<div id="imgContainer"><img id="bookCoverImg" width="150" height="170" src="resources/assets/img/noimg.jpg"></div>
+							<input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control">
+						</div>									
+						<!-- <button id="bookFileForm" type="button" class="btn btn-primary"> BOOK파일등록 </button> -->
+					</div>
+					<div class="col-sm-7 col-sm-offset-1">
+						<div class="row" >
+							<div class="col-sm-3">
+								<label style="float: left">카테고리</label>
+							</div>
+							<div class="col-sm-4">
+								<select id="lcodeSelBox" class="form-control" style="float: left">
 								</select>
-								<select id="scodeSelBox" class="form-control form-control-sm">
+							</div>
+							<div class="col-sm-4">
+								<select id="scodeSelBox" class="form-control" >
 								</select>
-								<input type="hidden" id="ctgyId" name="ctgyId" class="form-control"> 
-								<div class="invalid-feedback">
-									카테고리를 입력해주세요.
-								</div>								
-							</td>
-							<th>도서구분</th> 
-							<td>
-								<div class="form-check-inline" style="word-spacing :10px">
-									<input id="eBook" name="bookFlCd" type="radio" value="E" class="form-check-input" checked required>
-									<label class="form-check-label" for="eBook">eBook</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input id="audioBook" name="bookFlCd" type="radio" value="A" class="form-check-input" required>
-									<label class="form-check-label" for="audioBook">오디오북</label>
-									<div class="invalid-feedback">
-										구분을 선택해주세요.
+							</div>
+							<input type="hidden" id="ctgyId" name="ctgyId" class="form-control">
+						</div>
+						<div class="row">
+							<label class="col-sm-3" style="float: left">BOOK구분</label>
+							<div class="col-sm-9 form-check-inline" style="word-spacing :10px">
+								<input id="eBook" name="bookFlCd" type="radio" value="E" class="form-check-input" checked required>
+								<label class="form-check-label" for="eBook">eBook</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input id="audioBook" name="bookFlCd" type="radio" value="A" class="form-check-input" required>
+								<label class="form-check-label" for="audioBook">오디오북</label>
+							</div>
+						</div>
+						<div class="row">
+							<label class="col-sm-3 title">BOOK명</label>
+							<div class="col-sm-9" style="padding-left:0px;">
+								<div class="row">	
+									<div class="col-sm-8">
+										<input type="text" id="bookNm" name="bookNm" class="form-control">
+									</div>
+									<div class="col-sm-4">
+										<button id="bookSearch" type="button" class="btn pull-right ebookBtn" style="float:left"> BOOK조회 </button>
 									</div>
 								</div>
-							</td>
-						</tr>
-						<tr> 
-							<th>BOOK명</th>
-							<td colspan="3">
-								
-								<input type="text" id="bookNm" name="bookNm" size="100px" class="form-control">
-								<button id="bookSearch" type="button" class="btn btn-primary"> BOOK조회 </button>
-								<div class="invalid-feedback">
-									BOOK명을 입력해주세요.
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th>출판사</th>
-							<td><input type="text" id="bookPublCo" name="bookPublCo" class="form-control" ></td>
-							<th>저 자</th>
-							<td><input type="text" id="bookWriter" name="bookWriter" class="form-control" ></td>
-						</tr>
-						<tr>
-							<th>출간일</th>
-							<td><input type="date" id="bookPublDt" name="bookPublDt" class="form-control" ></td>
-							<th>도서ISBN</th>
-							<td><input type="text" id="bookIsbn" name="bookIsbn" class="form-control"></td>
-						</tr>
-						<tr>
-							<th>표지디자인</th>
-							<td>
-								<input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control">
-								
-								<div id="imgContainer" style="display:none"><img id="bookCoverImg" width="150" height="170"></div>
-							</td>
-							<th>BOOK파일</th>
-							<td><button id="bookFileForm" type="button" class="btn btn-primary"> BOOK파일등록 </button></td> 
-						</tr>	
-						<tr>
-							<th>책설명</th>
-							<td colspan="3"><div id="summernote"></div></td>
-						</tr>		
-									
-						<tr>
-							<th>책소개</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control summernote"></textarea></td>
-						</tr>
-						<tr>
-							<th>목차</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookContent" name="bookContent" class="form-control summernote"></textarea></td>
-						</tr>
-						<tr>
-							<th>저자소개</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookWriterIntro" name="bookWriterIntro" class="form-control summernote"></textarea></td>
-						</tr>
-						<tr>
-							<th>책설명</th>
-							<td colspan="3"><textarea rows="6" cols="90" id="bookDesc" name="bookDesc" class="form-control summernote"></textarea></td>
-						</tr>		
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="row">
+							<label class="col-sm-3 title" style="float: left">출판사</label>
+							<input type="text" id="bookPublCo" name="bookPublCo" class="col-sm-3 form-control" style="float:left">
+						</div>
 						
-						
-						
-										
-					</table>
-					<div>
-						<button type="submit" id="bookInsertBtn" class="btn btn-outline-primary">등록</button>
+					</div>
+					<div class="col-sm-6">
+						<label class="title">저자</label>
+						<input type="text" id="bookWriter" name="bookWriter" class="form-control" style="float:left">				
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<label class="title" style="float: left">출간일</label>
+						<input type="date" id="bookPublDt" name="bookPublDt" class="form-control" >
+					</div>
+					<div class="col-sm-6">
+						<label class="title">도서ISBN</label>
+						<input type="text" id="bookIsbn" name="bookIsbn" class="form-control">				
+					</div>
+				</div>			
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="title">책소개</label>
+						<textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control summernote"></textarea>				
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="title">목차</label>
+						<textarea rows="6" cols="90" id="bookContent" name="bookContent" class="form-control summernote"></textarea>				
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="title">저자소개</label>
+						<textarea rows="6" cols="90" id="bookWriterIntro" name="bookWriterIntro" class="form-control summernote"></textarea>				
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="title">책설명</label>
+						<textarea rows="6" cols="90" id="bookDesc" name="bookDesc" class="form-control summernote"></textarea>				
+					</div>
+				</div>		
+				<div class="row">
+					<div class="col-sm-12">
+						<button type="button" id="bookInsertBtn" class="btn btn-outline-primary">등록</button>
 						<button type="button" id="home" class="btn btn-outline-primary" onclick="location.href='bookList'">BOOK목록</button>
 					</div>
-				</form>
-			
-			</div>
+				</div>
+			</form>			
 		</div>
-	</div>	
+	</div>
+	
+	
 <div class="modal fade" id="bookApiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			
+	<div class="modal-dialog modal-lg"  role="document">
+		<div class="modal-content" style="padding:40px">
 				<!--Header-->
 			    <div class="modal-header">
 			    	<h4 class="modal-title" id="myModalLabel">BOOK검색</h4>
@@ -230,12 +272,16 @@
 			    </div>
 				<!--Body-->
 				<div class="modal-body">
-					<div class="row">
-						<input type="text" class="form-control" id="bookApiNm" placeholder=""  required>
-						<div class="invalid-feedback">
-							검색할 BOOK명을 입력해주세요.
+					<div class="row" style="margin-left:0px">
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="bookApiNm" placeholder=""  required>
+							<div class="invalid-feedback">
+								검색할 BOOK명을 입력해주세요.
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<button type="submit" id="bookApiSearch" class="btn btn-primary" onclick="bookApi()" >&nbsp;&nbsp;검 색&nbsp;&nbsp;</button>
 						</div>	
-						<button type="submit" id="bookApiSearch" class="btn btn-primary" onclick="bookApi()" >검 색</button>
 					</div>
 					<div class="row">
 						<table id="apiTb" class="table table-hover">
