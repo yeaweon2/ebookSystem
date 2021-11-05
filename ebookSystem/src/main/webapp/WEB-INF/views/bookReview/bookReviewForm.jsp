@@ -34,7 +34,7 @@
 	margin: auto;
 	padding: 20px;
 	border: 1px solid #888;
-	width: 800px;
+	width: 600px;
 }
 
 /* The Close Button */
@@ -67,24 +67,27 @@
 				dataType: 'json',
 				success: function(data){
 					$("#lendList").empty();
-					console.log(data);
 					
-					$.each(data, function(idx,item){
-						$("#lendList").append($("<tr>")
-									  .append($("<td id='chkTd'>").append($("<input id='chkInput' type='checkbox'>")))
-									  .append($("<td>").html(item.lendDate))
-									  .append($("<td>").html(item.bookNm))
-									  .append($("<td>").html(item.bookWriter))
-									  .append($("<td>").append($("<img width='70px' height='100px' src='/prj/fileUp"+ item.bookCoverPath + item.bookCover+ "'>")))
-									 ).data("bookid", item.bookId); 
+					$("#lendList").append($("<div>").html("리뷰할 책을 선택해주세요!"))
+									
+									$.each(data, function(idx,item){
+										$("#lendList").append($("<table class='chk'>")
+													  .append($("<tr>"))
+													  .append($("<td>").append($("<img width='60px' height='90px' src='/prj/fileUp"+ item.bookCoverPath + item.bookCover+ "'>")))
+													  .append($("<td>").html(item.bookNm).append($("<td>").html(item.bookWriter))
+													  )
+													  
+													 ).data("bookid", item.bookId)
+													  
+									})//each끝
+									
+					$('.chk').on('dblclick', function(){
+						console.log($(this).data("bookid"));
 					})
-				}
-			})
+				}//function끝
+			})//대여리스트끝
 			
-			$("#lendInput").on('click', function() {
-			//div안에 책리뷰들어가게끔 폼작성
-				
-			});
+			
 
 		})
 		
@@ -119,10 +122,7 @@
 				</div>
 			</div>
 			<div id="lend">
-			<table>
-				<tr>
-					<td>제목</td>
-				</tr>
+			<table class="table">
 				<tr>
 					<td><input type="text" class="form-control" name="rewviewTitle" id="reviewTitle" placeholder="제목을 입력해 주세요"></td>
 				</tr>
@@ -146,13 +146,11 @@
 	<div id="myModal" class="modal">
 		<!-- Modal content -->
 		<div class="modal-content">
-			<span class="close">&times;</span>
 			<form id="frm" name="frm" action="" method="post">
-				//대여리스트 가져오기
-				<div id="lendList">
 				
+				<div id="lendList">
+					
 				</div>
-				<input type="button" id="lendInput" value="등록" class="btn-primary">
 				<input type="hidden" name="reviewId" id="reviewId" value="${lists.reviewId}">
 			</form>
 		</div>

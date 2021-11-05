@@ -120,7 +120,7 @@
 	        		    	            .data("udtDt", item.udtDt)
 	        		    	            .data("insDt", item.insDt)		
 	        ).attr("id", "rplyTb" + item.creplyId),// 댓글table끝
-	      $('<table class="table">').attr("id", "rRplyTb" + item.creplyId)
+	         $('<table class="table">').attr("id", "rRplyTb" + item.creplyId)
 	      
 	      )//comments-list
       })
