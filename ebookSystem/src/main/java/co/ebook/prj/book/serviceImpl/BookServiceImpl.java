@@ -61,4 +61,24 @@ public class BookServiceImpl implements BookService {
 	public int bookListCount(BookSrchVO vo) {
 		return map.bookListCount(vo);
 	}
+
+	@Override
+	public List<BookVO> newBooks() {
+		return map.newBooks();
+	}
+
+	@Override
+	public List<BookVO> likeBooks() {
+		return map.likeBooks();
+	}
+
+	@Override
+	public List<BookVO> bookSrchPageList(BookSrchVO vo) {
+		return map.bookSrchPageList(vo);
+	}
+
+	@Override
+	public int bookSrchPageCount(BookSrchVO vo) {
+		return map.bookSrchPageCount(vo);
+	}
 }

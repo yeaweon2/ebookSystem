@@ -27,27 +27,70 @@ public class LendController {
 	
 	@RequestMapping("/lendInsert")
 	@ResponseBody
-	public String lendInsert(Model model, HttpServletRequest request, @RequestBody List<LendVO> lists) {
+	public HashMap<String, Object> lendInsert(Model model, HttpServletRequest request, @RequestBody List<LendVO> lists) {
 		
 		HttpSession session = request.getSession();
-		
+		String id = (String)session.getAttribute("id");
 		int result = 0;
 		
-		for(LendVO vo : lists) {
-			vo.setMemberId((String)session.getAttribute("id"));	
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if( id == null || "".equals(id)) {
+			map.put("result", "04");	// 세션 종료됨
+		}else {
+			for(LendVO vo : lists) {
+				vo.setMemberId(id);	
+				System.out.println("=================================>");
+				System.out.println(vo.toString());
+				
+				int duplchk = lendDao.lendDuplChk(vo);
+				
+				if( duplchk > 0 ) {
+					map.put("result", "03");	// 중복
+				}else {
+					result = lendDao.lendInsert(vo);
+					if( result > 0 ) {
+						map.put("result", "01");	//성공
+					}else {
+						map.put("result", "02");	//실패
+					}
+				}
+			}
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping("/lendInsertOne")
+	@ResponseBody
+	public HashMap<String, Object> lendInsertOne(Model model, HttpServletRequest request, @RequestBody LendVO vo) {
+		
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		int result = 0;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if( id == null || "".equals(id)) {
+			map.put("result", "04");	// 세션 종료됨
+		}else {
+			vo.setMemberId(id);	
 			System.out.println("=================================>");
 			System.out.println(vo.toString());
 			
-			result = lendDao.lendInsert(vo);			
+			int duplchk = lendDao.lendDuplChk(vo);
+			
+			if( duplchk > 0 ) {
+				map.put("result", "03");	// 중복
+			}else {
+				result = lendDao.lendInsert(vo);
+				if( result > 0 ) {
+					map.put("result", "01");	//성공
+				}else {
+					map.put("result", "02");	//실패
+				}
+			}
 		}
 		
-		if( result > 0 ) {
-			model.addAttribute("msg", "01");
-		}else {
-			model.addAttribute("msg", "02");
-		}
-		
-		return "redirect:lendList";
+		return map;
 	}
 	
 

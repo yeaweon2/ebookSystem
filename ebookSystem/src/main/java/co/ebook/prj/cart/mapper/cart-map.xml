@@ -10,8 +10,6 @@
 	          , B.BOOK_COVER_PATH
 	          , B.BOOK_PUBL_CO
 	          , B.BOOK_WRITER
-	          , B.BOOK_AMT
-	          , B.BOOK_AMT - (B.BOOK_AMT*B.BOOK_DISCNT) AS BOOK_DISCNT 
 	          , C.MEMBER_ID
 	          , C.INS_DT
 	          , C.UDT_DT

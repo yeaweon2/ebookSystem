@@ -44,6 +44,12 @@ public class BookController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,true));
     }
 
+	@RequestMapping("/bookSrchList")
+	public String bookSrchList(Model model , BookVO vo , BookSrchVO svo, Paging paging , HttpServletRequest request ) {
+		
+		
+		return "book/bookSrchList";
+	}
 	
 	@RequestMapping("/bookList")
 	public String bookList(Model model , BookVO vo , BookSrchVO svo, Paging paging , HttpServletRequest request ) {
@@ -87,7 +93,7 @@ public class BookController {
 		int result = 0;
 		vo.setMemberId((String)session.getAttribute("id"));	
 		String fileName = "";
-		
+		String real_filePath = "";
 		String folder = "/book/";
 		
 		try {
@@ -95,10 +101,10 @@ public class BookController {
 				if (!attchFile.getOriginalFilename().isEmpty()) {
 					fileName = attchFile.getOriginalFilename();	
 					//filePath = request.getServletContext().getRealPath("/fileUp");	// 파일 저장경로
-					filePath =  filePath + folder;								// 파일이 저장될 최종폴더
+					real_filePath =  filePath + folder;								// 파일이 저장될 최종폴더
 
 					// UUID.randomUUID().toString() + "_" +
-					File fileSave = new File( filePath , fileName);
+					File fileSave = new File( real_filePath , fileName);
 					System.out.println("----------------------------------------------> fileSave");
 					System.out.println(fileSave);
 					System.out.println("----------------------------------------------> fileSave");
@@ -144,9 +150,22 @@ public class BookController {
 	
 	@RequestMapping("/bestSeller")
 	public String bestSeller(Model model , BookVO vo) {
-		List<BookVO> lists = bookDao.bestSellerBook();
-		// 쿼리 수정해야함 
-		model.addAttribute("lists", lists);
+		List<BookVO> bests = bookDao.bestSellerBook();
+		
+		List<BookVO> news = bookDao.newBooks();
+		
+		List<BookVO> likes = bookDao.likeBooks();
+		System.out.println("============================= 베스트셀러 >> ");
+		System.out.println( bests );
+		System.out.println( news );
+		System.out.println( likes );
+		System.out.println("============================= 베스트셀러 >> ");
+		
+		model.addAttribute("bests", bests);
+		model.addAttribute("news", news);
+		model.addAttribute("likes", likes);
+		
+		
 		
 		return "book/bestSeller";
 	}
@@ -210,4 +229,21 @@ public class BookController {
 		return "book/bookCartForm";
 	}	
 	
+	@RequestMapping("/menuSrchBook")
+	public String menuSrchBook(Model model , BookSrchVO svo, Paging paging ) {
+		
+		paging.setPageUnit(8);
+		paging.setTotalRecord(bookDao.bookSrchPageCount(svo));	
+		
+		System.out.println("----------------------------->> ");
+		System.out.println(paging.toString());
+		System.out.println(paging.toString());
+		
+		List<BookVO> lists = bookDao.bookSrchPageList(svo);
+		model.addAttribute("lists", lists);
+		return "book/bookSrchList";
+	}	
+	
+	
 }
+

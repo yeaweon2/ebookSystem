@@ -6,8 +6,13 @@ import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
 
 public interface BookMapper {
+	// 매니저 BOOK조회화면
 	List<BookVO> bookList(BookSrchVO vo);
 	
+	// BOOK검색화면
+	List<BookVO> bookSrchPageList(BookSrchVO vo);
+	
+	// BOOK상세화면
 	BookVO bookDetail(BookVO vo);
 	
 	int bookInsert(BookVO vo);
@@ -22,9 +27,11 @@ public interface BookMapper {
 	
 	int bookListCount(BookSrchVO vo);
 	
-	List<BookVO> newBooks(BookVO vo);
+	int bookSrchPageCount(BookSrchVO vo);
 	
-	List<BookVO> bestSellerBook(BookVO vo);
+	List<BookVO> newBooks();
 	
-	List<BookVO> likeBooks(BookVO vo);
+	List<BookVO> bestSellerBook();
+	
+	List<BookVO> likeBooks();
 }

@@ -17,13 +17,13 @@ import lombok.ToString;
 public class BookVO {
 	private String bookId;
 	private String ctgyId;
+	private String ctgyIdNm;
+	private String ctgyGrNm;
 	private String bookNm;
 	private String bookFlCd;
 	private String bookPublCo;
 	private String bookWriter;
 	private Date bookPublDt;
-	private int bookAmt;
-	private int bookDiscnt;
 	private String bookUseyn;
 	private String bookIntro;
 	private String bookContent;
@@ -39,6 +39,7 @@ public class BookVO {
 	private String memberNm;
 	private MultipartFile attchFile;
 	private String attchUpFlag;
+	private int rank;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")

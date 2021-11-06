@@ -10,13 +10,6 @@
 <title>도서목록</title>
 <style type="text/css">
 
-.box {
-	margin: 0 0 0 0;
-    border: 1px solid #e4e1e3;
-    border-radius: 2px;
-    padding: 1em 1em 1em 1em;
-}
-
 select {
 	width:110px;
 }
@@ -155,11 +148,13 @@ $(function(){
 					if(item.innerText == "승인"){
 						item.style.color = "red";
 						item.style.fontWeight = "bold"; 
-						
 					}else if(item.innerText == "보류"){
 						item.style.color = "#0c2e8a";
 						item.style.fontWeight = "bold"; 
-					}					
+					}else if(item.innerText == "처리중"){
+						item.style.color = "green";
+						item.style.fontWeight = "bold"; 
+					}										
 				});
 				
 				$("#pagingDiv").empty();

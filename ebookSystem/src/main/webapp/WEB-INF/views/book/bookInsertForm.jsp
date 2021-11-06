@@ -15,22 +15,6 @@
 		margin-bottom : 10px;
 	}
 	
-	.ebookBtn {
-		width:150px;
-		height:50px;
-		font-size: 20px;
-		color : black;
-		background-color: white;
-		border : 1px solid black;		
-		
-	}
-	
-	.ebookBtn:hover {
-		font-weight: bold;
-		color : white;
-		background-color: black;
-	}	
-	
 	input[type=text] {
 		height:20px;
 		font-size:20px;
@@ -136,6 +120,18 @@
 		});
 		
 		$("#bookInsertBtn").on("click" , function(){
+			
+			if( $("#bookNm").val() == ""){
+				alert("BOOK명은 필수 입력입니다. ");
+				return false;
+			} 
+			
+			if( `${id}` == ""){
+				alert("로그인 후 진행해 주세요.");
+				return false;
+			} 
+			
+			
 			frm.submit();
 		});
 	});
@@ -251,8 +247,8 @@
 				</div>		
 				<div class="row">
 					<div class="col-sm-12">
-						<button type="button" id="bookInsertBtn" class="btn btn-outline-primary">등록</button>
-						<button type="button" id="home" class="btn btn-outline-primary" onclick="location.href='bookList'">BOOK목록</button>
+						<button type="button" id="bookInsertBtn" class="btn ebookBtn">등록</button>
+						<button type="button" id="home" class="btn ebookBtn" onclick="location.href='bookList'">BOOK목록</button>
 					</div>
 				</div>
 			</form>			

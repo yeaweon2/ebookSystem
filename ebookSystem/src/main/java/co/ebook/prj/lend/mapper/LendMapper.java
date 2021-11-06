@@ -14,4 +14,6 @@ public interface LendMapper {
 	int lendUpdate(LendVO vo);
 	
 	int lendDelete(LendVO vo);
+	
+	int lendDuplChk(LendVO vo);
 }

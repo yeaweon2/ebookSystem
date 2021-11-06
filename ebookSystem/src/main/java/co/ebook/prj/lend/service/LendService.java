@@ -16,4 +16,5 @@ public interface LendService {
 	
 	int lendDelete(LendVO vo);
 	
+	int lendDuplChk(LendVO vo);
 }

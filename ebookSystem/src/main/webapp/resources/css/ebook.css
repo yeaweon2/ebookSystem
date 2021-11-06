@@ -22,3 +22,26 @@
     border-radius: 2px;
     padding: 1em 1em 1em 1em;
 }
+
+.box {
+	margin: 0 0 0 0;
+    border: 1px solid #e4e1e3;
+    border-radius: 2px;
+    padding: 3em 3em 3em 3em;
+}
+
+.ebookBtn {
+	width:150px;
+	height:50px;
+	font-size: 20px;
+	color : black;
+	background-color: white;
+	border : 1px solid black;		
+	
+}
+
+.ebookBtn:hover {
+	font-weight: bold;
+	color : white;
+	background-color: black;
+}	

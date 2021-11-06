@@ -27,7 +27,7 @@ body {
 
 .button {
   border-radius: 4px;
-  background-color: #0c2e8a;
+  background-color: black;
   border: none;
   color: white;
   text-align: center;
@@ -155,6 +155,33 @@ color : #f15e5e;
 .comment-text {
 	padding:20px;
 }
+
+ul.sidenav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+}
+
+ul.sidenav li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-size:19px;
+  
+}
+
+/* Change the link color on hover */
+ul.sidenav li a:hover {
+  color: black;
+  font-size:20px;
+  font-weight:bold;
+  text-decoration: underline;
+   
+}
+
+
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -195,7 +222,7 @@ color : #f15e5e;
 				success : function(res){
 					console.log(res);
 					if(res.result == "중복"){
-						alert("해당 도서는 이미 버킷BOOK으로 등록되어있습니다.");
+						alert("해당 BOOK은 이미 버킷BOOK으로 등록되어있습니다.");
 						return false;
 					}else{
 						alert("정상적으로 등록되었습니다.");
@@ -203,6 +230,31 @@ color : #f15e5e;
 				}
 			});
 		});
+		
+		// 버킷 클릭시
+		$("#bookLendForm").on("click", function(){
+			var bookId = $("#bookId").val();
+			
+			$.ajax({
+				url : 'lendInsertOne' ,
+				method : 'POST' ,
+				data : JSON.stringify({ bookId : bookId }),
+				contentType : 'application/json',					
+				dataType : 'json',
+				success : function(res){
+					console.log(res);
+					if(res.result == "03"){
+						alert("해당 BOOK은 이미 버킷BOOK으로 등록되어있습니다.");
+						return false;
+					}else if(res.result == "04"){
+						alert("세션종료되었습니다. 다시 로그인 후 진행해주세요.");
+						return false;
+					}else{
+						alert("정상적으로 등록되었습니다.");
+					}
+				}
+			});
+		});		
 		
 		// 별 클릭시 
 		$("#stars").on("click", "#star", function(){
@@ -388,178 +440,190 @@ color : #f15e5e;
 	<div class="section-inner">		
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-4" >
-					<img width="240" height="270" style="margin-top:20px" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}">
+				<div class="col-sm-3">			
+					<ul class="sidenav">
+						<li><a href="bestSeller">BEST SELLER</a></li>
+						<li><a href="bookSrchList">BOOK 검색</a></li>
+						<li><a href="bookReviewList">BOOK REVIEW</a></li>						
+					</ul>
 				</div>
-				<div class="col-sm-8 bInfo">
-					<div style="margin-left:20px">	
-						<h1 class="display-5 fw-bold">${book.bookNm}</h1>
-						<h3>${book.bookPublCo} ( ${book.bookWriter} )</h3>
+				<div class="col-sm-9">
+					<div class="row">
+						<div class="col-sm-4" >
+							<img width="240" height="270" style="margin-top:20px" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}">
+						</div>
+						<div class="col-sm-8 bInfo">
+							<div style="margin-left:20px">	
+								<h1 class="display-5 fw-bold">${book.bookNm}</h1>
+								<h3>${book.bookPublCo} ( ${book.bookWriter} )</h3>
+							</div>
+							<div>
+							<br/>
+							<br/>
+							<br/>
+							<br/>
+							
+							</div>	
+							<c:if test="${auth eq 'U' || auth eq 'A'}">
+								<div class="pull-right">
+									<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
+									<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
+									<button class="bucketBtn" ><i class="fa fa-heart"></i></button>
+									<button class="bucketBtn" ><i class="fa fa-thumbs-o-up"></i></button>							
+								</div>
+							</c:if>
+						</div>
 					</div>
-					<div>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
+					<div class="Ere_line"></div>
 					
-					</div>	
-					<c:if test="${auth eq 'U' || auth eq 'A'}">
-						<div class="pull-right">
-							<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
-							<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
-							<button class="bucketBtn" ><i class="fa fa-heart"></i></button>							
-						</div>
-					</c:if>
-				</div>
-			</div>
-			<div class="Ere_line"></div>
-			
-			<div class="wpcmsdev-tabs">
-			
-				<c:if test="${not empty book.bookIntro}">
-					<div class="tab">
-						<h3 class="tab-title" data-tab-id="bookIntro">책소개</h3>
-						<div id="tab-bookIntro" class="tab-content">
-							<p>
-								${book.bookIntro}
-							</p>
-						</div>
-					</div>
-				</c:if>
-				<c:if test="${not empty book.bookContent}">
-					<div class="tab">
-						<h3 class="tab-title" data-tab-id="bookContent">목차</h3>
-						<div id="tab-bookContent" class="tab-content">
-							<p>
-								${book.bookContent}
-							</p>
-						</div>
-					</div>
-				</c:if>
-				<c:if test="${not empty book.bookWriterIntro}">
-					<div class="tab">
-						<h3 class="tab-title" data-tab-id="bookWriter">저자소개</h3>
-						<div id="tab-bookWriter" class="tab-content">
-							<p>
-								${book.bookWriterIntro}
-							</p>
-						</div>
-					</div>
-				</c:if>
-				<c:if test="${not empty book.bookDesc}">
-					<div class="tab">
-						<h3 class="tab-title" data-tab-id="bookDesc">책설명</h3>
-						<div id="tab-bookDesc" class="tab-content">
-							<p>
-								${book.bookDesc}
-							</p>
-						</div>
-					</div>
-				</c:if>	
-			</div>
-			<input type="hidden" id="bookId" value="${book.bookId}">
-			<input type="hidden" id="breplyStar">
-			<div class="Ere_line"></div>
-			
-			<div id="comments-form" class="row wow" style="background-color: lightgray">
-				<div class="col-md-12">
-					<div class="mt60 mb50 single-section-title">
-						<h3>Leave A Reply</h3>
-					</div>
-					<div id="comment_message"></div>
-					<form method="post" id="commentform" class="comment-form">
-						<label class="col-md-3">${nicknm}</label>
-						<div id="stars" class="col-md-3"> 		
-							<i id="star" class="far fa-star" data-flag="false" data-no="1"></i>
-							<i id="star" class="far fa-star" data-flag="false" data-no="2"></i>
-							<i id="star" class="far fa-star" data-flag="false" data-no="3"></i>
-							<i id="star" class="far fa-star" data-flag="false" data-no="4"></i>
-							<i id="star" class="far fa-star" data-flag="false" data-no="5"></i>
-						</div>
-						<div class="col-md-3"></div>
-						<div class="col-md-3"><a id="breplyInsert" class="btn btn-primary pull-right" href="#">&nbsp;&nbsp;등 록&nbsp;&nbsp; </a></div>
-												
-						<textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="Your Message *" required data-validation-required-message="Please enter a message."></textarea>
-						
-					</form>
-				</div>
-			</div>			
-			
-			<h3><i class="fa fa-commenting-o"></i> 댓글</h3>
-			<div class="comment-text" >
-				<div class="row">
-					<div class="col-md-3">${nicknm}	</div>
+					<div class="wpcmsdev-tabs">
 					
-					<div id="stars" class="col-md-5"> 		
-						<i id="star" class="far fa-star" data-flag="false" data-no="1"></i>
-						<i id="star" class="far fa-star" data-flag="false" data-no="2"></i>
-						<i id="star" class="far fa-star" data-flag="false" data-no="3"></i>
-						<i id="star" class="far fa-star" data-flag="false" data-no="4"></i>
-						<i id="star" class="far fa-star" data-flag="false" data-no="5"></i>
-					</div>
-					
-					<div class="col-md-3">		
-						<button id="breplyInsert" type="button" class="btn btn-primary pull-right">등록</button>
-					</div>
-				</div>
-				<div class="row" style="padding-left:20px">
-					<textarea id="breplyContentsNew" rows="3" cols="30"></textarea>
-				</div>
-			</div>
-			<div id="replyList">
-				<c:forEach var="reply" items="${replys}">
-					<div class="comment-text" style="padding:20px;">
-						<c:if test="${reply.breplyClass eq '1'}">
-							<div id="childReply">
-									<i class="material-icons">subdirectory_arrow_right</i>
-									<strong>${reply.breplyWriterNm}</strong>
-									( <fmt:formatDate pattern="yyyy-MM-dd"  value="${reply.insDt}"/> )
-								<div class="description" style="padding-left:25px;">
-									<p>${reply.breplyContents}</p>
-									<div class="pull-right">
-										<a href="#" id="breplyChildInsert" data-breplyid="${reply.breplyId}">댓글쓰기</a>
-										<c:if test="${reply.breplyWriter eq id }">
-											<a href="#" id="breplyUpdate" data-breplyid="${reply.breplyId}">수정</a>
-											<a href="#" id="breplyDelete" data-breplyid="${reply.breplyId}">삭제</a>
-											<a href="#" id="breplySave" class="hidden" data-breplyid="${reply.breplyId}">저장</a>
-											<a href="#" id="breplyCancel" class="hidden" data-breplyid="${reply.breplyId}">취소</a>								
-										</c:if>
-									</div>
+						<c:if test="${not empty book.bookIntro}">
+							<div class="tab">
+								<h3 class="tab-title" data-tab-id="bookIntro">책소개</h3>
+								<div id="tab-bookIntro" class="tab-content">
+									<p>
+										${book.bookIntro}
+									</p>
 								</div>
 							</div>
 						</c:if>
-						<c:if test="${reply.breplyClass != '1'}">
-							<div id="parentReply">
-								<strong>${reply.breplyWriterNm}</strong>
-								( <fmt:formatDate pattern="yyyy-MM-dd"  value="${reply.insDt}"/> )
-								<div id="stars">
-									<c:forEach var="starVal" begin="1" end="5" step="1" >
-										<c:choose>
-											<c:when test="${starVal <= reply.breplyStar}">
-												<i id="star" class="fas fa-star" data-flag="true" data-no="${starVal}"></i>
-											</c:when>
-											<c:otherwise>
-												<i id="star" class="far fa-star" data-flag="false" data-no="${starVal}"></i>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-								</div>
-								<div class="description">
-									<p>${reply.breplyContents}</p>
-									<div class="pull-right">
-										<a href="#" id="breplyChildInsert" data-breplyid="${reply.breplyId}">댓글쓰기</a>
-										<c:if test="${reply.breplyWriter eq id }">
-											<a href="#" id="breplyUpdate" data-breplyid="${reply.breplyId}">수정</a>
-											<a href="#" id="breplyDelete" data-breplyid="${reply.breplyId}">삭제</a>
-											<a href="#" id="breplySave" class="hidden" data-breplyid="${reply.breplyId}">저장</a>
-											<a href="#" id="breplyCancel" class="hidden" data-breplyid="${reply.breplyId}">취소</a>
-										</c:if>
-									</div>
+						<c:if test="${not empty book.bookContent}">
+							<div class="tab">
+								<h3 class="tab-title" data-tab-id="bookContent">목차</h3>
+								<div id="tab-bookContent" class="tab-content">
+									<p>
+										${book.bookContent}
+									</p>
 								</div>
 							</div>
 						</c:if>
+						<c:if test="${not empty book.bookWriterIntro}">
+							<div class="tab">
+								<h3 class="tab-title" data-tab-id="bookWriter">저자소개</h3>
+								<div id="tab-bookWriter" class="tab-content">
+									<p>
+										${book.bookWriterIntro}
+									</p>
+								</div>
+							</div>
+						</c:if>
+						<c:if test="${not empty book.bookDesc}">
+							<div class="tab">
+								<h3 class="tab-title" data-tab-id="bookDesc">책설명</h3>
+								<div id="tab-bookDesc" class="tab-content">
+									<p>
+										${book.bookDesc}
+									</p>
+								</div>
+							</div>
+						</c:if>	
 					</div>
-				</c:forEach>
+					<input type="hidden" id="bookId" value="${book.bookId}">
+					<input type="hidden" id="breplyStar">
+					<div class="Ere_line"></div>
+				
+					<div id="comments-form" class="row wow" style="background-color: lightgray">
+						<div class="col-md-12">
+							<div class="mt60 mb50 single-section-title">
+								<h3>Leave A Reply</h3>
+							</div>
+							<div id="comment_message"></div>
+							<form method="post" id="commentform" class="comment-form">
+								<label class="col-md-3">${nicknm}</label>
+								<div id="stars" class="col-md-3"> 		
+									<i id="star" class="far fa-star" data-flag="false" data-no="1"></i>
+									<i id="star" class="far fa-star" data-flag="false" data-no="2"></i>
+									<i id="star" class="far fa-star" data-flag="false" data-no="3"></i>
+									<i id="star" class="far fa-star" data-flag="false" data-no="4"></i>
+									<i id="star" class="far fa-star" data-flag="false" data-no="5"></i>
+								</div>
+								<div class="col-md-3"></div>
+								<div class="col-md-3"><a id="breplyInsert" class="btn btn-primary pull-right" href="#">&nbsp;&nbsp;등 록&nbsp;&nbsp; </a></div>
+														
+								<textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="Your Message *" required data-validation-required-message="Please enter a message."></textarea>
+								
+							</form>
+						</div>
+					</div>			
+				
+					<h3><i class="fa fa-commenting-o"></i> 댓글</h3>
+					<div class="comment-text" >
+						<div class="row">
+							<div class="col-md-3">${nicknm}	</div>
+							
+							<div id="stars" class="col-md-5"> 		
+								<i id="star" class="far fa-star" data-flag="false" data-no="1"></i>
+								<i id="star" class="far fa-star" data-flag="false" data-no="2"></i>
+								<i id="star" class="far fa-star" data-flag="false" data-no="3"></i>
+								<i id="star" class="far fa-star" data-flag="false" data-no="4"></i>
+								<i id="star" class="far fa-star" data-flag="false" data-no="5"></i>
+							</div>
+							
+							<div class="col-md-3">		
+								<button id="breplyInsert" type="button" class="btn btn-primary pull-right">등록</button>
+							</div>
+						</div>
+						<div class="row" style="padding-left:20px">
+							<textarea id="breplyContentsNew" rows="3" cols="30"></textarea>
+						</div>
+					</div>
+					<div id="replyList">
+						<c:forEach var="reply" items="${replys}">
+							<div class="comment-text" style="padding:20px;">
+								<c:if test="${reply.breplyClass eq '1'}">
+									<div id="childReply">
+											<i class="material-icons">subdirectory_arrow_right</i>
+											<strong>${reply.breplyWriterNm}</strong>
+											( <fmt:formatDate pattern="yyyy-MM-dd"  value="${reply.insDt}"/> )
+										<div class="description" style="padding-left:25px;">
+											<p>${reply.breplyContents}</p>
+											<div class="pull-right">
+												<a href="#" id="breplyChildInsert" data-breplyid="${reply.breplyId}">댓글쓰기</a>
+												<c:if test="${reply.breplyWriter eq id }">
+													<a href="#" id="breplyUpdate" data-breplyid="${reply.breplyId}">수정</a>
+													<a href="#" id="breplyDelete" data-breplyid="${reply.breplyId}">삭제</a>
+													<a href="#" id="breplySave" class="hidden" data-breplyid="${reply.breplyId}">저장</a>
+													<a href="#" id="breplyCancel" class="hidden" data-breplyid="${reply.breplyId}">취소</a>								
+												</c:if>
+											</div>
+										</div>
+									</div>
+								</c:if>
+								<c:if test="${reply.breplyClass != '1'}">
+									<div id="parentReply">
+										<strong>${reply.breplyWriterNm}</strong>
+										( <fmt:formatDate pattern="yyyy-MM-dd"  value="${reply.insDt}"/> )
+										<div id="stars">
+											<c:forEach var="starVal" begin="1" end="5" step="1" >
+												<c:choose>
+													<c:when test="${starVal <= reply.breplyStar}">
+														<i id="star" class="fas fa-star" data-flag="true" data-no="${starVal}"></i>
+													</c:when>
+													<c:otherwise>
+														<i id="star" class="far fa-star" data-flag="false" data-no="${starVal}"></i>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</div>
+										<div class="description">
+											<p>${reply.breplyContents}</p>
+											<div class="pull-right">
+												<a href="#" id="breplyChildInsert" data-breplyid="${reply.breplyId}">댓글쓰기</a>
+												<c:if test="${reply.breplyWriter eq id }">
+													<a href="#" id="breplyUpdate" data-breplyid="${reply.breplyId}">수정</a>
+													<a href="#" id="breplyDelete" data-breplyid="${reply.breplyId}">삭제</a>
+													<a href="#" id="breplySave" class="hidden" data-breplyid="${reply.breplyId}">저장</a>
+													<a href="#" id="breplyCancel" class="hidden" data-breplyid="${reply.breplyId}">취소</a>
+												</c:if>
+											</div>
+										</div>
+									</div>
+								</c:if>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

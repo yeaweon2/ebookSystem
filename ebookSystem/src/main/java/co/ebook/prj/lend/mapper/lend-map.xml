@@ -37,4 +37,11 @@
 	<delete id="lendDelete" parameterType="co.ebook.prj.lend.vo.LendVO">
 		DELETE FROM LEND WHERE lend_id = #{lendId}
 	</delete>
+	
+	<select id="lendDuplChk" resultType="int" parameterType="co.ebook.prj.lend.vo.LendVO" >
+		SELECT count(*)
+		  FROM LEND
+		 WHERE member_id = #{memberId} 
+		   AND book_id = #{bookId}		
+	</select>
 </mapper>

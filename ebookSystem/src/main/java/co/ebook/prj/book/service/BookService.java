@@ -8,8 +8,14 @@ import co.ebook.prj.book.vo.BookVO;
 public interface BookService {
 	
 	List<BookVO> bookList(BookSrchVO vo);
+
+	List<BookVO> bookSrchPageList(BookSrchVO vo);
+	
+	List<BookVO> newBooks();
 	
 	List<BookVO> bestSellerBook();
+	
+	List<BookVO> likeBooks();
 	
 	BookVO bookDetail(BookVO vo);
 	
@@ -24,4 +30,7 @@ public interface BookService {
 	int bookCoverUpdate(BookVO vo);	
 	
 	int bookListCount(BookSrchVO vo);
+	
+	int bookSrchPageCount(BookSrchVO vo);
+		
 }

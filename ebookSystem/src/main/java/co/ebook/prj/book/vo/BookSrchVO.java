@@ -1,5 +1,9 @@
 package co.ebook.prj.book.vo;
 
+
+
+import java.util.Date;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,6 +21,17 @@ public class BookSrchVO {
 	private String bookCnfmYn;
 	private String srchCnfmCd;
 	private String memberId;
+	private String bookIsbn;
+	private String ctgyId;
+	private String ctgyGrId;
+	// BOOK조회시 출간일 기간 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")	
+	private Date bookPublSDt;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")	
+	private Date bookPublEDt;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")		

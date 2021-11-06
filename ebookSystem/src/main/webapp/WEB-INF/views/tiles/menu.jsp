@@ -61,9 +61,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">e로운생활 <span class="pe-7s-angle-down"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">BOOK검색</a></li>
                                 <li><a href="bestSeller">BEST SELLER</a></li>
-                                <li><a href="#">신간BOOK</a></li>
+                                <li><a href="bookSrchList">BOOK 검색</a></li>
                             </ul>
                         </li>
 					<c:if test="${auth eq 'U'}">                        
@@ -139,9 +138,15 @@
         <div id="search-wrapper">
             <button type="button" class="close">×</button>
             <div class="vertical-center text-center">
-                <form>
-                    <input type="search" value="" placeholder="Enter Search Term" />
-                    <button type="submit" class="btn btn-primary btn-white">Search</button>
+                <form id="menuSrchFrm" action="menuSrchBook" method="post" >
+                    <input id="bookNm" type="search" placeholder="Enter Search Book Name" />
+                    <button type="button" id="menuSrchBtn" class="btn btn-primary btn-white">Search</button>
                 </form>
             </div>
-        </div>        
+        </div>     
+<script>
+	$("#menuSrchBtn").on("click", function(){
+		menuSrchFrm.submit();
+	});
+	
+</script>           

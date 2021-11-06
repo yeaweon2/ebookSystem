@@ -40,4 +40,9 @@ public class LendServiceImpl implements LendService {
 	public int lendDelete(LendVO vo) {
 		return map.lendDelete(vo);
 	}
+
+	@Override
+	public int lendDuplChk(LendVO vo) {
+		return map.lendDuplChk(vo);
+	}
 }

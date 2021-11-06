@@ -30,7 +30,8 @@
 				WHERE b.book_id = c.book_id(+)
 		   		  and b.bcnfm_id = c.bcnfm_id (+)
 		   		  and b.member_Id = #{memberId}
-		]]>		   		  
+		]]>		  
+		 		  
 					 <if test='srchCnfmCd != null and srchCnfmCd != "" '>
 					 	<if test='srchCnfmCd == "01" or srchCnfmCd == "02" or srchCnfmCd == "03"'> 
 					 		 and c.bcnfm_st_cd = #{srchCnfmCd}
@@ -58,6 +59,22 @@
 						and b.ins_dt = #{insDt}
 					</if>
 					
+					<if test="bookPublSDt != null and bookPublSDt != ''">
+						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
+					</if>
+					
+					<if test="bookPublSDt != null and bookPublSDt != ''">
+						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
+					</if>
+					
+					<if test="ctgyId != null and ctgyId != ''">
+						and b.ctgy_id = #{ctgyId}
+					</if>
+					
+					<if test="ctgyGrId != null and ctgyGrId != ''">
+						and b.ctgy_id in ( select ctgy_id from category where ctgy_Gr_id = #{ctgyGrId}  )
+					</if>					
+					
 		<![CDATA[				
 		        ORDER BY rownum DESC 
 		        ) A
@@ -74,8 +91,6 @@
 			  , BOOK_PUBL_CO
 			  , BOOK_WRITER
 			  , BOOK_PUBL_DT
-			  , BOOK_AMT
-			  , BOOK_DISCNT
 			  , BOOK_USEYN
 			  , BOOK_HIT
 			  , BOOK_LIKEIT
@@ -100,14 +115,14 @@
 		INSERT INTO BOOK (
 		  BOOK_ID 		
 		, CTGY_ID			, BOOK_NM		, BOOK_FL_CD	, BOOK_PUBL_CO
-		, BOOK_WRITER		, BOOK_PUBL_DT	, BOOK_AMT		, BOOK_DISCNT
+		, BOOK_WRITER		, BOOK_PUBL_DT	
 		, BOOK_INTRO		, BOOK_CONTENT	, BOOK_ISBN		, BOOK_WRITER_INTRO	
 		, BOOK_DESC			, MEMBER_ID		, BOOK_COVER	, BOOK_COVER_PATH	
 		, INS_DT			, UDT_DT )
 		VALUES (
 		  ( #{ctgyId} || #{bookFlCd} || LPAD( b_seq.nextval , 4, '0') )		
 		, #{ctgyId}		, #{bookNm}		, #{bookFlCd}		, #{bookPublCo}	
-		, #{bookWriter}	, #{bookPublDt}	, #{bookAmt}		, #{bookDiscnt}	
+		, #{bookWriter}	, #{bookPublDt}		
 		, #{bookIntro}	, #{bookContent}, #{bookIsbn}		, #{bookWriterIntro}
 		, #{bookDesc}	, #{memberId}	, #{bookCover}		, #{bookCoverPath}
 		, sysdate		, sysdate )	
@@ -121,8 +136,6 @@
 		     , BOOK_PUBL_CO = #{bookPublCo}
 		     , BOOK_WRITER = #{bookWriter}
 		     , BOOK_PUBL_DT = #{bookPublDt}
-		     , BOOK_AMT = #{bookAmt}	
-		     , BOOK_DISCNT = #{bookDiscnt}
 		     , BOOK_INTRO = #{bookIntro}
 		     , BOOK_CONTENT = #{bookContent}
 		     , BOOK_ISBN = #{bookIsbn}
@@ -180,6 +193,7 @@
 				WHERE b.book_id = c.book_id(+)
 		   		  and b.bcnfm_id = c.bcnfm_id (+)
 		   		  and b.member_Id = #{memberId}
+		   		  			   		  
 					 <if test='srchCnfmCd != null and srchCnfmCd != "" '>
 					 	<if test='srchCnfmCd == "01" or srchCnfmCd == "02" or srchCnfmCd == "03"'> 
 					 		 and c.bcnfm_st_cd = #{srchCnfmCd}
@@ -206,57 +220,215 @@
 					<if test="insDt != null and insDt != ''">
 						and b.ins_dt = #{insDt}
 					</if>
+					
+					<if test="bookPublSDt != null and bookPublSDt != ''">
+						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
+					</if>
+					
+					<if test="bookPublSDt != null and bookPublSDt != ''">
+						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
+					</if>
+					
+					<if test="ctgyId != null and ctgyId != ''">
+						and b.ctgy_id = #{ctgyId}
+					</if>
+					
+					<if test="ctgyGrId != null and ctgyGrId != ''">
+						and b.ctgy_id in ( select ctgy_id from category where ctgy_Gr_id = #{ctgyGrId}  )
+					</if>						
 			) A
 	</select>	
 
 	<select id="bestSellerBook" resultType="co.ebook.prj.book.vo.BookVO">
-		<!-- 대여정보 기준으로 쿼리 수정해야함  -->
 		<![CDATA[
-			SELECT b.* , substr( b.book_intro , 0 , 100) introSub , 'bestSeller' as bookStd 
-			  FROM book b
-			union all
-			SELECT b.* , substr( b.book_intro , 0 , 100) introSub , 'bucket' as bookStd 
-			  FROM book b
-			 where ctgy_id like 'A%'
-			
-			union all
-			SELECT b.* , substr( b.book_intro , 0 , 100) introSub , 'likeit' as bookStd 
-			  FROM book b
-			 where ctgy_id like 'E%'
+			SELECT B.BOOK_ID
+			            , RANK() OVER (ORDER BY LEND_CNT DESC) AS RANK
+                        , B.BOOK_NM
+                        , B.BOOK_PUBL_CO
+                        , B.BOOK_WRITER
+                        , B.BOOK_COVER
+                        , B.BOOK_COVER_PATH                    
+			    FROM ( SELECT BOOK_ID 
+                            , COUNT(BOOK_ID) AS LEND_CNT
+                         FROM LEND 
+                        GROUP BY BOOK_ID    ) A 
+				    , BOOK B
+				WHERE A.BOOK_ID= B.BOOK_ID
+				  AND ROWNUM < 11
+				  
+				--AND B.BOOK_CNFM_YN = 'Y' 
+			    --AND B.BOOK_USEYN = 'Y'
 		]]>
 	</select>	
 	
 	<select id="newBooks" resultType="co.ebook.prj.book.vo.BookVO">
 		<![CDATA[
-			 SELECT /* +INDEX_DESC(BOOK_IDX_PUBL_DT) */ 
-		            BOOK_ID 
-		          , BOOK_NM
-		          , BOOK_COVER    
-		          , BOOK_COVER_PATH
-		          , BOOK_PUBL_CO
-		          , BOOK_WRITER
-		          , BOOK_PUBL_DT
-			   FROM BOOK
-			  WHERE BOOK_CNFM_YN = 'Y' 
-			    AND BOOK_USEYN = 'Y'
-			    AND ROWNUM <= 10	 
-			    ]]>
+			SELECT A.BOOK_ID 
+	             , B.BOOK_NM
+	             , B.BOOK_PUBL_CO
+	             , B.BOOK_WRITER
+	             , B.BOOK_COVER
+	             , B.BOOK_COVER_PATH 
+			FROM ( 
+					SELECT BOOK_ID  
+				         , ROW_NUMBER() OVER (ORDER BY BOOK_PUBL_DT DESC) AS RN
+					  FROM BOOK 
+		  		 ) A
+			   , BOOK B
+		   WHERE  A.BOOK_ID = B.BOOK_ID
+			 AND RN < 11
+			 --AND B.BOOK_CNFM_YN = 'Y' 
+			 --AND B.BOOK_USEYN = 'Y'
+		   ORDER BY RN
+		]]>
 	</select>
 	
 	<select id="likeBooks" resultType="co.ebook.prj.book.vo.BookVO">
 		<![CDATA[
-		SELECT /* +INDEX_DESC(BOOK_IDX_BOOK_LIKEIT) */ 
-	           BOOK_ID 
-	         , BOOK_NM
-	         , BOOK_COVER    
-	         , BOOK_COVER_PATH
-	         , BOOK_PUBL_CO
-	         , BOOK_WRITER
-	         , BOOK_PUBL_DT 
-		  FROM BOOK 
-		 WHERE BOOK_CNFM_YN = 'Y' 
-		   AND BOOK_USEYN = 'Y'
-		   AND ROWNUM <= 10   	
-		   ]]>
+			SELECT A.BOOK_ID 
+	             , B.BOOK_NM
+	             , B.BOOK_PUBL_CO
+	             , B.BOOK_WRITER
+	             , B.BOOK_COVER
+	             , B.BOOK_COVER_PATH 
+			FROM ( 
+					SELECT BOOK_ID  
+			             , ROW_NUMBER() OVER (ORDER BY BOOK_LIKEIT DESC) AS RN
+					  FROM BOOK 
+				  ) A
+				, BOOK B
+			WHERE A.BOOK_ID = B.BOOK_ID
+			  AND RN < 11
+			--AND B.BOOK_CNFM_YN = 'Y' 
+			--AND B.BOOK_USEYN = 'Y'			  
+			ORDER BY RN
+		]]>
 	</select>
+	
+	<select id="bookSrchPageList" resultType="co.ebook.prj.book.vo.BookVO" parameterType="co.ebook.prj.book.vo.BookSrchVO">
+	 <![CDATA[
+			SELECT A.*
+			  FROM ( 
+			   SELECT ROWNUM as bookNo
+			        , ( SELECT scodes.scode_nm FROM scodes 
+			             WHERE lcode = 'BF' AND scode = b.book_fl_cd ) as book_fl_cd
+			        , b.book_id
+			        , b.ins_dt
+			        , b.book_cover
+			        , b.book_cover_path
+			        , b.book_nm
+                    , b.book_isbn
+                    , b.book_publ_dt
+			        , b.book_publ_co
+			        , b.book_writer
+                    , b.book_likeit
+			        , b.book_hit
+                    ,  ( select ctgy_nm from category 
+                         where ctgy_id in ( select ctgy_gr_id from category where ctgy_id = b.ctgy_id  ) ) as ctgy_gr_nm
+                    , ( select ctgy_nm from category where ctgy_id = b.ctgy_id  )  ctgy_nm
+				 FROM BOOK B 
+			]]>				
+				<where>		 
+				 	<if test="bookPublCo != null and bookPublCo != '' ">
+						and b.book_publ_co like '%' || #{bookPublCo} || '%'
+					</if>
+				 	<if test="bookWriter != null and bookWriter != ''">
+						and b.book_writer like '%' || #{bookWriter} || '%'
+					</if>
+					<if test="bookNm != null and bookNm != ''">
+						and b.book_nm like '%' || #{bookNm} || '%'
+					</if>
+					<if test="bookFlCd != null and bookFlCd != ''">
+						and b.book_fl_cd = #{bookFlCd}
+					</if>
+					 
+					<if test="insDt != null and insDt != ''">
+						and b.ins_dt = #{insDt}
+					</if>
+					
+					<if test="bookPublSDt != null and bookPublSDt != ''">
+						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
+					</if>
+					
+					<if test="bookPublSDt != null and bookPublSDt != ''">
+						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
+					</if>
+					
+					<if test="ctgyId != null and ctgyId != ''">
+						and b.ctgy_id = #{ctgyId}
+					</if>
+					
+					<if test="ctgyGrId != null and ctgyGrId != ''">
+						and b.ctgy_id in ( select ctgy_id from category where ctgy_Gr_id = #{ctgyGrId}  )
+					</if>					
+				</where>	
+		<![CDATA[				
+		        ORDER BY rownum DESC 
+		        ) A
+		        WHERE bookNo >= #{start}  and bookNo <= #{end}
+        ]]>
+	</select>
+	
+	<select id="bookSrchPageCount" resultType="int" parameterType="co.ebook.prj.book.vo.BookSrchVO">
+
+			   SELECT count(*)
+			  FROM ( 
+			   SELECT ROWNUM as bookNo
+			        , ( SELECT scodes.scode_nm FROM scodes 
+			             WHERE lcode = 'BF' AND scode = b.book_fl_cd ) as book_fl_cd
+			        , b.book_id
+			        , b.ins_dt
+			        , b.book_cover
+			        , b.book_cover_path
+			        , b.book_nm
+                    , b.book_isbn
+                    , b.book_publ_dt
+			        , b.book_publ_co
+			        , b.book_writer
+                    , b.book_likeit
+			        , b.book_hit
+                    ,  ( select ctgy_nm from category 
+                         where ctgy_id in ( select ctgy_gr_id from category where ctgy_id = b.ctgy_id  ) ) as ctgy_gr_nm
+                    , ( select ctgy_nm from category where ctgy_id = b.ctgy_id  )  ctgy_id_nm
+				 FROM BOOK B 
+					
+				<where>		 
+				 	<if test="bookPublCo != null and bookPublCo != '' ">
+						and b.book_publ_co like '%' || #{bookPublCo} || '%'
+					</if>
+				 	<if test="bookWriter != null and bookWriter != ''">
+						and b.book_writer like '%' || #{bookWriter} || '%'
+					</if>
+					<if test="bookNm != null and bookNm != ''">
+						and b.book_nm like '%' || #{bookNm} || '%'
+					</if>
+					<if test="bookFlCd != null and bookFlCd != ''">
+						and b.book_fl_cd = #{bookFlCd}
+					</if>
+					 
+					<if test="insDt != null and insDt != ''">
+						and b.ins_dt = #{insDt}
+					</if>
+					
+					<if test="bookPublSDt != null and bookPublSDt != ''">
+						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
+					</if>
+					
+					<if test="bookPublSDt != null and bookPublSDt != ''">
+						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
+					</if>
+					
+					<if test="ctgyId != null and ctgyId != ''">
+						and b.ctgy_id = #{ctgyId}
+					</if>
+					
+					<if test="ctgyGrId != null and ctgyGrId != ''">
+						and b.ctgy_id in ( select ctgy_id from category where ctgy_Gr_id = #{ctgyGrId}  )
+					</if>					
+				</where>	
+					
+		        ORDER BY rownum DESC 
+		        ) A
+        
+	</select>	
 </mapper>

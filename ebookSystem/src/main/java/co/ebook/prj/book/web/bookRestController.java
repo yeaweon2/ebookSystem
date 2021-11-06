@@ -110,6 +110,7 @@ public class bookRestController {
 	   return vo;
    }
 	
+	// 매니저 BOOK조회화면에서 조회버튼 클릭시
 	@RequestMapping(value="/bookSrchList", method=RequestMethod.POST )
 	   public HashMap<String,Object> bookSrchList(Model model, @RequestBody BookSrchVO svo, Paging paging , HttpServletRequest request) {
 		
@@ -136,10 +137,39 @@ public class bookRestController {
 			map.put("result", "오류발생");
 		}
 		return map;
-		
-		
-		
 	}
+	
+	// BOOK검색화면에서 조회버튼 클릭시 
+	@RequestMapping(value="/bookSrchPage", method=RequestMethod.POST )
+	   public HashMap<String,Object> bookSrchPage(Model model, @RequestBody BookSrchVO svo, Paging paging , HttpServletRequest request) {
+		
+		
+		System.out.println("-----------------here------------>> ");
+		System.out.println(svo.toString());
+		System.out.println("-----------------here------------>> ");
+		
+		paging.setPageUnit(8);
+		paging.setTotalRecord(bookDao.bookSrchPageCount(svo));	
+		
+		System.out.println("----------------------------->> ");
+		System.out.println(paging.toString());
+		System.out.println(paging.toString());
+		
+		
+		List<BookVO> lists = bookDao.bookSrchPageList(svo);
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		if( lists != null ) {
+			map.put("result", "입력완료");
+			map.put("lists", lists);
+			map.put("paging" , paging );
+		
+		}else {
+			map.put("result", "오류발생");
+		}
+		return map;
+	}	
+	
 			
 	
 	
