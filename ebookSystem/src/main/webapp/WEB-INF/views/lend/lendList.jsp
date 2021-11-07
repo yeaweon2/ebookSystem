@@ -49,6 +49,18 @@
 			});
 			
 		});
+		
+		
+		$("#mainDiv").on("click", ".bookReading", function(){
+			event.preventDefault();
+			var bookId = $(this).data("id");
+			frm.bookId.val = bookId;
+			frm.action = "bookReading";
+			frm.submit();
+			
+			
+			
+		});
 	});
 </script>
 </head>
@@ -58,7 +70,7 @@
 		<div class="container">
 			<h2 class="title text-center">대여LIST</h2>
 			
-			<div class="row" style="padding:5px">
+			<div id="mainDiv" class="row" style="padding:5px">
 				<c:forEach var="lend" items="${lends}">
 					<div id="card" class="col-md-5" >
 						<div id="lendCard" class="row" style="height:220px;border-style: solid;border-width: 1px;margin:2px;padding:10px">	
@@ -69,7 +81,7 @@
 								<h5>대여일자 : <fmt:formatDate pattern="yyyy-MM-dd"  value="${lend.lendDate}"/></h5>
 								<h5>리딩횟수 : ${lend.lendHit} 번</h5>
 								<br/>
-								<a id="bookReading" href="#" class="stretched-link hover"><i class="fa fa-hand-o-right" style="font-size:15px"></i> BOOK READING <i class="fa fa-hand-o-left" style="font-size:15px"></i></a>
+								<a class="bookReading" href="#" class="stretched-link hover" data-id="${lend.bookId}"><i class="fa fa-hand-o-right" style="font-size:15px"></i> BOOK READING <i class="fa fa-hand-o-left" style="font-size:15px"></i></a>
 								<a href="#" class="lendDel pull-right" data-lendid="${lend.lendId}" ><i class="fa fa-trash-o"></i>삭제</a>
 							</div>
 							<div class="col-md-5">

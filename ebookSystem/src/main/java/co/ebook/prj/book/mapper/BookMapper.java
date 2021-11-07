@@ -34,4 +34,10 @@ public interface BookMapper {
 	List<BookVO> bestSellerBook();
 	
 	List<BookVO> likeBooks();
+	
+	// BOOK 상세보기시 조회수 업데이트
+	int bookHitUpdate(BookVO vo);
+	
+	// BOOK 추천 클릭시 업데이트
+	int bookLikeItUpdate(BookVO vo);
 }

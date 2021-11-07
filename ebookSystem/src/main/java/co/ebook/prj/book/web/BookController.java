@@ -164,9 +164,7 @@ public class BookController {
 		model.addAttribute("bests", bests);
 		model.addAttribute("news", news);
 		model.addAttribute("likes", likes);
-		
-		
-		
+
 		return "book/bestSeller";
 	}
 
@@ -187,7 +185,6 @@ public class BookController {
 			if( rlist != null ) {
 				model.addAttribute("replys", rlist);	
 			}
-			
 			
 			view = "book/bookDetail";
 		}else {
@@ -235,6 +232,9 @@ public class BookController {
 		paging.setPageUnit(8);
 		paging.setTotalRecord(bookDao.bookSrchPageCount(svo));	
 		
+		svo.setStart(paging.getFirst());
+		svo.setEnd(paging.getLast());	
+		
 		System.out.println("----------------------------->> ");
 		System.out.println(paging.toString());
 		System.out.println(paging.toString());
@@ -244,6 +244,10 @@ public class BookController {
 		return "book/bookSrchList";
 	}	
 	
-	
+	@RequestMapping("/bookReading")
+	public String bookReading(Model model , BookSrchVO svo, Paging paging ) {
+		
+		return "book/bookReading";
+	}	
 }
 

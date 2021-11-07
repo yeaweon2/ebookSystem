@@ -152,10 +152,10 @@
 							<div class="row">	
 								<div class="col-md-6" style="padding-left:0;">	
 									<div class="col-md-3">		
-									<label>카테고리</label>
+										<label>카테고리</label>
 									</div>
 									<div class="col-md-9">
-									<select id="lcodeSelBox" class="form-control" style="float:left;width:150px;margin-right:10px"></select><select id="scodeSelBox" class="form-control" style="float:left;width:150px;" ></select>
+										<select id="lcodeSelBox" class="form-control" style="float:left;width:150px;margin-right:10px"></select><select id="scodeSelBox" class="form-control" style="float:left;width:150px;" ></select>
 									</div>
 									<input type="hidden" id="ctgyId" name="ctgyId" >
 									<input type="hidden" id="ctgyGrId" name="ctgyGrId" >
@@ -229,7 +229,7 @@
 									<c:forEach var="book" items="${lists}">
 										<tr data-id='${book.bookId}'>
 											<td>${book.bookFlCd}</td>
-											<td>${book.ctgyGrNm}${book.ctgyNm}</td>
+											<td>${book.ctgyGrNm}${book.ctgyIdNm}</td>
 											<td><img width="50" height="70" src="${pageContext.request.contextPath}/fileUp${book.bookCoverPath}${book.bookCover}"></td>
 											<td>${book.bookNm}</td>
 											<td>${book.bookPublCo}</td>

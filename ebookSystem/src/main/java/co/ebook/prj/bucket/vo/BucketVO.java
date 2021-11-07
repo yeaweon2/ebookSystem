@@ -1,12 +1,12 @@
 package co.ebook.prj.bucket.vo;
 
+import java.util.Date;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 public class BucketVO {
@@ -23,10 +23,12 @@ public class BucketVO {
 	private String bucketStCd;
 	private String bucketStNm;
 	private String bucketOrd;
+	private String bucketNo;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")
 	private String bucketDoneDt;
 	private String bucketDelYn;
-	private String insDt;
-	private String udtDt;
+	private Date insDt;
+	private Date udtDt;
 }

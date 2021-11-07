@@ -28,6 +28,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public BookVO bookDetail(BookVO vo) {
+		map.bookHitUpdate(vo);
 		return map.bookDetail(vo);
 	}
 
@@ -80,5 +81,10 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public int bookSrchPageCount(BookSrchVO vo) {
 		return map.bookSrchPageCount(vo);
+	}
+
+	@Override
+	public int bookLikeItUpdate(BookVO vo) {
+		return map.bookLikeItUpdate(vo);
 	}
 }

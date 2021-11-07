@@ -209,6 +209,25 @@ ul.sidenav li a:hover {
 	 		}); 			
 		});
 		
+		$(".likeItBtn").on("click", function(){
+			var bookId = $("#bookId").val();
+			
+			$.ajax({
+				url : 'bookLikeItUpdate' ,
+				method : 'POST' ,
+				data : JSON.stringify({ bookId : bookId }),
+				contentType : 'application/json',					
+				dataType : 'json',
+				success : function(res){
+					console.log(res);
+					if(res.result=="01"){
+						alert("추천완료");
+					}
+				}
+			});
+			
+		});
+		
 		// 버킷 클릭시
 		$(".bucketBtn").on("click", function(){
 			var bookId = $("#bookId").val();
@@ -469,7 +488,7 @@ ul.sidenav li a:hover {
 									<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
 									<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
 									<button class="bucketBtn" ><i class="fa fa-heart"></i></button>
-									<button class="bucketBtn" ><i class="fa fa-thumbs-o-up"></i></button>							
+									<button class="likeItBtn" ><i class="fa fa-thumbs-o-up"></i></button>							
 								</div>
 							</c:if>
 						</div>
@@ -523,15 +542,14 @@ ul.sidenav li a:hover {
 					<input type="hidden" id="breplyStar">
 					<div class="Ere_line"></div>
 				
-					<div id="comments-form" class="row wow" style="background-color: lightgray">
+					<div id="comments-form" class="row box" >
 						<div class="col-md-12">
-							<div class="mt60 mb50 single-section-title">
-								<h3>Leave A Reply</h3>
-							</div>
 							<div id="comment_message"></div>
 							<form method="post" id="commentform" class="comment-form">
-								<label class="col-md-3">${nicknm}</label>
-								<div id="stars" class="col-md-3"> 		
+								<div class="col-md-3 ">
+									<label class="title">${nicknm}</label>
+								</div>
+								<div id="stars" class="col-md-3" style="padding-left:0"> 		
 									<i id="star" class="far fa-star" data-flag="false" data-no="1"></i>
 									<i id="star" class="far fa-star" data-flag="false" data-no="2"></i>
 									<i id="star" class="far fa-star" data-flag="false" data-no="3"></i>
@@ -541,33 +559,13 @@ ul.sidenav li a:hover {
 								<div class="col-md-3"></div>
 								<div class="col-md-3"><a id="breplyInsert" class="btn btn-primary pull-right" href="#">&nbsp;&nbsp;등 록&nbsp;&nbsp; </a></div>
 														
-								<textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="Your Message *" required data-validation-required-message="Please enter a message."></textarea>
+								<textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="댓글을 남겨주세요 *" required data-validation-required-message="Please enter a message."></textarea>
 								
 							</form>
 						</div>
 					</div>			
 				
 					<h3><i class="fa fa-commenting-o"></i> 댓글</h3>
-					<div class="comment-text" >
-						<div class="row">
-							<div class="col-md-3">${nicknm}	</div>
-							
-							<div id="stars" class="col-md-5"> 		
-								<i id="star" class="far fa-star" data-flag="false" data-no="1"></i>
-								<i id="star" class="far fa-star" data-flag="false" data-no="2"></i>
-								<i id="star" class="far fa-star" data-flag="false" data-no="3"></i>
-								<i id="star" class="far fa-star" data-flag="false" data-no="4"></i>
-								<i id="star" class="far fa-star" data-flag="false" data-no="5"></i>
-							</div>
-							
-							<div class="col-md-3">		
-								<button id="breplyInsert" type="button" class="btn btn-primary pull-right">등록</button>
-							</div>
-						</div>
-						<div class="row" style="padding-left:20px">
-							<textarea id="breplyContentsNew" rows="3" cols="30"></textarea>
-						</div>
-					</div>
 					<div id="replyList">
 						<c:forEach var="reply" items="${replys}">
 							<div class="comment-text" style="padding:20px;">

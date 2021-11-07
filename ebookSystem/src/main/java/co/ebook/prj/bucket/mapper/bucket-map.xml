@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.ebook.prj.bucket.mapper.BucketMapper">
 	<select id="bucketList" resultType="co.ebook.prj.bucket.vo.BucketVO">
-		SELECT bucket_id
+		SELECT rownum as bucketNo
+			 , bucket_id
 	         , k.book_id 
 	         , b.book_nm
 	         , b.book_cover
@@ -22,7 +23,7 @@
              , book B 
 	     WHERE K.BOOK_ID = B.BOOK_ID  
 		   AND K.MEMBER_ID = #{memberId} 
-		 ORDER BY K.bucket_ord  		   
+		 ORDER BY rownum  		   
 	</select>
 	
 	<select id="bucketDuplChk" resultType="co.ebook.prj.bucket.vo.BucketVO">

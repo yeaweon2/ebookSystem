@@ -10,9 +10,6 @@
 <title>도서목록</title>
 <style type="text/css">
 
-select {
-	width:110px;
-}
 </style>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script type="text/javascript">
@@ -230,37 +227,79 @@ function goList(p) {
 	          		<h2><i class='fas fa-book' style='font-size:24px'></i> BOOK 목록</h2>
 	        	</div>
 			</div>	
-			<div class="row">
+			<div class="row box" >
 				<form name="searchFrm">
-					<div class="box">
-						<label> 검색조건 : </label>
-						<select id="srchVal" class="form-select form-select-sm">
-							<option value="01" selected>제목</option>
-							<option value="02">출판사</option>
-							<option value="03">저자</option>
-						</select>
-						<input type="text" id="srchTxt">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label>승인상태 : </label>
-						<select id="srchCnfmCd" class="form-select form-select-sm">
-							<option value="00" selected>전체</option>
-							<option value="04">미신청</option>
-							<option value="01">처리중</option>
-							<option value="03">보류</option>
-							<option value="02">승인</option>
-						</select>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label>등록일자 : </label>
-						<input type="date" id="srchDate">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					
+						<div class="col-md-9">
 						
-						<label>BOOK 구분 : </label>
-						<input type="radio" id="bookFlCd" name="bookFlCd" value="" checked >전체
-						<input type="radio" id="bookFlCd" name="bookFlCd" value="E" >eBook
-						<input type="radio" id="bookFlCd" name="bookFlCd" value="A" >오디오북
-						
-						<button type="button" id="srchBtn" class="btn btn-primary" >조회</button>
-					</div>
+							<div class="row">
+								<div class="col-md-6" style="padding-left:0;">	
+									<div class="col-md-3">		
+										<label>카테고리 :</label>
+									</div>
+									<div class="col-md-9">
+										<select id="lcodeSelBox" class="form-control" style="float:left;width:150px;margin-right:10px"></select><select id="scodeSelBox" class="form-control" style="float:left;width:150px;" ></select>
+									</div>
+									<input type="hidden" id="ctgyId" name="ctgyId" >
+									<input type="hidden" id="ctgyGrId" name="ctgyGrId" >
+								</div>
+								<div class="col-md-6">
+									<label style="margin-right:20px">BOOK구분 : </label>
+									<input id="all" name="bookFlCd" type="radio" value="" class="form-check-input" checked required>
+									<label class="form-check-label" for="all">전체</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input id="eBook" name="bookFlCd" type="radio" value="E" class="form-check-input" checked required>
+									<label class="form-check-label" for="eBook">eBook</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input id="audioBook" name="bookFlCd" type="radio" value="A" class="form-check-input" required>
+									<label class="form-check-label" for="audioBook">오디오북</label>
+								</div>
+							</div>
+							<div class="row" >
+								<div class="col-md-6" style="padding-left:0px">
+									<div class="col-md-3" >
+										<label> 검색조건 : </label>
+									</div>
+									<div class="col-md-3" style="margin-left:0px">
+										<select id="srchVal" class="form-control" style="width:100px;">
+											<option value="01" selected>제목</option>
+											<option value="02">출판사</option>
+											<option value="03">저자</option>
+										</select>
+									</div>
+									<div class="col-md-6" style="margin-left:0px">
+										<input type="text" id="srchTxt" class="form-control" >
+									</div>
+								</div>
+								<div class="col-md-6" >
+									<div class="col-md-3" style="padding-left:0px; padding-right:0px;"> 
+										<label>승인상태 : </label>
+									</div>
+									<div class="col-md-9" style="padding-left:0px">
+										<select id="srchCnfmCd" class="form-control" style="width:120px;">
+											<option value="00" selected>전체</option>
+											<option value="04">미신청</option>
+											<option value="01">처리중</option>
+											<option value="03">보류</option>
+											<option value="02">승인</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6"> 
+									<div class="col-md-3" style="padding-left:0px">
+										<label>등록일자 : </label>
+									</div>
+									<div class="col-md-9" style="padding-left:0px">
+										<input type="date" id="srchDate" class="form-control" style="width:200px;">
+									</div>
+								</div>
+								<div class="col-md-6"></div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<button type="button" id="srchBtn" class="btn ebookBtn" >조회</button>
+						</div>	
+					
 					<input type="hidden" name="page" value="1"> 
 				</form>
 			</div>

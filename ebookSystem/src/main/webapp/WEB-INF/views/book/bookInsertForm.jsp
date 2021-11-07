@@ -98,12 +98,10 @@
 			
 			var reader = new FileReader();
 			reader.onload = function(e){
-				$("#bookCoverImg").attr("src", e.target.result);
-				$("#imgContainer").append($("#bookCoverImg"));
-				//$("#imgContainer").attr("display" , "block");
-				$("#imgContainer").css("display" , "block");
+				$(".bookCoverCard").find("img").attr("src", e.target.result);
 			};
 			
+			$(".bookCoverCard").find("h3").html(event.target.files[0].name);
 			console.log(event.target.files[0]);
 			reader.readAsDataURL(event.target.files[0]);
 		});
@@ -130,10 +128,13 @@
 				alert("로그인 후 진행해 주세요.");
 				return false;
 			} 
-			
-			
 			frm.submit();
 		});
+		
+		// 파일 수정버튼 클릭시 
+		$("#bookCoverEditBtn").on("click", function(){
+			$("#attchFile").click();
+		});		
 	});
 	
 </script>
@@ -146,112 +147,117 @@
 	          		<h2>BOOK 등록</h2>
 	        	</div>
 			</div>	
-			<form action="bookInsert" class="needs-validation"  method="post" id="frm" name ="frm" enctype = "multipart/form-data" novalidate>
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="row">
-							<label style="float: left">BOOK COVER</label>	
-						</div>			
-						<div class="row">
-							<div id="imgContainer"><img id="bookCoverImg" width="150" height="170" src="resources/assets/img/noimg.jpg"></div>
-							<input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control">
-						</div>									
-						<!-- <button id="bookFileForm" type="button" class="btn btn-primary"> BOOK파일등록 </button> -->
-					</div>
-					<div class="col-sm-7 col-sm-offset-1">
-						<div class="row" >
-							<div class="col-sm-3">
-								<label style="float: left">카테고리</label>
-							</div>
-							<div class="col-sm-4">
-								<select id="lcodeSelBox" class="form-control" style="float: left">
-								</select>
-							</div>
-							<div class="col-sm-4">
-								<select id="scodeSelBox" class="form-control" >
-								</select>
-							</div>
-							<input type="hidden" id="ctgyId" name="ctgyId" class="form-control">
+			<div class="box">
+				<form action="bookInsert" class="needs-validation"  method="post" id="frm" name ="frm" enctype = "multipart/form-data" novalidate>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="row">
+								<label style="float: left">BOOK COVER</label>	
+							</div>			
+							<div class="row">
+								<div class="bookCoverCard">
+									<img src="resources/assets/img/noimg.jpg"  style="width:100%">
+									<h3>No Image</h3>
+									<p><button type="button" id="bookCoverEditBtn" class="bookCoverCardBtn">파일등록</button></p>
+								</div>
+								<input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control" style="display: none">
+							</div>									
+							<!-- <button id="bookFileForm" type="button" class="btn btn-primary"> BOOK파일등록 </button> -->
 						</div>
-						<div class="row">
-							<label class="col-sm-3" style="float: left">BOOK구분</label>
-							<div class="col-sm-9 form-check-inline" style="word-spacing :10px">
-								<input id="eBook" name="bookFlCd" type="radio" value="E" class="form-check-input" checked required>
-								<label class="form-check-label" for="eBook">eBook</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input id="audioBook" name="bookFlCd" type="radio" value="A" class="form-check-input" required>
-								<label class="form-check-label" for="audioBook">오디오북</label>
+						<div class="col-sm-7 col-sm-offset-1">
+							<div class="row" >
+								<div class="col-sm-3">
+									<label style="float: left">카테고리</label>
+								</div>
+								<div class="col-sm-4">
+									<select id="lcodeSelBox" class="form-control" style="float: left">
+									</select>
+								</div>
+								<div class="col-sm-4">
+									<select id="scodeSelBox" class="form-control" >
+									</select>
+								</div>
+								<input type="hidden" id="ctgyId" name="ctgyId" class="form-control">
 							</div>
-						</div>
-						<div class="row">
-							<label class="col-sm-3 title">BOOK명</label>
-							<div class="col-sm-9" style="padding-left:0px;">
-								<div class="row">	
-									<div class="col-sm-8">
-										<input type="text" id="bookNm" name="bookNm" class="form-control">
-									</div>
-									<div class="col-sm-4">
-										<button id="bookSearch" type="button" class="btn pull-right ebookBtn" style="float:left"> BOOK조회 </button>
+							<div class="row">
+								<label class="col-sm-3" style="float: left">BOOK구분</label>
+								<div class="col-sm-9 form-check-inline" style="word-spacing :10px">
+									<input id="eBook" name="bookFlCd" type="radio" value="E" class="form-check-input" checked required>
+									<label class="form-check-label" for="eBook">eBook</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input id="audioBook" name="bookFlCd" type="radio" value="A" class="form-check-input" required>
+									<label class="form-check-label" for="audioBook">오디오북</label>
+								</div>
+							</div>
+							<div class="row">
+								<label class="col-sm-3 title">BOOK명</label>
+								<div class="col-sm-9" style="padding-left:0px;">
+									<div class="row">	
+										<div class="col-sm-9">
+											<input type="text" id="bookNm" name="bookNm" class="form-control">
+										</div>
+										<div class="col-sm-3">
+											<button id="bookSearch" type="button" class="btn pull-right ebookBtn-sm" style="float:left"> BOOK조회 </button>
+										</div>
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<label class="title" style="float: left">출판사</label>
+									<input type="text" id="bookPublCo" name="bookPublCo" class="col-sm-3 form-control" style="float:left">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<label class="title">저자</label>
+									<input type="text" id="bookWriter" name="bookWriter" class="form-control" style="float:left">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<label class="title" style="float: left">출간일</label>
+									<input type="date" id="bookPublDt" name="bookPublDt" class="form-control" >
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<label class="title">도서ISBN</label>
+									<input type="text" id="bookIsbn" name="bookIsbn" class="form-control">
+								</div>
+							</div>
+							<div class="row pull-right" style="margin-top:100px">
+								<div class="col-sm-12">
+									<button type="button" id="bookInsertBtn" class="btn ebookBtn">등록</button>
+									<button type="button" id="home" class="btn ebookBtn" onclick="location.href='bookList'">BOOK목록</button>									
+								</div>
+							</div>
+					</div>		
+					<div class="row">
+						<div class="col-sm-12">
+							<label class="title">책소개</label>
+							<textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control summernote"></textarea>				
 						</div>
 					</div>
-					
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="row">
-							<label class="col-sm-3 title" style="float: left">출판사</label>
-							<input type="text" id="bookPublCo" name="bookPublCo" class="col-sm-3 form-control" style="float:left">
+					<div class="row">
+						<div class="col-sm-12">
+							<label class="title">목차</label>
+							<textarea rows="6" cols="90" id="bookContent" name="bookContent" class="form-control summernote"></textarea>				
 						</div>
-						
 					</div>
-					<div class="col-sm-6">
-						<label class="title">저자</label>
-						<input type="text" id="bookWriter" name="bookWriter" class="form-control" style="float:left">				
+					<div class="row">
+						<div class="col-sm-12">
+							<label class="title">저자소개</label>
+							<textarea rows="6" cols="90" id="bookWriterIntro" name="bookWriterIntro" class="form-control summernote"></textarea>				
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<label class="title" style="float: left">출간일</label>
-						<input type="date" id="bookPublDt" name="bookPublDt" class="form-control" >
-					</div>
-					<div class="col-sm-6">
-						<label class="title">도서ISBN</label>
-						<input type="text" id="bookIsbn" name="bookIsbn" class="form-control">				
-					</div>
-				</div>			
-				<div class="row">
-					<div class="col-sm-12">
-						<label class="title">책소개</label>
-						<textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control summernote"></textarea>				
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<label class="title">목차</label>
-						<textarea rows="6" cols="90" id="bookContent" name="bookContent" class="form-control summernote"></textarea>				
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<label class="title">저자소개</label>
-						<textarea rows="6" cols="90" id="bookWriterIntro" name="bookWriterIntro" class="form-control summernote"></textarea>				
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<label class="title">책설명</label>
-						<textarea rows="6" cols="90" id="bookDesc" name="bookDesc" class="form-control summernote"></textarea>				
-					</div>
-				</div>		
-				<div class="row">
-					<div class="col-sm-12">
-						<button type="button" id="bookInsertBtn" class="btn ebookBtn">등록</button>
-						<button type="button" id="home" class="btn ebookBtn" onclick="location.href='bookList'">BOOK목록</button>
-					</div>
-				</div>
-			</form>			
+					<div class="row">
+						<div class="col-sm-12">
+							<label class="title">책설명</label>
+							<textarea rows="6" cols="90" id="bookDesc" name="bookDesc" class="form-control summernote"></textarea>				
+						</div>
+					</div>		
+				</form>		
+			</div>	
 		</div>
 	</div>
 	

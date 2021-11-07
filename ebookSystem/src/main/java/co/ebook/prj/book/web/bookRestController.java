@@ -102,9 +102,9 @@ public class bookRestController {
 	   int result = bookDao.bookUpdate(vo);
 	   System.out.println("BOOK수정 : " + result + " ----> ");
 	   if( result > 0) {
-		   model.addAttribute("msg", "Success");
+		   model.addAttribute("msg", "01");
 	   }else {
-		   model.addAttribute("msg", "Error");
+		   model.addAttribute("msg", "02");
 	   }
 	   
 	   return vo;
@@ -129,12 +129,12 @@ public class bookRestController {
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		if( lists != null ) {
-			map.put("result", "입력완료");
+			map.put("result", "01");
 			map.put("lists", bookDao.bookList(svo));
 			map.put("paging" , paging );
 		
 		}else {
-			map.put("result", "오류발생");
+			map.put("result", "02");
 		}
 		return map;
 	}
@@ -160,18 +160,31 @@ public class bookRestController {
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		if( lists != null ) {
-			map.put("result", "입력완료");
+			map.put("result", "01");
 			map.put("lists", lists);
 			map.put("paging" , paging );
 		
 		}else {
-			map.put("result", "오류발생");
+			map.put("result", "02");
 		}
 		return map;
 	}	
 	
 			
-	
+	@RequestMapping(value="/bookLikeItUpdate", method=RequestMethod.POST )
+	public HashMap<String,Object> bookLikeItUpdate(Model model, @RequestBody BookVO vo ) {
+		System.out.println(vo.toString());
+		
+		int result = bookDao.bookLikeItUpdate(vo);
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		if( result >  0 ) {
+			map.put("result", "01");
+		}else {
+			map.put("result", "02");
+		}
+		return map;
+	}
 	
 	
 }

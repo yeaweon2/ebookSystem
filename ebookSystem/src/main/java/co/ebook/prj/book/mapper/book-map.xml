@@ -431,4 +431,16 @@
 		        ) A
         
 	</select>	
+	
+	<update id="bookHitUpdate" parameterType="co.ebook.prj.book.vo.BookVO">
+	 	UPDATE BOOK 
+	 	   SET book_hit = book_hit + 1 
+	 	 WHERE book_id = #{bookId} 
+	</update>
+	
+	<update id="bookLikeItUpdate" parameterType="co.ebook.prj.book.vo.BookVO">
+	 	UPDATE BOOK 
+	 	   SET book_likeit = book_likeit + 1 
+	 	 WHERE book_id = #{bookId} 
+	</update>	
 </mapper>

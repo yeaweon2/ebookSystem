@@ -46,10 +46,10 @@
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span> 
                     </button>
-                    <a class="navbar-brand smoothie logo logo-light" href="index.html"><img src="resources/assets/img/logo.png" alt="logo"></a>
-                    <a class="navbar-brand smoothie logo logo-dark" href="index.html"><img src="resources/assets/img/logo_reverse.png" alt="logo"></a>
+                    <a class="navbar-brand smoothie logo logo-light" href="home"><img src="resources/assets/img/logo.png" alt="logo"></a>
+                    <a class="navbar-brand smoothie logo logo-dark" href="home"><img src="resources/assets/img/logo_reverse.png" alt="logo"></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -71,7 +71,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">독서루틴</a></li>
                                 <li><a href="bucketList">버킷BOOK</a></li>
-                                <li><a href="#">BOOK캘린더</a></li>
+                                <li><a href="scheList">BOOK캘린더</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -139,7 +139,7 @@
             <button type="button" class="close">×</button>
             <div class="vertical-center text-center">
                 <form id="menuSrchFrm" action="menuSrchBook" method="post" >
-                    <input id="bookNm" type="search" placeholder="Enter Search Book Name" />
+                    <input id="bookNm" name="bookNm" type="search" placeholder="Enter Search Book Name" />
                     <button type="button" id="menuSrchBtn" class="btn btn-primary btn-white">Search</button>
                 </form>
             </div>

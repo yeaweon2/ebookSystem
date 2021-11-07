@@ -32,5 +32,8 @@ public interface BookService {
 	int bookListCount(BookSrchVO vo);
 	
 	int bookSrchPageCount(BookSrchVO vo);
+	
+	int bookLikeItUpdate(BookVO vo);
+	
 		
 }
