@@ -78,7 +78,7 @@
 	
  	</div>
  	<div id="adviceChat">
- 		<img src="resources/img/chaticon.png" class="avatar pointer">
+ 		<img src="resources/img/chat2.png" class="avatar pointer">
  	</div>
     <div class="flexpanel">
         <div class="viewport-wrap">
