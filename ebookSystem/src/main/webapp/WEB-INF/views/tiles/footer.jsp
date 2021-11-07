@@ -89,7 +89,7 @@
 
                         <div class="col-md-6 text-right match-height">
                             <div class="vertical-center">
-                                <span class="copyright">Copyright 2019. Designed by DISTINCTIVE THEMES</span>
+                                <span class="copyright">Copyright 2021. Made by 예담.e로운생활</span>
                             </div>
                         </div>
                     </div>

@@ -6,22 +6,25 @@
                 <div class="container">
                     <div class="clearfix">
                         <ul class="list-inline social-links wow pull-left">
-                            <li><a href="ticketList"><i class="fa fa-credit-card"></i> 월정액구매</a></li>
-							<li><a href="bucketList"><i class="fa fa-star"></i> 버킷BOOK</a></li>
-							<li><a href="cartList"><i class="fa fa-shopping-cart"></i>
-								<c:if test="${empty cartCnt}">
-								Cart
-								</c:if>
-								<c:if test="${not empty cartCnt}">
-									<c:if test="${cartCnt eq '0'}">
+                            <c:if test="${auth eq 'U'}">   
+                            	<li><a href="ticketList"><i class="fa fa-credit-card"></i> 월정액구매</a></li>
+								<li><a href="bucketList"><i class="fa fa-star"></i> 버킷BOOK</a></li>
+								
+								<li><a href="cartList"><i class="fa fa-shopping-cart"></i>
+									<c:if test="${empty cartCnt}">
 									Cart
 									</c:if>
-									<c:if test="${cartCnt != '0'}">
-									Cart [ ${cartCnt} ]
-									</c:if>
-								</c:if> 
-								</a>
-							</li>
+									<c:if test="${not empty cartCnt}">
+										<c:if test="${cartCnt eq '0'}">
+										Cart
+										</c:if>
+										<c:if test="${cartCnt != '0'}">
+										Cart [ ${cartCnt} ]
+										</c:if>
+									</c:if> 
+									</a>
+								</li>
+							</c:if>
 							<li><div>${id} : ${name} : ${nicknm} : ${auth} : ${stcd} </div></li>
                         </ul>
 						
