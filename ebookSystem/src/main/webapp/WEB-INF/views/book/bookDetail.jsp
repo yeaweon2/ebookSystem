@@ -276,26 +276,21 @@ ul.sidenav li a:hover {
 		});	
 		
 		// 별 클릭시
-		$(".stars").on("click", ".star", function(){
-			if(!$(this).data("flag")){
-				$(this).removeClass("far");
-				$(this).addClass("fas");
-				$(this).prevAll().removeClass("far");
-				$(this).prevAll().addClass("fas");
-				$(this).data("flag", true);
-				
-				$("#breplyStar").val($(this).data("no"));
-				
-			}else{
-				$(this).removeClass("fas");
-				$(this).addClass("far");
-				$(this).prevAll().removeClass("fas");
-				$(this).prevAll().addClass("far");
-				
-				$(this).data("flag", false);
-				$("#breplyStar").val($(this).data(""));
-				
-			}
+		$("#newStars").on("click", ".star", function(){
+			
+			var starNo = $(this).data("no");
+			
+			$(this).removeClass("far");
+			$(this).addClass("fas");
+			
+			$(this).prevAll().removeClass("far");
+			$(this).prevAll().addClass("fas");
+			
+			$(this).nextAll().removeClass("fas");
+			$(this).nextAll().addClass("far");
+			
+			$("#breplyStar").val($(this).data("no"));
+			
 		});		
 		
 		// 댓글 삭제 클릭시 
@@ -305,9 +300,6 @@ ul.sidenav li a:hover {
 			var bookId = $("#bookId").val();
 			var breplyId = $(this).data("breplyid");
 			var target = $(this).closest(".media");
-			
-			console.log(bookId + " / " + breplyId );
-			console.log(target);
 			
 			$.ajax({
 				url : 'breplyDelete' ,
@@ -376,6 +368,106 @@ ul.sidenav li a:hover {
 			});
 		});
 		
+		var oldContents = "";
+		
+		// 댓글 수정 클릭시 
+		$("#comments-list").on("click",".breplyUpdate", function(){
+			event.preventDefault();
+			oldContents = $(this).closest(".media-body").find("p").html();
+			
+			$(this).closest(".media-body").find("p").html("");
+			$(this).closest(".media-body").find("p").append($("<textarea class='form-control'>").val(oldContents));
+			
+			$(this).addClass("hidden");
+			
+			$(this).siblings(".breplySave").removeClass("hidden");
+			$(this).siblings(".breplyCancel").removeClass("hidden");
+			$(this).siblings(".breplyDelete").addClass("hidden");
+			$(this).siblings(".breplyChildInsert").addClass("hidden");	
+			
+			
+			$("#stars").on("click", ".star", function(){
+				
+				var starNo = $(this).data("no");
+				
+				$(this).removeClass("far");
+				$(this).addClass("fas");
+				
+				$(this).prevAll().removeClass("far");
+				$(this).prevAll().addClass("fas");
+				
+				$(this).nextAll().removeClass("fas");
+				$(this).nextAll().addClass("far");
+				
+				$("#breplyStar").val($(this).data("no"));
+				
+			});	
+			
+		});
+		
+		// 댓글취소 클릭시 
+		$("#comments-list").on("click", '.breplyCancel' , function(){
+			event.preventDefault();
+			
+			$(this).closest(".media-body").find("p").html("");
+			$(this).closest(".media-body").find("p").html(oldContents);
+			
+			$(this).addClass("hidden");
+			$(this).siblings(".breplySave").addClass("hidden");
+			$(this).siblings(".breplyUpdate").removeClass("hidden");
+			$(this).siblings(".breplyDelete").removeClass("hidden");
+			$(this).siblings(".breplyChildInsert").removeClass("hidden");
+			
+		});		
+		
+		// 댓글저장 클릭시 
+		$("#comments-list").on("click", '.breplySave' , function(){
+			event.preventDefault();
+			
+			var breplyId = $(this).data("breplyid");
+			var bookId = $("#bookId").val();
+			var breplyContents = $(this).closest(".media-body").find("textarea").val();
+			var breplyStar = $("#breplyStar").val();
+			
+			var area = $(this).closest(".media-body").find("p");
+			
+			$.ajax({
+				url : 'breplyUpdate' ,
+				method : 'POST' ,
+				data : JSON.stringify({ bookId : bookId, breplyId : breplyId , breplyContents : breplyContents , breplyStar : breplyStar }),
+				contentType : 'application/json',					
+				dataType : 'json',
+				success : function(res){
+					area.html("");
+					area.html(breplyContents);
+				}
+			});	
+			
+			$(this).addClass("hidden");
+			$(this).siblings(".breplyCancel").addClass("hidden");
+			$(this).siblings(".breplyUpdate").removeClass("hidden");
+			$(this).siblings(".breplyDelete").removeClass("hidden");
+			$(this).siblings(".breplyChildInsert").removeClass("hidden");
+			$("#stars").off("click");
+		});	
+		
+		// 자식댓글 쓰기 클릭시  
+		$("#comments-list").on("click", '.breplyChildInsert' , function(){
+			event.preventDefault();
+			$("#childBox").removeClass("hidden");
+			$(this).closest(".media").after( $("#childBox") );
+		});
+		
+		// 자식댓글 작성중 취소 클릭시 
+		$("#comments-list").on("click", function(){
+			event.preventDefault();
+			$("#childBox").addClass("hidden");			
+		});
+		
+		// 자식댓글 저장 클릭시 
+		$("#comments-list").on("click", function(){
+			// breplyChildInsert
+		});		
 		
 	});
 </script>
@@ -475,7 +567,7 @@ ul.sidenav li a:hover {
 								<div class="col-md-3 ">
 									<label class="title">${nicknm}</label>
 								</div>
-								<div class="col-md-3 stars" style="padding-left:0"> 		
+								<div id="newStars" class="col-md-3 stars" style="padding-left:0"> 		
 									<i class="star far fa-star" data-flag="false" data-no="1"></i>
 									<i class="star far fa-star" data-flag="false" data-no="2"></i>
 									<i class="star far fa-star" data-flag="false" data-no="3"></i>
@@ -505,7 +597,7 @@ ul.sidenav li a:hover {
 										<div class="well">
 											<div class="media-heading">
 												<span class="heading-font">${reply.breplyWriterNm}</span>&nbsp; <small>${reply.insDt}</small>
-												<div class="stars">
+												<div id="stars" class="stars">
 													<c:forEach var="starVal" begin="1" end="5" step="1" >
 														<c:choose>
 															<c:when test="${starVal <= reply.breplyStar}">
@@ -570,28 +662,7 @@ ul.sidenav li a:hover {
 	</div>
 </section>
 
-<div class="media hidden parentBox">
-    <div class="pull-left">
-        <img class="avatar comment-avatar" src="resources/assets/img/users/3.jpg" alt="">
-    </div>
-    <div class="media-body">
-        <div class="well">
-            <div class="media-heading">
-                <span class="heading-font">${nickNm}</span>&nbsp; <small></small>
-            </div>
-            <p></p>
-			<div class="pull-right">
-				<a href="#" class="breplyChildInsert" >댓글쓰기</a>
-				<a href="#" class="breplyUpdate" >수정</a>
-				<a href="#" class="breplyDelete">삭제</a>
-				<a href="#" class="breplySave hidden" >저장</a>
-				<a href="#" class="breplyCancel hidden" >취소</a>
-			</div>            
-        </div>
-    </div>
-</div>
-
-<div class="media hidden childBox">
+<div id="childBox" class="media hidden ">
     <div class="pull-left">
         <img class="avatar comment-avatar" src="resources/assets/img/users/3.jpg" alt="">
     </div>
