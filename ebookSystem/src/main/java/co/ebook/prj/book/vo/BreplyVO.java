@@ -19,9 +19,7 @@ public class BreplyVO {
 	private String breplyCloseYn;
 	private String breplyWriter;
 	private String breplyWriterNm;
-	private Date udtDt;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")	
-	private Date insDt;
+	private String udtDt;	
+	private String insDt;
 	private int breplyStar;
 }

@@ -17,7 +17,7 @@ import lombok.ToString;
 public class BookVO {
 	private String bookId;
 	private String ctgyId;
-	private String ctgyIdNm;
+	private String ctgyNm;
 	private String ctgyGrNm;
 	private String bookNm;
 	private String bookFlCd;

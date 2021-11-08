@@ -147,7 +147,7 @@ body {
 	padding-left:25px;
 }
 
-#star {
+.star {
 font-size: 16px;
 color : #f15e5e;
 }
@@ -273,10 +273,10 @@ ul.sidenav li a:hover {
 					}
 				}
 			});
-		});		
+		});	
 		
-		// 별 클릭시 
-		$("#stars").on("click", "#star", function(){
+		// 별 클릭시
+		$(".stars").on("click", ".star", function(){
 			if(!$(this).data("flag")){
 				$(this).removeClass("far");
 				$(this).addClass("fas");
@@ -296,11 +296,37 @@ ul.sidenav li a:hover {
 				$("#breplyStar").val($(this).data(""));
 				
 			}
+		});		
+		
+		// 댓글 삭제 클릭시 
+		$("#comments-list").on("click",".breplyDelete", function(){
+			event.preventDefault();
+			
+			var bookId = $("#bookId").val();
+			var breplyId = $(this).data("breplyid");
+			var target = $(this).closest(".media");
+			
+			console.log(bookId + " / " + breplyId );
+			console.log(target);
+			
+			$.ajax({
+				url : 'breplyDelete' ,
+				method : 'POST' ,
+				data : JSON.stringify({ bookId : bookId, breplyId : breplyId }),
+				contentType : 'application/json',					
+				dataType : 'json',
+				success : function(res){
+					console.log(res);
+					console.log( target );
+					target.remove();
+				}
+			});			
 		});
 		
 		// 부모댓글 등록시 
 		$("#breplyInsert").on("click", function(){
 			event.preventDefault();
+			
 			var bookId = $("#bookId").val();
 			var breplyContents = $("#breplyContentsNew").val();  
 			var breplyStar = $("#breplyStar").val();
@@ -318,138 +344,38 @@ ul.sidenav li a:hover {
 				success : function(res){
 					console.log(res);
 					
-					$("#replyList").append($("<div class='comment-text'>").append(
-							$("<div id='parentReply'>")
-								.append($("<strong>").html( res.breplyWriterNm +  moment(res.insDt).format('YYYY MM DD HH:mm:ss')))
-								.append($("<div id='stars'>"))
-								.append($("<div class='description'>").append($("<p>").html( res.breplyContents ))
-																      .append($("<div class='pull-right'>").append("<a>").html("댓글쓰기")))));
-					
 					$("#breplyContentsNew").val("");
 					
-					for( var i = 1 ; i <= 5 ; i++ ){
+					$("#comments-list")
+						.append( $("<div class='media'>")
+										.append($("<div class='pull-left'>")
+														.append($("<img>")))
+										.append( $("<div class='media-body'>")
+														.append($("<div class='well'>")
+																	.append($("<div class='media-heading'>")
+																				.append($("<span class='heading-font'>").html(" " + res.breplyWriterNm))
+																				.append($("<small>").html(res.insDt))
+																				.append( $("<div class='stars'>")))
+																	.append( $("<p>").html(res.breplyContents) )
+																	.append( $("<div class='pull-right'>")
+																					.append($("<a href='#' class='breplyChildInsert'>").html("댓글"))
+																					.append($("<a href='#' class='breplyUpdate'>").html("수정"))
+																					.append($("<a href='#' class='breplyDelete'>").html("삭제"))
+																					.append($("<a href='#' class='breplySave hidden' >").html("저장"))
+																					.append($("<a href='#' class='breplyCancel hidden'>").html("취소"))
+																					
+																	))));
+ 					for( var i = 1 ; i <= 5 ; i++ ){
 						if(res.breplyStar  >= i ){
-							$(".comment-text").last().find("#stars").append($("<i id='star' class='fas fa-star' data-flag='true'>").data("no", i ) );	
+							$("#comments-list").last().find(".stars").append($("<i class='star fas fa-star' data-flag='true'>").data("no", i ) );	
 						}else{
-							$(".comment-text").last().find("#stars").append($("<i id='star' class='far fa-star' data-flag='false'>").data("no", i ) );
+							$("#comments-list").last().find(".stars").append($("<i class='star far fa-star' data-flag='false'>").data("no", i ) );
 						}
-					}
+					} 
 				}
 			});
 		});
 		
-		// 댓글 삭제버튼 클릭시 
-		$(".description").on("click", '#breplyDelete' , function(){
-			event.preventDefault();
-			
-			var bookId = $("#bookId").val();
-			var breplyId = $(this).data("breplyid");			
-			var target = $(this).closest(".comment-text");
-			
-			console.log(bookId + " / " + breplyId );
-			console.log(target);
-			
-			$.ajax({
-				url : 'breplyDelete' ,
-				method : 'POST' ,
-				data : JSON.stringify({ bookId : bookId, breplyId : breplyId }),
-				contentType : 'application/json',					
-				dataType : 'json',
-				success : function(res){
-					console.log(res);
-					console.log( $(this) );
-					console.log( $(this).parents() );
-					console.log( $(this).closest(".comment-text") );
-					
-					target.remove();
-					
-				}
-			});
-		});
-		
-		
-		var oldContents = "";
-		
-		// 댓글수정 클릭시 
-		$(".description").on("click", '#breplyUpdate' , function(){
-			event.preventDefault();
-
-			oldContents = $(this).closest(".description").find("p").html();
-			
-			$(this).closest(".description").find("p").html("");
-			$(this).closest(".description").find("p").append($("<textarea>").val(oldContents));
-			
-			$(this).addClass("hidden");
-			
-			$(this).siblings("#breplySave").removeClass("hidden");
-			$(this).siblings("#breplyCancel").removeClass("hidden");
-			$(this).siblings("#breplyDelete").addClass("hidden");
-			$(this).siblings("#breplyChildInsert").addClass("hidden");
-		});
-		
-		// 댓글취소 클릭시 
-		$(".description").on("click", '#breplyCancel' , function(){
-			event.preventDefault();
-			
-			$(this).closest(".description").find("p").html("");
-			$(this).closest(".description").find("p").html(oldContents);
-			
-			
-			$(this).addClass("hidden");
-			$(this).siblings("#breplySave").addClass("hidden");
-			$(this).siblings("#breplyUpdate").removeClass("hidden");
-			$(this).siblings("#breplyDelete").removeClass("hidden");
-			$(this).siblings("#breplyChildInsert").removeClass("hidden");
-			
-		});		
-		
-		// 댓글저장 클릭시 
-		$(".description").on("click", '#breplySave' , function(){
-			event.preventDefault();
-			
-			var breplyId = $(this).data("breplyid");
-			var bookId = $("#bookId").val();
-			var breplyContents = $(this).closest(".description").find("textarea").val();
-			
-			var area = $(this).closest(".description").find("p");
-			
-			$.ajax({
-				url : 'breplyUpdate' ,
-				method : 'POST' ,
-				data : JSON.stringify({ bookId : bookId, breplyId : breplyId , breplyContents : breplyContents }),
-				contentType : 'application/json',					
-				dataType : 'json',
-				success : function(res){
-					area.html("");
-					area.html(breplyContents);
-				}
-			});	
-			
-			$(this).addClass("hidden");
-			$(this).siblings("#breplyCancel").addClass("hidden");
-			$(this).siblings("#breplyUpdate").removeClass("hidden");
-			$(this).siblings("#breplyDelete").removeClass("hidden");
-			$(this).siblings("#breplyChildInsert").removeClass("hidden");
-			
-		});
-		
-		// 자식댓글 쓰기 클릭시  
-		$(".description").on("click", '#breplyChildInsert' , function(){
-			event.preventDefault();
-			$("#childBox").removeClass("hidden");
-			$(this).closest(".comment-text").after( $("#childBox") );
-		});
-		
-		// 자식댓글 작성중 취소 클릭시 
-		$("#childCancel").on("click", function(){
-			$("#childBox").addClass("hidden");			
-			$(this).siblings("#childContents").val("");
-		});
-		
-		// 자식댓글 저장 클릭시 
-		$("#childSave").on("click", function(){
-			// breplyChildInsert
-		});
 		
 	});
 </script>
@@ -487,8 +413,8 @@ ul.sidenav li a:hover {
 								<div class="pull-right">
 									<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
 									<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
-									<button class="bucketBtn" ><i class="fa fa-heart"></i></button>
-									<button class="likeItBtn" ><i class="fa fa-thumbs-o-up"></i></button>							
+									<button class="bucketBtn" ><i class="	fa fa-bookmark-o"></i></button>
+									<button class="bucketBtn" ><i class="fa fa-thumbs-o-up"></i></button>							
 								</div>
 							</c:if>
 						</div>
@@ -549,92 +475,139 @@ ul.sidenav li a:hover {
 								<div class="col-md-3 ">
 									<label class="title">${nicknm}</label>
 								</div>
-								<div id="stars" class="col-md-3" style="padding-left:0"> 		
-									<i id="star" class="far fa-star" data-flag="false" data-no="1"></i>
-									<i id="star" class="far fa-star" data-flag="false" data-no="2"></i>
-									<i id="star" class="far fa-star" data-flag="false" data-no="3"></i>
-									<i id="star" class="far fa-star" data-flag="false" data-no="4"></i>
-									<i id="star" class="far fa-star" data-flag="false" data-no="5"></i>
+								<div class="col-md-3 stars" style="padding-left:0"> 		
+									<i class="star far fa-star" data-flag="false" data-no="1"></i>
+									<i class="star far fa-star" data-flag="false" data-no="2"></i>
+									<i class="star far fa-star" data-flag="false" data-no="3"></i>
+									<i class="star far fa-star" data-flag="false" data-no="4"></i>
+									<i class="star far fa-star" data-flag="false" data-no="5"></i>
 								</div>
 								<div class="col-md-3"></div>
-								<div class="col-md-3"><a id="breplyInsert" class="btn btn-primary pull-right" href="#">&nbsp;&nbsp;등 록&nbsp;&nbsp; </a></div>
-														
+								<div class="col-md-3"><a id="breplyInsert" class="btn ebookBtn pull-right" href="#">&nbsp;&nbsp;등 록&nbsp;&nbsp; </a></div>
 								<textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="댓글을 남겨주세요 *" required data-validation-required-message="Please enter a message."></textarea>
-								
 							</form>
 						</div>
 					</div>			
 				
-					<h3><i class="fa fa-commenting-o"></i> 댓글</h3>
-					<div id="replyList">
+					<h3>댓 글</h3>
+					
+					<div id="comments-list" class="col-sm-8 col-sm-offset-2 gap wow">
+						<div class="mt60 mb50 single-section-title">
+						    <h3>Comments</h3>
+						</div>				
 						<c:forEach var="reply" items="${replys}">
-							<div class="comment-text" style="padding:20px;">
-								<c:if test="${reply.breplyClass eq '1'}">
-									<div id="childReply">
-											<i class="material-icons">subdirectory_arrow_right</i>
-											<strong>${reply.breplyWriterNm}</strong>
-											( <fmt:formatDate pattern="yyyy-MM-dd"  value="${reply.insDt}"/> )
-										<div class="description" style="padding-left:25px;">
+							<c:if test="${reply.breplyClass != '1'}">
+								<div class="media">
+									<div class="pull-left">
+										<img class="avatar comment-avatar" src="resources/img/profile.png" alt="">
+									</div>
+									<div class="media-body">
+										<div class="well">
+											<div class="media-heading">
+												<span class="heading-font">${reply.breplyWriterNm}</span>&nbsp; <small>${reply.insDt}</small>
+												<div class="stars">
+													<c:forEach var="starVal" begin="1" end="5" step="1" >
+														<c:choose>
+															<c:when test="${starVal <= reply.breplyStar}">
+																<i class="star fas fa-star" data-flag="true" data-no="${starVal}"></i>
+															</c:when>
+															<c:otherwise>
+																<i class="star far fa-star" data-flag="false" data-no="${starVal}"></i>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+												</div>							
+											</div>
 											<p>${reply.breplyContents}</p>
 											<div class="pull-right">
-												<a href="#" id="breplyChildInsert" data-breplyid="${reply.breplyId}">댓글쓰기</a>
+												<a href="#" class="breplyChildInsert" data-breplyid="${reply.breplyId}">댓글쓰기</a>
 												<c:if test="${reply.breplyWriter eq id }">
-													<a href="#" id="breplyUpdate" data-breplyid="${reply.breplyId}">수정</a>
-													<a href="#" id="breplyDelete" data-breplyid="${reply.breplyId}">삭제</a>
-													<a href="#" id="breplySave" class="hidden" data-breplyid="${reply.breplyId}">저장</a>
-													<a href="#" id="breplyCancel" class="hidden" data-breplyid="${reply.breplyId}">취소</a>								
+													<a href="#" class="breplyUpdate" data-breplyid="${reply.breplyId}">수정</a>
+													<a href="#" class="breplyDelete" data-breplyid="${reply.breplyId}">삭제</a>
+													<a href="#" class="breplySave hidden" data-breplyid="${reply.breplyId}">저장</a>
+													<a href="#" class="breplyCancel hidden" data-breplyid="${reply.breplyId}">취소</a>
 												</c:if>
 											</div>
 										</div>
-									</div>
-								</c:if>
-								<c:if test="${reply.breplyClass != '1'}">
-									<div id="parentReply">
-										<strong>${reply.breplyWriterNm}</strong>
-										( <fmt:formatDate pattern="yyyy-MM-dd"  value="${reply.insDt}"/> )
-										<div id="stars">
-											<c:forEach var="starVal" begin="1" end="5" step="1" >
-												<c:choose>
-													<c:when test="${starVal <= reply.breplyStar}">
-														<i id="star" class="fas fa-star" data-flag="true" data-no="${starVal}"></i>
-													</c:when>
-													<c:otherwise>
-														<i id="star" class="far fa-star" data-flag="false" data-no="${starVal}"></i>
-													</c:otherwise>
-												</c:choose>
-											</c:forEach>
-										</div>
-										<div class="description">
-											<p>${reply.breplyContents}</p>
-											<div class="pull-right">
-												<a href="#" id="breplyChildInsert" data-breplyid="${reply.breplyId}">댓글쓰기</a>
-												<c:if test="${reply.breplyWriter eq id }">
-													<a href="#" id="breplyUpdate" data-breplyid="${reply.breplyId}">수정</a>
-													<a href="#" id="breplyDelete" data-breplyid="${reply.breplyId}">삭제</a>
-													<a href="#" id="breplySave" class="hidden" data-breplyid="${reply.breplyId}">저장</a>
-													<a href="#" id="breplyCancel" class="hidden" data-breplyid="${reply.breplyId}">취소</a>
+										<c:forEach var="childReply" items="${replys}">			
+											<c:if test="${childReply.breplyClass eq '1'}">
+												<c:if test="${childReply.breplyGr eq reply.breplyId}">
+													<div class="media" style="background-color: yellow;margin-left:50px">
+														
+														<div class="pull-left">
+															<i class="material-icons">subdirectory_arrow_right</i>	
+															<img class="avatar comment-avatar" src="resources/img/profile.png" alt="">
+														</div>
+														<div class="media-body">
+															<div class="well">
+																<div class="media-heading">
+																	<span class="heading-font">${childReply.breplyWriterNm}</span>&nbsp; <small>${childReply.insDt}</small>
+																</div>
+																<p>${childReply.breplyContents}</p>
+																<div class="pull-right">
+																	<a href="#" class="breplyChildInsert" data-breplyid="${childReply.breplyId}">댓글쓰기</a>
+																	<c:if test="${childReply.breplyWriter eq id }">
+																		<a href="#" class="breplyUpdate" data-breplyid="${childReply.breplyId}">수정</a>
+																		<a href="#" class="breplyDelete" data-breplyid="${childReply.breplyId}">삭제</a>
+																		<a href="#" class="breplySave hidden"  data-breplyid="${childReply.breplyId}">저장</a>
+																		<a href="#" class="breplyCancel hidden"  data-breplyid="${childReply.breplyId}">취소</a>
+																	</c:if>
+																</div>
+															</div>
+														</div>
+													</div>
 												</c:if>
-											</div>
-										</div>
+											</c:if>	
+										</c:forEach>			
 									</div>
-								</c:if>
-							</div>
+								</div>
+							</c:if>	
 						</c:forEach>
-					</div>
+					</div>			
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<div id="childBox" class="comment-text hidden" >
-	<i class="material-icons">subdirectory_arrow_right</i>
-	<strong>${nicknm}</strong>
-	<button id="childInsert" type="button" class="btn btn-primary pull-right">등록</button>
-	<button id="childCancel" type="button" class="btn btn-primary pull-right">취소</button>
-	<textarea id="childContents" rows="3" cols="30"></textarea>
+<div class="media hidden parentBox">
+    <div class="pull-left">
+        <img class="avatar comment-avatar" src="resources/assets/img/users/3.jpg" alt="">
+    </div>
+    <div class="media-body">
+        <div class="well">
+            <div class="media-heading">
+                <span class="heading-font">${nickNm}</span>&nbsp; <small></small>
+            </div>
+            <p></p>
+			<div class="pull-right">
+				<a href="#" class="breplyChildInsert" >댓글쓰기</a>
+				<a href="#" class="breplyUpdate" >수정</a>
+				<a href="#" class="breplyDelete">삭제</a>
+				<a href="#" class="breplySave hidden" >저장</a>
+				<a href="#" class="breplyCancel hidden" >취소</a>
+			</div>            
+        </div>
+    </div>
 </div>
 
+<div class="media hidden childBox">
+    <div class="pull-left">
+        <img class="avatar comment-avatar" src="resources/assets/img/users/3.jpg" alt="">
+    </div>
+    <div class="media-body">
+        <div class="well">
+            <div class="media-heading">
+                <span class="heading-font">${nickNm}</span>&nbsp; <small></small>
+            </div>
+            <textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="댓글을 입력해주세요 *" required data-validation-required-message="Please enter a message."></textarea>
+			<div class="pull-right">
+				<a href="#" class="breplySave" class="hidden">저장</a>
+				<a href="#" class="breplyCancel" class="hidden">취소</a>
+			</div>            
+        </div>
+    </div>
+</div>
 
 
 
