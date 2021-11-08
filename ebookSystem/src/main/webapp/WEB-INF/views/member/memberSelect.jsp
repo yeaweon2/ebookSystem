@@ -85,8 +85,8 @@
 							</tr>
 								<c:if test="${auth ne 'M' }">
 							<tr>
-								<th>휴대폰인증코드</th>
-								<td>${member.memberPhoneVld }</td>
+								<th>월정액결제여부</th>
+								<td>${member.memberSubYn }</td>
 							</tr>
 							<tr>
 								<th>월정액 결제금액</th>

@@ -16,7 +16,7 @@
 	
 	
 	<select id="subSelect" resultType="co.ebook.prj.subscription.vo.SubscriptionVO"> 
-		select  subsp_id,          member_id, 
+		select  member_id,		   subsp_id, 
 				subsp_sdt,         subsp_edt, 
 				subsp_pay_st,      subsp_amt,
 				subsp_pay_mthd,    subsp_pay_amt,
@@ -25,47 +25,36 @@
 				(select scodes.scode_nm from scodes where lcode = 'LM' and scode = subsp_pay_st ) as subsp_pay_nm
 		  from  subscription
 		 where  member_id = #{memberId}
+		   and	subsp_id = (select max(subsp_id) from subscription where member_id=#{memberId})
 	</select>
+	
 	
 	<insert id="subInsert" parameterType="co.ebook.prj.subscription.vo.SubscriptionVO">
 		insert 
 		  into  subscription
-		  		( subsp_id,        		member_id, 
+		  		(subsp_id,        		member_id, 
 				subsp_sdt,         		subsp_edt, 
 				subsp_pay_st,     		subsp_amt,
 				subsp_pay_mthd,   		subsp_pay_amt,
 				subsp_mile,        		imp_uid,
 				ins_dt,            		udt_dt)
-		values  (#{subspId}, 			#{memberId},
-				#{subspSdt},			#{subspEde}, 
+		values  (sub_seq.nextval, 		#{memberId},
+				sysdate,				
+				<if test="subspAmt == '9900'">
+				to_char(add_months(sysdate, 1), 'YYYY-MM-DD'),
+				</if>
+				<if test="subspAmt == '25900'">
+				to_char(add_months(sysdate, 3), 'YYYY-MM-DD'),
+				</if>
+				<if test="subspAmt == '90000'">
+				to_char(add_months(sysdate, 12), 'YYYY-MM-DD'),
+				</if>
 				#{subspPaySt}, 			#{subspAmt}, 
 				#{subspPayMthd}, 		#{subspPayAmt}, 
 				#{subspMile}, 			#{impUid}, 
 				sysdate, 				sysdate)
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		
-	
-	
-	
+				
 	</insert>
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

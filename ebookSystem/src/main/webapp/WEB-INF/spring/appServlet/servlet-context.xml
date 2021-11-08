@@ -25,6 +25,18 @@
 		</beans:property>
 	</beans:bean>
 	
+	<!-- 인터셉터 객체 생성 -->
+	<beans:bean id="AuthLoginInterceptor" class="co.ebook.prj.login.web.LoginIntercepter">
+	</beans:bean>
+	<!-- Interceptor 설정 -->
+	<interceptors>
+	    <interceptor>
+	        <mapping path="/WEB-INF/views/"/>         
+	        <beans:ref bean="AuthLoginInterceptor"/>
+	        
+	    </interceptor>
+	</interceptors>
+	
 	<!-- tiles viewResolver -->
 	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />

@@ -17,5 +17,6 @@ public class LoginServiceImpl implements LoginService {
 	public LoginVO getLoginInfo(LoginVO vo) {
 		return map.getLoginInfo(vo);
 	}
-
+	
+	
 }

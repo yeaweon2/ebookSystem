@@ -81,4 +81,11 @@ public class MemberServiceImpl implements MemberService {
 		return map.memSubUpdate(vo);
 	}
 
+	
+	
+	
+	
+	
+	
+	
 }

@@ -14,6 +14,9 @@
 <script>
 $(function(){
 	$("#check_module").click(function () {
+		var sAmt = $("#amtCd:checked").val();
+		var sMile = $("#chArea").val();
+		
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp33573268');
 		IMP.request_pay({
@@ -32,7 +35,9 @@ $(function(){
 					var SubscriptionVO = {
 							subspPayMthd :rsp.apply_num,
 							subspPayAmt : rsp.paid_amount,
-							impUid : rsp.imp_uid
+							impUid : rsp.imp_uid,
+							subspAmt : sAmt,
+							subspMile : sMile
 					}
 					
 				 	$.ajax({
@@ -42,7 +47,7 @@ $(function(){
 						data : SubscriptionVO,
 						success : function(){
 							alert("성공됨.");
-							window.location.href = "myPage";
+							window.location.href = "myInfo";
 							
 						},
 						error : function(rej){
@@ -181,9 +186,9 @@ $(function(){
 				</div>
 			</div>
 			<div class="col-lg-2 mb-2 mb-lg-0">
-			     <h4>총 금액<textarea id="txArea" rows="1" cols="1"  style="text-align:right; " ></textarea></h4>
-			     <h4>사용 마일리지<textarea id="chArea" rows="1" cols="1"  style="text-align:right; "></textarea></h4><hr>
-			     <h2><p>Total <span class="price" style="color:black"><textarea id="total"  rows="1" cols="1"  style="text-align:right; " id="resultMile"></textarea></span></p></h2>
+			     <h4>총 금액<textarea id="txArea" rows="1" cols="12"  style="text-align:right; " ></textarea></h4>
+			     <h4>사용 마일리지<textarea id="chArea" rows="1" cols="12"  style="text-align:right; "></textarea></h4><hr>
+			     <h2><p>Total <span class="price" style="color:black"><textarea id="total"  rows="1" cols="20"  style="text-align:right; " id="resultMile"></textarea></span></p></h2>
 	       </div>
 		</div>
 			<div align="right" style="margin-right: 400px;">

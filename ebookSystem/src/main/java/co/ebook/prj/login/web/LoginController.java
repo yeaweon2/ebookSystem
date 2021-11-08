@@ -1,5 +1,6 @@
 package co.ebook.prj.login.web;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,11 @@ public class LoginController {
 	
 	
 	@RequestMapping("/login")
-	public String login(Model model) {
+	public String login (Model model,HttpServletRequest request, LoginVO vo) {
+		HttpSession session = request.getSession();
+        
+		session.setMaxInactiveInterval(60);
+		
 		return "main/login";
 	}
 	
@@ -27,6 +32,7 @@ public class LoginController {
 	
 	@RequestMapping("/loginProc")
 	public String loginProc(Model model , LoginVO vo , HttpSession session) {
+		
 		String views = null;
 		
 		vo = loginDao.getLoginInfo(vo);
@@ -46,12 +52,15 @@ public class LoginController {
 		}
 
 		return views;
+		
+		
 	}
 	
 	
 	@RequestMapping("/logout")
-	public String login(Model model, HttpSession session) {
-		session.invalidate();
+	public String logout(Model model, HttpServletRequest request) {
+		request.getSession().invalidate();
+		request.getSession(true);
 		return "redirect:home";
 	}
 }

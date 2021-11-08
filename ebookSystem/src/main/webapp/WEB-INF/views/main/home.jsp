@@ -116,7 +116,7 @@ $(function(){
 });
 </script>
 <section class="white-bg">
-	<div class="section-inner">
+	<div class="section-inner" id="dclick">
 		<div class="row">
 			<div class="col-md-5 box">
 				<c:if test="${auth eq 'U'}">	<!-- 일반사용자 -->
@@ -301,4 +301,33 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
 }
+
+
+
+
+/*
+	if( ${empty auth} == !'null'){
+$("#dclick").ready("click",function(){
+		console.log("+++++++++++++++");
+		var check = "${member.memberId}";
+		if(check == ''){
+		    alert("로그인 후 이용하세요.");
+		    location.href="/login";
+	}
+ 
+});
+};  */  
+</script>    
+
+
+
+
+
+
+
+
+
+
+
+
 </script>

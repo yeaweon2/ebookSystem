@@ -193,8 +193,8 @@ function MemberEdit(str) {
 									<td><input type="email" id="memberEmail" name="memberEmail" value="${member.memberEmail}"></td>
 								</tr>
 								<tr>
-									<th><label for="memberPhoneVld">휴대폰인증</label><th>
-									<td><input type="text" id="memberPhoneVld" name="memberPhoneVld" value="${member.memberPhoneVld}"></td>
+									<th><label for="memberSubYn">월정액 결제여부</label><th>
+									<td><input type="text" id="memberSubYn" name="memberSubYn" value="${member.memberSubYn}"></td>
 										<c:if test="${auth ne 'M'}">
 									<th><label for="memberMile">마일리지</label></th>
 									<td><input type="text" id="memberMile" name="memberMile" value="${member.memberMile}"></td>

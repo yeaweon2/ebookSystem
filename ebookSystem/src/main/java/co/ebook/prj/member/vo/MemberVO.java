@@ -29,6 +29,8 @@ public class MemberVO {
 	private String memberLikeFld;
 	private String memberProfileNm;
 	private String memberProfilePath; 
+
+	
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")

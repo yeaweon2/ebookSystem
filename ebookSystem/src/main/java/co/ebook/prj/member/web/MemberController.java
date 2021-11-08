@@ -2,12 +2,14 @@ package co.ebook.prj.member.web;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.velocity.tools.view.WebappUberspector.GetAttributeExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -221,18 +223,58 @@ public class MemberController {
 	
 //	월정액 결제성공 후 데이터 저장
 	@RequestMapping("/SuccessSup") 
-	public String SuccessSup(Model model ,  MemberVO vo, SubscriptionVO sVo, HttpServletRequest request) {
+	public String SuccessSup(Model model ,  MemberVO vo, SubscriptionVO sVo, HttpServletRequest request, String args[]) {
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));
 		sVo.setMemberId((String)session.getAttribute("id"));
 
 		System.out.println("여기야여기============>"+vo.toString());
 		System.out.println("여기야여기============>"+sVo.toString());
-		model.addAttribute("sub", subDao.subUpdate(sVo));
-		model.addAttribute("member", memberDao.memSubUpdate(vo));
-		return "redirect:myPage";
-	}
-	
+		
+		
+		// 날짜계산값 
+	    
+       /* Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("current: " + df.format(cal.getTime()));
+
+        
+        if(sVo.getSubspAmt() == 9900) {
+        	sVo.setSubspEdt((Date)session.getAttribute("cal.add(Calendar.MONTH, 1)"));
+        	
+        	String pattern = "yyyy-MM-dd";
+        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        	String date = simpleDateFormat.format(new Date());
+        	System.out.println(date);
+        }
+        if(sVo.getSubspAmt() == 25900) {
+        	sVo.setSubspEdt((Date)session.getAttribute("cal.add(Calendar.MONTH, 3)"));
+        	
+        	String pattern = "yyyy-MM-dd";
+        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        	String date = simpleDateFormat.format(new Date());
+        	System.out.println(date);
+        }
+        if(sVo.getSubspAmt() == 99000) {
+        	sVo.setSubspEdt((Date)session.getAttribute("cal.add(Calendar.MONTH, 12)"));
+        	
+        	String pattern = "yyyy-MM-dd";
+        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        	String date = simpleDateFormat.format(new Date());
+        	System.out.println(date);
+        } */
+
+        
+        
+        
+        model.addAttribute("member", memberDao.memSubUpdate(vo));
+		model.addAttribute("sub", subDao.subInsert(sVo));
+		return "redirect:myInfo";
+	} 
 	
 	
 	
