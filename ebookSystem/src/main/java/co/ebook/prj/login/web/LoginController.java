@@ -38,7 +38,7 @@ public class LoginController {
 			session.setAttribute("auth"		, vo.getMemberFlCd());
 			session.setAttribute("stcd"		, vo.getMemberStCd());
 			session.setAttribute("cartCnt"	, vo.getCartCnt());
-
+			session.setAttribute("subYn"	, vo.getMemberSubYn());
 			views = "redirect:home"; 
 		}else {
 			model.addAttribute("message", "로그인 실패 !!");

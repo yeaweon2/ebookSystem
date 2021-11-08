@@ -14,6 +14,7 @@ public class LoginVO {
 	private String memberNicknm;
 	private String memberFlCd;
 	private String memberStCd;
+	private String memberSubYn;
 	private String cartCnt;
 	
 }

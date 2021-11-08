@@ -9,6 +9,7 @@
              , member_fl_cd
              , member_st_cd
              , ( SELECT COUNT(1) FROM BOOK_CART C WHERE C.MEMBER_ID = #{memberId} ) as cartCnt
+             , member_sub_yn 
    		  FROM MEMBER
 		 WHERE member_id = #{memberId} 
 		   AND member_pw = #{memberPw}
