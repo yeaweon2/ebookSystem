@@ -67,6 +67,7 @@
 </head>
 <body>
 	<%
+// 	네이버 로그인
         String clientId = "fS4shoi86zkoG3WEiReF";//애플리케이션 클라이언트 아이디값";
         String redirectURI = URLEncoder.encode("http://localhost/prj/home", "UTF-8");
         SecureRandom random = new SecureRandom();
@@ -135,6 +136,8 @@
         Kakao.Auth.createLoginButton({
             container: '#kakao-login-btn',
             success: function (authObj) {
+            	//아작스 호출필요
+            	
                 alert(JSON.stringify(authObj));
             },
             fail: function (err) {

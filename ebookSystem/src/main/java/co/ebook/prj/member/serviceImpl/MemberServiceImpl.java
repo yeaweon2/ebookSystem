@@ -75,4 +75,10 @@ public class MemberServiceImpl implements MemberService {
 		return map.memberDelete(vo);
 	}
 
+//	월정액가입 코드변경
+	@Override
+	public int memSubUpdate(MemberVO vo) {
+		return map.memSubUpdate(vo);
+	}
+
 }

@@ -13,50 +13,49 @@
 
 <script>
 $(function(){
-	
 	$("#check_module").click(function () {
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp33573268');
 		IMP.request_pay({
-			pg: 'html5_inicis', 
-			pay_method: 'card',
+			pg: "html5_inicis",
+		    pay_method: "${sub.subspPaySt}",
+		    merchant_uid: "${sub.impUid}",
+		    name: "상품명",
+		    amount: "${sub.subspAmt}",
 			merchant_uid: 'merchant_' + new Date().getTime(),
 			name: 'E로운생활 월정액권',
 			amount: $("#total").val(),
 		}, function (rsp) {
 			console.log(rsp);
 				if (rsp.success) {
-				 
-					$('#myModal').modal();
-					$("#resultTxt").html('고유ID : ' + rsp.imp_uid);
-					$("#resultTxt2").html('결제 금액 : ' + rsp.paid_amount +' 원');
-					$("#resultTxt3").html('카드 승인번호 : ' + rsp.apply_num);
 					
+					var SubscriptionVO = {
+							subspPayMthd :rsp.apply_num,
+							subspPayAmt : rsp.paid_amount,
+							impUid : rsp.imp_uid
+					}
+					
+				 	$.ajax({
+						url : 'SuccessSup' ,
+						type : 'post',
+						dataType : 'text',
+						data : SubscriptionVO,
+						success : function(){
+							alert("성공됨.");
+							window.location.href = "myPage";
+							
+						},
+						error : function(rej){
+							console.log(rej);
+						}
+					}); 
+				 	 
 				} else {
 					alert("결제에 실패하였습니다.   " + '\n실패이유 : ' + rsp.error_msg);
 				}
 			});
 		});
 	
-	
-
-//  모달창	
-
-	// Get the modal
-	var modal = $('#myModal');
-	// Get the button that opens the modal
-	var span = $('.close')[0];
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	  modal.style.display = "none";
-	}
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	  if (event.target == modal) {
-	    modal.style.display = "none";
-	  }
-	}
-		
 	
 	
 //  기본 라디오버튼값 세팅	
@@ -130,26 +129,11 @@ $(function(){
 			$("#chArea").val(mile);
 			$("#total").val(amt-mile);
 		}
+		$("${member.memberMile}").val(($("#membermile").val())-($("#chArea").val()));
+		$("#frm").submit();  
 			
 		
 	});
-	
-	
-	
-	
-//	모달창 버튼 클릭 시 페이지이동
-	function subResult(str) {
-		if(str == 'B') {
-			frm.action = "home";
-			
-		}else {
-			frm.action = "myPage";	
-		}
-	}
-	
-	
-	
-	
 	
 	
 });
@@ -174,10 +158,6 @@ $(function(){
 							<tr>
 								<th>ID</th>
 								<td >${member.memberId }</td>
-							</tr>
-							<tr>
-								<th>회원명</th>
-								<td id="memberNm" data-membermane="${member.memberNm }">${member.memberNm }</td>
 							</tr>
 							<tr>
 							<th>월정액 기간선택<p style="color: #ac2925">★결제기간을 선택하세요.</p></th>
@@ -210,35 +190,5 @@ $(function(){
 				<button type="button" id="check_module" class="btn btn-outline-primary"  value="가입하기"> 가입하기</button>
 			</div><br><br><br>
 	</div>
-	
-	
-	
-<!-- The Modal -->
-<div id="myModal" class="modal" style="display:none;">
-
-  <!-- Modal content -->
-  <div class="modal-content" style="align-content: 'center';">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2>E로운생활 구독권 결제가 완료되었습니다.</h2>
-    </div>
-    <div class="modal-body">
-      
-      
-      <div id="resultTxt"></div>
-      <div id="resultTxt2"></div><br>
-      <div>
-      	구매자 ID : ${member.memberId}<br>
-      	구매자 성함 : ${member.memberNm}<br>
-      	구매자 연락처 : ${member.memberTel}<br>
-      	구매자 email : ${member.memberEmail}<br>
-      </div>
-    </div>
-    	<div>
-        	<span  class="btn btn-default get" style="background-color: #1E90FF" id="confirm" onclick="subResult('B')">대여하러 가기</span>
-        	<span class="btn btn-default get" style="background-color: #90EE90" id="close" onclick="subResult('C')">결제내역보기</span>
-      </div>
-    </div>
-</div>
 </body>
 </html>

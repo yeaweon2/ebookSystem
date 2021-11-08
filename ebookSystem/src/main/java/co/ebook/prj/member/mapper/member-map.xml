@@ -112,5 +112,15 @@
 		  from member
 		 where member_nicknm = #{memberNicknm}
 	</select>
+	
+	<update id="memSubUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
+		update  member
+		   set  member_phone_vld = 'Y'
+		   		,udt_dt = sysdate
+		   		,member_mile = #{memberMile}
+		   		,member_nm = #{memberNm}
+		 where  member_id = #{memberId}
+		   and  member_phone_vld = #{memberPhoneVld, jdbcType=CHAR}
+	</update>
 
 </mapper>

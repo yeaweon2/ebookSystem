@@ -35,4 +35,7 @@ public interface MemberMapper {
 //	멤버삭제
 	int memberDelete(MemberVO vo);
 	
+//	월정액 승인시 
+	int memSubUpdate(MemberVO vo);
+
 }

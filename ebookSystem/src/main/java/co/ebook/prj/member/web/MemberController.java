@@ -218,5 +218,23 @@ public class MemberController {
 		model.addAttribute("member", memberDao.memberSelect(vo));
 		return "member/myInfo";
 	}
+	
+//	월정액 결제성공 후 데이터 저장
+	@RequestMapping("/SuccessSup") 
+	public String SuccessSup(Model model ,  MemberVO vo, SubscriptionVO sVo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		vo.setMemberId((String)session.getAttribute("id"));
+		sVo.setMemberId((String)session.getAttribute("id"));
+
+		System.out.println("여기야여기============>"+vo.toString());
+		System.out.println("여기야여기============>"+sVo.toString());
+		model.addAttribute("sub", subDao.subUpdate(sVo));
+		model.addAttribute("member", memberDao.memSubUpdate(vo));
+		return "redirect:myPage";
+	}
+	
+	
+	
+	
 
 }

@@ -27,5 +27,28 @@
 		 where  member_id = #{memberId}
 	</select>
 	
+	<update id="subUpdate" parameterType="co.ebook.prj.subscription.vo.SubscriptionVO">
+		update  subscription
+		   set  subsp_id        = #{subspId},
+				subsp_sdt       = sysdate,
+				<if test="subspAmt == '9900'">
+				subsp_edt = to_char(add_months(sysdate, 1), 'YYYY-MM-DD')
+				</if>
+				<if test="subspAmt == '25900'">
+				subsp_edt = to_char(add_months(sysdate, 3), 'YYYY-MM-DD')
+				</if>
+				<if test="subspAmt == '90000'">
+				subsp_edt = to_char(add_months(sysdate, 12), 'YYYY-MM-DD')
+				</if>
+				subsp_pay_st    = #{subspPaySt},
+				subsp_amt       = #{subspAmt},
+				subsp_pay_mthd  = #{subspPayMthd},
+				subsp_pay_amt   = #{subspPayAmt},
+				subsp_mile      = #{subspMile},
+				imp_uid         = #{impUid},
+				udt_dt          = sysdate
+		 where  member_id = #{memberId}
+		
+	</update>
 
 </mapper>
