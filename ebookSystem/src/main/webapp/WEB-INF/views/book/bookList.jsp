@@ -335,7 +335,6 @@ function goList(p) {
 								<td>${list.bookPublCo}</td>
 								<td>${list.bookWriter}</td>
 								<td>${list.memberNm}</td>
-								
 								<c:if test="${list.cnfmStNm eq '승인'}">
 									<td style="color:red;font-weight:bold">${list.cnfmStNm}</td>
 								</c:if>

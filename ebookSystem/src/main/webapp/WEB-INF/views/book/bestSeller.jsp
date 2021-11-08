@@ -98,7 +98,7 @@ img {
                       <div class="col-sm-3 match-height">
                           <div class="vertical-center">
                               <h2 class="section-heading">BEST SELLER</h2>
-                              <h3 class="section-subheading secondary-font">Dedicated to excellence.</h3>
+                              <h3 class="section-subheading secondary-font">Please Read Me ..</h3>
                           </div>
                       </div>
                   </div>
@@ -151,7 +151,7 @@ img {
                       <div class="col-sm-3 match-height">
                           <div class="vertical-center">
                               <h2 class="section-heading">신간BOOK</h2>
-                              <h3 class="section-subheading secondary-font">Dedicated to excellence.</h3>
+                              <h3 class="section-subheading secondary-font">Please Read Me ..</h3>
                           </div>
                       </div>
                   </div>		                    
@@ -204,7 +204,7 @@ img {
                     <div class="col-sm-3 match-height">
                         <div class="vertical-center">
                             <h2 class="section-heading">추천BOOK</h2>
-                            <h3 class="section-subheading secondary-font">Dedicated to excellence.</h3>
+                            <h3 class="section-subheading secondary-font">Please Read Me ..</h3>
                         </div>
                     </div>
                 </div>		                    

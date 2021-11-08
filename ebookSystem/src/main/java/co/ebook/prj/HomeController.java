@@ -1,15 +1,11 @@
 package co.ebook.prj;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import co.ebook.prj.book.service.BookService;
+import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.category.service.CtgyService;
 import co.ebook.prj.category.vo.CtgyVO;
+import co.ebook.prj.common.service.CommService;
+import co.ebook.prj.common.vo.BookCnfmTopVO;
+import co.ebook.prj.common.vo.BucketTopVO;
+import co.ebook.prj.common.vo.InquireTopVO;
+import co.ebook.prj.common.vo.ReviewTopVO;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
 import co.ebook.prj.subscription.service.SubscriptionService;
@@ -44,12 +46,19 @@ public class HomeController {
 	@Autowired
 	SubscriptionService subDao;
 	
+	@Autowired
+	CommService commDao;
+	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, MemberVO vo, SubscriptionVO sVo, HttpServletRequest request) {
+	public String home(Locale locale, Model model
+					   , MemberVO vo, SubscriptionVO sVo
+					   , BookCnfmTopVO btVo
+					   , BucketTopVO bktVo
+					   , InquireTopVO itVo
+					   , HttpServletRequest request) {
 		
 		// best seller 
-		//List<BookVO> lists = bookDao.bestSellerBook();
-		//model.addAttribute("lists", lists);
+
 		
 		// 카테고리 
 		//List<CtgyVO> ctgyGrs = ctgyDao.ctgyList();
@@ -61,14 +70,33 @@ public class HomeController {
 		
 		
 		HttpSession session = request.getSession();
-		vo.setMemberId((String)session.getAttribute("id"));
-		sVo.setMemberId((String)session.getAttribute("id"));
+		String id = (String)session.getAttribute("id");
+		
+		vo.setMemberId(id);
+		sVo.setMemberId(id);
+		
 		sVo = subDao.subSelect(sVo);
+		
 		model.addAttribute("sub", sVo);
 		model.addAttribute("member", memberDao.memberSelect(vo));
 		
+		List<BookVO> bests = bookDao.bestSellerBook();
+		model.addAttribute("bests", bests);
 		
+		List<ReviewTopVO> reviewList = commDao.reviewTop();
+		model.addAttribute("reviewList", reviewList);
 		
+		String auth = (String)session.getAttribute("auth");
+		
+		if("A".equals(auth)) {
+			model.addAttribute("lists", commDao.inquireTop());	
+		}else if("M".equals(auth)) {
+			model.addAttribute("lists" , commDao.bookCnfmTop(id));	
+		}else if("U".equals(auth)) {
+			model.addAttribute("lists" , commDao.bucketTop(id));	
+		}else {
+		
+		}
 		
 		return "main/home";  
 	}
@@ -93,33 +121,4 @@ public class HomeController {
 		
 		return "no/tiles/sidebar";  
 	}
-	
-	
-	/**
-	 * Handles requests for the application home page.
-	 */
-		
-		private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-		
-		/**
-		 * Simply selects the home view to render by returning its name.
-		 */
-		
-		
-		@RequestMapping(value = "/", method = RequestMethod.GET)
-		public String home(Locale locale, Model model) {
-			logger.info("Welcome home! The client locale is {}.", locale);
-			
-			Date date = new Date();
-			DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-			
-			String formattedDate = dateFormat.format(date);
-			
-			model.addAttribute("serverTime", formattedDate );
-			
-			return "main/home";
-		}
-		
-	
-	
 }

@@ -70,6 +70,13 @@
 			var bookWriter = $("#bookWriter").val();
 			var bookPublSDt = $("#bookPublSDt").val();
 			var bookPublEDt = $("#bookPublEDt").val();
+			
+			if( bookPublSDt != null && bookPublEDt == null ){
+				alert("출간일 조회시 시작 및 종료일자를 모두 입력해주세요.");
+				return false;
+			}
+			
+			
 			var ctgyId = $("#ctgyId").val();
 			var ctgyGrId = $("#ctgyGrId").val();
 			
@@ -193,14 +200,14 @@
 									<div class="col-md-3">		
 										<label>출간일</label>
 									</div>
-									<div class="col-md-4">		
-										<input id="bookPublSDt" name="bookPublSDt" type="date" class="form-control" style="width:160px;float:left;"> 
+									<div class="col-md-4" style="padding-left:0;">		
+										<input id="bookPublSDt" name="bookPublSDt" type="date" class="form-control" style="width:180px;float:left;"> 
 									</div>
 									<div class="col-md-1" style="align-items : center;">
 										<h3>~</h3>
 									</div>
 									<div class="col-md-4" style="padding-left:0;">
-										<input id="bookPublEDt" name="bookPublEDt" type="date" class="form-control" style="width:160px">
+										<input id="bookPublEDt" name="bookPublEDt" type="date" class="form-control" style="width:180px">
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -229,7 +236,7 @@
 									<c:forEach var="book" items="${lists}">
 										<tr data-id='${book.bookId}'>
 											<td>${book.bookFlCd}</td>
-											<td>${book.ctgyGrNm}${book.ctgyIdNm}</td>
+											<td>${book.ctgyGrNm}${book.ctgyNm}</td>
 											<td><img width="50" height="70" src="${pageContext.request.contextPath}/fileUp${book.bookCoverPath}${book.bookCover}"></td>
 											<td>${book.bookNm}</td>
 											<td>${book.bookPublCo}</td>

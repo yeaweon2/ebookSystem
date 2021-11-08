@@ -25,13 +25,11 @@ public class BookSrchVO {
 	private String ctgyId;
 	private String ctgyGrId;
 	// BOOK조회시 출간일 기간 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")	
-	private Date bookPublSDt;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")	
-	private Date bookPublEDt;
+	private String bookPublSDt;
+	
+		
+	private String bookPublEDt;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")		

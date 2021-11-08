@@ -73,7 +73,7 @@
 	<insert id="bucketInsert" parameterType="co.ebook.prj.bucket.vo.BucketVO">
 		INSERT INTO BUCKET_BOOK VALUES 
 		( BUCK_SEQ.NEXTVAL 	, #{bookId}  	, #{memberId} 	, '01' 
-			, (SELECT MAX(bucket_ord)+1 FROM BUCKET_BOOK WHERE MEMBER_ID = #{memberId} ) 
+			, (SELECT nvl( MAX( nvl(bucket_ord, '0') ), 0) +1 FROM BUCKET_BOOK WHERE MEMBER_ID = #{memberId} )  
 			, null	, 'N' , SYSDATE , SYSDATE )
 	</insert>
 	

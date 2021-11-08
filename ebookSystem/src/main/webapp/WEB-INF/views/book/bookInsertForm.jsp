@@ -255,12 +255,13 @@
 							<label class="title">책설명</label>
 							<textarea rows="6" cols="90" id="bookDesc" name="bookDesc" class="form-control summernote"></textarea>				
 						</div>
-					</div>		
-				</form>		
-			</div>	
-		</div>
+					</div>	
+				</div>	
+			</form>		
+		</div>	
 	</div>
-	
+</div>
+
 	
 <div class="modal fade" id="bookApiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg"  role="document">

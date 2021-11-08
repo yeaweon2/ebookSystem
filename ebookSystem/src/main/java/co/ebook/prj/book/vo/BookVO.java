@@ -23,7 +23,7 @@ public class BookVO {
 	private String bookFlCd;
 	private String bookPublCo;
 	private String bookWriter;
-	private Date bookPublDt;
+	private String bookPublDt;
 	private String bookUseyn;
 	private String bookIntro;
 	private String bookContent;

@@ -1,11 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
 <mapper namespace="co.ebook.prj.common.mapper.CommCodeMapper">
 	<select id="commCodeList" resultType="co.ebook.prj.common.vo.CommCodeVO">
+	<![CDATA[
 		SELECT lcode
 		     , scode
-		     , scode_nm
+		     , scode_nm 
 		  FROM scodes 
-		 WHERE use_yn = 'Y'		
+		 WHERE use_yn = 'Y'
+		 ]]>		
 	</select>
+	
+	<select id="bucketTop" parameterType="String" resultType="co.ebook.prj.common.vo.BucketTopVO">
+	<![CDATA[
+		SELECT ROWNUM AS rn
+	         , B.BOOK_ID
+	         , B.BOOK_NM
+	         , BOOK_PUBL_CO
+	         , BOOK_WRITER         
+	         , B.BOOK_COVER
+	         , B.BOOK_COVER_PATH
+	    FROM (
+                SELECT *
+                FROM BUCKET_BOOK
+                WHERE MEMBER_ID = #{id}
+                    AND BUCKET_DONE_DT IS NULL
+                ORDER BY BUCKET_ORD
+		    ) A 
+			, BOOK B 
+		WHERE A.BOOK_ID = B.BOOK_ID
+		  AND ROWNUM < 6	
+	]]>
+	</select>
+
+	<select id="inquireTop"  resultType="co.ebook.prj.common.vo.InquireTopVO" >
+	<![CDATA[
+		 SELECT ROWNUM  AS rn
+	          , A.CMMNTY_ID
+	          , A. CMMNTY_TITLE
+	          , A.CMMNTY_WRITER
+	          , M.MEMBER_NM
+	          , A.INS_DT
+		   FROM ( 
+				    SELECT *
+				      FROM COMMUNITY 
+				     WHERE CMMNTY_FL_CD = '03'
+				       AND PROC_DONE_YN = 'N'
+				     ORDER BY INS_DT 
+				) A
+			  , MEMBER M
+		  WHERE A.CMMNTY_WRITER = M.MEMBER_ID
+		 	AND ROWNUM < 6	
+	]]>
+	</select>	
+	
+	
+	<select id="bookCnfmTop" parameterType="String" resultType="co.ebook.prj.common.vo.BookCnfmTopVO">
+	<![CDATA[
+		SELECT ROWNUM AS rn
+	         , BOOK_ID
+	         , BOOK_NM
+	         , BOOK_PUBL_CO
+	         , BOOK_WRITER
+	         , BOOK_COVER
+	         , BOOK_COVER_PATH
+	         , INS_DT 
+		  FROM ( 
+	            SELECT *
+	              FROM BOOK
+	             WHERE MEMBER_ID = #{id}
+	               AND BCNFM_ID IS NULL
+	               AND BOOK_CNFM_YN = 'N'
+	             ORDER BY INS_DT  
+		       )
+		  WHERE ROWNUM < 6	
+	]]>
+	</select>	
+
+	<select id="reviewTop" resultType="co.ebook.prj.common.vo.ReviewTopVO">
+	<![CDATA[
+			SELECT A.RN
+		         , A.REVIEW_TITLE
+		         , SUBSTR ( A.REVIEW_CONTENTS, 1 , 250 )  || '....'    AS REVIEW_CONTENTS
+		         , A.REVIEW_WRITER 
+		         , ( SELECT MEMBER_NM FROM MEMBER WHERE MEMBER_ID = A.REVIEW_WRITER ) AS REVIEW_WRITER_NM
+		         , B.BOOK_NM
+		         , B.BOOK_COVER
+		         , B.BOOK_COVER_PATH 
+		         , B.BOOK_PUBL_CO
+		         , B.BOOK_WRITER
+			  FROM ( SELECT ROW_NUMBER() OVER (ORDER BY REVIEW_LIKEIT DESC ) AS RN
+			       	       , R.* 
+			 			FROM REVIEW R          
+					) A , BOOK B
+			  WHERE A.BOOK_ID = B.BOOK_ID 
+				AND RN < 6
+	]]>
+	</select>
+	
 </mapper>
