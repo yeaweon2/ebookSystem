@@ -1,0 +1,103 @@
+-- 2 .  사원의 id를 입력받아 부서이름, job_id, 급여, 연간총수입 null일 경우더라도 값이 출력되도록 
+declare 
+    v_id employees.employee_id%type := &id;
+    v_deptNm  departments.department_name%type;
+    v_jobId employees.job_id%type;
+    v_amt number;
+    v_total number;
+begin
+    select d.department_name , job_id, salary, ( nvl(salary,0) + ( nvl(salary,0) * nvl(commission_pct , 0))) * 12 as total_salary
+         into v_deptNm , v_jobId , v_amt , v_total
+      from employees e
+            , departments d 
+    where e.department_id = d.department_id
+       and e.employee_id = v_id;
+    DBMS_OUTPUT.PUT_LINE(v_deptNm);
+    DBMS_OUTPUT.PUT_LINE(v_jobId);
+    DBMS_OUTPUT.PUT_LINE(v_amt);
+    DBMS_OUTPUT.PUT_LINE(v_total);
+end;
+/
+
+
+-- 3. 입사년도가 1998 이후입사 ( New employee ) , 아니면 ( Career employee )
+declare 
+    v_id employees.employee_id%type := &id;
+    v_hireY varchar2(4);
+begin
+    select to_char( hire_date , 'yyyy') 
+       into v_hireY
+      from employees 
+      where employee_id = v_id;
+    if    v_hireY  > '1998' then
+     DBMS_OUTPUT.PUT_LINE('New employee');
+    else 
+         DBMS_OUTPUT.PUT_LINE('Career employee');
+    end if;
+end;
+/
+
+
+-- 4. 구구단 ( 1~9단 중 홀수단 출력)
+begin
+    for i in 1..9 loop
+        if  ( i mod 2 )  = 1 then 
+        DBMS_OUTPUT.PUT_LINE( i || '단------->' );
+            for j in 1..9 loop    
+                DBMS_OUTPUT.PUT_LINE( i || ' * ' ||  j || ' = ' || i*j );
+            end loop;
+        end if ;
+    end loop;
+end;
+/
+
+
+-- 5. 부서번호 입력 -> 해당 부서의 사번, 이름 , 급여 출력
+declare
+ v_deptNo employees.department_id%type := &deptNo;
+ cursor emp_cursor is 
+    select employee_id,  last_name, salary
+      from employees e
+    where department_id = v_deptNo;
+    emp_record  emp_cursor%rowtype;
+    
+    v_id employees.employee_id%type;
+    v_nm employees.last_name%type;
+    v_sal employees.salary%type;
+begin
+    open emp_cursor;
+    loop
+    FETCH emp_cursor INTO emp_record;
+    exit when emp_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE( emp_record.employee_id || ' ' || emp_record.last_name || ' ' || emp_record.salary ) ;
+    end loop;
+    close emp_cursor;
+end;
+/
+select * from employees  where department_id = '50';
+
+
+-- 6. 부서이름입력 --> 책임자 이름출력 
+create or replace function get_manager ( v_deptNm in departments.department_name%type ) 
+return varchar2
+is
+    v_nm employees.last_name%type;
+begin
+    select last_name 
+    into v_nm
+    from departments d
+         , employees e
+         where d.manager_id = e.employee_id
+         and d.department_name = v_deptNm;
+    return v_nm;
+end get_manager;
+/
+ 
+select get_manager('Administration') from dual;
+ 
+ 
+-- 7. 소스코드 확인 
+SELECT *
+FROM user_source
+WHERE type IN (  'PROCEDURE' , 'FUNCTION' , 'PACKAGE', 'PACKAGE BODY' )
+ORDER BY type , name, line ;

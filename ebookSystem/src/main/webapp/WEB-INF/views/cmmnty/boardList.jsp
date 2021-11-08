@@ -49,7 +49,7 @@
 						<c:forEach var="board" items="${boards }"> 
 							<tr class="boardSelect" data-id="${board.cmmntyId}">
 								<td>${board.cmmntyNo}</td>
-								<td>${board.cmmntyTitle}(${board.cmmntyReplyCnt})</td>
+								<td>${board.cmmntyTitle}<c:if test="${notice.cmmntyReplyCnt ne '0'}">(${board.cmmntyReplyCnt})</c:if></td>
 								<td>${board.cmmntyWriter}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${board.insDt}"/></td>
 								<td>${board.cmmntyHit}</td>

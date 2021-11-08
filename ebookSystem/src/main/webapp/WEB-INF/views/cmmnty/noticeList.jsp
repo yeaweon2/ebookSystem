@@ -47,7 +47,7 @@
 						<c:forEach var="notice" items="${notices }">
 							<tr class="noticeSelect" data-id="${notice.cmmntyId}">
 								<td>${notice.cmmntyNo}</td>
-								<td>${notice.cmmntyTitle}(${notice.cmmntyReplyCnt})</td>
+								<td>${notice.cmmntyTitle} <c:if test="${notice.cmmntyReplyCnt ne '0'}">(${notice.cmmntyReplyCnt})</c:if></td>
 								<td>${notice.cmmntyWriter}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${notice.insDt}"/></td>
 								<td>${notice.cmmntyHit}</td>

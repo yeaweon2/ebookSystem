@@ -9,5 +9,4 @@ public interface ReplyMapper {
 	int replyInsert(ReplyVO vo);
 	int replyUpdate(ReplyVO vo);
 	int replyDelete(ReplyVO vo);
-
 }

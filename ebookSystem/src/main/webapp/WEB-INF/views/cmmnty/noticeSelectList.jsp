@@ -108,7 +108,7 @@
 				        		     				   		    $('<td>').html($("<a class='rreplyInputBtn pointer' id='rreplyInputBtn'>").html("답글쓰기")),
 				        		     				 		    $('<td>').html($("<a class='btnUp pointer' id='btnUp'>").html("수정")),
 				        		     				 		    $('<td>').html($("<a class='pointer' id='btnSave' style='display :none'>").html("저장")),
-				        		     				 		    $('<td>').html($("<a class='btnDel pointer' id='btnDel' >").html("삭제")),		   				
+				        		     				 		    $('<td>').html($("<a class='btnDel pointer' id='btnDel' >").html("삭제")),
 				        		     				 		    $('<td>').html($("<a class='pointer' id='btnCancle' style='display :none'>").html("취소")),
 	        		     				)//마지막 tr행끝
 	        		     				.data("cid", item.cmmntyId )
@@ -255,6 +255,12 @@
 				</tr>
 				<tr>
 					<td colspan="6" height="300">${notice.cmmntyContents}</td>
+				</tr>
+				<tr>
+					<td>
+					첨부파일: <a href="${pageContext.request.contextPath}/fileUp${notice.cmmntyAtchPath}${notice.cmmntyAtchNm}"">${notice.cmmntyAtchNm}</a> 
+				
+					</td>
 				</tr>
 			</table>
 

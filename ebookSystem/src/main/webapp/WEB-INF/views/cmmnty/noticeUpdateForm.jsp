@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,7 @@
 	 }); 
 	 
 	 $('#noticeUpdateBtn').on("click", function(){
+		 if()//첨부파일 다르면...삭제하고 추가해야함..
 		 frm.submit();
 	 })
  }); 
@@ -25,7 +27,7 @@
 					<h2>글쓰기</h2><br><br>
 				</div>
 			</div>
-				<form id="frm" name="frm" action="noticeUpdate" method="post">
+				<form id="frm" name="frm" action="noticeUpdate" method="post" enctype="multipart/form-data">
 					<div>
 						<label for="title">제목</label>
 						<input type="text" class="form-control" name="cmmntyTitle" id="cmmntyTitle" value ="${notice.cmmntyTitle }" >
@@ -35,9 +37,15 @@
 						<label for="content">내용</label>
 					<textarea name="cmmntyContents" id="summernote" class="summernote">${notice.cmmntyContents }</textarea>
 					</div>
-					<div >
-						<label for="reg_id">파일첨부</label>
-						<input type="file" class="form-control" multiple id="cmmntyAtchNm" value ="${notice.cmmntyAtchNm }">
+					<div>
+					<div>
+					<c:if test="${not empty notice.cmmntyAtchNm }">
+					첨부파일 : <a href="#">${notice.cmmntyAtchNm}</a>
+					</c:if>
+					
+					<input type="file" multiple="multiple" name="attchFile" id="attchFile" class="attchFile"> 
+					
+					</div>
 					</div><br>	
 							<input type="hidden" id="cmmntyId" name="cmmntyId" value="${notice.cmmntyId}">
 							<input id="noticeUpdateBtn" type="button" value="수정" class="btn-primary">

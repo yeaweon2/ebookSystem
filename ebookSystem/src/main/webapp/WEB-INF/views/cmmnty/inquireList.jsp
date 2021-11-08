@@ -41,23 +41,22 @@
 						<th>번호</th>
 						<th>제목</th>
 						<th>작성자</th>
+						<th>답변여부<th>
 						<th>작성일</th>
-						<th>조회수</th>
 					</tr>
 				</thead>
 				<tbody>
-
 					<c:forEach var="inquire" items="${inquires }">
+ 					<c:if test="${id eq 'admin' || id eq inquire.cmmntyWriter}">
 						<tr class="inquireSelect" data-id="${inquire.cmmntyId}">
 							<td>${inquire.cmmntyNo}</td>
 							<td>${inquire.cmmntyTitle}(${inquire.cmmntyReplyCnt})</td>
 							<td>${inquire.cmmntyWriter}</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd"
-									value="${inquire.insDt}" /></td>
-							<td>${inquire.cmmntyHit}</td>
+							<td>${inquire.procDoneYn}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${inquire.insDt}" /></td>
 						</tr>
+				    </c:if>
 					</c:forEach>
-
 				</tbody>
 			</table>
 

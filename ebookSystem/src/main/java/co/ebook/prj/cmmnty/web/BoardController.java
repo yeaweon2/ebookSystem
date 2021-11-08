@@ -41,14 +41,18 @@ public class BoardController {
 
 	// 자유게시판 게시글입력양식
 	@RequestMapping("/boardInsertForm")
-	String boardInsertForm(Model model, CmmntyVO vo, HttpServletRequest request) {
+	String boardInsertForm(Model model, CmmntyVO vo) {
 
 		return "cmmnty/boardInsertForm";
 	}
 
 	// 자유게시판 게시글입력
 	@RequestMapping("/boardInsert")
-	String boardInsert(Model model, CmmntyVO vo) throws Exception {
+	String boardInsert(Model model, CmmntyVO vo, HttpServletRequest request) throws Exception {
+		
+		
+		HttpSession session = request.getSession();
+		vo.setCmmntyWriter((String)session.getAttribute("id"));
 		vo.setCmmntyFlCd("04");
 		int lists = cmmntyDao.cmmntyInsert(vo);
 
