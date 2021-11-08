@@ -13,7 +13,7 @@
 	 }); 
 	 
 	 $('#noticeUpdateBtn').on("click", function(){
-		 if()//첨부파일 다르면...삭제하고 추가해야함..
+		
 		 frm.submit();
 	 })
  }); 

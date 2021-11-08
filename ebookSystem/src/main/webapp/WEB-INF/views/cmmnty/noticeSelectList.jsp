@@ -258,7 +258,7 @@
 				</tr>
 				<tr>
 					<td>
-					첨부파일: <a href="${pageContext.request.contextPath}/fileUp${notice.cmmntyAtchPath}${notice.cmmntyAtchNm}"">${notice.cmmntyAtchNm}</a> 
+					첨부파일: <a href="#">${notice.cmmntyAtchNm}</a> 
 				
 					</td>
 				</tr>

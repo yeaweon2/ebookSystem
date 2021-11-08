@@ -116,11 +116,9 @@ public class CmmntyController {
 
 	// 공지사항 게시글수정 양식
 	@PostMapping("/noticeUpdateForm")
-	public String noticeUpdateForm(Model model, CmmntyVO vo, HttpServletRequest request) {
+	public String noticeUpdateForm(Model model, CmmntyVO vo) {
 		vo.setCmmntyFlCd("01");
 
-		HttpSession session = request.getSession();
-		vo.setCmmntyWriter((String) session.getAttribute("id"));
 		vo = cmmntyDao.cmmntySelectList(vo);
 		model.addAttribute("notice", vo);
 		return "cmmnty/noticeUpdateForm";
@@ -128,8 +126,33 @@ public class CmmntyController {
 
 	// 공지사항 게시글수정
 	@RequestMapping(value = "/noticeUpdate")
-	public String noticeUpdate(Model model, CmmntyVO vo) {
+	public String noticeUpdate(Model model, CmmntyVO vo, MultipartFile attchFile, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		vo.setCmmntyWriter((String) session.getAttribute("id"));
 
+		String fileName = "";
+		String real_filePath = "";
+		String folder= "/notice/";
+		
+		try {
+			if( attchFile != null) {
+				if(!attchFile.getOriginalFilename().isEmpty()) {
+					fileName = attchFile.getOriginalFilename();
+					real_filePath = filePath + folder;
+					File fileSave = new File(real_filePath, fileName);
+					
+					attchFile.transferTo(fileSave);	
+				}else {
+					filePath = "";
+					fileName = "";
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("===================수정을보자");
+		System.out.println(vo.toString());
 		int list = cmmntyDao.cmmntyUpdate(vo);
 		if (list != 0) {
 			model.addAttribute("msg", "성공");
