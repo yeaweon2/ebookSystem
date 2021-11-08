@@ -19,7 +19,7 @@
 				member_nicknm,     			member_email,				member_birth,       
 				member_gen,         		member_mile,        	
 				member_tel,         
-				member_phone_vld,     		manager_cnfm_yn,    		member_like_fld,        
+				member_sub_yn,     			manager_cnfm_yn,    		member_like_fld,        
 				member_profile_nm, 			member_profile_path,   		ins_dt,      
 				udt_dt,                     mcnfm_id,
 				member_fl_cd,
@@ -35,12 +35,12 @@
 		  into	member 
 				(member_id,              member_pw,         member_nm,         member_nicknm,     member_st_cd,
 				member_fl_cd,            member_email,      member_birth,      member_gen,        member_mile,
-				member_tel,              member_phone_vld,  manager_cnfm_yn,   member_like_fld,   member_profile_nm,
+				member_tel,              member_sub_yn,  manager_cnfm_yn,   member_like_fld,   member_profile_nm,
 				member_profile_path,     ins_dt,            udt_dt)
 		values
 				(#{memberId},            #{memberPw},       #{memberNm},       #{memberNicknm},   '01',
 				 'U',                    #{memberEmail},    #{memberBirth},    #{memberGen},      #{memberMile},
-				 #{memberTel},           #{memberPhoneVld}, #{managerCnfmYn},  #{memberLikeFld},  #{memberProfileNm}, 
+				 #{memberTel},           #{memberSubYn}, #{managerCnfmYn},  #{memberLikeFld},  #{memberProfileNm}, 
 				 #{memberProfilePath},   sysdate,           sysdate)
 	</insert>
 	
@@ -49,12 +49,12 @@
 		  into	member 
 				(member_id,              member_pw,         member_nm,         member_nicknm,     member_st_cd,
 				member_fl_cd,            member_email,      member_birth,      member_gen,        member_mile,
-				member_tel,              member_phone_vld,  manager_cnfm_yn,   member_like_fld,   member_profile_nm,
+				member_tel,              member_sub_yn, 	manager_cnfm_yn,   member_like_fld,   member_profile_nm,
 				member_profile_path,     ins_dt,            udt_dt)
 		values
 				(#{memberId},            #{memberPw},       #{memberNm},       #{memberNicknm},   '01',
 				 'M',                    #{memberEmail},    #{memberBirth},    #{memberGen},      #{memberMile},
-				 #{memberTel},           #{memberPhoneVld}, #{managerCnfmYn},  #{memberLikeFld},  #{memberProfileNm}, 
+				 #{memberTel},           #{memberSubYn}, #{managerCnfmYn},  #{memberLikeFld},  #{memberProfileNm}, 
 				 #{memberProfilePath},   sysdate,           sysdate)
 	</insert>
 	
@@ -84,7 +84,7 @@
            		member_like_fld = #{memberLikeFld},
            		member_profile_nm  = #{memberProfileNm},
            		member_profile_path = #{memberProfilePath},
-           		member_phone_vld = #{memberPhoneVld},
+           		member_sub_yn = #{memberSubYn},
            		manager_cnfm_yn = #{managerCnfmYn},
            		mcnfm_id = #{mcnfmId},
            		member_fl_cd =#{memberFlCd} ,
@@ -115,12 +115,12 @@
 	
 	<update id="memSubUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
 		update  member
-		   set  member_phone_vld = 'Y'
+		   set  member_sub_yn = 'Y'
 		   		,udt_dt = sysdate
 		   		,member_mile = #{memberMile}
 		   		,member_nm = #{memberNm}
 		 where  member_id = #{memberId}
-		   and  member_phone_vld = #{memberPhoneVld, jdbcType=CHAR}
+		   and  member_sub_yn = #{memberSubYn, jdbcType=CHAR}
 	</update>
 
 </mapper>

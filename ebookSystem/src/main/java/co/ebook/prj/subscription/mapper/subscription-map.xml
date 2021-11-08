@@ -27,6 +27,48 @@
 		 where  member_id = #{memberId}
 	</select>
 	
+	<insert id="subInsert" parameterType="co.ebook.prj.subscription.vo.SubscriptionVO">
+		insert 
+		  into  subscription
+		  		( subsp_id,        		member_id, 
+				subsp_sdt,         		subsp_edt, 
+				subsp_pay_st,     		subsp_amt,
+				subsp_pay_mthd,   		subsp_pay_amt,
+				subsp_mile,        		imp_uid,
+				ins_dt,            		udt_dt)
+		values  (#{subspId}, 			#{memberId},
+				#{subspSdt},			#{subspEde}, 
+				#{subspPaySt}, 			#{subspAmt}, 
+				#{subspPayMthd}, 		#{subspPayAmt}, 
+				#{subspMile}, 			#{impUid}, 
+				sysdate, 				sysdate)
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		
+	
+	
+	
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<update id="subUpdate" parameterType="co.ebook.prj.subscription.vo.SubscriptionVO">
 		update  subscription
 		   set  subsp_id        = #{subspId},

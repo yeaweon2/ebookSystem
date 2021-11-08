@@ -24,7 +24,7 @@ public class MemberVO {
 	private String memberGen;
 	private int memberMile;
 	private String memberTel;
-	private String memberPhoneVld;
+	private String memberSubYn;
 	private String managerCnfmYn;
 	private String memberLikeFld;
 	private String memberProfileNm;
