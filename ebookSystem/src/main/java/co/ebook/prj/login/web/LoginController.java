@@ -23,7 +23,7 @@ public class LoginController {
 	public String login (Model model,HttpServletRequest request, LoginVO vo) {
 		HttpSession session = request.getSession();
         
-		session.setMaxInactiveInterval(60);
+		session.setMaxInactiveInterval(3600);
 		
 		return "main/login";
 	}
