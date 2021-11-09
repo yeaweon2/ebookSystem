@@ -101,6 +101,7 @@ public class LoginController {
 		} else { 
 			model.addAttribute("check", 0);
 			model.addAttribute("updateid", user.getMemberId());
+			model.addAttribute("updatePw", user.getMemberPw());
 		}
 		
 		return "main/findPassword";

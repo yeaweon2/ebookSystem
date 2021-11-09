@@ -114,7 +114,7 @@ body {
 
 <body>
 <form method="post" class="form-signin" action="find_password" name="findform" id = "frm">
-<div class="form-label-group">
+		<div class="form-label-group">
 			<input type="text" id="memberId" name="memberId" class="form-control"/>
 			<label for="id">ID</label>
 		</div>
@@ -133,7 +133,6 @@ body {
 			<input class="btn btn-lg btn-secondary btn-block text-uppercase"
 				type="button" value="check" id="ckPass">
 		</div>
-
 		<!-- 정보가 일치하지 않을 때-->
 		<c:if test="${check == 1}">
 			<script>
@@ -151,6 +150,7 @@ body {
 		</div>
 		<div class="form-label-group">
 		<input type="hidden" id="id" name="updateid" value="${updateid }">
+		<input type="hidden" id="pw" name="updatePw" value="${updatePw }">
 		
 			<input type="password" id="password" name="pwd" class="form-control"/>
 			<label for="password">password</label>

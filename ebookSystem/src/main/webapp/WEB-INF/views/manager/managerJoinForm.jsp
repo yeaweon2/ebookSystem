@@ -227,11 +227,22 @@
 
 					<hr class="col-sm-8">
 					<div class="col-sm-8" >
-						<button style="float:right; margin-right: 50px; padding-top: 10px" class="btn btn-primary btn-lg"  onClick="alert('회원가입이 완료되었습니다. 홈으로 이동합니다.')" type="submit">&nbsp;&nbsp;회원가입</button>
+						<button id="join" style="float:right; margin-right: 50px; padding-top: 10px" class="btn btn-primary btn-lg"  type="button">&nbsp;&nbsp;회원가입</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+
+		$("#join").on("click", function(){
+			alert('회원가입이 완료되었습니다. 홈으로 이동합니다.');
+				frm.action="managerJoinSuccess";
+				frm.submit(); 
+				
+			});
+		
+	</script>
 </body>
 </html>
