@@ -24,6 +24,7 @@ public class BcnfmVO {
 	private String bcnfmReqNm;
 	private String bcnfmStCd;
 	private String bcnfmCnfmr;
+	private String fileCnt;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")

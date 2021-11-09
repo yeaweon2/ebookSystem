@@ -10,6 +10,7 @@ public class ReviewTopVO {
 	private String reviewWriter ;
 	private String reviewWriterNm;
 	private String bookNm;
+	private String bookId;
 	private String bookCover;
 	private String bookCoverPath; 
 	private String bookPublCo;

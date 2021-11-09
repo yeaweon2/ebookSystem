@@ -54,10 +54,15 @@ select {
 <script type="text/javascript">
 	$(function(){
 		$("#cnfmBtn").on("click", function(){
-			
+			var chkCnt = 0;
 			var book = [];
 			$("#chkInput:checked").each(function(){
-					
+				
+				var filecnt = $(this).closest("tr").data("filecnt");
+				if( filecnt == '0'){
+					chkCnt++;
+				} 
+				
 				var bcnfmId = $(this).closest("tr").data("id");
 				var bookId = $(this).closest("tr").data("book");
 				var data = {
@@ -72,6 +77,10 @@ select {
 			if( book == null ){
 				alert("승인처리건을 선택한 후 진행해주세요.");
 				return false;
+			}
+			if( chkCnt > 0 ){
+				alert("파일이 등록되지 않은 BOOK은 승인할 수 없습니다.");
+				return false;	
 			}
 			
 			 $.ajax({
@@ -176,7 +185,10 @@ select {
 						</table>
 					</div>
 			</div>				
-	
+			<div class="row pull-right" style="margin-top:10px;margin-bottom:10px;">
+				<button type="button" id="cnfmBtn" class="btn ebookBtn">승 인</button>
+				<button type="button" id="rejectModalBtn" class="btn ebookBtn">보 류</button>
+			</div>
 				
 			<div class="row">
 				<table id="bcnfmTb" class="table table-hover" style="cursor: pointer;">
@@ -186,14 +198,20 @@ select {
 							<th>신청일자</th>
 							<th>신청자</th> 
 							<th>BOOK명</th>
+							<th>파일갯수</th>
 							<th>상태</th>
 							<th>승인일자</th>
 							<th>승인자</th>
 						</tr>
 						<tbody>
 							<c:forEach var="list" items="${lists}" >
-								<tr data-id="${list.bcnfmId}" data-book="${list.bookId}">
-									<td><input type="checkbox" id="chkInput"></td>
+								<tr data-id="${list.bcnfmId}" data-book="${list.bookId}" data-filecnt="${list.fileCnt}">
+									<c:if test="${list.bcnfmStCd eq '처리중' }">
+										<td><input type="checkbox" id="chkInput"></td>
+									</c:if>
+									<c:if test="${list.bcnfmStCd != '처리중' }">
+										<td></td>
+									</c:if>
 									<td>${list.bcnfmNo}</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.bcnfmReqDt}"/></td>
 									<td>${list.bcnfmReqNm}</td>
@@ -201,14 +219,19 @@ select {
 										<c:if test="${not empty list.bookCoverPath}">
 											<img width="50" height="70" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">&nbsp;&nbsp;
 										</c:if>
-									${list.bookNm}</td>
+										${list.bookNm}
+									</td>
+									<td>${list.fileCnt}</td>
 									<c:if test="${list.bcnfmStCd eq '승인'}">
 										<td style="color:red;font-weight:bold">${list.bcnfmStCd}</td>
 									</c:if>
 									<c:if test="${list.bcnfmStCd eq '보류'}">
 										<td style="color:#0c2e8a;font-weight:bold">${list.bcnfmStCd}</td> 
 									</c:if>
-									<c:if test="${list.bcnfmStCd eq '처리중'}">
+									<c:if test="${list.bcnfmStCd eq '처리중' }">
+										<td style="font-weight:bold">${list.bcnfmStCd}</td>
+									</c:if>
+									<c:if test="${list.bcnfmStCd eq '미신청' }">
 										<td>${list.bcnfmStCd}</td>
 									</c:if>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.bcnfmCnfmDt}"/></td>
@@ -217,10 +240,6 @@ select {
 							</c:forEach>
 						</tbody>
 					</table>
-					<div>
-						<button type="button" id="cnfmBtn" class="btn btn-primary">승 인</button>
-						<button type="button" id="rejectModalBtn" class="btn btn-primary">보 류</button>
-					</div>
 			</div>
 		</div>
 	</div>	

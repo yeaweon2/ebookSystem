@@ -43,7 +43,7 @@
 	          , A. CMMNTY_TITLE
 	          , A.CMMNTY_WRITER
 	          , M.MEMBER_NM
-	          , A.INS_DT
+	          , TO_CHAR( A.INS_DT , 'YYYY-MM-DD') AS INS_DT
 		   FROM ( 
 				    SELECT *
 				      FROM COMMUNITY 
@@ -88,6 +88,7 @@
 		         , A.REVIEW_WRITER 
 		         , ( SELECT MEMBER_NM FROM MEMBER WHERE MEMBER_ID = A.REVIEW_WRITER ) AS REVIEW_WRITER_NM
 		         , B.BOOK_NM
+		         , B.BOOK_ID
 		         , B.BOOK_COVER
 		         , B.BOOK_COVER_PATH 
 		         , B.BOOK_PUBL_CO

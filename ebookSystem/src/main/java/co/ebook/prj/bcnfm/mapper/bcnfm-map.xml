@@ -4,19 +4,21 @@
 	<select id="bcnfmList" resultType="co.ebook.prj.bcnfm.vo.BcnfmVO">
    	   SELECT rownum as bcnfmNo
             , c.bcnfm_id
-            , c.book_id
+            , b.book_id
             , b.book_cover
             , b.book_cover_path
             , ( SELECT member_nm FROM member m where m.member_id = b.member_id ) as bcnfm_req_nm
             , b.book_nm            
             , bcnfm_req_dt
-            , ( SELECT scodes.scode_nm FROM scodes 
-                WHERE lcode = 'BC' AND scode = c.bcnfm_st_cd ) as bcnfmStCd
+            , nvl( ( SELECT scodes.scode_nm FROM scodes 
+                WHERE lcode = 'BC' AND scode = c.bcnfm_st_cd ), '미신청') as bcnfmStCd
             , bcnfm_cnfm_dt
             , ( SELECT member_nm FROM member m where m.member_id = c.bcnfm_cnfmr ) as bcnfm_cnfmr 
-		 FROM book_confirm c 
-		    , book b
-       WHERE c.book_id = b.book_id 
+            , ( select count(1) from book_attach where book_id = b.book_id ) as fileCnt
+		 FROM book b
+		    ,  book_confirm c  
+       WHERE b.book_id = c.book_id (+) 
+       order by nvl( c.bcnfm_st_cd, '04') 
 	</select>
 	
 	<select id="bcnfmDetail" resultType="co.ebook.prj.bcnfm.vo.BcnfmVO">

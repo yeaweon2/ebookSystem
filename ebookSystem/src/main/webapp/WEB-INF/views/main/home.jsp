@@ -99,8 +99,14 @@ body {font-family: Verdana, sans-serif; margin:0}
 @media only screen and (max-width: 300px) {
   .prev, .next,.text {font-size: 11px}
 }
+
+.over {
+	text-decoration: underline;
+	font-weight: bold;	
+}
+
 </style>
-<<script type="text/javascript">
+<script type="text/javascript">
 $(function(){
 	
 	$("#bestUl").on("click", "li", function(){
@@ -108,163 +114,177 @@ $(function(){
 		frm.submit();
 	});
 	
-	$(".slideshow-container").on("click", "#mySlides", function(){
+	$(".slideshow-container").on("click", ".mySlides", function(){
 		alert("책리뷰 완성되면 넘어가도록 수정예정");
 	});
-
+	
+	$(".bucketBook").on("mouseover", function(){
+		$(this).find("h4").addClass("over");
+		$(this).find("label").addClass("over");
+	});
+	
+	$(".bucketBook").on("mouseout", function(){
+		$(this).find("h4").removeClass("over");
+		$(this).find("label").removeClass("over");
+	});
+	
+	$(".bcnfmBook").on("mouseover", function(){
+		$(this).find("h4").addClass("over");
+		$(this).find("label").addClass("over");
+	});
+	
+	$(".bcnfmBook").on("mouseout", function(){
+		$(this).find("h4").removeClass("over");
+		$(this).find("label").removeClass("over");
+	});
+	
+	$(".cmmntyAsk").on("mouseover", function(){
+		$(this).find("p").addClass("over");
+	});
+	
+	$(".cmmntyAsk").on("mouseout", function(){
+		$(this).find("p").removeClass("over");
+	});
 	
 });
 </script>
 <section class="white-bg">
 	<div class="section-inner" id="dclick">
-		<div class="row">
-			<div class="col-md-5 box">
-				<c:if test="${auth eq 'U'}">	<!-- 일반사용자 -->
-					<div class="section-header">
-				   		<h2>${nicknm}님의 버킷 TOP5</h2>
-					</div>				   
-					<c:forEach var="list" items="${lists}">
-					   	<div class="row">
-							<div class="col-sm-2">
-								<label>${list.rn}</label>
-							</div>
-							<div class="col-sm-3">
-								<img class="media-object" height="70" width="50" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">
-							</div>
-							<div class="col-sm-7">
-								<h2>${list.bookNm}</h2>
-								<label>${list.bookPublCo}(${list.bookWriter})</label>
-							</div>
-					   	</div>
-				   	</c:forEach>
-				</c:if>
-				<c:if test="${auth eq 'M'}">	<!-- 매니저 -->
-					<div class="section-header">
-				   		<h2>${nicknm}님의 미처리 BOOK</h2>
-					</div>				   
-					<c:forEach var="list" items="${lists}">
-					   	<div class="row">
-							<div class="col-sm-2">
-								<label>${list.rn}</label>
-							</div>
-							<div class="col-sm-3">
-								<img class="media-object" height="70" width="50" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">
-							</div>
-							<div class="col-sm-7">
-								<h2>${list.bookNm}</h2>
-								<label>${list.bookPublCo}(${list.bookWriter})</label>
-							</div>
-					   	</div>
-				   	</c:forEach>
-				</c:if>
-				<c:if test="${auth eq 'A'}">	<!-- 관리자 -->
-				   <div class="section-header">
-				   		<h2>${nicknm}님의 미처리 1:1 문의</h2>
-					</div>				   
-					<c:forEach var="list" items="${lists}">
-					   	<div class="row">
-							<div class="col-sm-2">
-								<label>${list.rn}</label>
-							</div>
-							<div class="col-sm-5">
-								<label>${list.cmmntyTitle}</label>
-							</div>
-							<div class="col-sm-2">
-								<label>${list.memberNm}</label>
-							</div>
-							<div class="col-sm-3">
-								<label>${list.insDt}</label>
-							</div>
-					   	</div>
-				   	</c:forEach>
-				</c:if>
-				<c:if test="${empty auth}">		<!-- 로그인전 미접속상태 -->
-				   
-				</c:if>
-			</div>
-			<div class="col-md-6">			
-				<div class="row box">
-                      <div class="col-sm-9 match-height">
-                          <div class="row">
-                              <div class="col-xs-12">
-                                  <ul id="bestUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
-                                  <c:forEach var="bestbook" items="${bests}">
-                                      <li data-id='${bestbook.bookId}'>
-                                          <div class="row hover-item">
-                                              <div class="col-xs-12">
-                                                  <img src="/prj/fileUp${bestbook.bookCoverPath}${bestbook.bookCover}" width="180" height="210" class="img-responsive smoothie" alt="">
-                                              </div>
-                                              <div class="col-xs-12 hover-item-caption smoothie">
-                                                  <div class="vertical-center">
-                                                      <h3 class="smoothie"><a href="single-portfolio.html" title="view project">${bestbook.bookNm}</a></h3>
-                                                      <ul class="smoothie list-inline social-links wow">
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-twitter"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-pinterest"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-dribbble"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-facebook"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-behance"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                          </li>
-                                                      </ul>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </li>
-                                      
-                                  </c:forEach> 
-                                      
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-sm-3 match-height">
-                          <div class="vertical-center">
-                              <h2 class="section-heading">BEST SELLER</h2>
-                              <h3 class="section-subheading secondary-font">Please Read Me ..</h3>
-                          </div>
-                      </div>
-                  </div>	
-				<div class="row box">
-					<div>
-						<div class="slideshow-container">
-							<c:forEach var="review" items="${reviewList}">
-							<div class="mySlides">
-								<div class="row pointer" style="padding:30px">
-									<div class="col-md-3" >
-										<img src="/prj/fileUp${review.bookCoverPath}${review.bookCover}"  width="250px" height="280px">
-									</div>
-									<div class="col-md-8 col-sm-offset-1" style="padding:20px" >
-										<h2>${review.reviewTitle}</h2>
-										<p>${review.reviewContents}</p>	
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 box" >
+					<c:if test="${auth eq 'U'}">	<!-- 일반사용자 -->
+						<div class="section-header">
+					   		<h2>${nicknm}님의 버킷 TOP5</h2>
+						</div>				   
+						<c:forEach var="list" items="${lists}">
+						   	<div class="row bucketBook pointer" onclick="location.href='bucketList'">
+								<div class="col-sm-2">
+									<img class="media-object" height="70" width="50" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">
+								</div>
+								<div class="col-sm-10">
+									<h4>${list.rn}. ${list.bookNm}</h4>
+									<label>${list.bookPublCo}(${list.bookWriter})</label>
+								</div>
+						   	</div>
+					   	</c:forEach>
+					</c:if>
+					<c:if test="${auth eq 'M'}">	<!-- 매니저 -->
+						<div class="section-header">
+					   		<h2>${nicknm}님의 미처리 BOOK</h2>
+						</div>				   
+						<c:forEach var="list" items="${lists}">
+						   	<div class="row bcnfmBook pointer" onclick="location.href='bookList'">
+								<div class="col-sm-2">
+									<img class="media-object" height="70" width="50" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">
+								</div>
+								<div class="col-sm-10">
+									<h4>${list.rn}. ${list.bookNm}</h4>
+									<label>${list.bookPublCo}(${list.bookWriter})</label>
+								</div>
+						   	</div>
+					   	</c:forEach>
+					</c:if>
+					<c:if test="${auth eq 'A'}">	<!-- 관리자 -->
+					   <div class="section-header">
+					   		<h3>${nicknm}님의 미처리 1:1 문의</h3>
+						</div>				   
+						<c:forEach var="list" items="${lists}">
+						   	<div class="row cmmntyAsk pointer" onclick="location.href='inquireList'">
+								<div class="col-sm-12" style='padding:0px; margin-left:20px'>
+									<p>${list.rn}. ${list.cmmntyTitle}<br/>&nbsp;&nbsp;&nbsp;&nbsp;${list.memberNm} ( ${list.insDt} )</p>
+								</div>
+						   	</div>
+					   	</c:forEach>
+					</c:if>
+					<c:if test="${empty auth}">		<!-- 로그인전 미접속상태 -->
+					   
+					</c:if>
+				</div>
+				<div class="col-md-8">			
+					<div class="row box">
+	                      <div class="col-sm-9 match-height">
+	                          <div class="row">
+	                              <div class="col-xs-12">
+	                                  <ul id="bestUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
+	                                  <c:forEach var="bestbook" items="${bests}">
+	                                      <li data-id='${bestbook.bookId}'>
+	                                          <div class="row hover-item">
+	                                              <div class="col-xs-12">
+	                                                  <img src="/prj/fileUp${bestbook.bookCoverPath}${bestbook.bookCover}" width="180" height="210" class="img-responsive smoothie" alt="">
+	                                              </div>
+	                                              <div class="col-xs-12 hover-item-caption smoothie">
+	                                                  <div class="vertical-center">
+	                                                      <h3 class="smoothie"><a href="single-portfolio.html" title="view project">${bestbook.bookNm}</a></h3>
+	                                                      <ul class="smoothie list-inline social-links wow">
+	                                                          <li>
+	                                                              <a href="#"><i class="fa fa-twitter"></i></a>
+	                                                          </li>
+	                                                          <li>
+	                                                              <a href="#"><i class="fa fa-pinterest"></i></a>
+	                                                          </li>
+	                                                          <li>
+	                                                              <a href="#"><i class="fa fa-dribbble"></i></a>
+	                                                          </li>
+	                                                          <li>
+	                                                              <a href="#"><i class="fa fa-facebook"></i></a>
+	                                                          </li>
+	                                                          <li>
+	                                                              <a href="#"><i class="fa fa-behance"></i></a>
+	                                                          </li>
+	                                                          <li>
+	                                                              <a href="#"><i class="fa fa-linkedin"></i></a>
+	                                                          </li>
+	                                                      </ul>
+	                                                  </div>
+	                                              </div>
+	                                          </div>
+	                                      </li>
+	                                      
+	                                  </c:forEach> 
+	                                      
+	                                  </ul>
+	                              </div>
+	                          </div>
+	                      </div>
+	                      <div class="col-sm-3 match-height">
+	                          <div class="vertical-center">
+	                              <h2 class="section-heading">BEST SELLER</h2>
+	                              <h3 class="section-subheading secondary-font">Please Read Me ..</h3>
+	                          </div>
+	                      </div>
+	                  </div>	
+					<div class="row box">
+						<div>
+							<div class="slideshow-container">
+								<c:forEach var="review" items="${reviewList}">
+								<div class="mySlides" data-bookid='${review.bookId}'>
+									<div class="row pointer" style="padding:30px" >
+										<div class="col-md-3" >
+											<img src="/prj/fileUp${review.bookCoverPath}${review.bookCover}"  width="230px" height="280px">
+										</div>
+										<div class="col-md-8 col-sm-offset-1" style="padding:30px" >
+											<h2>${review.reviewTitle}</h2>
+											<p>${review.reviewContents}  <a href="#" style="color:blue" >더보기</a></p>	
+										</div>
 									</div>
 								</div>
-							</div>
-							</c:forEach>
-							<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-							<a class="next" onclick="plusSlides(1)">&#10095;</a>
-							
-							</div>
-							<br>
-							
-							<div style="text-align:center">
-							  <span class="dot" onclick="currentSlide(1)"></span> 
-							  <span class="dot" onclick="currentSlide(2)"></span> 
-							  <span class="dot" onclick="currentSlide(3)"></span>
-							  <span class="dot" onclick="currentSlide(4)"></span> 
-							  <span class="dot" onclick="currentSlide(5)"></span>  
-							</div>
-					
+								</c:forEach>
+								<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+								<a class="next" onclick="plusSlides(1)">&#10095;</a>
+								
+								</div>
+								<br>
+								
+								<div style="text-align:center">
+								  <span class="dot" onclick="currentSlide(1)"></span> 
+								  <span class="dot" onclick="currentSlide(2)"></span> 
+								  <span class="dot" onclick="currentSlide(3)"></span>
+								  <span class="dot" onclick="currentSlide(4)"></span> 
+								  <span class="dot" onclick="currentSlide(5)"></span>  
+								</div>
+						
+						</div>
 					</div>
 				</div>
 			</div>
