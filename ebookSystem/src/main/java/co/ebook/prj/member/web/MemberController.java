@@ -1,5 +1,6 @@
 package co.ebook.prj.member.web;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.login.service.LoginService;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
@@ -37,6 +40,9 @@ public class MemberController {
 	
 	@Autowired
 	SubscriptionService subDao;
+	
+	@Autowired
+	String filePath;
 	
 	
 	@InitBinder
@@ -117,6 +123,7 @@ public class MemberController {
 			
 		}
 		
+		
 	}
 	
 //	아이디중복체크
@@ -183,15 +190,61 @@ public class MemberController {
 		return"member/myPage";
 	}
 	
-	
+		
 //	마이페이지수정완료
 	@RequestMapping("/myPageUpdate")
-	public String myPage(Model model, MemberVO vo) {
-		System.out.println("===!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+vo.toString());
-		memberDao.memberUpdate(vo);
+	public String myPage(Model model, MemberVO vo, MultipartFile attchFile, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		int result = 0;
+		vo.setMemberId((String)session.getAttribute("id"));	
+		System.out.println("-----------------------------------------여기");
+		System.out.println("-----------------------------------------여기");
+		System.out.println("-----------------------------------------여기");
+		System.out.println("-----------------------------------------여기");
+		String fileName = "";
+		String real_filePath = "";
+		String folder = "/profile/";
+		System.out.println("-----------------------------------------여기"+attchFile);
+		
+		try {
+			if ( attchFile != null ) {
+				if (!attchFile.getOriginalFilename().isEmpty()) {
+					fileName = attchFile.getOriginalFilename();	
+					//filePath = request.getServletContext().getRealPath("/fileUp");	// 파일 저장경로
+					real_filePath =  filePath + folder;								// 파일이 저장될 최종폴더
+
+					// UUID.randomUUID().toString() + "_" +
+					File fileSave = new File( real_filePath , fileName);
+					System.out.println("----------------------------------------------> fileSave");
+					System.out.println(fileSave);
+					System.out.println("----------------------------------------------> fileSave");
+					
+					attchFile.transferTo(fileSave);			// 파일 업로드
+				}else {
+					filePath = "";
+					fileName = "";
+				}
+			}	
+		}catch(Exception e) {
+			e.printStackTrace();
+		}			
+		
+		System.out.println("----------------------------->> ");
+		System.out.println( fileName );
+		System.out.println( folder );
+		System.out.println("----------------------------->> ");
+		
+		vo.setMemberProfileNm(fileName);
+		vo.setMemberProfilePath(folder);
+	
+		result = memberDao.myPageUpdate(vo);
 		model.addAttribute("member", vo);
-		return"redirect:myPage";
+
+		return "member/myInfo";
 	}
+	
+	
+	
 	
 	
 //	월정액가입메인페이지

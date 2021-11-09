@@ -25,6 +25,12 @@
 		text-align: center; 
 		font-size: x-large; 
 	}
+	
+	#proimg1{
+		border-radius:400px; 
+		width:80px; 
+		height:80px;
+	}
 </style>	
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
@@ -86,7 +92,9 @@
                 <div class="widget mb50">
                     <h4 class="widget-title">My Info</h4>
                     <div align="center">
-                       <img src="resources/img/기본이미지.png" style="border-radius:400px; width:80px; height:80px;">
+                        <c:if test="${not empty member.memberProfilePath}">
+							<img id="proimg1" src="${pageContext.request.contextPath}/fileUp/profile/${member.memberProfileNm}" >&nbsp;&nbsp;
+						</c:if>
                     </div><br>
                     <div align="center">
                        <p id="n">${member.memberNicknm} 님</p>

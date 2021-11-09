@@ -12,34 +12,78 @@
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 
 <script type="text/javascript">
-
-//관심분야선택
-
-$("input[name=memberLikeFld]:checked").each(function() { 
-	var test = $(this).val(); 
-})
+$(function(){
 
 
-//버튼 클릭 시 수정 & 취소
-function myPageUpdate(str) { 
-	if(str == 'U') {
-		if(confirm('수정하시겠습니까?') == true) {
-			console.log("--------");
-			frm.action = "myPageUpdate";
-			$("#frm").submit();  
-		} else {
-			return false;
-		}
-	}else {
-		if(confirm('수정을 취소하시겠습니까?') == true) {
-			frm.action = "myPage";
-		} else {
+
+//첨부파일 선택시 이미지 파일 및 파일 사이즈 체크 
+$("#attchFile").on("change", function(){
+	
+	if($("#attchFile").val() != "") {		
+		
+		var ext = $("#attchFile").val().split(".").pop().toLowerCase();
+		console.log(ext);
+		if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp"]) == -1) {
+			alert("첨부파일은 이미지 파일만 등록 가능합니다.\n ( 첨부가능 확장자 : 'jpg', 'jpeg', 'png', 'gif', 'bmp' )");
+			$("#attchFile").val("");
 			return false;
 		}
 	}
-}
+	
+	var maxSize = 5 * 1024 * 1024; // 5MB
+
+	var fileSize = $("#attchFile")[0].files[0].size;
+	console.log(fileSize);
+	if(fileSize > maxSize){
+		alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+		$("#attchFile").val("");
+		return false;
+	}
+	
+	var reader = new FileReader();
+	reader.onload = function(e){
+		$(".profileImg").find("img").attr("src", e.target.result);
+	};
+	
+	$(".profileImg").find("h3").html(event.target.files[0].name);
+	console.log(event.target.files[0]);
+	reader.readAsDataURL(event.target.files[0]);
+});
 
 
+//파일 등록버튼 클릭시 
+	$("#profileAdd").on("click", function(){
+		$("#attchFile").click();
+	});	
+
+
+
+
+
+	//관심분야선택
+	
+	$("input[name=memberLikeFld]:checked").each(function() { 
+		var test = $(this).val(); 
+	})
+	
+	
+	
+	
+	// 수정내용 저장
+	
+	$("#profileUpdate").on("click" , function(){
+		if(confirm('수정하시겠습니까?') == true) {
+			console.log("--------");
+			frm.action = "myPageUpdate";
+			frm.submit();  
+		} else {
+			$("#frm").action = "myPage";
+				return false;
+			}
+		});
+	
+
+});
 </script>
 </head>
 <body>
@@ -54,7 +98,7 @@ function myPageUpdate(str) {
 			<div>
 				<div class="col-lg-7 mb-7 mb-lg-0" align="center">
 					<div class="package text-center bg-white" align="center"><br />
-					<form action="#" method="post" id="frm" name="frm">
+					<form action="#" method="post"  enctype = "multipart/form-data" id="frm" name="frm">
 						<table id="lcodeTb" class="table table-hover">
 							<tr>
 								<th style="width:50px;"><label for="memberFlNm">회원구분</label></th>
@@ -92,15 +136,13 @@ function myPageUpdate(str) {
 								<th style="width:50px;"><p  style="color: #ac2925">*Email</p></th>
 								<td style="width:200px;"><input type="email" id="memberEmail" name="memberEmail" value="${member.memberEmail}"></td>
 							</tr>
-							<tr>
+							<tr class="profileImg">
 								<th style="width:150px;"><p  style="color: #ac2925">*프로필</p></th>
-								<td style="width:200px;">
-									<input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control" style="align:right; width:250px;">
-									<div id="imgContainer" style="display:none">
-										<img id="Img" width="150" height="170">
-									</div>
-										<button id="FileForm" type="button" class="btn btn-primary"> 파일등록 </button>
-								</td>
+								<td style="width:200px;"> 
+									<img src="resources/assets/img/noimg.jpg"  style="width:30%">
+									<h3>No Image</h3>
+										<p><button id="profileAdd" type="button" class="bookCoverCardBtn" style="width:30%"> 파일등록 </button></p>
+									<input type="file" id="attchFile" name="attchFile" value="파일조회" class="form-control" style="display: none"></td>
 							</tr>
 								<c:if test="${auth ne 'M' }">
 							<tr>
@@ -145,8 +187,8 @@ function myPageUpdate(str) {
 						</form>
 					</div>
 					<div >
-						<input type="button" onclick="myPageUpdate('U')" value="수정" class="btn btn-default get" style="background-color: #90EE90">
-						<input type="button" onclick="myPageUpdate('D')" value="취소" class="btn btn-default get" style="background-color: #1E90FF">
+						<input type="button" id="profileUpdate" value="수정" class="btn btn-default get" style="background-color: #90EE90">
+						<input type="button" onclick="location.href='myPage'"  value="취소" class="btn btn-default get" style="background-color: #1E90FF">
 						<input type="button" onclick="location.href=''" value="회원탈퇴" class="btn btn-default get" style="background-color: #FF6347">
 					</div><br><br><br>
 				</div><br><br>

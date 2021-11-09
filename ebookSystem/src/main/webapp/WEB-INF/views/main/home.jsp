@@ -303,31 +303,6 @@ function showSlides(n) {
 }
 
 
-
-
-/*
-	if( ${empty auth} == !'null'){
-$("#dclick").ready("click",function(){
-		console.log("+++++++++++++++");
-		var check = "${member.memberId}";
-		if(check == ''){
-		    alert("로그인 후 이용하세요.");
-		    location.href="/login";
-	}
- 
-});
-};  */  
 </script>    
 
 
-
-
-
-
-
-
-
-
-
-
-</script>

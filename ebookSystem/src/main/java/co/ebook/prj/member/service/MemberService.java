@@ -17,7 +17,7 @@ public interface MemberService {
 //	업체회원등록
 	int managerInsert(MemberVO vo);
 
-//	멤버정보수정
+//	멤버정보수정(관리자)
 	int memberUpdate(MemberVO vo); 
 
 //	멤버휴면상태 사용중으로 전환
@@ -38,4 +38,6 @@ public interface MemberService {
 //	월정액 승인시 
 	int memSubUpdate(MemberVO vo);
 	
+//	마이페이지 수정
+	int myPageUpdate(MemberVO vo);
 }

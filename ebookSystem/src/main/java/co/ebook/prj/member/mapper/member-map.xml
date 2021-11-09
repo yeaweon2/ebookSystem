@@ -94,6 +94,20 @@
 	
 	</update>
 	
+	<update id="myPageUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
+		update  member
+		   set  member_pw = #{memberPw}, 
+		   		member_nicknm = #{memberNicknm}, 
+           		member_email = #{memberEmail},
+           		member_tel = #{memberTel},
+           		member_like_fld = #{memberLikeFld},
+           		member_profile_nm  = #{memberProfileNm},
+           		member_profile_path = #{memberProfilePath},
+           		udt_dt = sysdate
+		 where  member_id = #{memberId}
+	
+	</update>
+	
 	<update id="confirmUpdate" parameterType="co.ebook.prj.member.vo.MemberVO">
 		update member
 		   set manager_cnfm_yn = 'Y'

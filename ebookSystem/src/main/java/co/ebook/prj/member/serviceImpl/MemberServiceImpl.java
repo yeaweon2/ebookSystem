@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 		return map.memberInsert(vo);
 	}
 
-//	회원정보수정 (21.10.17.김유리)
+//	회원정보수정-관리자 (21.10.17.김유리)
 	@Override
 	public int memberUpdate(MemberVO vo) {
 		return map.memberUpdate(vo);
@@ -79,6 +79,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int memSubUpdate(MemberVO vo) {
 		return map.memSubUpdate(vo);
+	}
+
+//	마이페이지 수정
+	@Override
+	public int myPageUpdate(MemberVO vo) {
+		return map.myPageUpdate(vo);
 	}
 
 	

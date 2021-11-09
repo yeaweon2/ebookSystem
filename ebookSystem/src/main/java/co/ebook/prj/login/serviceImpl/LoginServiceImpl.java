@@ -17,6 +17,24 @@ public class LoginServiceImpl implements LoginService {
 	public LoginVO getLoginInfo(LoginVO vo) {
 		return map.getLoginInfo(vo);
 	}
+
+//	비밀번호변경
+	@Override
+	public LoginVO updatePwd(LoginVO vo) {
+		return map.updatePwd(vo);
+	}
+
+//	아이디찾기
+	@Override
+	public LoginVO findId(LoginVO vo) {
+		return map.findId(vo);
+	}
+
+//	비밀번호찾기
+	@Override
+	public LoginVO findPassword(LoginVO vo) {
+		return map.findPassword(vo);
+	}
 	
 	
 }

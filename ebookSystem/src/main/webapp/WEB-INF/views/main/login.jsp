@@ -18,12 +18,13 @@
 			event.preventDefault();
 			frm.submit();
 		});
+	
 	});
 	
-	
+   
+
 </script>
-
-
+	
 <style type="text/css">
 	#socialimage{
 		width:250px;
@@ -31,7 +32,7 @@
 		
 	}
 	
-	#in{
+	#memberId, #memberPw{
 		width:200px;
 		hight:100px;
 		
@@ -88,14 +89,15 @@
 					<div>
 						<div>
 							<img id="imge1" src="resources/img/아이디.png" />
-							<input id="in" type="text" id="memberId"  name="memberId" placeholder="id">
+							<input type="text" id="memberId"  name="memberId" placeholder="id">
 						</div><br>
 						<div>
 							<img id="imge" src="resources/img/패스워드.png" />
-							<input id="in" type="password" id="memberPw" name="memberPw" placeholder="password">
+							<input type="password" id="memberPw" name="memberPw" placeholder="password">
 						</div><br>
 						<div class="interval_height a_none">
-							<a href="#"> 아이디 / 비밀번호 찾기</a> 
+         					 <button type="button" onclick="location.href='find_id_form'">아이디 찾기</button>
+         					 <button type="button" onclick="location.href='find_password_form'">비밀번호 찾기</button>
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-3" style="float:right; margin-right: 100px; padding-bottom: 50px">
@@ -128,6 +130,22 @@
 				
 				
     <script type='text/javascript'>
+       
+    $("#memberId").keydown(function(e) {
+		if (e.keyCode == 13) {
+			alert("비밀번호를 입력하세요");
+		}
+	});
+
+    
+      
+    $("#memberPw").keydown(function(e) {
+			if (e.keyCode == 13) {
+				$("#loginBtn").trigger('click');
+			}
+	});
+
+    
     	//카카오 로그인
         //<![CDATA[
         // 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -145,7 +163,6 @@
             }
         });
       //]]>
-    	
     	
     </script>
 </body>

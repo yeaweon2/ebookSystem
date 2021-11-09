@@ -6,6 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	#proimg{
+		width:195px; 
+		height:240px;
+		position:absolute; 
+		left:20px; 
+		top:10px; 
+		width:195px; 
+		height:240px;
+	}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -17,8 +28,11 @@
 		<div class="row">
 			<div class="col-lg-2 mb-2 mb-lg-0" style="margin-right: 40px;">
 				<div id="Card" class="row" style="height:250px; width:200px; border-style: solid; border-width: 1px; margin:2px; padding:10px"><br><br>
-					<img src="resources/img/사람.jpg" style="position:absolute; left:20px; top:10px; width:195px; height:240px;" /><br><br><br><br><br><br><br><br><br><br><br>
-					<form id="frm" name="frm" action="#">
+					<c:if test="${not empty member.memberProfilePath}">
+						<img id="proimg" src="${pageContext.request.contextPath}/fileUp/profile/${member.memberProfileNm}" >&nbsp;&nbsp;
+					</c:if>
+					
+					<form id="frm" name="frm" action="#" style="margin-top: 220px">
 						<table id="lcodeTb" class="table table-hover">
 							<tr>
 								<td style="width:400px;">아이디 : </td>
@@ -34,7 +48,7 @@
 							</tr>
 							<c:if test="${auth eq 'U'}">
 							<tr>
-								<th style="width:600px;">월정액기간  </th>
+								<th style="width:800px;">월정액기간  </th>
 								<th style="width:400px;"></th>
 							</tr>
 							<tr>

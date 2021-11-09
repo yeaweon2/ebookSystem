@@ -11,6 +11,7 @@ public class LoginVO {
 	private String memberId;
 	private String memberPw;
 	private String memberNm;
+	private String memberTel;
 	private String memberNicknm;
 	private String memberFlCd;
 	private String memberStCd;

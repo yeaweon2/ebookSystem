@@ -69,7 +69,7 @@ $(function() {
 				<div class="row">
 					<div class="package text-center bg-white">
 						<br />
-						<table id="lcodeTb" class="table table-hover">
+						<table id="table" class="table table-hover">
 							<tr>
 								<th>선택</th>
 								<th>ID</th>
@@ -98,6 +98,8 @@ $(function() {
 					</div>
 					<div align="right">
 						<button type="submit" onclick="sleepMember()" class="btn btn-outline-primary">휴면해제</button>
+						<button type="button" onclick="fnExcelReport('table','회원리스트');">목록 다운로드</button>
+
 					</div><br><br><br>
 				</div>
 			</div>
@@ -106,5 +108,46 @@ $(function() {
 	<form action="memberSelect" method="post" id="frm">
 		<input type="hidden" id="memberId" name="memberId">
 	</form>
+	
+	
+<script type="text/javascript">
+	function fnExcelReport(id, 회원리스트) {
+		var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
+		tab_text = tab_text + '<head><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+		tab_text = tab_text + '<xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+		tab_text = tab_text + '<x:Name>Test Sheet</x:Name>';
+		tab_text = tab_text + '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
+		tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+		tab_text = tab_text + "<table border='1px'>";
+		var exportTable = $('#' + id).clone();
+		exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+		tab_text = tab_text + exportTable.html();
+		tab_text = tab_text + '</table></body></html>';
+		var data_type = 'data:application/vnd.ms-excel';
+		var ua = window.navigator.userAgent;
+		var msie = ua.indexOf("MSIE ");
+		var fileName = '회원리스트' + '.xls';
+	//Explorer 환경에서 다운로드
+		if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+		if (window.navigator.msSaveBlob) {
+			var blob = new Blob([tab_text], {
+				type: "application/csv;charset=utf-8;"
+			});
+				navigator.msSaveBlob(blob, fileName);
+			}
+		} else {
+			var blob2 = new Blob([tab_text], {
+				type: "application/csv;charset=utf-8;"
+			});
+			var filename = fileName;
+			var elem = window.document.createElement('a');
+			elem.href = window.URL.createObjectURL(blob2);
+			elem.download = filename;
+			document.body.appendChild(elem);
+			elem.click();
+			document.body.removeChild(elem);
+			}
+		}
+</script>
 </body>
 </html>

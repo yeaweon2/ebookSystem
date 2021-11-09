@@ -3,6 +3,7 @@ package co.ebook.prj.member.vo;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -28,7 +29,9 @@ public class MemberVO {
 	private String managerCnfmYn;
 	private String memberLikeFld;
 	private String memberProfileNm;
+	private String memberProfile;
 	private String memberProfilePath; 
+	private MultipartFile attchFile;
 
 	
 	

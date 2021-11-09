@@ -14,4 +14,28 @@
 		 WHERE member_id = #{memberId} 
 		   AND member_pw = #{memberPw}
 	</select>
+	
+	
+	<!-- 로그인시 아이디와 비밀번호 확인 -->
+	<select id="findId" resultType="co.ebook.prj.login.vo.LoginVO">
+		select  * 
+		  from  member 
+		 where 	member_nm = #{memberNm} 
+		   and  member_tel = #{memberTel}
+	</select>
+	
+	<select id="findPassword" resultType="co.ebook.prj.login.vo.LoginVO">
+		select  * 
+		  from  member 
+		 where 	member_id = #{memberId} 
+		   and  member_nm = #{memberNm}
+		   and  member_tel = #{memberTel}
+	</select>
+	
+	<update id="updatePwd" parameterType="co.ebook.prj.login.vo.LoginVO">
+		update  member
+		   set  member_pw = #{memberPw}
+		 where  member_id = #{memberId}
+	</update>
+	
 </mapper>
