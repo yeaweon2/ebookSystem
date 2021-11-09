@@ -22,6 +22,7 @@ public class ReplyRestController {
 
 	@Autowired
 	private ReplyService replyDao;
+		
 
 	// 댓글조회
 	@RequestMapping(value = "/replyList", method = RequestMethod.GET)

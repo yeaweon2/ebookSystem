@@ -72,17 +72,22 @@
 									
 									$.each(data, function(idx,item){
 										$("#lendList").append($("<table class='chk'>")
-													  .append($("<tr>"))
-													  .append($("<td>").append($("<img width='60px' height='90px' src='/prj/fileUp"+ item.bookCoverPath + item.bookCover+ "'>")))
-													  .append($("<td>").html(item.bookNm).append($("<td>").html(item.bookWriter))
-													  )
-													  
-													 ).data("bookid", item.bookId)
+															  .append($("<tr>")
+															  			.append($("<td class='bkimg'>").append($("<img width='60px' height='90px' src='${pageContext.request.contextPath}/fileUp"+ item.bookCoverPath + item.bookCover+ "'>")))
+															  			.append($("<td class='bknm'>").html(item.bookNm))
+															  			.append($("<td class='bkw'>").html(item.bookWriter))
+															  ).data("bookid", item.bookId)
+													 )//table끝
 													  
 									})//each끝
 									
-					$('.chk').on('dblclick', function(){
+					$('#lendList').on('dblclick',".chk", function(){ //부모한테걸어서 아직생성되지않은 테이블에 이벤트를 준다, div생성해서 append하고 모달을 닫기한다.
 						console.log($(this).data("bookid"));
+						var imgsrc = $(this).find(".bkimg").children().attr('src')
+						
+						$('#bookLendList').append( $("<img width='50px' height='70px'>").attr("src", imgsrc))
+										  .append($(this).find(".bknm").html())
+										  .append($(this).find(".bkw").html());
 					})
 				}//function끝
 			})//대여리스트끝
@@ -128,13 +133,15 @@
 				</tr>
 				<tr>
 					<td>
+						<div id="bookLendList">
 						<button class="myBtn pull-right btn-primary">내가 대여한 책목록</button>
+						</div></td>
 				</tr>
 				<tr>
 					<td><textarea name="reviewContents" id="summernote" class="summernote" placeholder="내용을 입력해 주세요"></textarea></td>
 				</tr>
 				<tr>
-					<td><input type="file" name="reviewAtchNm" placeholder="파일 선택" multiple>
+					<td><input type="file" name="reviewAtchNm" placeholder="파일 선택" multiple></td>
 					
 			</table>
 			<input id="reviewInputBtn" value="등록" class="btn-primary ">

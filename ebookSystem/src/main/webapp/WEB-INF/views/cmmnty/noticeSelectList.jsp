@@ -25,6 +25,8 @@
       rRBtnCancle(); 			//대댓글 취소
       rReplyInputForm(); 		//대댓글양식 작성
       
+      
+      
       //댓글 입력
       $("#replyInputBtn").on("click", function(){
  
@@ -50,6 +52,15 @@
             }); 
       }//else끝 
     });
+      
+      //다운로드
+      $("#download").click(function(){
+    	  var filePath = "";
+    	  var fileName = "";
+    	  
+    	  location.href="fileUp/notice/?"
+    	  
+      })
   });
    
    //대댓글 입력양식
@@ -59,7 +70,7 @@
 		
 		$(this).closest('table').next().append(
 			    		  $('<table class="table">').append($('<tr>').html()),
-		        		             $('<tr>').append($('<td>').html($("<textarea id='rReplyinput' placeholder='답글을 입력해보세요'>"))),
+		        		             $('<tr>').append($('<td>').html($("<textarea id='rReplyinput' cols='100' placeholder='답글을 입력해보세요'>"))),
 		        		     		 $('<tr>').append($('<td>').html(),
 		        		     					$('<td class="pull-right">').html($("<a class='pointer' id='rRbtnSave'>").html("등록")),
 		        		     					$('<td>').html($("<a class='pointer' id='rRbtnCancle' >").html("취소")),
@@ -158,7 +169,7 @@
 		   console.log(contents);
 		   
 		   $(this).closest('tr').prev().find("#rContents").empty();
-		   $(this).closest('tr').prev().find("#rContents").append($("<textarea rows='3' >").html(contents));
+		   $(this).closest('tr').prev().find("#rContents").append($("<textarea rows='3' cols='30' >").html(contents));
 		   $(this).closest('tr').find("#btnDel").css('display', 'none');
 		   $(this).closest('tr').find("#btnUp").css('display', 'none');
 		   $(this).closest('tr').find("#btnSave").css('display', 'block');
@@ -258,8 +269,8 @@
 				</tr>
 				<tr>
 					<td>
-					첨부파일: <a href="#">${notice.cmmntyAtchNm}</a> 
-				
+					첨부파일: <a href ="download?cmmntyAtchNm=${notice.cmmntyAtchNm}">${notice.cmmntyAtchNm}</a> 
+					
 					</td>
 				</tr>
 			</table>
@@ -272,7 +283,7 @@
 						<th>${nicknm}</th>
 					</tr>
 					<tr>
-						<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3"></textarea>
+						<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="180"></textarea>
 					</tr>
 					<tr>
 						<td colspan="2"></td>

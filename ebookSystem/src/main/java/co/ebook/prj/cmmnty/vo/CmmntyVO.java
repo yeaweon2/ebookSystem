@@ -31,7 +31,6 @@ public class CmmntyVO {
 	private String cmmntyAtchPath;		 //첨부파일경로
 	
 	private MultipartFile attchFile;	 //첨부파일
-	private String attchUpFlag;			 //첨부파일 수정
 	
 	
 	

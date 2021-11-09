@@ -16,6 +16,15 @@
 		
 		 frm.submit();
 	 })
+	 
+	// 파일 수정버튼 클릭시 
+	$("#AtchBtn").on("click", function(){
+		$("#attchFile").click();
+	});	
+	 
+	 $("#attchFile").on("change", function(){
+		 $("#fileName").text(document.getElementById('attchFile').files[0].name);
+	 })
  }); 
  </script>
 </head>
@@ -38,16 +47,16 @@
 					<textarea name="cmmntyContents" id="summernote" class="summernote">${notice.cmmntyContents }</textarea>
 					</div>
 					<div>
-					<div>
+					<div class="fileNm">
 					<c:if test="${not empty notice.cmmntyAtchNm }">
-					첨부파일 : <a href="#">${notice.cmmntyAtchNm}</a>
+					첨부파일 : <a id="fileName" href="#" >${notice.cmmntyAtchNm}</a>
 					</c:if>
-					
-					<input type="file" multiple="multiple" name="attchFile" id="attchFile" class="attchFile"> 
-					
+					<button type="button" id="AtchBtn" class="AtchBtn">파일등록</button>
+					<input type="file" multiple id="attchFile" name="attchFile" value="파일조회" class="form-control" style="display: none">
 					</div>
 					</div><br>	
 							<input type="hidden" id="cmmntyId" name="cmmntyId" value="${notice.cmmntyId}">
+							<input type="hidden" id="cmmntyAtchNm" name="cmmntyAtchNm" value="${notice.cmmntyAtchNm}">
 							<input id="noticeUpdateBtn" type="button" value="수정" class="btn-primary">
 							<input type="button" onclick="location.href='noticeList'" value="취소" class="btn-danger">
 				</form>
