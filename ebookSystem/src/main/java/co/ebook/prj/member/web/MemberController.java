@@ -285,45 +285,6 @@ public class MemberController {
 		System.out.println("여기야여기============>"+sVo.toString());
 		
 		
-		// 날짜계산값 
-	    
-       /* Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("current: " + df.format(cal.getTime()));
-
-        
-        if(sVo.getSubspAmt() == 9900) {
-        	sVo.setSubspEdt((Date)session.getAttribute("cal.add(Calendar.MONTH, 1)"));
-        	
-        	String pattern = "yyyy-MM-dd";
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-        	String date = simpleDateFormat.format(new Date());
-        	System.out.println(date);
-        }
-        if(sVo.getSubspAmt() == 25900) {
-        	sVo.setSubspEdt((Date)session.getAttribute("cal.add(Calendar.MONTH, 3)"));
-        	
-        	String pattern = "yyyy-MM-dd";
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-        	String date = simpleDateFormat.format(new Date());
-        	System.out.println(date);
-        }
-        if(sVo.getSubspAmt() == 99000) {
-        	sVo.setSubspEdt((Date)session.getAttribute("cal.add(Calendar.MONTH, 12)"));
-        	
-        	String pattern = "yyyy-MM-dd";
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-        	String date = simpleDateFormat.format(new Date());
-        	System.out.println(date);
-        } */
-
-        
-        
-        
         model.addAttribute("member", memberDao.memSubUpdate(vo));
 		model.addAttribute("sub", subDao.subInsert(sVo));
 		return "redirect:myInfo";

@@ -95,9 +95,9 @@
 							<img id="imge" src="resources/img/패스워드.png" />
 							<input type="password" id="memberPw" name="memberPw" placeholder="password">
 						</div><br>
-						<div class="interval_height a_none">
-         					 <button type="button" onclick="location.href='find_id_form'">아이디 찾기</button>
-         					 <button type="button" onclick="location.href='find_password_form'">비밀번호 찾기</button>
+						<div class="interval_height a_none" >
+         					 <button type="button" class="btn btn-primary btn-block" onclick="location.href='find_id_form'">아이디 찾기</button>
+         					 <button type="button" class="btn btn-primary btn-block" onclick="location.href='find_password_form'">비밀번호 찾기</button>
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-3" style="float:right; margin-right: 100px; padding-bottom: 50px">

@@ -48,16 +48,16 @@
 							</tr>
 							<c:if test="${auth eq 'U'}">
 							<tr>
-								<th style="width:800px;">월정액기간  </th>
-								<th style="width:400px;"></th>
+								<th style="width:900px;">월정액기간  </th>
+								<th style="width:300px;"></th>
 							</tr>
 							<tr>
 								<td style="width:400px;">시작일자 :  </td>
-								<th style="width:400px;"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sub.subspSdt }" /></th>
+								<th style="width:700px;"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sub.subspSdt }" /></th>
 							</tr>
 							<tr>
 								<td style="width:400px;">종료일자 :  </td>
-								<th style="width:400px;"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sub.subspEdt }" /></th>
+								<th style="width:700px;"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sub.subspEdt }" /></th>
 							</tr>
 							</c:if>
 						</table>
@@ -118,9 +118,8 @@
 					<h5 align="left" style="margin-left: 25px;">사용 마일리지 : ${sub.subspMile} point</h5>
 					<h5 align="left" style="margin-left: 25px;">현재 마일리지 : ${member.memberMile} point</h5>
 					<h5 align="left" style="margin-left: 25px;">결제코드 : ${sub.impUid} </h5>
-
 			    </div><br><br>
-			    </c:if>
+			   		</c:if>
 		    </div> 
 		</div> 
      </div>

@@ -78,6 +78,13 @@
 	})
 
 	
+//  관심분야선택
+	$("input[name=gen]:checked").each(function() { 
+		var memberGen = $(this).val(); 
+		console.log(test);
+	})
+
+	
 	
 	
 	
@@ -178,8 +185,8 @@
 						<div class="col-md-2">
 							<label for="gen" class="form-label">성별</label>
 							<br>
-							<input type="radio" name="gen" value="male">남성
-							<input type="radio" name="gen" value="female">여성
+							<input type="radio" name="gen" value="M">남성
+							<input type="radio" name="gen" value="W">여성
 						</div>
 						<br> <br>
 
