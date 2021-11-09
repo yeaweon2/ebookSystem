@@ -263,14 +263,14 @@
 
 			<!-- 댓글 입력란-->
 			<div id="replyput">
-				<c:if test="${id eq 'admin'}">
+				<c:if test="${auth eq 'A'}">
 					<table class="table">
 						<tr>
 							<th>${nicknm}</th>
 						</tr>
 						<tr>
 							<td colspan="3"><textarea id="replyinput" name="replyinput"
-									placeholder="댓글입력.." rows="3"></textarea>
+									placeholder="댓글입력.." rows="3" cols="160"></textarea>
 						</tr>
 						<tr>
 							<td colspan="2"></td>
@@ -283,15 +283,15 @@
 			</div>
 			<hr>
 			<input type="button" onclick="location.href='inquireList'"
-				class="btn-info" value="목록보기">
+				class="btn-primary" value="목록보기">
 			<c:if test="${ id eq board.cmmntyWriter}">
 				<input type="button" onclick="inquireEdit('U')" class="btn-primary"
 					value="수정">
 			</c:if>
-			<c:if test="${id eq board.cmmntyWriter || id eq 'admin'}">
-				<input type="button" onclick="inquireEdit('D')" class="btn-danger"
+			<c:if test="${id eq board.cmmntyWriter || auth eq 'A'}">
+				<input type="button" onclick="inquireEdit('D')" class="btn-primary"
 					value="삭제">
-			</c:if>
+			</c:if><br><br>
 			<!--  댓글 조회 -->
 			<div id="rList" class="rList">
 			

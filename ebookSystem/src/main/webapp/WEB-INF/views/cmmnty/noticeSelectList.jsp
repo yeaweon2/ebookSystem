@@ -169,7 +169,7 @@
 		   console.log(contents);
 		   
 		   $(this).closest('tr').prev().find("#rContents").empty();
-		   $(this).closest('tr').prev().find("#rContents").append($("<textarea rows='3' cols='30' >").html(contents));
+		   $(this).closest('tr').prev().find("#rContents").append($("<textarea rows='3' >").html(contents));
 		   $(this).closest('tr').find("#btnDel").css('display', 'none');
 		   $(this).closest('tr').find("#btnUp").css('display', 'none');
 		   $(this).closest('tr').find("#btnSave").css('display', 'block');
@@ -283,7 +283,7 @@
 						<th>${nicknm}</th>
 					</tr>
 					<tr>
-						<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="180"></textarea>
+						<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="160"></textarea>
 					</tr>
 					<tr>
 						<td colspan="2"></td>
@@ -293,13 +293,13 @@
 			</c:if>
 			</div><hr><div>
 					<input type="button" onclick="location.href='noticeList'" class="btn-primary" value="목록보기"> 
-					<c:if test="${id eq 'admin'}">
+					<c:if test="${auth eq 'A'}">
 					<input type="button" onclick="NoticeEdit('U')" class="btn-primary" value="수정">
 					<input type="button" onclick="NoticeEdit('D')"class="btn-primary" value="삭제">
 					</c:if>
-					</div>
+					</div><br><br>
 			<!--  댓글 조회 -->
-			<div id="comments-list" class="col-sm-8 col-sm-offset-2 gap wow">
+			<div id="comments-list" class="rList" style="margin : auto">
 			</div>
 					
 		</div>

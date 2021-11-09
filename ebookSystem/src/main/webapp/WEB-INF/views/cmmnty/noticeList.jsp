@@ -29,7 +29,7 @@
 					<h2>공지사항</h2><br><br>
 				</div>
 			</div>
-				<c:if test="${id eq 'admin'}">
+				<c:if test="${auth eq 'A'}">   
 				<button type="button" onclick="location.href='noticeInsertForm'" class="btn-primary pull-right">글쓰기</button>
 				</c:if>
 				<table class="table table-hover" style="cursor:pointer" >

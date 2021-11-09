@@ -265,7 +265,7 @@
 						<th>${nicknm}</th>
 					</tr>
 					<tr>
-						<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3"></textarea>
+						<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="160"></textarea>
 					</tr>
 					<tr>
 						<td colspan="2"></td>
@@ -275,13 +275,14 @@
 			</c:if>
 			</div>
 			<hr>
-					<input type="button" onclick="location.href='boardList'" class="btn-info" value="목록보기"> 
+					<input type="button" onclick="location.href='boardList'" class="btn-primary" value="목록보기"> 
 					<c:if test="${ id eq board.cmmntyWriter}">
 					<input type="button" onclick="BoardEdit('U')" class="btn-primary" value="수정">
 					</c:if>
-					<c:if test="${id eq board.cmmntyWriter || id eq 'admin'}">
-					<input type="button" onclick="BoardEdit('D')"class="btn-danger" value="삭제">
+					<c:if test="${auth eq 'A' || id eq board.cmmntyWriter }">
+					<input type="button" onclick="BoardEdit('D')"class="btn-primary" value="삭제">
 					</c:if>
+					<br><br>
 			<!--  댓글 조회 -->
 			<div id="rList" class="rList">
 			</div>

@@ -32,7 +32,7 @@
 				
 			</div>
 				<c:if test="${not empty id}">
-				<button type="button" onclick="location.href='boardInsertForm'" class="pull-right">글쓰기</button>
+				<button type="button" onclick="location.href='boardInsertForm'" class="pull-right btn-primary">글쓰기</button>
 				</c:if>
 				<table class="table table-hover" style="cursor:pointer" >
 					<thead>
