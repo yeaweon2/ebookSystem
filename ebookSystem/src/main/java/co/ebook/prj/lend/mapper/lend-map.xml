@@ -22,7 +22,26 @@
 	</select>
 
 	<select id="lendDetail" resultType="co.ebook.prj.lend.vo.LendVO">
+		SELECT L.book_id 
+	         , b.book_nm
+	         , b.book_publ_co
+	         , b.book_writer
+	         , b.book_intro
+	         , L.lend_hit
+	         , b.book_cover
+	         , b.book_cover_path  
+		  FROM LEND L
+		     , BOOK B
+		 WHERE L.BOOK_ID = B.BOOK_ID
+		   AND L.MEMBER_ID = #{memberId}
+		   AND L.BOOK_ID = #{bookId}	
+	</select>
 	
+	<select id="readingBook" resultType="co.ebook.prj.book.vo.BatchVO">
+		SELECT *
+ 		  FROM BOOK_ATTACH
+		 WHERE BOOK_ID = #{bookId}
+		 ORDER BY BATCH_ORD 	
 	</select>
 	
 	<insert id="lendInsert" parameterType="co.ebook.prj.lend.vo.LendVO">
@@ -31,7 +50,10 @@
 	</insert>
 
 	<update id="lendUpdate" parameterType="co.ebook.prj.lend.vo.LendVO">
-	
+		UPDATE LEND
+		   SET LEND_HIT = LEND_HIT+1
+		 WHERE MEMBER_ID = #{memberId}
+		   AND BOOK_ID = #{bookId}
 	</update>
 	
 	<delete id="lendDelete" parameterType="co.ebook.prj.lend.vo.LendVO">

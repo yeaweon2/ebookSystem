@@ -66,23 +66,19 @@ body {
 
 
 .bucketBtn {
-	background-color: red;
+	background-color: white;
 	border: none;
-	color: white;
+	color: blue;
 	padding: 12px 16px;
 	font-size: 21px;
 	cursor: pointer;
 	border-radius: 50%;
+	border : 1px solid blue;	
 }
 
 
 .bucketBtn i {
-	color: white;
-}
-
-.bucketBtn:hover {
-	opacity: 0.6;
-  	background-color: red;
+	color: blue;
 }
 
 .bTitle {
@@ -222,6 +218,9 @@ ul.sidenav li a:hover {
 					console.log(res);
 					if(res.result=="01"){
 						alert("추천완료");
+						var likeItCnt = $("#likeIt").val();
+						$("#likeIt").val(likeItCnt+1);
+						
 					}
 				}
 			});
@@ -350,7 +349,7 @@ ul.sidenav li a:hover {
 																				.append( $("<div class='stars'>")))
 																	.append( $("<p>").html(res.breplyContents) )
 																	.append( $("<div class='pull-right'>")
-																					.append($("<a href='#' class='breplyChildInsert'>").html("댓글"))
+																					.append($("<a href='#' class='breplyChildInsert'>").data("breplygr", res.breplyGr ).data("breplyid", res.breplyId ).html("댓글쓰기") )
 																					.append($("<a href='#' class='breplyUpdate'>").html("수정"))
 																					.append($("<a href='#' class='breplyDelete'>").html("삭제"))
 																					.append($("<a href='#' class='breplySave hidden' >").html("저장"))
@@ -428,18 +427,19 @@ ul.sidenav li a:hover {
 			var bookId = $("#bookId").val();
 			var breplyContents = $(this).closest(".media-body").find("textarea").val();
 			var breplyStar = $("#breplyStar").val();
-			
+			var breplyClass = "0";
 			var area = $(this).closest(".media-body").find("p");
 			
 			$.ajax({
 				url : 'breplyUpdate' ,
 				method : 'POST' ,
-				data : JSON.stringify({ bookId : bookId, breplyId : breplyId , breplyContents : breplyContents , breplyStar : breplyStar }),
+				data : JSON.stringify({ bookId : bookId, breplyId : breplyId , breplyClass : breplyClass, breplyContents : breplyContents , breplyStar : breplyStar }),
 				contentType : 'application/json',					
 				dataType : 'json',
 				success : function(res){
 					area.html("");
 					area.html(breplyContents);
+					console.log(res);
 				}
 			});	
 			
@@ -451,23 +451,81 @@ ul.sidenav li a:hover {
 			$("#stars").off("click");
 		});	
 		
+		 
 		// 자식댓글 쓰기 클릭시  
 		$("#comments-list").on("click", '.breplyChildInsert' , function(){
 			event.preventDefault();
+			
 			$("#childBox").removeClass("hidden");
-			$(this).closest(".media").after( $("#childBox") );
+			
+			console.log($("#childBox"));
+			console.log($(this).closest(".media-body"));
+			$(this).closest(".media-body").after( $("#childBox") );
+			
+			$("#childBox").find(".breplyChildSave").data("breplygr" , $(this).data("breplygr"));
 		});
 		
-		// 자식댓글 작성중 취소 클릭시 
-		$("#comments-list").on("click", function(){
+ 		// 자식댓글 저장 클릭시 
+		$("#comments-list").on("click", ".breplyChildSave",function(){
 			event.preventDefault();
-			$("#childBox").addClass("hidden");			
+			
+			var bookId = $("#bookId").val();
+			var breplyContents = $(this).closest(".well").find("#breplyContentsNew").val();  
+			var breplyStar = '0';
+			var breplyClass = "1";
+			var breplyGr = $(this).data("breplygr");
+			
+			var target = $(this);
+			
+			$.ajax({
+				url : 'breplyInsert' ,
+				method : 'POST' ,
+				data : JSON.stringify({ bookId : bookId, breplyContents : breplyContents , breplyStar : breplyStar, breplyClass : breplyClass , breplyGr : breplyGr }),
+				contentType : 'application/json',					
+				dataType : 'json',
+				success : function(res){
+					console.log(res);
+					console.log(target);
+					$("#childBox").addClass("hidden");
+					$("#childBox").find("textarea").val("");
+					
+					console.log(target.closest(".parentReply").find("p"));
+					target.closest(".parentReply").find(".media-body:first").append(
+							$("<div class='media' style='margin-left:50px'>")
+								.append($("<div class='pull-left'>")
+											.append( $("<i class='material-icons'>").html("subdirectory_arrow_right") )
+											.append( $("<img class='avatar comment-avatar'>").attr('src','resources/img/profile.png') )
+										)
+								.append($("<div class='media-body'>") 
+											.append( $("<div class='well'>")	
+														.append( $("<div class='media-heading'>")
+																.append( $("<span class='heading-font'>").html( res.breplyWriterNm )) 
+																.append( $("<small>").html( res.insDt ) )
+																)
+														.append( $("<p>").html(res.breplyContents) )
+														.append( $("<div class='pull-right'>")
+																	.append( $("<a href='#' class='breplyChildInsert'>").data("breplygr", res.breplyGr ).data("breplyid", res.breplyId ).html("댓글쓰기"))
+																	.append( $("<a href='#' class='breplyUpdate'>").data("breplyid", res.breplyId ).html("수정"))
+																	.append( $("<a href='#' class='breplyDelete'>").data("breplyid", res.breplyId ).html("삭제"))
+																	.append( $("<a href='#' class='breplySave hidden'>").data("breplyid", res.breplyId ).html("저장"))
+																	.append( $("<a href='#' class='breplyCancel hidden'>").data("breplyid", res.breplyId ).html("취소"))
+
+																)
+													)
+										)
+								)
+					
+					
+					
+				}
+			});
 		});
 		
-		// 자식댓글 저장 클릭시 
-		$("#comments-list").on("click", function(){
-			// breplyChildInsert
-		});		
+		// 자식댓글 취소 클릭시 
+		$("#comments-list").on("click", ".breplyChildCancel", function(){
+			event.preventDefault();
+			$("#childBox").addClass("hidden");
+		});	 
 		
 	});
 </script>
@@ -490,17 +548,18 @@ ul.sidenav li a:hover {
 							<img width="240" height="270" style="margin-top:20px" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}">
 						</div>
 						<div class="col-sm-8 bInfo">
-							<div style="margin-left:20px">	
+							<div class="row">
 								<h1 class="display-5 fw-bold">${book.bookNm}</h1>
 								<h3>${book.bookPublCo} ( ${book.bookWriter} )</h3>
 							</div>
-							<div>
-							<br/>
+							<div class="row">
+								추 천 : <span id="likeIt">${book.bookLikeit}</span>
+							</div>
 							<br/>
 							<br/>
 							<br/>
 							
-							</div>	
+								
 							<c:if test="${auth eq 'U' || auth eq 'A'}">
 								<div class="pull-right">
 									<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
@@ -559,37 +618,33 @@ ul.sidenav li a:hover {
 					<input type="hidden" id="bookId" value="${book.bookId}">
 					<input type="hidden" id="breplyStar">
 					<div class="Ere_line"></div>
-				
-					<div id="comments-form" class="row box" >
-						<div class="col-md-12">
-							<div id="comment_message"></div>
-							<form method="post" id="commentform" class="comment-form">
-								<div class="col-md-3 ">
-									<label class="title">${nicknm}</label>
-								</div>
-								<div id="newStars" class="col-md-3 stars" style="padding-left:0"> 		
-									<i class="star far fa-star" data-flag="false" data-no="1"></i>
-									<i class="star far fa-star" data-flag="false" data-no="2"></i>
-									<i class="star far fa-star" data-flag="false" data-no="3"></i>
-									<i class="star far fa-star" data-flag="false" data-no="4"></i>
-									<i class="star far fa-star" data-flag="false" data-no="5"></i>
-								</div>
-								<div class="col-md-3"></div>
-								<div class="col-md-3"><a id="breplyInsert" class="btn ebookBtn pull-right" href="#">&nbsp;&nbsp;등 록&nbsp;&nbsp; </a></div>
-								<textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="댓글을 남겨주세요 *" required data-validation-required-message="Please enter a message."></textarea>
-							</form>
-						</div>
-					</div>			
-				
-					<h3>댓 글</h3>
-					
-					<div id="comments-list" class="col-sm-8 col-sm-offset-2 gap wow">
-						<div class="mt60 mb50 single-section-title">
+					<div id="comments-list" class="row gap wow">
+						<div class="mt30 mb30 single-section-title">
 						    <h3>Comments</h3>
-						</div>				
+						</div>	
+						<div id="comments-form" class="row box" >
+							<div class="col-md-12">
+								<div id="comment_message"></div>
+								<form method="post" id="commentform" class="comment-form">
+									<div class="col-md-3 ">
+										<label class="title">${nicknm}</label>
+									</div>
+									<div id="newStars" class="col-md-3 stars" style="padding-left:0"> 		
+										<i class="star far fa-star" data-flag="false" data-no="1"></i>
+										<i class="star far fa-star" data-flag="false" data-no="2"></i>
+										<i class="star far fa-star" data-flag="false" data-no="3"></i>
+										<i class="star far fa-star" data-flag="false" data-no="4"></i>
+										<i class="star far fa-star" data-flag="false" data-no="5"></i>
+									</div>
+									<div class="col-md-3"></div>
+									<div class="col-md-3"><a id="breplyInsert" class="btn ebookBtn-sm pull-right" href="#">등록</a></div>
+									<textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="댓글을 남겨주세요 *" required data-validation-required-message="Please enter a message."></textarea>
+								</form>
+							</div>
+						</div>						
 						<c:forEach var="reply" items="${replys}">
 							<c:if test="${reply.breplyClass != '1'}">
-								<div class="media">
+								<div class="media parentReply">
 									<div class="pull-left">
 										<img class="avatar comment-avatar" src="resources/img/profile.png" alt="">
 									</div>
@@ -612,7 +667,7 @@ ul.sidenav li a:hover {
 											</div>
 											<p>${reply.breplyContents}</p>
 											<div class="pull-right">
-												<a href="#" class="breplyChildInsert" data-breplyid="${reply.breplyId}">댓글쓰기</a>
+												<a href="#" class="breplyChildInsert" data-breplyid="${reply.breplyId}" data-breplygr="${reply.breplyGr}">댓글쓰기</a>
 												<c:if test="${reply.breplyWriter eq id }">
 													<a href="#" class="breplyUpdate" data-breplyid="${reply.breplyId}">수정</a>
 													<a href="#" class="breplyDelete" data-breplyid="${reply.breplyId}">삭제</a>
@@ -624,7 +679,7 @@ ul.sidenav li a:hover {
 										<c:forEach var="childReply" items="${replys}">			
 											<c:if test="${childReply.breplyClass eq '1'}">
 												<c:if test="${childReply.breplyGr eq reply.breplyId}">
-													<div class="media" style="background-color: yellow;margin-left:50px">
+													<div class="media" style="margin-left:50px">
 														
 														<div class="pull-left">
 															<i class="material-icons">subdirectory_arrow_right</i>	
@@ -637,7 +692,7 @@ ul.sidenav li a:hover {
 																</div>
 																<p>${childReply.breplyContents}</p>
 																<div class="pull-right">
-																	<a href="#" class="breplyChildInsert" data-breplyid="${childReply.breplyId}">댓글쓰기</a>
+																	<a href="#" class="breplyChildInsert" data-breplyid="${childReply.breplyId}" data-breplygr="${reply.breplyGr}">댓글쓰기</a>
 																	<c:if test="${childReply.breplyWriter eq id }">
 																		<a href="#" class="breplyUpdate" data-breplyid="${childReply.breplyId}">수정</a>
 																		<a href="#" class="breplyDelete" data-breplyid="${childReply.breplyId}">삭제</a>
@@ -662,7 +717,7 @@ ul.sidenav li a:hover {
 	</div>
 </section>
 
-<div id="childBox" class="media hidden ">
+<div id="childBox" class="media hidden">
     <div class="pull-left">
         <img class="avatar comment-avatar" src="resources/assets/img/users/3.jpg" alt="">
     </div>
@@ -673,8 +728,8 @@ ul.sidenav li a:hover {
             </div>
             <textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="댓글을 입력해주세요 *" required data-validation-required-message="Please enter a message."></textarea>
 			<div class="pull-right">
-				<a href="#" class="breplySave" class="hidden">저장</a>
-				<a href="#" class="breplyCancel" class="hidden">취소</a>
+				<a href="#" class="breplyChildSave">저장</a>
+				<a href="#" class="breplyChildCancel">취소</a>
 			</div>            
         </div>
     </div>

@@ -19,4 +19,6 @@ public interface BucketMapper {
 	int bucketDelete(BucketVO vo);
 	
 	List<BucketVO> bucketDuplChk(BucketVO vo); 
+	
+	int bucketDoneCancelUpdate(BucketVO vo);
 }

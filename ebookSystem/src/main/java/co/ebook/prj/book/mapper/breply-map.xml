@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="breplyMaxId" resultType="int">
-	   SELECT max(breply_id) as breplyId   
+	   SELECT NVL( max( NVL( breply_id, 0) ),0)  as breplyId   
 		 FROM BOOK_REPLY
 		WHERE BOOK_ID = #{bookId}
 	</select>
@@ -27,11 +27,26 @@
 	</select>	
 
 	<insert id="breplyInsert" parameterType="co.ebook.prj.book.vo.BreplyVO">
-		INSERT INTO book_reply
-		VALUES ( BREPLY_SEQ.nextval	, #{bookId}			, #{breplyClass} 	,  
-				( select max(breply_ord)+1 from book_reply where book_id = #{bookId} ), 
-				 BREPLY_SEQ.nextval	, #{breplyContents}	, #{breplyCloseYn} 	, 
-				 #{breplyWriter}	, SYSDATE			, SYSDATE    		, #{breplyStar} ) 
+		
+			INSERT INTO book_reply
+			VALUES ( BREPLY_SEQ.nextval		, #{bookId}				, #{breplyClass} 	,  
+					( select NVL(max(breply_ord),0)+1 
+						from book_reply 
+					   where book_id = #{bookId} 
+					     and breply_class = #{breplyClass} ) ,
+					      
+					
+						<if test='breplyClass == 0'>
+						 BREPLY_SEQ.nextval	,
+						</if>
+						<if test='breplyClass == 1'>
+							#{breplyGr} ,
+						</if>
+					
+						
+						 #{breplyContents}	, #{breplyCloseYn} 	, #{breplyWriter}	, 
+						 SYSDATE			, SYSDATE    		, #{breplyStar} )
+		
 	</insert> 
 	
 	<update id="breplyUpdate" parameterType="co.ebook.prj.book.vo.BreplyVO">

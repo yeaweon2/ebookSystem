@@ -56,15 +56,39 @@ public class BucketController {
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		if(result > 0 ) {
-			map.put("result", "입력완료");
+			map.put("result", "01");
 			map.put("bucket", bucketDao.bucketDetail(vo));
 		
 		}else {
-			map.put("result", "오류발생");
+			map.put("result", "02");
 		}
 		return map;
 		
 	}
+	
+	@RequestMapping("/bucketDoneCancel")
+	@ResponseBody
+	public HashMap<String,Object>  bucketDoneCancel(Model model, @RequestBody BucketVO vo, HttpServletRequest request ) {
+		
+		HttpSession session = request.getSession();
+		vo.setMemberId((String)session.getAttribute("id"));
+		
+		int result = bucketDao.bucketDoneCancelUpdate(vo);
+		
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		if(result > 0 ) {
+			map.put("result", "01");
+			map.put("bucket", bucketDao.bucketDetail(vo));
+		
+		}else {
+			map.put("result", "02");
+		}
+		return map;
+		
+	}	
+	
+	
 	
 	@RequestMapping("/bucketDelete")
 	@ResponseBody
@@ -76,10 +100,10 @@ public class BucketController {
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		if(result > 0 ) {
-			map.put("result", "입력완료");
+			map.put("result", "01");
 			
 		}else {
-			map.put("result", "오류발생");
+			map.put("result", "02");
 		}
 		return map;
 	}	
@@ -102,10 +126,10 @@ public class BucketController {
 			int result = bucketDao.bucketInsert(vo);
 			
 			if(result > 0 ) {
-				map.put("result", "입력완료");
+				map.put("result", "01");
 				map.put("bucket", bucketDao.bucketDetail(vo));
 			}else {
-				map.put("result", "오류발생");
+				map.put("result", "02");
 			}
 		}
 		return map;

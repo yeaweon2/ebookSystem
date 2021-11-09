@@ -22,6 +22,7 @@ public interface BucketService {
 	
 	// 버킷등록시 중복체크
 	List<BucketVO> bucketDuplChk(BucketVO vo);
-	
+
+	int bucketDoneCancelUpdate(BucketVO vo);
 }
 

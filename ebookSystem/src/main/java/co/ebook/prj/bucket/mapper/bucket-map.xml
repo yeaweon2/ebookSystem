@@ -94,4 +94,15 @@
 		   AND book_id = #{bookId}
 		   AND MEMBER_ID = #{memberId}    
 	</delete>
+	
+	<update id="bucketDoneCancelUpdate" parameterType="co.ebook.prj.bucket.vo.BucketVO">
+		UPDATE bucket_book
+		   SET bucket_done_dt = null
+		     , bucket_st_cd = '01'
+		     , udt_dt = SYSDATE
+		 WHERE bucket_id = #{bucketId}
+		   AND book_id = #{bookId}
+		   AND MEMBER_ID = #{memberId}
+		     
+	</update>	
 </mapper>

@@ -24,7 +24,6 @@
 	$(function(){
 		$(".bookClick").on("click", function(){
 			event.preventDefault();
-			
 			$("#frm").find("#bookId").val($(this).data("bookid"));
 			frm.submit();
 		});
@@ -43,7 +42,6 @@
 				dataType : 'json' ,
 				success : function(data){
 					console.log(data);
-					
 					card.remove();
 				}
 			});
@@ -53,13 +51,10 @@
 		
 		$("#mainDiv").on("click", ".bookReading", function(){
 			event.preventDefault();
-			var bookId = $(this).data("id");
-			frm.bookId.val = bookId;
+			$("#frm").find("#bookId").val($(this).data("bookid"));
+			console.log($("#frm").find("#bookId").val());
 			frm.action = "bookReading";
 			frm.submit();
-			
-			
-			
 		});
 	});
 </script>
@@ -77,11 +72,10 @@
 							<div class="col-md-7">
 								<strong class="">${lend.bookPublCo} / ${lend.bookWriter}</strong>
 								<h4><a href="#" class="bookClick" data-bookid="${lend.bookId}">${lend.bookNm}</a></h4>
-								<br/>
 								<h5>대여일자 : <fmt:formatDate pattern="yyyy-MM-dd"  value="${lend.lendDate}"/></h5>
 								<h5>리딩횟수 : ${lend.lendHit} 번</h5>
 								<br/>
-								<a class="bookReading" href="#" class="stretched-link hover" data-id="${lend.bookId}"><i class="fa fa-hand-o-right" style="font-size:15px"></i> BOOK READING <i class="fa fa-hand-o-left" style="font-size:15px"></i></a>
+								<a class="bookReading" href="#" class="stretched-link hover" data-bookid="${lend.bookId}"><i class="fa fa-hand-o-right" style="font-size:15px"></i> BOOK READING <i class="fa fa-hand-o-left" style="font-size:15px"></i></a>
 								<a href="#" class="lendDel pull-right" data-lendid="${lend.lendId}" ><i class="fa fa-trash-o"></i>삭제</a>
 							</div>
 							<div class="col-md-5">

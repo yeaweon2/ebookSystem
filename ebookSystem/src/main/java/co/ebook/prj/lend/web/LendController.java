@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.ebook.prj.bcnfm.vo.BcnfmVO;
-import co.ebook.prj.bucket.vo.BucketVO;
+import co.ebook.prj.book.vo.BatchVO;
 import co.ebook.prj.lend.service.LendService;
 import co.ebook.prj.lend.vo.LendVO;
 
@@ -89,7 +88,6 @@ public class LendController {
 				}
 			}
 		}
-		
 		return map;
 	}
 	
@@ -124,6 +122,35 @@ public class LendController {
 	}
 	
 	
-	
+	@RequestMapping("/bookReading")
+	public String bookReading(Model model , LendVO vo, HttpServletRequest request ) {
+		
+		HttpSession session = request.getSession();
+		vo.setMemberId((String)session.getAttribute("id"));
+		
+		System.out.println("====================================>>");
+		System.out.println(vo.toString());
+		System.out.println("====================================>>");
+		
+		// bookReading시 대여 HIT 증가
+		int result = lendDao.lendUpdate(vo);
+		
+		// 해당 도서 상세조회
+		LendVO lend = lendDao.lendDetail(vo);
+		
+		// book 파일조회
+		List<BatchVO> batchList = lendDao.readingBook(vo);
+		
+		System.out.println("====================================>>");
+		System.out.println(lend);
+		System.out.println("====================================>>");
+		System.out.println(batchList);
+		System.out.println("====================================>>");
+		
+		model.addAttribute("lend", lend);
+		model.addAttribute("batchList", batchList);
+		
+		return "lend/bookReading";
+	}
 	
 }

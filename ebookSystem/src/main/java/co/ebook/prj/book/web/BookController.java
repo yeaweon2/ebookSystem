@@ -242,12 +242,6 @@ public class BookController {
 		List<BookVO> lists = bookDao.bookSrchPageList(svo);
 		model.addAttribute("lists", lists);
 		return "book/bookSrchList";
-	}	
-	
-	@RequestMapping("/bookReading")
-	public String bookReading(Model model , BookSrchVO svo, Paging paging ) {
-		
-		return "book/bookReading";
-	}	
+	}		
 }
 

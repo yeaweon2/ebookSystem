@@ -131,18 +131,18 @@
         'use strict';
         if( `${auth}` == 'A' ){
         	jQuery('#headerwrap').backstretch([
-        		"resources/assets/img/bg/bg0r.png",
-                "resources/assets/img/bg/bg1r.png",
-                "resources/assets/img/bg/bg2r.png"
+        		"resources/assets/img/bg/bg0rr.png",
+                "resources/assets/img/bg/bg1rr.png",
+                "resources/assets/img/bg/bg2rr.png"
             ], {
                 duration: 8000,
                 fade: 500
             });
         }else if( `${auth}` == 'M' ){
         	jQuery('#headerwrap').backstretch([
-        		"resources/assets/img/bg/bg0y.png",
-                "resources/assets/img/bg/bg1y.png",
-                "resources/assets/img/bg/bg2y.png"
+        		"resources/assets/img/bg/bg0yy.png",
+                "resources/assets/img/bg/bg1yy.png",
+                "resources/assets/img/bg/bg2yy.png"
             ], {
                 duration: 8000,
                 fade: 500

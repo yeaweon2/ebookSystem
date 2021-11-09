@@ -52,4 +52,9 @@ public class BucketServiceImpl implements BucketService {
 		return map.bucketDetail(vo);
 	}
 
+	@Override
+	public int bucketDoneCancelUpdate(BucketVO vo) {
+		return map.bucketDoneCancelUpdate(vo);
+	}
+
 }

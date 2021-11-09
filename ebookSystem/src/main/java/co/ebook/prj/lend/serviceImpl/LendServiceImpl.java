@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.ebook.prj.book.vo.BatchVO;
 import co.ebook.prj.lend.mapper.LendMapper;
 import co.ebook.prj.lend.service.LendService;
 import co.ebook.prj.lend.vo.LendVO;
@@ -44,5 +45,10 @@ public class LendServiceImpl implements LendService {
 	@Override
 	public int lendDuplChk(LendVO vo) {
 		return map.lendDuplChk(vo);
+	}
+
+	@Override
+	public List<BatchVO> readingBook(LendVO vo) {
+		return map.readingBook(vo);
 	}
 }

@@ -2,6 +2,7 @@ package co.ebook.prj.lend.mapper;
 
 import java.util.List;
 
+import co.ebook.prj.book.vo.BatchVO;
 import co.ebook.prj.lend.vo.LendVO;
 
 public interface LendMapper {
@@ -16,4 +17,6 @@ public interface LendMapper {
 	int lendDelete(LendVO vo);
 	
 	int lendDuplChk(LendVO vo);
+	
+	List<BatchVO> readingBook(LendVO vo);
 }

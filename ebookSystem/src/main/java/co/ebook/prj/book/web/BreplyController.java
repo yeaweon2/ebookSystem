@@ -27,11 +27,9 @@ public class BreplyController {
 				
 		vo.setBreplyWriter((String)session.getAttribute("id"));
 		vo.setBreplyCloseYn("N");
-		
-		vo.setBreplyClass(0);
 		System.out.println("---------------------------댓글등록 >>");
 		System.out.println(vo.toString());
-		
+		System.out.println("---------------------------댓글등록 >>");
 		int result = breplyDao.breplyInsert(vo);
 		if( result > 0 ) {
 			vo = breplyDao.breplyDetail(vo);		

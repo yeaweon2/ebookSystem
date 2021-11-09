@@ -2,6 +2,7 @@ package co.ebook.prj.lend.service;
 
 import java.util.List;
 
+import co.ebook.prj.book.vo.BatchVO;
 import co.ebook.prj.lend.vo.LendVO;
 
 public interface LendService {
@@ -17,4 +18,6 @@ public interface LendService {
 	int lendDelete(LendVO vo);
 	
 	int lendDuplChk(LendVO vo);
+	
+	List<BatchVO> readingBook(LendVO vo);
 }
