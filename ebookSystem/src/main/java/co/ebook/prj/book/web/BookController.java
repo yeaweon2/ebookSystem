@@ -242,6 +242,7 @@ public class BookController {
 		List<BookVO> lists = bookDao.bookSrchPageList(svo);
 		model.addAttribute("lists", lists);
 		return "book/bookSrchList";
-	}		
+	}
+	
 }
 

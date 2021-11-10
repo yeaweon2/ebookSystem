@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.ebook.prj.book.vo.BatchVO;
+import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.lend.service.LendService;
 import co.ebook.prj.lend.vo.LendVO;
 
@@ -152,5 +153,10 @@ public class LendController {
 		
 		return "lend/bookReading";
 	}
+	
+	@RequestMapping("/fileAdd")
+	public String fileAdd(Model model , BookVO vo ) {
+		return "lend/fileAdd";
+	}			
 	
 }

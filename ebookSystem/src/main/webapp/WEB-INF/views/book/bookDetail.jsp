@@ -114,13 +114,6 @@ body {
 	color: '#333';
 }
 
-.Ere_line {
-    margin: 45px 0 40px 0;
-    padding: 0;
-    border-top: 1px solid #d5d5d5;
-}
-
-
 .bInfo {
 	padding-left: 30px;
 	

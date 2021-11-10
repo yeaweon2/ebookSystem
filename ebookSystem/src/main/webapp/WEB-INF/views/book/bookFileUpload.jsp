@@ -434,13 +434,10 @@ function F_FileMultiUpload_Callback(files) {
 				</div>	
 				<div class="col-sm-6" >	
 					<div class="row" style="margin-top: 40px">
-						<div class="col-sm-8">
+						<div class="col-sm-12">
 							<div class="section-header" >
 								<h2 class="title" style="top:20px">File UPLOAD</h2>
 							</div>
-						</div>
-						<div class="col-sm-4">
-							<a href="#" id="fileInsert" data-bookid="${book.bookId}" class="btn-black smoothie pull-right">파일등록</a>
 						</div>
 					</div>
 					<div class="row">
@@ -451,6 +448,10 @@ function F_FileMultiUpload_Callback(files) {
 							<div id="noImgFiles"></div>
 						</div>
 					</div>	
+					<div class="row pull-right">
+						<a href="fileAdd" id="ePubFile" class="btn-black smoothie">ePub파일만들기</a>
+						<a href="#" id="fileInsert" data-bookid="${book.bookId}" class="btn-black smoothie">파일등록</a>
+					</div>
 				</div>	
 			</div>
 		</div>
