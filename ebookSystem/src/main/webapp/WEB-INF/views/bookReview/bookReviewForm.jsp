@@ -6,11 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-.modal-backdrop {
-	z-index: -1;
-}
-</style>
+
 <style>
 
 /* The Modal (background) */
@@ -52,6 +48,11 @@
 </style>
 <script>
 	$(function() {
+		//책리뷰입력
+		$('#reviewInputBtn').on('click', function() {
+			frm.submit();
+		})
+		
 		//대여리스트 가져오기
 		var modal = document.getElementById("myModal");
 		var span = document.getElementsByClassName("close")[0];
@@ -82,15 +83,21 @@
 									})//each끝
 									
 					$('#lendList').on('dblclick',".chk", function(){ //부모한테걸어서 아직생성되지않은 테이블에 이벤트를 준다, div생성해서 append하고 모달을 닫기한다.
-						console.log($(this).data("bookid"));
+						var bookid = $(this).data("bookid")
+						console.log(bookid);
 						var imgsrc = $(this).find(".bkimg").children().attr('src')
 						
+						$("#bookLendList").empty();
 						$('#bookLendList').append( $("<img width='50px' height='70px'>").attr("src", imgsrc))
 										  .append($(this).find(".bknm").html())
-										  .append($(this).find(".bkw").html());
+										  .append($(this).find(".bkw").html())
+										  .append($("<input : hidden>").attr("val", bookid))
+						
+						modal.style.display = "none";
+						
 					})
 				}//function끝
-			})//대여리스트끝
+			})
 			
 			
 
@@ -110,10 +117,7 @@
 			height : 300
 		});
 		
-		//책리뷰입력
-		$("#reviewInputBtn").on('click', function() {
-			frm.submit();
-		})
+		
 	});
 </script>
 </head>
@@ -126,15 +130,16 @@
 					<br> <br>
 				</div>
 			</div>
-			<div id="lend">
+			<form id="frm" name="frm" action="reviewInsert" method="post">
 			<table class="table">
 				<tr>
 					<td><input type="text" class="form-control" name="rewviewTitle" id="reviewTitle" placeholder="제목을 입력해 주세요"></td>
 				</tr>
 				<tr>
 					<td>
+						<input type="button" class="myBtn pull-right btn-primary" value="대여목록조회">
 						<div id="bookLendList">
-						<button class="myBtn pull-right btn-primary">내가 대여한 책목록</button>
+						
 						</div></td>
 				</tr>
 				<tr>
@@ -144,16 +149,16 @@
 					<td><input type="file" name="reviewAtchNm" placeholder="파일 선택" multiple></td>
 					
 			</table>
-			<input id="reviewInputBtn" value="등록" class="btn-primary ">
+			<input type="button" id="reviewInputBtn" value="등록" class="btn-primary ">
 			<input type="button" onclick="location.href='bookReviewList'" value="취소" class="btn-danger">
-		</div>
+			</form>	
 	</div>
 </div>
 	<!-- The Modal -->
 	<div id="myModal" class="modal">
 		<!-- Modal content -->
 		<div class="modal-content">
-			<form id="frm" name="frm" action="" method="post">
+			<form id="frm" name="frm" method="post">
 				
 				<div id="lendList">
 					

@@ -28,7 +28,8 @@ public class BookReviewController {
 	
 	@Autowired
 	LendService lendDao;
-
+	
+	//전체리뷰 리스트
 	@RequestMapping("/bookReviewList")
 	String bookReviewList(Model model, BookReviewVO vo) {
 		List<BookReviewVO> lists = bookReviewDao.bookReviewList(vo);
@@ -37,11 +38,7 @@ public class BookReviewController {
 		return "bookReview/bookReviewList";
 	}
 	
-	@RequestMapping("/reviewInsertForm")
-	String reviewInsertForm(Model model, BookReviewVO vo) {
-		return "bookReview/bookReviewForm";
-	}
-	
+	//대여리스트 
 	@RequestMapping(value="/reviewLendList", method=RequestMethod.GET)
 	@ResponseBody
 	List<LendVO> reviewLendList(Model model, LendVO vo, HttpServletRequest request) {
@@ -50,9 +47,31 @@ public class BookReviewController {
 		vo.setMemberId((String)session.getAttribute("id"));
 		
 		List<LendVO> lists = lendDao.lendList(vo);
-		System.out.println(lists.toString());
-		System.out.println("===============================여기가 대여리스트");
 		
 		return lists;
+	}
+	
+	//리뷰 입력양식
+	@RequestMapping("/reviewInsertForm")
+	String reviewInsertForm(Model model, BookReviewVO vo) {
+		return "bookReview/bookReviewForm";
+	}
+	
+	
+	//리뷰 입력
+	@RequestMapping("/reviewInsert")
+	String reviewInsert(Model model, BookReviewVO vo, HttpServletRequest request) {
+		System.out.println(vo.toString());
+		System.out.println("========================리뷰를 입력합시다");
+		HttpSession session = request.getSession();
+		vo.setReviewWriter((String)session.getAttribute("id"));
+		int lists = bookReviewDao.bookReviewInsert(vo);
+		
+		if (lists > 0) {
+			model.addAttribute("msg", "성공");
+		} else {
+			model.addAttribute("msg", "실패");
+		}
+		return "redirect:reviewInsert";
 	}
 }

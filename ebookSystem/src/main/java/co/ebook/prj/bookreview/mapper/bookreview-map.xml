@@ -8,5 +8,21 @@
 		 WHERE REVIEW_DEL_YN = 'N'   
 	</select>
 	
+	<insert id="bookReviewInsert" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
+		INSERT INTO REVIEW(   
+							REVIEW_ID		, BOOK_ID
+						  , REVIEW_TITLE	, REVIEW_WRITER
+						  , REVIEW_HIT		, REVIEW_LIKEIT
+						  , REVIEW_REPLY_CNT, REVIEW_ATCH_NM
+						  , REVIEW_ATCH_PATH, INS_DT		
+						  , UDT_DT			, REVIEW_CONTENTS)
+					VALUES(
+							BR_SEQ.NEXTVAL  ,#{bookId}
+							,#{reviewTitle}	,#{reviewWriter}
+							,default		,0
+							,0				,NULL
+							,NULL			,SYSDATE
+							,SYSDATE		,#{reviewContents})
+	</insert>
 	
 </mapper>

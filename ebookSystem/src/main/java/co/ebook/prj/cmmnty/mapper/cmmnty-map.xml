@@ -45,18 +45,18 @@
 	<!-- 211019 공지사항 글입력 -->
 	<insert id="cmmntyInsert" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
 		INSERT INTO COMMUNITY(
-		CMMNTY_ID			, CMMNTY_WRITER		
-		, CMMNTY_TITLE		, CMMNTY_FL_CD
-		, CMMNTY_CONTENTS	, CMMNTY_HIT		
-		, INS_DT			, UDT_DT
-		, CMMNTY_ATCH_NM	, CMMNTY_ATCH_PATH
-		)
-		VALUES (
-		 C_SEQ.nextval		, #{cmmntyWriter}	
-		 , #{cmmntyTitle}	, #{cmmntyFlCd}		
-		 , #{cmmntyContents}, default
-		 , sysdate			, sysdate			
-		 , #{cmmntyAtchNm}  , #{cmmntyAtchPath})
+								CMMNTY_ID			, CMMNTY_WRITER		
+								, CMMNTY_TITLE		, CMMNTY_FL_CD
+								, CMMNTY_CONTENTS	, CMMNTY_HIT		
+								, INS_DT			, UDT_DT
+								, CMMNTY_ATCH_NM	, CMMNTY_ATCH_PATH
+								)
+								VALUES (
+								 C_SEQ.nextval		, #{cmmntyWriter}	
+								 , #{cmmntyTitle}	, #{cmmntyFlCd}		
+								 , #{cmmntyContents}, default
+								 , sysdate			, sysdate			
+								 , #{cmmntyAtchNm}  , #{cmmntyAtchPath})
 	</insert>
 	
 	<!--  211020 공지사항 글삭제 -->

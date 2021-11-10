@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class BookReviewVO {
-	private int reviewId;
+	private Integer reviewId;
 	private String bookId;
 	private String reviewTitle;
 	private String reviewContents;
