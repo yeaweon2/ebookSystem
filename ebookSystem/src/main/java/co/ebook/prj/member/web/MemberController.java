@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.velocity.tools.view.WebappUberspector.GetAttributeExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -24,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.login.service.LoginService;
+import co.ebook.prj.login.web.MemScheduler;
+import co.ebook.prj.member.mapper.MemberMapper;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
 import co.ebook.prj.subscription.service.SubscriptionService;
@@ -33,7 +36,7 @@ import co.ebook.prj.subscription.vo.SubscriptionVO;
 public class MemberController {
 
 	@Autowired
-	MemberService memberDao;
+	MemberMapper memberDao;
 	
 	@Autowired
 	LoginService loginDao;
@@ -43,6 +46,8 @@ public class MemberController {
 	
 	@Autowired
 	String filePath;
+	
+
 	
 	
 	@InitBinder
@@ -287,6 +292,36 @@ public class MemberController {
 		System.out.println("==============================?????????????????????" + vo);
 		return "redirect:myInfo";
 	} 
+	
+	
+	@Scheduled(cron="0/1 * * * * *")
+	@RequestMapping(value="/postSend") 
+	 public void scheduler(MemberVO vo) {
+
+    	int updateSc = memberDao.updateStCd(vo);
+    	System.out.println("DB조회값:"+updateSc); 
+	    	
+	 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
