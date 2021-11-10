@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import co.ebook.prj.login.mapper.LoginMapper;
 import co.ebook.prj.login.service.LoginService;
 import co.ebook.prj.login.vo.LoginVO;
 
@@ -20,7 +21,8 @@ public class LoginController {
 	@Autowired
 	LoginService loginDao;
 	
-	
+	@Autowired
+	LoginMapper map;
 	
 	@RequestMapping("/login")
 	public String login (Model model,HttpServletRequest request, LoginVO vo) {
@@ -143,9 +145,16 @@ public class LoginController {
 	
 //	로그아웃
 	@RequestMapping("/logout")
-	public String logout(Model model, HttpServletRequest request) {
-		request.getSession().invalidate();
-		request.getSession(true);
+	public String logout(Model model, HttpServletRequest request, LoginVO vo) {
+		HttpSession session = request.getSession();
+		
+		vo.setMemberId((String)session.getAttribute("id"));	
+		model.addAttribute("logoutHistory", map.updateLogoutHistory(vo));
+		
+		System.out.println("===========================================???"+vo.toString());
+		
+		session.invalidate();
+		System.out.println("!!!!!!!!!!!!!!!!!!!===========================================???"+vo.toString());
 		return "redirect:home";
 	}
 	

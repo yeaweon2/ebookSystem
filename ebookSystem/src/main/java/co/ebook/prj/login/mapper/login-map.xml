@@ -53,5 +53,12 @@
 			
 	</insert>
 	
+	<update id="updateLogoutHistory" parameterType="co.ebook.prj.login.vo.LoginHistoryVO">
+		update  login_history
+		   set  logout_dt = sysdate
+		 where  member_id = #{memberId}
+		 
+	</update>
+	
 	
 </mapper>

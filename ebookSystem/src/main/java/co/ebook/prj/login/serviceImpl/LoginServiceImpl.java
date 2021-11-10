@@ -39,6 +39,12 @@ public class LoginServiceImpl implements LoginService {
 	public LoginVO findPassword(LoginVO vo) {
 		return map.findPassword(vo);
 	}
+
+//	로그아웃
+	@Override
+	public int updateLogoutHistory(LoginVO vo) {
+		return map.updateLogoutHistory(vo);
+	}
 	
 	
 }

@@ -13,5 +13,8 @@ public interface LoginService {
 	
 //	비밀번호 수정
 	int updatePwd(LoginVO vo);
+
+//	로그아웃 이력 
+	int updateLogoutHistory(LoginVO vo);
 	
 }

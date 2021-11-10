@@ -17,4 +17,7 @@ public interface LoginMapper {
 //	로그인 이력 입력
 	int insertLoginHistory(LoginVO vo);
 	
+//	로그아웃 이력 
+	int updateLogoutHistory(LoginVO vo);
+	
 }
