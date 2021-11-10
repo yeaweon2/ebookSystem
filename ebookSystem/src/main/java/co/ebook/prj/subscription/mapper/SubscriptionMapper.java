@@ -20,4 +20,5 @@ public interface SubscriptionMapper {
 //	월정액만료
 	int subDelete(SubscriptionVO vo);
 	
+//	
 	}

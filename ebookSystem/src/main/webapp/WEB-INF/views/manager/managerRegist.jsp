@@ -8,7 +8,6 @@
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
-mcnfmbizno
 </script>
 <style type="text/css">
  th{
@@ -155,23 +154,24 @@ mcnfmbizno
 <script type="text/javascript">
 
 
-	$("#biznoSearch").on("click", function(){
-		if($("#mcnfmbizno").val() !== 10 ) {
+	/* $("#biznoSearch").on("click", function(){
+		if($("#mcnfmbizno").val().length != 10 ) {
 			alert("사업자등록번호를 다시 입력하세요.");
 			$("#mcnfmbizno").focus();
 		}else{
-			return true;
+			window.close();
 		}
-	});
+		
+	}); */
 
 
 	$("#regist").on("click", function(){
 		alert('업체등록신청이 완료되었습니다. 신청내역 확인페이지로 이동합니다.');
-		frm.action="managerRegistInsert";
+		frm.action="managerRegistSuccess";
 		frm.submit(); 
-			}	
 				
 		});
+	
 </script>		
 </body>
 </html>

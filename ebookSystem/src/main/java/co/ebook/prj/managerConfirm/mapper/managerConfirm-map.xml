@@ -13,7 +13,28 @@
     </update>
 	
 	<insert id="managerRegistInsert" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
-		 
+		 insert 
+		  into	manager_confirm 
+				(mcnfm_id					,member_id
+				,mcnfm_req_dt				,mcnfm_st_cd
+				,mcnfm_cnfmr				,mcnfm_cnfm_dt
+				,mcnfm_bizno				,mcnfm_co_nm
+				,mcnfm_co_tel				,mcnfm_rpspr
+				,mcnfm_cntr_fl_cd			,mcnfm_cntr_sdt
+				,mcnfm_cntr_edt				,mcnfm_reject
+				,mcnfm_atch_nm				,mcnfm_atch_path
+				,ins_dt						,udt_dt)
+		values
+				(#{mcnfmId}				,#{memberId}
+				,sysdate				,#{mcnfmStCd }
+				,#{mcnfmStNm}			,#{mcnfmCnfmr}
+				,#{mcnfmCnfmDt} 		,#{mcnfmBizno}
+				,#{mcnfmCoTel } 		,#{mcnfmCoNm }
+				,#{mcnfmRpspr}  		,#{mcnfmCntrFlCd }
+				,#{mcnfmCntrFlNm}		,#{mcnfmCntrSdt}
+				,#{mcnfmCntrEdt}		,#{mcnfmReject}
+				,#{mcnfmAtchNm} 		,#{mcnfmAtchPath }
+				,sysdate				,sysdate )
 	</insert>
 	
 	<update id="managerconfirmUpdate" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">

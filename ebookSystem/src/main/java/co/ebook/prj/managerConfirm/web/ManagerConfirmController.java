@@ -86,7 +86,7 @@ public class ManagerConfirmController {
 	@RequestMapping("/managerRegistSuccess")
 	public String managerRegistSuccess(Model model, ManagerConfirmVO vo) {
 		managerCfDao.managerRegistInsert(vo);
-		return "main/home";
+		return "manager/registList";
 	}
 	
 //	매니저정보수정폼
