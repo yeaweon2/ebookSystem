@@ -130,7 +130,11 @@
                             </ul>
                         </li>                                                                                                                                                     
                         <li><a href="#search"><i class="pe-7s-search"></i></a></li>
-                        <li><a href="javascript:void(0);" class="side-menu-trigger hidden-xs"><i class="fa fa-bars"></i></a></li>
+                        
+                        
+                        <c:if test="${not empty id }">
+                        	<li><a href="javascript:void(0);" class="side-menu-trigger hidden-xs"><i class="fa fa-bars"></i></a></li>
+                        </c:if>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

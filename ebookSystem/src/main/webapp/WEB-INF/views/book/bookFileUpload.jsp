@@ -210,7 +210,7 @@ $(function () {
 			processData: false,
 			success: function(res) {
 			    console.log(res);
-			    alert("등록이 완료되었습니다.")
+			    alert("등록이 완료되었습니다.");
 			}
         });  
     });
@@ -343,6 +343,20 @@ function F_FileMultiUpload(files, obj) {
             
             var fileNm = files[i].name;
             var ext = fileNm.split(".").pop().toLowerCase();
+            
+            
+            
+				console.log(ext);
+				if($.inArray(ext, ["epub"]) == -1) {
+					alert("epub 파일만 등록 가능합니다.");
+					$("#attchFiles").empty();
+					$("#noFileTxt").html("Drag & Drop Files Here");
+					return false;
+				}
+			
+            
+            
+            
 			$("#fileList")
 			.append($("<tr id='bodyTr' class='fileTr' data-filename='"+ fileNm +"'>")
 						.append( $("<td class='filenoTd'>").html(i+1))

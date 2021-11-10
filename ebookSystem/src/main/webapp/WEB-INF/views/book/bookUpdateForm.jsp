@@ -13,6 +13,10 @@
 .row {
 	margin-top:10px;
 }
+
+	.modal-backdrop {
+	  z-index: -1;
+	}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -295,7 +299,13 @@
 									<div class="col-sm-12">
 										<button type="button" id="bookUpdateBtn" class="btn ebookBtn">수 정</button>
 										<button type="button" id="bookDeleteBtn" class="btn ebookBtn" onclick="bookDelete()">삭 제</button>
-										<button type="button" class="btn ebookBtn" onclick="location.href='bookList'">BOOK목록</button>
+										<c:if test="${auth eq 'A' }">
+											<button type="button" class="btn ebookBtn" onclick="location.href='bcnfmList'">BOOK승인목록</button>
+										</c:if>
+										<c:if test="${auth eq 'M' }">
+											<button type="button" class="btn ebookBtn" onclick="location.href='bookList'">BOOK목록</button>
+										</c:if>
+										
 									</div>
 								</div>																								
 							</div>
