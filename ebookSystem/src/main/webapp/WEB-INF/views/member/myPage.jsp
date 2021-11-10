@@ -189,7 +189,7 @@ $("#attchFile").on("change", function(){
 					<div >
 						<input type="button" id="profileUpdate" value="수정" class="btn btn-default get" style="background-color: #90EE90">
 						<input type="button" onclick="location.href='myPage'"  value="취소" class="btn btn-default get" style="background-color: #1E90FF">
-						<input type="button" onclick="location.href=''" value="회원탈퇴" class="btn btn-default get" style="background-color: #FF6347">
+						<input type="button" id="memDel" value="회원탈퇴" class="btn btn-default get" style="background-color: #FF6347">
 					</div><br><br><br>
 				</div><br><br>
 			</div>

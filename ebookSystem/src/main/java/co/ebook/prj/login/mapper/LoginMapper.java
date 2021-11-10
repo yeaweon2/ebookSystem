@@ -14,4 +14,7 @@ public interface LoginMapper {
 //	비밀번호 수정
 	int updatePwd(LoginVO vo);
 	
+//	로그인 이력 입력
+	int insertLoginHistory(LoginVO vo);
+	
 }

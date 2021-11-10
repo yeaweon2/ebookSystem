@@ -21,6 +21,8 @@ import co.ebook.prj.common.vo.BookCnfmTopVO;
 import co.ebook.prj.common.vo.BucketTopVO;
 import co.ebook.prj.common.vo.InquireTopVO;
 import co.ebook.prj.common.vo.ReviewTopVO;
+import co.ebook.prj.managerConfirm.service.ManagerConfirmService;
+import co.ebook.prj.managerConfirm.vo.ManagerConfirmVO;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
 import co.ebook.prj.subscription.service.SubscriptionService;
@@ -49,9 +51,13 @@ public class HomeController {
 	@Autowired
 	CommService commDao;
 	
+	@Autowired
+	ManagerConfirmService manDao;
+	
+	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model
-					   , MemberVO vo, SubscriptionVO sVo
+					   , MemberVO vo, SubscriptionVO sVo, ManagerConfirmVO mVo
 					   , BookCnfmTopVO btVo
 					   , BucketTopVO bktVo
 					   , InquireTopVO itVo
@@ -74,11 +80,14 @@ public class HomeController {
 		
 		vo.setMemberId(id);
 		sVo.setMemberId(id);
+		mVo.setMemberId(id);
 		
 		sVo = subDao.subSelect(sVo);
+		mVo = manDao.managerSelect(mVo);
 		
 		model.addAttribute("sub", sVo);
 		model.addAttribute("member", memberDao.memberSelect(vo));
+		model.addAttribute("managerConfirm", mVo);
 		
 		List<BookVO> bests = bookDao.bestSellerBook();
 		model.addAttribute("bests", bests);

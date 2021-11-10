@@ -235,14 +235,21 @@
 	</div>
 	
 	<script type="text/javascript">
-
-		$("#join").on("click", function(){
+	
+	
+	$("#join").on("click", function(){
+		if($("#memberPw").val() !== $("#password").val())	{
+			alert('비밀번호 입력값이 일치하지 않습니다.');
+			$("#memberPw").focus();
+			
+		}else{
 			alert('회원가입이 완료되었습니다. 홈으로 이동합니다.');
-				frm.action="managerJoinSuccess";
-				frm.submit(); 
-				
-			});
-		
+			frm.action="managerJoinSuccess";
+			frm.submit(); 
+		}	
+			
+	});
+	
 	</script>
 </body>
 </html>

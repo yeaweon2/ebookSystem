@@ -87,6 +87,12 @@ public class MemberServiceImpl implements MemberService {
 		return map.myPageUpdate(vo);
 	}
 
+//	휴면회원 변경
+	@Override
+	public int updateStCd(MemberVO vo) {
+		return map.updateStCd(vo);
+	}
+
 	
 	
 	

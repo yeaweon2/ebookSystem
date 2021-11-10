@@ -39,17 +39,22 @@ public class LoginController {
 		String views = null;
 		
 		vo = loginDao.getLoginInfo(vo);
-		
+		//
 		
 		if( vo != null ) {
-			session.setAttribute("id"		, vo.getMemberId());
-			session.setAttribute("name"		, vo.getMemberNm());
-			session.setAttribute("nicknm"	, vo.getMemberNicknm());
-			session.setAttribute("auth"		, vo.getMemberFlCd());
-			session.setAttribute("stcd"		, vo.getMemberStCd());
-			session.setAttribute("cartCnt"	, vo.getCartCnt());
-			session.setAttribute("subYn"	, vo.getMemberSubYn());
-			views = "redirect:home"; 
+			if(vo.getMemberStCd().equals("01")) {
+				session.setAttribute("id"		, vo.getMemberId());
+				session.setAttribute("name"		, vo.getMemberNm());
+				session.setAttribute("nicknm"	, vo.getMemberNicknm());
+				session.setAttribute("auth"		, vo.getMemberFlCd());
+				session.setAttribute("stcd"		, vo.getMemberStCd());
+				session.setAttribute("cartCnt"	, vo.getCartCnt());
+				session.setAttribute("subYn"	, vo.getMemberSubYn());
+				views = "redirect:home"; 
+			} else  {
+				model.addAttribute("message", "휴면회원이거나 탈퇴회원입니다. 관리자에게 1:1문의를 남겨주세요.");
+				views = "main/loginFail";
+			}
 		}else {
 			model.addAttribute("message", "로그인 실패 !!");
 			views = "main/loginFail";
@@ -143,4 +148,5 @@ public class LoginController {
 		request.getSession(true);
 		return "redirect:home";
 	}
+	
 }

@@ -40,4 +40,7 @@ public interface MemberMapper {
 
 //	마이페이지 수정
 	int myPageUpdate(MemberVO vo);
+	
+//	휴면회원변경
+	int updateStCd(MemberVO vo);
 }

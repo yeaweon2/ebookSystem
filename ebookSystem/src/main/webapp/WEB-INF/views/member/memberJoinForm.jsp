@@ -115,7 +115,6 @@
 						<div class="col-sm-7">
 							<label for="id" class="form-label">아이디</label>
 							<input type="text" class="form-control" id="memberId" name="memberId" placeholder="id" value="" required>
-							<div class="invalid-feedback">ID를 입력하세요.</div>
 						</div>
 
 						<div class="col-sm-2">
@@ -129,13 +128,11 @@
 						<div class="col-sm-4">
 							<label for="password" class="form-label">비밀번호</label>
 							<input type="text" class="form-control" id="memberPw" name="memberPw" placeholder="password" required>
-							<div class="invalid-feedback">비밀번호를 입력하세요.</div>
 						</div>
 
 						<div class="col-sm-4">
 							<label for="password" class="form-label">비밀번호 확인</label>
 							<input type="text" class="form-control" id="password" placeholder="password" required>
-							<div class="invalid-feedback">비밀번호를 한번더 입력하세요.</div>
 						</div>
 					</div>
 					<br>
@@ -144,7 +141,6 @@
 						<div class="col-sm-8">
 							<label for="tel" class="form-label">휴대전화</label>
 							<input type="text" class="form-control" id="memberTel" name="memberTel" placeholder="tel" required>
-							<div class="invalid-feedback">전화번호를 입력하세요.</div>
 						</div>
 					</div>
 					<br>
@@ -153,7 +149,6 @@
 						<div class="col-sm-8">
 							<label for="email" class="form-label">Email</label>
 							<input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="you@example.com">
-							<div class="invalid-feedback">Email을 바르게 입력하세요.</div>
 						</div>
 					</div>
 					<br>
@@ -162,7 +157,6 @@
 						<div class="col-sm-7">
 							<label for="nickname" class="form-label">닉네임</label>
 							<input type="text" class="form-control" id="memberNicknm" name="memberNicknm" placeholder="nickname" required>
-							<div class="invalid-feedback">닉네임을 입력하세요.</div>
 						</div>
 
 						<div class="col-sm-4">
@@ -176,7 +170,6 @@
 						<div class="col-md-5">
 							<label for="birth" class="form-label">생년월일</label>
 							<input type="text" class="form-control" id="memberBirth" name="memberBirth" placeholder="birth" required>
-							<div class="invalid-feedback">생년월일 입력하세요.</div>
 						</div>
 						
 						<div class="col-md-1">
@@ -262,11 +255,17 @@
 	<script type="text/javascript">
 
 		$("#join").on("click", function(){
-			alert('회원가입이 완료되었습니다. 홈으로 이동합니다.');
+			if($("#memberPw").val() !== $("#password").val())	{
+				alert('비밀번호 입력값이 일치하지 않습니다.');
+				$("#memberPw").focus();
+				
+			}else{
+				alert('회원가입이 완료되었습니다. 홈으로 이동합니다.');
 				frm.action="memberJoinSuccess";
 				frm.submit(); 
+			}	
 				
-			});
+		});
 		
 	</script>
 </body>

@@ -38,4 +38,20 @@
 		 where  member_id = #{memberId}
 	</update>
 	
+	 <insert id="insertLoginHistory" parameterType="co.ebook.prj.login.vo.LoginHistoryVO">
+		INSERT
+	  	  INTO  login_history
+				(login_id
+				,member_id
+				,login_dt
+				,logout_dt)
+		VALUES
+				(memlo_seq.nextval
+				,#{memberId}
+				,sysdate
+				,null)
+			
+	</insert>
+	
+	
 </mapper>

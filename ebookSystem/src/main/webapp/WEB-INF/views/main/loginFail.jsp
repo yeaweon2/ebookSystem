@@ -149,7 +149,7 @@
 			<form class="form-signin" action="loginProc" method="post" name="findform" id="frm">
 				<div class="form-label-group">
 					<div class="col-md-12" align="center">
-						<h4><p id="p">로그인에 실패하셨습니다.</p></h4>
+						<h4><p id="p">${message }</p></h4>
 						<div class="col-md-6" >
 							<button type="button" class="btn btn-lg btn-secondary btn-block text-uppercase" id="loginBtn" onclick="location.href='login'">로그인으로 이동</button>
 						</div>

@@ -135,5 +135,18 @@
 		 where  member_id = #{memberId}
 		   and  member_sub_yn = 'N'
 	</update>
+	
+	<update id="updateStCd" parameterType="co.ebook.prj.member.vo.MemberVO">
+		update  member
+		   set  member_st_cd ='02'
+		 where  member_id in (select member_id 
+                               from   (select    member_id
+                                  			     ,max (login_dt) login_dt 
+                                         from    login_history
+                                     group by    member_id 
+                               		 )
+                   			  where  sysdate - login_dt > 180
+                           	  )
+	</update>
 
 </mapper>

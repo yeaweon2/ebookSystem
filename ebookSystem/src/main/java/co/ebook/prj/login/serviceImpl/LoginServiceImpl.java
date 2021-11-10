@@ -15,7 +15,11 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public LoginVO getLoginInfo(LoginVO vo) {
-		return map.getLoginInfo(vo);
+		LoginVO lVo=map.getLoginInfo(vo);
+		if(lVo != null  && lVo.getMemberStCd().equals("01")) {
+			map.insertLoginHistory(vo);
+		}
+		return lVo;
 	}
 
 //	비밀번호변경

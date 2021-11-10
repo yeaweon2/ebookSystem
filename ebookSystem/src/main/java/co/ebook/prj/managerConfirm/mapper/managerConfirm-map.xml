@@ -43,7 +43,7 @@
                           b.mcnfm_st_cd,         b.mcnfm_cntr_sdt,        b.mcnfm_cntr_edt,
                           b.mcnfm_cntr_fl_cd,    b.mcnfm_cnfmr,           a.ins_dt,      
 				          a.udt_dt,              a.member_birth,          a.member_tel,
-				          a.member_email,        a.member_phone_vld,      a.member_profile_nm,
+				          a.member_email,        a.member_sub_yn,      a.member_profile_nm,
 				          a.member_profile_path, a.member_pw,
                          (select scodes.scode_nm from scodes where lcode = 'MF' and scode = mcnfm_cntr_fl_cd ) as mcnfm_cntr_fl_nm,
                          (select scodes.scode_nm from scodes where lcode = 'MC' and scode = mcnfm_st_cd ) as mcnfm_st_nm,

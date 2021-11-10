@@ -92,31 +92,31 @@
                 <div class="widget mb50">
                     <h4 class="widget-title">My Info</h4>
                     <div align="center">
-                        <c:if test="${not empty member.memberProfilePath}">
+                        <c:if test="${empty member.memberProfilePath}">
+							<img id="proimg1" src="resources/assets/img/noimg.jpg" >&nbsp;&nbsp;
+						</c:if>
+						<c:if test="${not empty member.memberProfilePath}">
 							<img id="proimg1" src="${pageContext.request.contextPath}/fileUp/profile/${member.memberProfileNm}" >&nbsp;&nbsp;
 						</c:if>
                     </div><br>
                     <div align="center">
                        <p id="n">${member.memberNicknm} 님</p>
+                       <label>${member.memberFlNm }</label>
                     </div>
 					<div align="center" ><br>
 						<table>
 							<tr id="st">
 								<th id="st" onclick="location.href='myInfo'" >내정보보기</th>
+								<c:if test="${auth eq 'U'}">
 								<th id="st">월정액종료일<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sub.subspEdt }" /></p></th>
 								<th id="st">마일리지<p id="p">${member.memberMile} p</p></th>
+								</c:if>
+								<c:if test="${auth eq 'M'}">
+								<th id="st">계약만료일자<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmCntrEdt }" /></p></th>
+								</c:if>
 							</tr>
                    		</table>
                    	</div>  
-                </div>
-                <div class="widget mb50">
-                    <h4 class="widget-title"><strong>My Schedule</strong></h4>
-                    <div class="tagcloud">
-                        <a href="#" class="tag-link btn btn-theme btn-xs" title="3 topics">스케쥴리스트 넣기</a>
-                    </div>
-                </div>
-                <div class="widget about-us-widget mb50">
-                    <h4 class="widget-title">내글 댓글 넣기</h4>
                 </div>
             </div>
         </div>

@@ -8,11 +8,7 @@
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
-function mcnfmBizNoApi(){
-	 $.ajax({
-		 
-	 })
-}
+mcnfmbizno
 </script>
 <style type="text/css">
  th{
@@ -45,7 +41,7 @@ function mcnfmBizNoApi(){
 								<input type="text" id="mcnfmbizno" name="mcnfmbizno" size="50px" class="form-control" required>
 							</td>
 							<td colspan="2">
-								<button id="biznoSearch" type="button" class="btn btn-primary" data-toggle="modal" data-target="#mcnfmBizNoApiModal"> 조회 </button>
+								<button id="biznoSearch" type="button" class="btn btn-primary" data-toggle="modal" data-target="#mcnfmBizNoApiModal"> 확인 </button>
 							</td>
 						</tr>
 						<tr>
@@ -75,7 +71,7 @@ function mcnfmBizNoApi(){
 						</tr>
 					</table>
 					<div align="right">					
-						<button class="btn btn-primary btn-lg"  onClick="alert('업체등록신청이 완료되었습니다. 홈으로 이동합니다.')" type="submit">등록</button>
+						<button class="btn btn-primary btn-lg" type="button" id="regist">등록</button>
 					</div>
 				</form>
 			</div>
@@ -156,48 +152,26 @@ function mcnfmBizNoApi(){
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
 
-<div  class="modal fade" id="mcnfmBizNoApiModal">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<form class="needs-validation" target="iframe1" novalidate>	
-				<!--Header-->
-			    <div class="modal-header">
-			    	<h4 class="modal-title" id="myModalLabel">사업자등록번호 검색</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-			        </button>
-			    </div>
-				<!--Body-->
-				<div class="modal-body">
-					<div class="row">
-						<input type="text" class="form-control" id="mcnfmBizNoNm" placeholder=""  required>
-						<div class="invalid-feedback">
-							검색할 회사명을 입력해주세요.
-						</div>	
-						<button type="submit" id="biznoSearch" class="btn btn-primary btn-lg" onclick="mcnfmBizNoApi()" >검 색</button>
-					</div>
-					<div class="row">
-						<table id="apiTb" class="table table-hover">
-							<tr>
-								<th>No</th>
-								<th>상호명</th>
-								<th>사업자번호</th>
-								<th>대표자명</th>
-								<th>회사번호</th>
-							</tr>
-							<tbody id="apiTbody">
-							</tbody>
-						</table>
-					</div>			
-				</div>
-	      		<!--Footer-->
-		      	<div class="modal-footer">
-		        	<button id="apiCloseBtn" type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
+
+	$("#biznoSearch").on("click", function(){
+		if($("#mcnfmbizno").val() !== 10 ) {
+			alert("사업자등록번호를 다시 입력하세요.");
+			$("#mcnfmbizno").focus();
+		}else{
+			return true;
+		}
+	});
+
+
+	$("#regist").on("click", function(){
+		alert('업체등록신청이 완료되었습니다. 신청내역 확인페이지로 이동합니다.');
+		frm.action="managerRegistInsert";
+		frm.submit(); 
+			}	
+				
+		});
+</script>		
 </body>
 </html>

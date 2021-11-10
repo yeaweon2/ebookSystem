@@ -110,6 +110,7 @@
 						<button type="button" id="check_module" class="btn btn-outline-primary" onclick="location.href='lendList'" value="보기"> 보기</button>
 					</div><br><br><br>
 			    </div><br><br>
+			    <c:if test="${subYn eq 'Y'}">
 			    <div style="height:200px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
 			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">월정액 결제내역</h4>
 					<h5 align="left" style="margin-left: 25px;">상품 금액 : ${sub.subspAmt} 원</h5>
@@ -118,7 +119,7 @@
 					<h5 align="left" style="margin-left: 25px;">현재 마일리지 : ${member.memberMile} point</h5>
 					<h5 align="left" style="margin-left: 25px;">결제코드 : ${sub.impUid} </h5>
 			    </div><br><br>
-			   		
+			   	</c:if>	
 		    </div> 
 		</div> 
      </div>
