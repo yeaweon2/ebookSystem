@@ -146,6 +146,27 @@ $(function(){
 		$(this).find("p").removeClass("over");
 	});
 	
+	$("#bestB").on("click", function(){
+		event.preventDefault();
+		$("#bestUl").removeClass("hidden");
+		$("#newUl").addClass("hidden");
+		$("#likesUl").addClass("hidden");
+	});
+	
+	$("#newB").on("click", function(){
+		event.preventDefault();
+		$("#bestUl").addClass("hidden");
+		$("#newUl").removeClass("hidden");
+		$("#likesUl").addClass("hidden");
+	});
+	
+	$("#likeB").on("click", function(){
+		event.preventDefault();
+		$("#bestUl").addClass("hidden");
+		$("#newUl").addClass("hidden");
+		$("#likesUl").removeClass("hidden");
+	});	
+	
 });
 </script>
 <section class="white-bg">
@@ -201,69 +222,82 @@ $(function(){
 					   
 					</c:if>
 				</div>
-				<div class="col-md-8">			
-					<div class="row box">
-	                      <div class="col-sm-9 match-height">
-	                          <div class="row">
-	                              <div class="col-xs-12">
-	                                  <ul id="bestUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
-	                                  <c:forEach var="bestbook" items="${bests}">
-	                                      <li data-id='${bestbook.bookId}'>
-	                                          <div class="row hover-item">
-	                                              <div class="col-xs-12">
-	                                                  <img src="/prj/fileUp${bestbook.bookCoverPath}${bestbook.bookCover}" width="180" height="210" class="img-responsive smoothie" alt="">
-	                                              </div>
-	                                              <div class="col-xs-12 hover-item-caption smoothie">
-	                                                  <div class="vertical-center">
-	                                                      <h3 class="smoothie"><a href="single-portfolio.html" title="view project">${bestbook.bookNm}</a></h3>
-	                                                      <ul class="smoothie list-inline social-links wow">
-	                                                          <li>
-	                                                              <a href="#"><i class="fa fa-twitter"></i></a>
-	                                                          </li>
-	                                                          <li>
-	                                                              <a href="#"><i class="fa fa-pinterest"></i></a>
-	                                                          </li>
-	                                                          <li>
-	                                                              <a href="#"><i class="fa fa-dribbble"></i></a>
-	                                                          </li>
-	                                                          <li>
-	                                                              <a href="#"><i class="fa fa-facebook"></i></a>
-	                                                          </li>
-	                                                          <li>
-	                                                              <a href="#"><i class="fa fa-behance"></i></a>
-	                                                          </li>
-	                                                          <li>
-	                                                              <a href="#"><i class="fa fa-linkedin"></i></a>
-	                                                          </li>
-	                                                      </ul>
-	                                                  </div>
-	                                              </div>
-	                                          </div>
-	                                      </li>
-	                                      
-	                                  </c:forEach> 
-	                                      
-	                                  </ul>
+				<div class="col-md-8">	
+					<div class="row srchBox">
+						<div class="col-sm-12 match-height">
+							<div class="row">
+	                      		<div class="col-md-12">
+									<ul class="mb30 list-inline wow">
+										<li><a id="bestB" class="btn btn-primary" href="#" >베스트셀러</a></li>
+										<li><a id="newB" class="btn btn-primary" href="#" >신작도서</a></li>
+										<li><a id="likeB" class="btn btn-primary" href="#" >추천순</a></li>
+									</ul>
+								</div>
+							</div> 
+							<div class="row">
+								<div class="col-xs-12">
+									<ul id="bestUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
+										<c:forEach var="bestbook" items="${bests}">
+											<li data-id='${bestbook.bookId}'>
+												<div class="row hover-item">
+													<div class="col-xs-12">
+														<img src="/prj/fileUp${bestbook.bookCoverPath}${bestbook.bookCover}" width="180" height="210" class="img-responsive smoothie" alt="">
+													</div>
+													<div class="col-xs-12 hover-item-caption smoothie">
+														<div class="vertical-center">
+															<h5 class="smoothie"><a href="#" title="view project">${bestbook.bookNm}</a></h5>
+														</div>
+													</div>
+												</div>
+											</li>
+										</c:forEach>
+									</ul>
+									<ul id="newUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled hidden" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
+										<c:forEach var="newbook" items="${news}">
+											<li data-id='${newbook.bookId}'>
+												<div class="row hover-item">
+													<div class="col-xs-12">
+														<img src="/prj/fileUp${newbook.bookCoverPath}${newbook.bookCover}" width="180" height="210" class="img-responsive smoothie" alt="">
+													</div>
+													<div class="col-xs-12 hover-item-caption smoothie">
+														<div class="vertical-center">
+															<h5 class="smoothie"><a href="#" title="view project">${newbook.bookNm}</a></h5>
+														</div>
+													</div>
+												</div>
+											</li>
+										</c:forEach>
+									</ul>									
+									<ul id="likesUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled hidden" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
+										<c:forEach var="likesbook" items="${likes}">
+											<li data-id='${likesbook.bookId}'>
+												<div class="row hover-item">
+													<div class="col-xs-12">
+														<img src="/prj/fileUp${likesbook.bookCoverPath}${likesbook.bookCover}" width="180" height="210" class="img-responsive smoothie" alt="">
+													</div>
+													<div class="col-xs-12 hover-item-caption smoothie">
+														<div class="vertical-center">
+															<h5 class="smoothie"><a href="#" title="view project">${likesbook.bookNm}</a></h5>
+														</div>
+													</div>
+												</div>
+											</li>
+										</c:forEach>
+									</ul>
 	                              </div>
 	                          </div>
 	                      </div>
-	                      <div class="col-sm-3 match-height">
-	                          <div class="vertical-center">
-	                              <h2 class="section-heading">BEST SELLER</h2>
-	                              <h3 class="section-subheading secondary-font">Please Read Me ..</h3>
-	                          </div>
-	                      </div>
-	                  </div>	
+					</div>	
 					<div class="row box">
 						<div>
 							<div class="slideshow-container">
 								<c:forEach var="review" items="${reviewList}">
 								<div class="mySlides" data-bookid='${review.bookId}'>
-									<div class="row pointer" style="padding:30px" >
+									<div class="row pointer" style="padding:20px" >
 										<div class="col-md-3" >
-											<img src="/prj/fileUp${review.bookCoverPath}${review.bookCover}"  width="230px" height="280px">
+											<img src="/prj/fileUp${review.bookCoverPath}${review.bookCover}"  width="220px" height="280px">
 										</div>
-										<div class="col-md-8 col-sm-offset-1" style="padding:30px" >
+										<div class="col-md-8 col-sm-offset-1" style="padding:20px" >
 											<h2>${review.reviewTitle}</h2>
 											<p>${review.reviewContents}  <a href="#" style="color:blue" >더보기</a></p>	
 										</div>

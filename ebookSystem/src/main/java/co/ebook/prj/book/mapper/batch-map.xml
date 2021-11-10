@@ -27,7 +27,7 @@
 	<insert id="batchInsert" parameterType="co.ebook.prj.book.vo.BatchVO">
 		INSERT INTO book_attach 
 		VALUES ( batch_seq.nextval , #{bookId} 
-				, ( SELECT MAX(NVL(BATCH_ORD,0))+1 FROM BOOK_ATTACH WHERE BOOK_ID =  #{bookId} ) 
+				, ( SELECT NVL( MAX(NVL(BATCH_ORD,0)),0)+1 FROM BOOK_ATTACH WHERE BOOK_ID =  #{bookId} ) 
 				, #{batchNm} , #{batchPath} , SYSDATE , SYSDATE , #{batchWriter} )
 	</insert>
 	

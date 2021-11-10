@@ -118,8 +118,10 @@
 		});
 		
 		$("#bookInsertBtn").on("click" , function(){
+			console.log("--------------------->>");
+			console.log(  $(".bookNm").val() );
 			
-			if( $("#bookNm").val() == ""){
+			if( $(".bookNm").val() == ""){
 				alert("BOOK명은 필수 입력입니다. ");
 				return false;
 			} 
@@ -128,7 +130,7 @@
 				alert("로그인 후 진행해 주세요.");
 				return false;
 			} 
-			frm.submit();
+			// frm.submit();
 		});
 		
 		// 파일 수정버튼 클릭시 
@@ -193,7 +195,7 @@
 								<div class="col-sm-9" style="padding-left:0px;">
 									<div class="row">	
 										<div class="col-sm-9">
-											<input type="text" id="bookNm" name="bookNm" class="form-control">
+											<input type="text" id="bookNm" name="bookNm" class="bookNm form-control">
 										</div>
 										<div class="col-sm-3">
 											<button id="bookSearch" type="button" class="btn pull-right ebookBtn-sm" style="float:left"> BOOK조회 </button>
@@ -235,7 +237,7 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<label class="title">책소개</label>
-							<textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="form-control summernote"></textarea>				
+							<textarea rows="6" cols="90" id="bookIntro" name="bookIntro" class="bookIntro form-control summernote"></textarea>				
 						</div>
 					</div>
 					<div class="row">
@@ -328,25 +330,25 @@
 					//console.log(item.contents);
 					$("#apiTbody").append($("<tr id='apiTr'>")
 								.append( $("<td>").html((idx+1)) )
-								.append( $("<td id='apiTitle'>").html(item.title) )
-								.append( $("<td id='apiPublisher'>").html(item.publisher) )
-								.append( $("<td id='apiAuthors'>").html(item.authors) )
-								.append( $("<td id='apiPrice'>").html(item.price) )
-								.append( $("<td id='apiIsbn'>").html(item.isbn) )
-								.append( $("<td id='apiStatus'>").html(item.status))
-								.append( $("<td id='apiIntro'>").append( $("<input type='hidden' id='apiIntroTxt'>").val(item.contents)))					
+								.append( $("<td class='apiTitle'>").html(item.title) )
+								.append( $("<td class='apiPublisher'>").html(item.publisher) )
+								.append( $("<td class='apiAuthors'>").html(item.authors) )
+								.append( $("<td class='apiPrice'>").html(item.price) )
+								.append( $("<td class='apiIsbn'>").html(item.isbn) )
+								.append( $("<td class='apiStatus'>").html(item.status))
+								.append( $("<td class='apiIntro'>").append( $("<input type='hidden' id='apiIntroTxt'>").val(item.contents)))					
 					);	
 				});
 				
 				$("#apiTbody").on("dblclick", "tr#apiTr" , function(){
 					event.stopPropagation();
-					console.log($(event.target).closest("tr").find("#apiContents").html());
-					$("#bookNm").val($(event.target).closest("tr").find("#apiTitle").html());
-					$("#bookPublCo").val($(event.target).closest("tr").find("#apiPublisher").html());
-					$("#bookIsbn").val($(event.target).closest("tr").find("#apiIsbn").html());
-					$("#bookAmt").val($(event.target).closest("tr").find("#apiPrice").html());
-					$("#bookWriter").val($(event.target).closest("tr").find("#apiAuthors").html());
-					$("#bookIntro").val($(event.target).closest("tr").find("#apiIntroTxt").val());
+					console.log($(event.target).closest("tr").find(".apiContents").html());
+					$(".bookNm").val($(event.target).closest("tr").find(".apiTitle").html());
+					$("#bookPublCo").val($(event.target).closest("tr").find(".apiPublisher").html());
+					$("#bookIsbn").val($(event.target).closest("tr").find(".apiIsbn").html());
+					$("#bookAmt").val($(event.target).closest("tr").find(".apiPrice").html());
+					$("#bookWriter").val($(event.target).closest("tr").find(".apiAuthors").html());
+					$("#bookIntro").val($(event.target).closest("tr").find(".apiIntroTxt").val());
 					$("#apiCloseBtn").click();
 				});
 			},

@@ -46,8 +46,135 @@
       cursor: pointer;
       margin-left: 0;
     }
+    
+    .batch {
+    	font-size: 16px;
+    }
+    
+    .batch:hover{
+    	text-decoration: underline;
+    	font-size: 17px;
+    	font-weight: bold; 
+    	cursor: pointer;
+    }
 
   </style>
+  <script type="text/javascript">
+  	$(function(){
+  		$("#batchList").on("click", "tr" , function(){
+  			
+  			
+  			var epubFilePath = `${pageContext.request.contextPath}` + "/fileUp" + $(this).data("batchpath") + $(this).data("batchnm");
+  			
+  			console.log(epubFilePath);
+  			
+  			
+  			// Load the epub
+  		    var book =  ePub(epubFilePath);
+
+  		    var rendition = book.renderTo("viewer", {
+  		      width: "100%",
+  		      height: 600,
+  		      ignoreClass: 'annotator-hl',
+  		      manager: "continuous"
+  		    });
+
+  		    var displayed = rendition.display(6);
+
+  		    // Navigation loaded
+  		    book.loaded.navigation.then(function(toc){
+  		      // console.log(toc);
+  		    });
+
+  		    var next = document.getElementById("next");
+  		    next.addEventListener("click", function(){
+  		      rendition.next();
+  		    }, false);
+
+  		    var prev = document.getElementById("prev");
+  		    prev.addEventListener("click", function(){
+  		      rendition.prev();
+  		    }, false);
+
+  		    var keyListener = function(e){
+
+  		      // Left Key
+  		      if ((e.keyCode || e.which) == 37) {
+  		        rendition.prev();
+  		      }
+
+  		      // Right Key
+  		      if ((e.keyCode || e.which) == 39) {
+  		        rendition.next();
+  		      }
+
+  		    };
+
+  		    rendition.on("keyup", keyListener);
+  		    document.addEventListener("keyup", keyListener, false);
+
+  		    rendition.on("relocated", function(location){
+  		      // console.log(location);
+  		    });
+
+
+  		    // Apply a class to selected text
+  		    rendition.on("selected", function(cfiRange, contents) {
+  		      rendition.annotations.highlight(cfiRange, {}, (e) => {
+  		        console.log("highlight clicked", e.target);
+  		      });
+  		      contents.window.getSelection().removeAllRanges();
+
+  		    });
+
+  		    this.rendition.themes.default({
+  		      '::selection': {
+  		        'background': 'rgba(255,255,0, 0.3)'
+  		      },
+  		      '.epubjs-hl' : {
+  		        'fill': 'yellow', 'fill-opacity': '0.3', 'mix-blend-mode': 'multiply'
+  		      }
+  		    });
+
+  		    // Illustration of how to get text from a saved cfiRange
+  		    var highlights = document.getElementById('highlights');
+
+  		    rendition.on("selected", function(cfiRange) {
+
+  		      book.getRange(cfiRange).then(function (range) {
+  		        var text;
+  		        var li = document.createElement('li');
+  		        var a = document.createElement('a');
+  		        var remove = document.createElement('a');
+  		        var textNode;
+
+  		        if (range) {
+  		          text = range.toString();
+  		          textNode = document.createTextNode(text);
+
+  		          a.textContent = cfiRange;
+  		          a.href = "#" + cfiRange;
+  		          a.onclick = function () {
+  		            rendition.display(cfiRange);
+  		          };
+
+  		          remove.textContent = "remove";
+  		          remove.href = "#" + cfiRange;
+  		          remove.onclick = function () {
+  		            rendition.annotations.remove(cfiRange);
+  		            return false;
+  		          };
+
+  		          li.appendChild(a);
+  		          li.appendChild(textNode);
+  		          li.appendChild(remove);
+  		          highlights.appendChild(li);
+  		        }
+  		      })
+  		    });
+  		});
+  	});
+  </script>
 </head>
 <body>
 <section>
@@ -64,136 +191,42 @@
 							<h4>${lend.bookPublCo}(${lend.bookWriter})</h4>
 							<span>${lend.bookIntro}</span>
 						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3" style="padding-top:100px">
+						<h4 >BOOK 파일 LIST</h4>
+						<table id="batchList" class="table">
+						<c:forEach var="batch" items="${batchList}">
+							<tr class="row batch" data-batchnm="${batch.batchNm}" data-batchpath="${batch.batchPath}">
+								<td>${batch.batchOrd}.${batch.batchNm}</td> 
+							</tr>
+						</c:forEach>
+						</table>
+					</div>
+					<div id="start" class="col-sm-9" style="margin-top:10px">
 						<div class="frame row box">
-							
-							<div class="col-sm-1">
-								<a id="prev" href="#prev" class="arrow pull-left"><i class="fa fa-angle-double-left" style="font-size:36px"></i></a>
+							<div class="col-sm-1" style="padding-top:300px">
+								<a id="prev" href="#start" class="arrow pull-left"><i class="fa fa-angle-double-left" style="font-size:36px"></i></a>
 							</div>	
-							<div class="col-sm-10">
+							<div  class="col-sm-10">
 								<div id="viewer" class="spreads"></div>
+								<div id="extras">
+									<ul id="highlights"></ul>
+								</div>
 							</div>
-							<div class="col-sm-1" >
-								<a id="next" href="#next" class="arrow pull-right"><i class="fa fa-angle-double-right" style="font-size:36px"></i></a>
-							</div>
-							<div id="extras">
-								<ul id="highlights"></ul>
+							<div class="col-sm-1" style="padding-top:300px" >
+								<a id="next" href="#start" class="arrow pull-right"><i class="fa fa-angle-double-right" style="font-size:36px"></i></a>
 							</div>
 						</div>
 					</div>
-				</div>
-				
+				</div>	
 			</div>
-			
-			
 		</div>
 	</div>
 </section>
 <script>
-    // Load the opf
-    var book =  ePub("fileUp/Love-in-an-Undead-Age.epub");
-
-    var rendition = book.renderTo("viewer", {
-      width: "100%",
-      height: 600,
-      ignoreClass: 'annotator-hl',
-      manager: "continuous"
-    });
-
-    var displayed = rendition.display(6);
-
-    // Navigation loaded
-    book.loaded.navigation.then(function(toc){
-      // console.log(toc);
-    });
-
-    var next = document.getElementById("next");
-    next.addEventListener("click", function(){
-      rendition.next();
-    }, false);
-
-    var prev = document.getElementById("prev");
-    prev.addEventListener("click", function(){
-      rendition.prev();
-    }, false);
-
-    var keyListener = function(e){
-
-      // Left Key
-      if ((e.keyCode || e.which) == 37) {
-        rendition.prev();
-      }
-
-      // Right Key
-      if ((e.keyCode || e.which) == 39) {
-        rendition.next();
-      }
-
-    };
-
-    rendition.on("keyup", keyListener);
-    document.addEventListener("keyup", keyListener, false);
-
-    rendition.on("relocated", function(location){
-      // console.log(location);
-    });
-
-
-    // Apply a class to selected text
-    rendition.on("selected", function(cfiRange, contents) {
-      rendition.annotations.highlight(cfiRange, {}, (e) => {
-        console.log("highlight clicked", e.target);
-      });
-      contents.window.getSelection().removeAllRanges();
-
-    });
-
-    this.rendition.themes.default({
-      '::selection': {
-        'background': 'rgba(255,255,0, 0.3)'
-      },
-      '.epubjs-hl' : {
-        'fill': 'yellow', 'fill-opacity': '0.3', 'mix-blend-mode': 'multiply'
-      }
-    });
-
-    // Illustration of how to get text from a saved cfiRange
-    var highlights = document.getElementById('highlights');
-
-    rendition.on("selected", function(cfiRange) {
-
-      book.getRange(cfiRange).then(function (range) {
-        var text;
-        var li = document.createElement('li');
-        var a = document.createElement('a');
-        var remove = document.createElement('a');
-        var textNode;
-
-        if (range) {
-          text = range.toString();
-          textNode = document.createTextNode(text);
-
-          a.textContent = cfiRange;
-          a.href = "#" + cfiRange;
-          a.onclick = function () {
-            rendition.display(cfiRange);
-          };
-
-          remove.textContent = "remove";
-          remove.href = "#" + cfiRange;
-          remove.onclick = function () {
-            rendition.annotations.remove(cfiRange);
-            return false;
-          };
-
-          li.appendChild(a);
-          li.appendChild(textNode);
-          li.appendChild(remove);
-          highlights.appendChild(li);
-        }
-
-      })
-
-    });
+    
 
 </script>
 </body>

@@ -17,7 +17,7 @@
             , ( select count(1) from book_attach where book_id = b.book_id ) as fileCnt
 		 FROM book b
 		    ,  book_confirm c  
-       WHERE b.book_id = c.book_id (+) 
+       WHERE b.book_id = c.book_id 
        order by nvl( c.bcnfm_st_cd, '04') 
 	</select>
 	

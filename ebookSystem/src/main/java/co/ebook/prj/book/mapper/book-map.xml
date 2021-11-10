@@ -18,6 +18,7 @@
 			        , b.book_cnfm_yn
 			        , b.book_useyn
 			        , b.book_hit
+			        , ( select count(1) from book_attach at  where at.book_id = b.book_id) as fileCnt
 			        , b.member_id
 			        , ( SELECT member_nm FROM member m  
 			             WHERE m.member_id = b.member_id ) member_nm
@@ -255,9 +256,9 @@
 				    , BOOK B
 				WHERE A.BOOK_ID= B.BOOK_ID
 				  AND ROWNUM < 11
-				  
-				--AND B.BOOK_CNFM_YN = 'Y' 
-			    --AND B.BOOK_USEYN = 'Y'
+
+				  --AND B.BOOK_CNFM_YN = 'Y' 
+			      --AND B.BOOK_USEYN = 'Y'
 		]]>
 	</select>	
 	

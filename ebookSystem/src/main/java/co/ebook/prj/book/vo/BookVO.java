@@ -40,6 +40,7 @@ public class BookVO {
 	private MultipartFile attchFile;
 	private String attchUpFlag;
 	private int rank;
+	private String fileCnt;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")

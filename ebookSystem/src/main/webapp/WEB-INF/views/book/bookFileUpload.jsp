@@ -184,7 +184,6 @@ $(function () {
     	console.log(bookId);
     	console.log(files);
     	
-    	
         var formData = new FormData();
         var fileList = files;
         if(files.length > 0){
@@ -196,8 +195,6 @@ $(function () {
         }        	
     	
     	formData.append("bookId" , bookId );
-    	
-    	
     	
          $.ajax({
 			url: 'batchInsert',
@@ -211,6 +208,26 @@ $(function () {
 			success: function(res) {
 			    console.log(res);
 			    alert("등록이 완료되었습니다.");
+			    $("#bfileTbody").empty();
+			    $.each(res,function(idx,item){
+			    	$("#bfileTbody")
+			    		.append($("<tr data-batchid='" + item.batchId + "'>")
+			    					.append( $("<td class='bfileNoTd'>").html(item.batchOrd))
+			    					.append( $("<td>").html(item.batchNm))
+			    					.append( $("<td>").html(item.batchWriterNm))
+			    					.append( $("<td>").html(item.insDt))
+			    					.append( $("<td>").append($("<button class='bfileUpBtn btn btn-default'>")
+			    												.append($("<i class='fa fa-chevron-up'>")) ))
+			    					.append( $("<td>").append($("<button class='bfileDownBtn btn btn-default'>")
+			    												.append($("<i class='fa fa-chevron-down'>")) ))
+			    					.append( $("<td>").append($("<button class='bfileDelBtn btn btn-default'>")
+			    												.append($("<i class='fa fa-trash-o'>")) ))			    												
+			    				);
+			    	
+			    });
+			    
+			    $("#attchFiles").empty();
+				$("#noFileTxt").html("Drag & Drop Files Here");
 			}
         });  
     });
@@ -343,16 +360,25 @@ function F_FileMultiUpload(files, obj) {
             
             var fileNm = files[i].name;
             var ext = fileNm.split(".").pop().toLowerCase();
-            
-            
-            
 				console.log(ext);
-				if($.inArray(ext, ["epub"]) == -1) {
-					alert("epub 파일만 등록 가능합니다.");
-					$("#attchFiles").empty();
-					$("#noFileTxt").html("Drag & Drop Files Here");
-					return false;
+				
+				if( `${book.bookFlCd}` == 'E' ){
+					if($.inArray(ext, ["epub"]) == -1) {
+						alert("epub 파일만 등록 가능합니다.");
+						$("#attchFiles").empty();
+						$("#noFileTxt").html("Drag & Drop Files Here");
+						return false;
+					}	
+				}else{
+					/*if($.inArray(ext, ["epub"]) == -1) {
+						alert("epub 파일만 등록 가능합니다.");
+						$("#attchFiles").empty();
+						$("#noFileTxt").html("Drag & Drop Files Here");
+						return false;
+					}*/	
 				}
+				
+				
 			
             
             
@@ -406,6 +432,12 @@ function F_FileMultiUpload_Callback(files) {
 								<h4>BOOK 출판사	: ${book.bookPublCo} </h4>
 								<h4>BOOK 저 자	: ${book.bookWriter} </h4>
 								<h4>BOOK 매니저	: ${book.memberNm}</h4>
+								<c:if test="${book.bookFlCd eq 'A' }">
+								<h4>BOOK 구 분    : 오디오북</h4>
+								</c:if>
+								<c:if test="${book.bookFlCd eq 'E' }">
+								<h4>BOOK 구 분    : eBook</h4>
+								</c:if>
 								<input type="hidden" id="bookId" name="bookId" value="${book.bookId}">
 							</div>
 							<div>
@@ -472,4 +504,5 @@ function F_FileMultiUpload_Callback(files) {
 	</div>
 </body>
 </html>
+
 

@@ -29,15 +29,27 @@ $(function(){
 	// 승인버튼 클릭시
 	$("#bookCnfmBtn").on("click", function(){
 
+		var fileCntChk = 0; 
 		var tdArr = []; 
 		$("#chkInput:checked").each(function(){
 			
+			var fileCnt = $(this).closest("tr").data("filecnt");
 			var id = $(this).closest("tr").data("id");
-			console.log(id);
 			if( id != "" ){
 				tdArr.push(id);	
 			}
+			
+			if( fileCnt < 1 ){
+				fileCntChk++;
+			}
+			
 	    });
+		
+		if(fileCntChk > 0){
+			alert("BOOK 파일을 등록하지 않은 건은 승인신청 할 수 없습니다.");
+			return false;
+		}
+		 
 	
  		 $.ajax({
 			url : 'bookCnfrmReq' ,
@@ -51,7 +63,7 @@ $(function(){
 	});
 	
 	// 체크박스가 있는 Column 클릭시, 
-	$(".chkTd").on("click",  function(){
+	$("#bookTb").find("tbody").on("click", ".chkTd", function(){
 		event.stopPropagation();
 		
 		if($(event.target).find("#chkInput").prop('checked') == false){
@@ -134,6 +146,7 @@ $(function(){
 								.append($("<td>").html(item.bookNm) )
 								.append($("<td>").html(item.bookPublCo) )
 								.append($("<td>").html(item.bookWriter) )
+								.append($("<td>").html(item.fileCnt) )
 								.append($("<td>").html(item.memberNm) )
 								.append($("<td class='cnfmStNm'>").html(item.cnfmStNm) )
 								.data("id", item.bookId)
@@ -297,11 +310,13 @@ function goList(p) {
 							</div>
 						</div>
 						<div class="col-md-3">
-							<button type="button" id="srchBtn" class="btn ebookBtn" >조회</button>
+							<button type="button" id="srchBtn" class="btn ebookBtn-sm" >조회</button>
 						</div>	
-					
 					<input type="hidden" name="page" value="1"> 
 				</form>
+			</div>
+			<div class="row" style="margin-right:20px;margin-top:20px">
+				<button id="bookCnfmBtn" class="btn ebookBtn-sm pull-right" >승인신청</button>
 			</div>
 			<div class="row" style="margin-top:20px">
 				<table id="bookTb" class="table table-hover" style="cursor: pointer;">
@@ -315,13 +330,14 @@ function goList(p) {
 							<th>BOOK</th>
 							<th>출판사</th>
 							<th>저자</th>
+							<th>파일갯수</th>
 							<th>매니저</th>
 							<th>승인상태</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="list" items="${lists}" >
-							<tr data-id="${list.bookId}">
+							<tr data-id="${list.bookId}" data-filecnt="${list.fileCnt}">
 								<td class="chkTd" ><input type="checkbox" id="chkInput" ></td>
 								<td>${list.bookNo}</td>
 								<td>${list.bookFlCd}</td>
@@ -334,6 +350,7 @@ function goList(p) {
 								<td>${list.bookNm}</td>
 								<td>${list.bookPublCo}</td>
 								<td>${list.bookWriter}</td>
+								<td>${list.fileCnt}</td>
 								<td>${list.memberNm}</td>
 								<c:if test="${list.cnfmStNm eq '승인'}">
 									<td style="color:red;font-weight:bold">${list.cnfmStNm}</td>
@@ -342,7 +359,7 @@ function goList(p) {
 									<td style="color:#0c2e8a;font-weight:bold">${list.cnfmStNm}</td> 
 								</c:if>
 								<c:if test="${list.cnfmStNm eq '처리중'}">
-									<td>${list.cnfmStNm}</td>
+									<td style="color:green;font-weight:bold">${list.cnfmStNm}</td>
 								</c:if>
 								<c:if test="${list.cnfmStNm eq '미신청'}">
 									<td>${list.cnfmStNm}</td>
@@ -352,12 +369,9 @@ function goList(p) {
 					</tbody>
 				</table>
 			</div>
-			<div id="pagingDiv" class="row">
-			<my:paging jsFunc="goList" paging="${paging}" />  
+			<div id="pagingDiv" class="row" style="text-align: center;" >
+				<my:paging jsFunc="goList" paging="${paging}" />  
 			</div>		
-			<div class="btn-group">
-				<button id="bookCnfmBtn" class="btn btn-primary">승인신청</button>
-			</div>
 		</div>
 	</div>
 </section>

@@ -83,6 +83,12 @@ public class HomeController {
 		List<BookVO> bests = bookDao.bestSellerBook();
 		model.addAttribute("bests", bests);
 		
+		List<BookVO> news = bookDao.newBooks();
+		model.addAttribute("news", news);
+		
+		List<BookVO> likes = bookDao.likeBooks();
+		model.addAttribute("likes", likes);
+		
 		List<ReviewTopVO> reviewList = commDao.reviewTop();
 		model.addAttribute("reviewList", reviewList);
 		

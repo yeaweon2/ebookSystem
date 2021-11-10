@@ -56,15 +56,15 @@ select {
 		$("#cnfmBtn").on("click", function(){
 			var chkCnt = 0;
 			var book = [];
-			$("#chkInput:checked").each(function(){
+			$(".chkInput:checked").each(function(){
 				
 				var filecnt = $(this).closest("tr").data("filecnt");
 				if( filecnt == '0'){
 					chkCnt++;
 				} 
 				
-				var bcnfmId = $(this).closest("tr").data("id");
-				var bookId = $(this).closest("tr").data("book");
+				var bcnfmId = $(this).closest("tr").data("bcnfmid");
+				var bookId = $(this).closest("tr").data("bookid");
 				var data = {
 					bcnfmId : bcnfmId,
 					bookId : bookId
@@ -104,10 +104,10 @@ select {
 			}
 			
 			var book = [];
-			$("#chkInput:checked").each(function(){
+			$(".chkInput:checked").each(function(){
 					
-				var bcnfmId = $(this).closest("tr").data("id");
-				var bookId = $(this).closest("tr").data("book");
+				var bcnfmId = $(this).closest("tr").data("bcnfmid");
+				var bookId = $(this).closest("tr").data("bookid");
 				
 				var data = {
 					bcnfmId : bcnfmId ,
@@ -133,11 +133,22 @@ select {
 					console.log(data);
 				}
 			}); 
-			
-			
-			
+		});
+		
+		$("#bcnfmTb").find("tbody").on("click", ".chkTd", function(){
+			event.stopPropagation();
+		});
+		
+		$("#bcnfmTb").find("tbody").on("click", "tr", function(){
+			event.stopPropagation();
+			var bcnfmId = $(this).data("bcnfmid");
+			var bookId = $(this).data("bookid");
+			$("#frm").find("#bookId").val(bookId);
+			frm.submit();
 		});
 	});
+	
+	
 
 </script>
 </head>
@@ -151,11 +162,11 @@ select {
 	          		<h2>BOOK 승인목록</h2>
 	        	</div>
 			</div>
-			<div class="row">
-					<div class="srchBox">
-						<table class="table">
+			<div class="row srchBox">
+
+						<table >
 							<tr>
-								<th>신청일자 : </th>
+								<th width="100px">신청일자 : </th>
 								<td><input type="date" id="srchDate"></td>
 								<th>검색조건 : </th>
 								<td><input type="text" id="srchTxt"></td>
@@ -183,7 +194,7 @@ select {
 								</td>
 							</tr>
 						</table>
-					</div>
+					
 			</div>				
 			<div class="row pull-right" style="margin-top:10px;margin-bottom:10px;">
 				<button type="button" id="cnfmBtn" class="btn ebookBtn">승 인</button>
@@ -205,9 +216,9 @@ select {
 						</tr>
 						<tbody>
 							<c:forEach var="list" items="${lists}" >
-								<tr data-id="${list.bcnfmId}" data-book="${list.bookId}" data-filecnt="${list.fileCnt}">
+								<tr data-bcnfmid="${list.bcnfmId}" data-bookid="${list.bookId}" data-filecnt="${list.fileCnt}">
 									<c:if test="${list.bcnfmStCd eq '처리중' }">
-										<td><input type="checkbox" id="chkInput"></td>
+										<td class="chkTd"><input type="checkbox" class="chkInput"></td>
 									</c:if>
 									<c:if test="${list.bcnfmStCd != '처리중' }">
 										<td></td>
@@ -254,6 +265,9 @@ select {
     <button type="button" id="rejectBtn" class="btn btn-primary">확인</button>
   </div>
 </div>
+<form action="bookUpdateForm" method="post" id="frm">
+	<input type="hidden" id="bookId" name="bookId" >
+</form>	
 <script>
 	 
 	$("#rejectModalBtn").on("click", function(){

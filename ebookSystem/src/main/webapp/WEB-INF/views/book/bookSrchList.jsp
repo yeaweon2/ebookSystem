@@ -12,6 +12,9 @@
 	margin-bottom : 10px;
 }
 
+
+
+
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -65,11 +68,12 @@
 		
 		$("#srchBtn").on("click", function(){
 			
-			var bookNm = $("#bookNm").val();
-			var bookPublCo = $("#bookPublCo").val();
-			var bookWriter = $("#bookWriter").val();
-			var bookPublSDt = $("#bookPublSDt").val();
-			var bookPublEDt = $("#bookPublEDt").val();
+			var bookNm = $(".bookNm").val();
+			var bookPublCo = $(".bookPublCo").val();
+			var bookWriter = $(".bookWriter").val();
+			var bookPublSDt = $(".bookPublSDt").val();
+			var bookPublEDt = $(".bookPublEDt").val();
+			var bookIsbn = $(".bookIsbn").val();
 			
 			if( bookPublSDt != null && bookPublEDt == null ){
 				alert("출간일 조회시 시작 및 종료일자를 모두 입력해주세요.");
@@ -89,6 +93,7 @@
 			start = 1;
 			end = 8;
 			
+			console.log( bookNm + " / " + bookPublCo );
 			
 			$.ajax({
 				url: 'bookSrchPage',    
@@ -100,6 +105,7 @@
 							, bookWriter : bookWriter 
 							, bookPublSDt : bookPublSDt
 							, bookPublEDt : bookPublEDt
+							, bookIsbn : bookIsbn
 							, bookFlCd : bookFlCd
 							, ctgyId : ctgyId
 							, ctgyGrId : ctgyGrId
@@ -117,7 +123,7 @@
 						
 						$("#srchBody").append( 
 								$("<tr class='srchTr' data-id='" + item.bookId + "'>").append( $("<td>").html( item.bookFlCd) )
-										 .append( $("<td>").html( item.ctgyGrNm + ">" + item.ctgyIdNm ) )
+										 .append( $("<td>").html( item.ctgyGrNm + ">" + item.ctgyNm ) )
 										 .append( $("<td>").append($("<img width='50' height='70'>").attr("src", "/prj/fileUp" + item.bookCoverPath + item.bookCover ) ) )
 										 .append( $("<td>").html( item.bookNm) )		 
 										 .append( $("<td>").html( item.bookPublCo) )
@@ -178,21 +184,21 @@
 							<div class="row">
 								<div class="col-md-6">
 									<label>BOOK명</label>
-									<input id="bookNm" name="bookNm" type="text" class="form-control">
+									<input id="bookNm" name="bookNm" type="text" class="bookNm form-control">
 								</div>
 								<div class="col-md-6">
 									<label>ISBN</label>
-									<input id="bookIsbn" name="bookIsbn" type="text" class="form-control">
+									<input id="bookIsbn" name="bookIsbn" type="text" class="bookIsbn form-control">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6">
 									<label>출판사</label>
-									<input id="bookPublCo" name="bookPublCo" type="text" class="form-control">
+									<input id="bookPublCo" name="bookPublCo" type="text" class="bookPublCo form-control">
 								</div>
 								<div class="col-md-6">
 									<label>저자</label>
-									<input id="bookWriter" name="bookWriter" type="text" class="form-control">
+									<input id="bookWriter" name="bookWriter" type="text" class="bookWriter form-control">
 								</div>
 							</div>
 							<div class="row">
@@ -201,13 +207,13 @@
 										<label>출간일</label>
 									</div>
 									<div class="col-md-4" style="padding-left:0;">		
-										<input id="bookPublSDt" name="bookPublSDt" type="date" class="form-control" style="width:180px;float:left;"> 
+										<input id="bookPublSDt" name="bookPublSDt" type="date" class="bookPublSDt form-control" style="width:180px;float:left;"> 
 									</div>
 									<div class="col-md-1" style="align-items : center;">
 										<h3>~</h3>
 									</div>
 									<div class="col-md-4" style="padding-left:0;">
-										<input id="bookPublEDt" name="bookPublEDt" type="date" class="form-control" style="width:180px">
+										<input id="bookPublEDt" name="bookPublEDt" type="date" class="bookPublEDt form-control" style="width:180px">
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -215,7 +221,7 @@
 							</div>
 						</div>
 						<div class="col-md-2">
-							<button type="button" id="srchBtn" class="btn ebookBtn" style="position: relative;top:200px;left:40px">조 회</button>
+							<button type="button" id="srchBtn" class="btn btn-black" style="position: relative;top:200px;left:40px">조 회</button>
 						</div>	
 					</div><!-- Box End -->
 					<div class="row box">

@@ -54,7 +54,9 @@ public class BatchController {
 	
 	@RequestMapping("/batchInsert")
 	@ResponseBody
-	public BatchVO batchInsert(Model model, BatchVO vo, MultipartHttpServletRequest  mtfRequest ,HttpServletRequest request ) {
+	public List<BatchVO> batchInsert(Model model, BatchVO vo, MultipartHttpServletRequest  mtfRequest ,HttpServletRequest request ) {
+		
+		List<BatchVO> list = null;
 		
 		String folder = "/bookfile/";
 		filePath =  filePath + folder;		
@@ -91,6 +93,8 @@ public class BatchController {
 							mfile.transferTo(fileSave);
 							
 							batchDao.batchInsert(vo);
+							
+							list = batchDao.batchList(vo);
 						}
 					}	
 				} catch (Exception e) {
@@ -99,7 +103,7 @@ public class BatchController {
 				}						
 			}
 		}
-		return vo;
+		return list;
 	}
 	
 	@RequestMapping("/batchOrderUpdate")

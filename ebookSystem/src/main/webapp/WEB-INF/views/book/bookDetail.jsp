@@ -69,13 +69,12 @@ body {
 	background-color: white;
 	border: none;
 	color: blue;
-	padding: 12px 16px;
-	font-size: 21px;
+	padding: 8px 12px;
+	font-size: 18px;
 	cursor: pointer;
 	border-radius: 50%;
 	border : 1px solid blue;	
 }
-
 
 .bucketBtn i {
 	color: blue;
@@ -90,7 +89,6 @@ body {
     padding-left : 20px;
     padding-right : 20px;
     padding-bottom : 20px;
-    
     font-family: malgun, "Malgun Gothic", Dotum, 돋움, sans-serif;
     color: #222;
     font-size: 21px;
@@ -177,7 +175,6 @@ ul.sidenav li a:hover {
 		
 		// 장바구니 클릭시 
 		$("#bookCartForm").on("click", function(){
-			
 			var bookId = $("#bookId").val();
 	 		 $.ajax({
 	 			url : 'cartDuplCheck' ,
@@ -212,12 +209,10 @@ ul.sidenav li a:hover {
 					if(res.result=="01"){
 						alert("추천완료");
 						var likeItCnt = $("#likeIt").val();
-						$("#likeIt").val(likeItCnt+1);
-						
+						$("#likeIt").val(likeItCnt+1);						
 					}
 				}
 			});
-			
 		});
 		
 		// 버킷 클릭시
@@ -242,10 +237,16 @@ ul.sidenav li a:hover {
 			});
 		});
 		
-		// 버킷 클릭시
+		// 대여 클릭시
 		$("#bookLendForm").on("click", function(){
 			var bookId = $("#bookId").val();
 			
+			var subYn = `${subYn}`;
+			if( subYn == 'N'){
+				alert("월정액 구매 후 대여가능합니다.");
+				return false;
+			}
+
 			$.ajax({
 				url : 'lendInsertOne' ,
 				method : 'POST' ,
@@ -255,7 +256,7 @@ ul.sidenav li a:hover {
 				success : function(res){
 					console.log(res);
 					if(res.result == "03"){
-						alert("해당 BOOK은 이미 버킷BOOK으로 등록되어있습니다.");
+						alert("이미 대여한 BOOK입니다.");
 						return false;
 					}else if(res.result == "04"){
 						alert("세션종료되었습니다. 다시 로그인 후 진행해주세요.");
@@ -282,7 +283,6 @@ ul.sidenav li a:hover {
 			$(this).nextAll().addClass("far");
 			
 			$("#breplyStar").val($(this).data("no"));
-			
 		});		
 		
 		// 댓글 삭제 클릭시 
@@ -310,6 +310,11 @@ ul.sidenav li a:hover {
 		// 부모댓글 등록시 
 		$("#breplyInsert").on("click", function(){
 			event.preventDefault();
+			
+			if( `${id}` == '' ){
+				alert("로그인 후 등록해주세요.");
+				return false;
+			}
 			
 			var bookId = $("#bookId").val();
 			var breplyContents = $("#breplyContentsNew").val();  
@@ -339,7 +344,7 @@ ul.sidenav li a:hover {
 																	.append($("<div class='media-heading'>")
 																				.append($("<span class='heading-font'>").html(" " + res.breplyWriterNm))
 																				.append($("<small>").html(res.insDt))
-																				.append( $("<div class='stars'>")))
+																				.append( $("<div id='stars' class='stars pStar'>")))
 																	.append( $("<p>").html(res.breplyContents) )
 																	.append( $("<div class='pull-right'>")
 																					.append($("<a href='#' class='breplyChildInsert'>").data("breplygr", res.breplyGr ).data("breplyid", res.breplyId ).html("댓글쓰기") )
@@ -349,13 +354,20 @@ ul.sidenav li a:hover {
 																					.append($("<a href='#' class='breplyCancel hidden'>").html("취소"))
 																					
 																	))));
+					
+					
+					
  					for( var i = 1 ; i <= 5 ; i++ ){
 						if(res.breplyStar  >= i ){
-							$("#comments-list").last().find(".stars").append($("<i class='star fas fa-star' data-flag='true'>").data("no", i ) );	
+							$("#comments-list").last().find(".pStar").append($("<i class='star fas fa-star' data-flag='true'>").data("no", i ) );	
 						}else{
-							$("#comments-list").last().find(".stars").append($("<i class='star far fa-star' data-flag='false'>").data("no", i ) );
+							$("#comments-list").last().find(".pStar").append($("<i class='star far fa-star' data-flag='false'>").data("no", i ) );
 						}
-					} 
+					}
+ 					
+ 					$("#newStars").find(".star").removeClass("fas");
+					$("#newStars").find(".star").addClass("far"); 					
+ 					
 				}
 			});
 		});
@@ -557,7 +569,7 @@ ul.sidenav li a:hover {
 								<div class="pull-right">
 									<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
 									<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
-									<button class="bucketBtn" ><i class="	fa fa-bookmark-o"></i></button>
+									<button class="bucketBtn" ><i class="fa fa-bookmark-o"></i></button>
 									<button class="bucketBtn" ><i class="fa fa-thumbs-o-up"></i></button>							
 								</div>
 							</c:if>
