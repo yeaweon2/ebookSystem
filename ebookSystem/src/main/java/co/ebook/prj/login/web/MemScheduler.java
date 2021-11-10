@@ -11,11 +11,11 @@ public class MemScheduler {
 	
 	
 	
-	 @Scheduled(cron="0/1 * * * * *") 
-	  public void sheduler() {
-		 LocalDateTime vLocalDateTime = LocalDateTime.now();
-		 DateTimeFormatter vDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	    System.out.println("스케쥴러 작동 시간 : " + vLocalDateTime.format(vDateTimeFormatter));
-	    
-	  }
+//	 @Scheduled(cron="0/1 * * * * *") 
+//	  public void sheduler() {
+//		 LocalDateTime vLocalDateTime = LocalDateTime.now();
+//		 DateTimeFormatter vDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//	    System.out.println("스케쥴러 작동 시간 : " + vLocalDateTime.format(vDateTimeFormatter));
+//	    
+//	  }
 }

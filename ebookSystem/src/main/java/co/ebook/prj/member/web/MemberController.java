@@ -294,15 +294,15 @@ public class MemberController {
 	} 
 	
 	
-	@Scheduled(cron="0/1 * * * * *")
-	@RequestMapping(value="/postSend") 
-	 public void scheduler(MemberVO vo) {
-
-    	int updateSc = memberDao.updateStCd(vo);
-    	System.out.println("DB조회값:"+updateSc); 
-	    	
-	 	}
-	
+//	@Scheduled(cron="0/1 * * * * *")
+//	@RequestMapping(value="/postSend") 
+//	 public void scheduler(MemberVO vo) {
+//
+//    	int updateSc = memberDao.updateStCd(vo);
+//    	System.out.println("DB조회값:"+updateSc); 
+//	    	
+//	 	}
+//	
 	
 	
 	
