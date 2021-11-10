@@ -72,7 +72,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">나의서재 <span class="pe-7s-angle-down"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">독서루틴</a></li>
+                                <li><a href="bookRutin">독서루틴</a></li>
                                 <li><a href="bucketList">버킷BOOK</a></li>
                                 <li><a href="scheList">BOOK캘린더</a></li>
                             </ul>

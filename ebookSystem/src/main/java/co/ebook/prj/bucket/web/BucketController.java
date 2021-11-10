@@ -17,6 +17,7 @@ import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.bucket.service.BucketService;
 import co.ebook.prj.bucket.vo.BucketVO;
+import co.ebook.prj.common.vo.Paging;
 
 @Controller
 public class BucketController {
@@ -135,7 +136,10 @@ public class BucketController {
 		return map;
 	}	
 	
-	
+	@RequestMapping("/bookRutin")
+	public String bookRutin(Model model , HttpServletRequest request ) {
+		return "bucket/bookRutin";
+	}
 	
 	
 	
