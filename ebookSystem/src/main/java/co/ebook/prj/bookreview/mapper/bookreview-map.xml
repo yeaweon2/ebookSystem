@@ -1,28 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.ebook.prj.bookreview.mapper.BookReviewMapper">
-
+	<!-- 리뷰 전체조회 -->
 	<select id="bookReviewList" resultType="co.ebook.prj.bookreview.vo.BookReviewVO">
-		SELECT *
-		  FROM REVIEW
-		 WHERE REVIEW_DEL_YN = 'N'   
+		SELECT R.REVIEW_ID
+			 , R.BOOK_ID
+			 , R.REVIEW_TITLE
+			 , R.REVIEW_WRITER
+			 , R.REVIEW_HIT
+			 , R.REVIEW_LIKEIT
+			 , R.REVIEW_REPLY_CNT
+			 , R.REVIEW_ATCH_NM
+			 , R.REVIEW_ATCH_PATH
+			 , R.INS_DT
+			 , R.UDT_DT
+			 , R.REVIEW_CONTENTS
+			 , B.BOOK_COVER
+	         , B.BOOK_COVER_PATH 
+		  FROM REVIEW R
+		  	 , BOOK B
+		 WHERE R.BOOK_ID = B.BOOK_ID
+		   AND REVIEW_DEL_YN = 'N'   
 	</select>
 	
+	<!-- 리뷰 입력 -->
 	<insert id="bookReviewInsert" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
 		INSERT INTO REVIEW(   
 							REVIEW_ID		, BOOK_ID
 						  , REVIEW_TITLE	, REVIEW_WRITER
-						  , REVIEW_HIT		, REVIEW_LIKEIT
-						  , REVIEW_REPLY_CNT, REVIEW_ATCH_NM
-						  , REVIEW_ATCH_PATH, INS_DT		
-						  , UDT_DT			, REVIEW_CONTENTS)
+						  , REVIEW_HIT		, REVIEW_REPLY_CNT
+						  , REVIEW_ATCH_NM	, REVIEW_ATCH_PATH
+						  , INS_DT			, UDT_DT
+						  , REVIEW_CONTENTS)
 					VALUES(
-							BR_SEQ.NEXTVAL  ,#{bookId}
-							,#{reviewTitle}	,#{reviewWriter}
-							,default		,0
-							,0				,NULL
-							,NULL			,SYSDATE
-							,SYSDATE		,#{reviewContents})
+							BR_SEQ.nextval  , #{bookId}
+						  , #{reviewTitle}	, #{reviewWriter}
+						  , default			, default			
+						  , null			, null			
+						  , sysdate			, sysdate	
+						  , #{reviewContents})
 	</insert>
 	
 </mapper>

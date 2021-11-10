@@ -40,8 +40,6 @@
 				<div>
 					<input type="file" multiple name="attchFile" id="attchFile" class="attchFile" >
 				</div>
-				
-				
 					<input id="noticeInsertBtn" type="button" value="등록" class="btn-primary">
 					<input type="button" onclick="location.href='noticeList'" value="취소" class="btn">
 				</form>		

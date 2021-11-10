@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>공지사항</title>
 <script>
+	function goList(p) {
+		location.href="noticeList?page="+p
+	}
 	$(function() {
 		//클릭시 글상세조회
 		$("table").on("click", "tr", function() {
@@ -28,6 +32,7 @@
 				<div class="section-header">
 					<h2>공지사항</h2><br><br>
 				</div>
+				
 			</div>
 				<c:if test="${auth eq 'A'|| auth eq 'M'}">   
 				<button type="button" onclick="location.href='noticeInsertForm'" class="btn-primary pull-right">글쓰기</button>
@@ -56,6 +61,7 @@
 					
 					</tbody>
 				</table>
+				<my:paging jsFunc="goList" paging="${paging}" />
 		</div>
 	</div>
 	<form action="noticeSelectList" method="post" id="frm">

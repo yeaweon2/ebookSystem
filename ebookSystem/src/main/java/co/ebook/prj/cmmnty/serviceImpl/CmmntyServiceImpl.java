@@ -40,5 +40,12 @@ public class CmmntyServiceImpl implements CmmntyService {
 		return map.cmmntyDelete(vo);
 	}
 
+	@Override //글카운터
+	public int getCount(CmmntyVO vo) {
+		return map.getCount(vo);
+	}
+	
+	
+
 
 }

@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.ebook.prj.cmmnty.service.CmmntyService;
 import co.ebook.prj.cmmnty.vo.CmmntyVO;
+import co.ebook.prj.common.vo.Paging;
 
 @Controller
 public class CmmntyController {
@@ -32,10 +33,14 @@ public class CmmntyController {
 
 	// 공지사항 전체조회
 	@RequestMapping("/noticeList")
-	String noticeList(Model model, CmmntyVO vo) {
+	String noticeList(Model model, CmmntyVO vo, Paging paging) {
 		vo.setCmmntyFlCd("01");
-		vo.setCmmntyDelyn("N");
-
+		
+		//페이징처리
+		vo.setStart(paging.getFirst());
+		vo.setEnd(paging.getLast()); 
+		paging.setTotalRecord(cmmntyDao.getCount(vo));
+		
 		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
 		model.addAttribute("notices", lists);
 		return "cmmnty/noticeList";

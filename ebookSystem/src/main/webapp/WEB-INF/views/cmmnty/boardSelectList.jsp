@@ -70,22 +70,6 @@
 	   }); 
    }
    
-   //대댓글 입력
-
-
-	/* $.ajax({
-            url : 'replyInsert',
-            method : 'POST',
-             ,
-            dataType : 'json',
-            data : JSON.stringify({creplyContents : creplyContents , cmmntyId : cmmntyId }),
-            success : function(data){
-               		 replySelect();
-               	     $("#rRbtnSave").val('');
-                     }
-         });  */      
- 
-
    //댓글 조회
    function replySelect() {
       console.log($('#cmmntyId').val());

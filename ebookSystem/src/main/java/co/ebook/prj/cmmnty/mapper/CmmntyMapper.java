@@ -14,4 +14,5 @@ public interface CmmntyMapper {
 	int cmmntyReplyCnt(CmmntyVO vo);
 	int cmmntyReplyDel(CmmntyVO vo);
 	int cmmntyProcYN(CmmntyVO vo);
+	int getCount(CmmntyVO vo);
 }

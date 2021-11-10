@@ -9,4 +9,5 @@ public interface BookReviewMapper {
 	int bookReviewInsert(BookReviewVO vo);
 	int bookReviewUpdate(BookReviewVO vo);
 	int bookReviewDelete(BookReviewVO vo);
+	int bookMile(BookReviewVO vo);
 }

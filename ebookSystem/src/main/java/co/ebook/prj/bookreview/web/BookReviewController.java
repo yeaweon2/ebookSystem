@@ -63,8 +63,10 @@ public class BookReviewController {
 	String reviewInsert(Model model, BookReviewVO vo, HttpServletRequest request) {
 		System.out.println(vo.toString());
 		System.out.println("========================리뷰를 입력합시다");
+		
 		HttpSession session = request.getSession();
 		vo.setReviewWriter((String)session.getAttribute("id"));
+		
 		int lists = bookReviewDao.bookReviewInsert(vo);
 		
 		if (lists > 0) {
@@ -72,6 +74,6 @@ public class BookReviewController {
 		} else {
 			model.addAttribute("msg", "실패");
 		}
-		return "redirect:reviewInsert";
+		return "redirect:bookReviewList";
 	}
 }

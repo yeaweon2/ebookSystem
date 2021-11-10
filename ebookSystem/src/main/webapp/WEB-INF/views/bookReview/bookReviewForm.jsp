@@ -47,12 +47,7 @@
 }
 </style>
 <script>
-	$(function() {
-		//책리뷰입력
-		$('#reviewInputBtn').on('click', function() {
-			frm.submit();
-		})
-		
+	$(function() {	
 		//대여리스트 가져오기
 		var modal = document.getElementById("myModal");
 		var span = document.getElementsByClassName("close")[0];
@@ -82,20 +77,18 @@
 													  
 									})//each끝
 									
-					$('#lendList').on('dblclick',".chk", function(){ //부모한테걸어서 아직생성되지않은 테이블에 이벤트를 준다, div생성해서 append하고 모달을 닫기한다.
+					$('#lendList').on('dblclick',".chk", function(){ //부모한테걸어서 아직생성되지않은 테이블에 이벤트를 준다
 						var bookid = $(this).data("bookid")
-						console.log(bookid);
 						var imgsrc = $(this).find(".bkimg").children().attr('src')
 						
 						$("#bookLendList").empty();
 						$('#bookLendList').append( $("<img width='50px' height='70px'>").attr("src", imgsrc))
 										  .append($(this).find(".bknm").html())
 										  .append($(this).find(".bkw").html())
-										  .append($("<input : hidden>").attr("val", bookid))
-						
+										  .append($("<input type='hidden' id='bookId' name='bookId'>").val(bookid))
 						modal.style.display = "none";
-						
-					})
+					
+					}) 
 				}//function끝
 			})
 			
@@ -117,7 +110,10 @@
 			height : 300
 		});
 		
-		
+		//책리뷰입력
+		$('#reviewInputBtn').on('click', function() {
+			bookfrm.submit();
+		})
 	});
 </script>
 </head>
@@ -130,10 +126,10 @@
 					<br> <br>
 				</div>
 			</div>
-			<form id="frm" name="frm" action="reviewInsert" method="post">
+			<form id="bookfrm" name="bookfrm" action="reviewInsert" method="post">
 			<table class="table">
 				<tr>
-					<td><input type="text" class="form-control" name="rewviewTitle" id="reviewTitle" placeholder="제목을 입력해 주세요"></td>
+					<td><input type="text" class="form-control" name="reviewTitle" id="reviewTitle" placeholder="제목을 입력해 주세요"></td>
 				</tr>
 				<tr>
 					<td>
@@ -149,8 +145,8 @@
 					<td><input type="file" name="reviewAtchNm" placeholder="파일 선택" multiple></td>
 					
 			</table>
-			<input type="button" id="reviewInputBtn" value="등록" class="btn-primary ">
-			<input type="button" onclick="location.href='bookReviewList'" value="취소" class="btn-danger">
+			<input type="button" id="reviewInputBtn" value="등록" class="ebookBtn">
+			<input type="button" onclick="location.href='bookReviewList'" value="취소" class="ebookBtn">
 			</form>	
 	</div>
 </div>
@@ -163,7 +159,7 @@
 				<div id="lendList">
 					
 				</div>
-				<input type="hidden" name="reviewId" id="reviewId" value="${lists.reviewId}">
+				<input type="hidden" name="reviewId" id="reviewId" value="${list.reviewId}">
 			</form>
 		</div>
 	</div>

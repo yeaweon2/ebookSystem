@@ -4,8 +4,9 @@
 
 	<!-- 211018 공지사항 전체조회  -->
 	<select  id="cmmntyList" resultType="co.ebook.prj.cmmnty.vo.CmmntyVO">
-		SELECT rownum as cmmnty_no
-			, CMMNTY_ID
+	SELECT B.* FROM ( SELECT A.* , ROWNUM CMMNTY_NO FROM (
+		SELECT 
+			  CMMNTY_ID
 			, CMMNTY_TITLE 
 			, CMMNTY_CONTENTS
 			, CMMNTY_REPLY_CNT
@@ -20,8 +21,10 @@
 		WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
 		  AND CMMNTY_DELYN ='N'
 		   
-		ORDER BY cmmnty_no DESC
-
+		ORDER BY cMMNTY_ID DESC
+		<![CDATA[ 
+        ) A ) B WHERE CMMNTY_NO >= #{start} and CMMNTY_NO <= #{end} 
+        ]]>
 	</select>
 	
 	<!-- 211019 공지사항 상세조회 -->
@@ -45,7 +48,7 @@
 	<!-- 211019 공지사항 글입력 -->
 	<insert id="cmmntyInsert" parameterType="co.ebook.prj.cmmnty.vo.CmmntyVO">
 		INSERT INTO COMMUNITY(
-								CMMNTY_ID			, CMMNTY_WRITER		
+								  CMMNTY_ID			, CMMNTY_WRITER		
 								, CMMNTY_TITLE		, CMMNTY_FL_CD
 								, CMMNTY_CONTENTS	, CMMNTY_HIT		
 								, INS_DT			, UDT_DT
@@ -99,5 +102,15 @@
 	   SET CMMNTY_REPLY_CNT = CMMNTY_REPLY_CNT - 1
 	 WHERE CMMNTY_ID = #{cmmntyId}
 	</update>
+
+	<!-- 전체글 카운터 -->
+	<select id="getCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM COMMUNITY
+		WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
+		  AND CMMNTY_DELYN ='N'	
+	</select>
+	
+
 
 </mapper>
