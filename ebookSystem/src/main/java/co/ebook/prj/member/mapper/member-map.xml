@@ -132,9 +132,8 @@
 		   set  member_sub_yn = 'Y'
 		   		,udt_dt = sysdate
 		   		,member_mile = #{memberMile}
-		   		,member_nm = #{memberNm}
 		 where  member_id = #{memberId}
-		   and  member_sub_yn = #{memberSubYn, jdbcType=CHAR}
+		   and  member_sub_yn = 'N'
 	</update>
 
 </mapper>

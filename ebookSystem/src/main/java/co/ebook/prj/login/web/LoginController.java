@@ -110,12 +110,15 @@ public class LoginController {
 	
 // 	비밀번호 바꾸기 실행
 	@RequestMapping(value="update_password", method=RequestMethod.POST)
-	public String updatePasswordAction(@RequestParam(value="updateid", defaultValue="", required=false) String id,
-										LoginVO vo, Model model) {
-		vo.setMemberId(id);
-		System.out.println(vo);
+	public String updatePasswordAction(LoginVO vo, Model model,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		vo.setMemberId(vo.getUpdateid());
+		vo.setMemberPw(vo.getUpdatePw());
+		System.out.println("=====================================null???");
+		System.out.println("===================================================="+vo);
 		loginDao.updatePwd(vo);
 		model.addAttribute("login", loginDao.updatePwd(vo));
+		System.out.println("======================>>>>" +loginDao.updatePwd(vo));
 		return "main/findPasswordConfirm";
 	}
 	
@@ -128,7 +131,7 @@ public class LoginController {
 		if(loginUser == null) {
 			return "main/login";
 		} else {
-			return "main/home";
+			return "main/main";
 		}
 	}
 

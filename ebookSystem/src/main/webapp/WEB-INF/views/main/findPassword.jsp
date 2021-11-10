@@ -107,14 +107,14 @@
 		color: #777;
 	}
 	#do{
-			margin-top : 100px; 
-			margin-bottom: 100px;
-			margin-left: 150px;
-			margin-right: 150px;
-			align-content: center;
-			
-			
-		}
+		margin-top : 100px; 
+		margin-bottom: 100px;
+		margin-left: 150px;
+		margin-right: 150px;
+		align-content: center;
+		padding: 10px 10px 400px 400px;
+		
+	}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -123,9 +123,11 @@
 
 <body>
 <div align="center" id="do">
-	<div class="col-lg-3 mb-3 mb-lg-0">
+	<div class="col-lg-6 mb-6 mb-lg-0">
 		<div style='margin-bottom: 50px;'><h2>비밀번호 찾기</h2></div>
 			<form method="post" class="form-signin" action="find_password" name="findform" id = "frm">
+				<c:if test="${check != 0}">
+				
 				<div class="form-label-group">
 					<input type="text" id="memberId" name="memberId" class="form-control"/>
 					<label for="id">ID</label>
@@ -145,6 +147,7 @@
 					<input class="btn btn-lg btn-secondary btn-block text-uppercase"
 						type="button" value="check" id="ckPass">
 				</div>
+				</c:if>				
 				<!-- 정보가 일치하지 않을 때-->
 				<c:if test="${check == 1}">
 					<script>
@@ -154,14 +157,18 @@
 					</script>
 					<label>일치하는 정보가 존재하지 않습니다.</label>
 				</c:if>
-		
+				
 				<!-- 정보가 일치 할 때  -->
 				<c:if test="${check == 0 }">
 				<div>
-					<label>비밀번호를 변경해주세요.</label>
+					<label>회원정보가 일치합니다.</label>
+					<label>비밀번호를 변경하세요.</label>
 				</div>
 				<div class="form-label-group">
-				<input type="hidden" id="id" name="updateid" value="${updateid }">
+				<input value="입력하신 아이디는 ' ${updateid } ' 입니다." class="form-control">
+				<input type="hidden" id="id" name="updateid" value=${updateid } class="form-control">
+				</div><br><br>
+				<div class="form-label-group">
 				<input type="hidden" id="pw" name="updatePw" value="${updatePw }">
 				
 					<input type="password" id="password" name="pwd" class="form-control"/>
@@ -184,15 +191,14 @@
 	</div>
 	<script type="text/javascript">
 	
-		$("#ckPass").on("click", function(){
-			frm.action="find_password";
-			frm.submit(); 
-			
-		});
+	$("#ckPass").on("click", function(){
+		frm.action="find_password";
+		frm.submit(); 
 		
-		
-		
+	});
+
 		function updatePassword(){
+			console.log("------------------------------");
 			if(document.findform.pwd.value==""){
 				alert("비밀번호를 입력해주세요.");
 				document.findform.pwd.focus();
@@ -202,6 +208,11 @@
 				document.findform.confirmpwd.focus();
 				
 			} else {
+				$("#id").val();
+				$("#pw").val( $("#password").val() );
+				
+				console.log($("#id").val());
+				console.log($("#pw").val());
 				document.findform.action="update_password";
 				document.findform.submit();
 			}

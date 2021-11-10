@@ -12,6 +12,6 @@ public interface LoginService {
 	LoginVO findPassword(LoginVO vo);
 	
 //	비밀번호 수정
-	LoginVO updatePwd(LoginVO vo);
+	int updatePwd(LoginVO vo);
 	
 }

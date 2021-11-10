@@ -20,7 +20,7 @@ public class LoginServiceImpl implements LoginService {
 
 //	비밀번호변경
 	@Override
-	public LoginVO updatePwd(LoginVO vo) {
+	public int updatePwd(LoginVO vo) {
 		return map.updatePwd(vo);
 	}
 

@@ -112,7 +112,7 @@
 		margin-left: 150px;
 		margin-right: 150px;
 		align-content: center;
-		
+		padding: 10px 10px 400px 400px;
 		
 	}
 </style>
@@ -122,7 +122,7 @@
 </head>
 <body>
 <div align="center" id="do">
-	<div class="col-lg-3 mb-3 mb-lg-0">
+	<div class="col-lg-6 mb-6 mb-lg-0">
 		<div style='margin-bottom: 50px;'><h2>아이디 찾기</h2></div>
 		<form class="form-signin" action="find_id" name="findform" id="frm">
 			<div class="form-label-group">

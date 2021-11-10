@@ -244,9 +244,6 @@ public class MemberController {
 	}
 	
 	
-	
-	
-	
 //	월정액가입메인페이지
 	@RequestMapping("/ticketList")
 	public String ticketList(Model model) {
@@ -276,17 +273,18 @@ public class MemberController {
 	
 //	월정액 결제성공 후 데이터 저장
 	@RequestMapping("/SuccessSup") 
-	public String SuccessSup(Model model ,  MemberVO vo, SubscriptionVO sVo, HttpServletRequest request, String args[]) {
+	public String SuccessSup(Model model , MemberVO vo, SubscriptionVO sVo, HttpServletRequest request, String args[]) {
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));
 		sVo.setMemberId((String)session.getAttribute("id"));
 
-		System.out.println("여기야여기============>"+vo.toString());
-		System.out.println("여기야여기============>"+sVo.toString());
+		System.out.println("여기야여기==============================>"+vo.toString());
+		System.out.println("여기야여기============================>"+sVo.toString());
 		
 		
-        model.addAttribute("member", memberDao.memSubUpdate(vo));
+		model.addAttribute("member", memberDao.memSubUpdate(vo));
 		model.addAttribute("sub", subDao.subInsert(sVo));
+		System.out.println("==============================?????????????????????" + vo);
 		return "redirect:myInfo";
 	} 
 	
