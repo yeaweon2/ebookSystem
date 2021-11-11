@@ -16,6 +16,7 @@ public class CmmntyServiceImpl implements CmmntyService {
 	
 	@Override //커뮤니티 목록조회
 	public List<CmmntyVO> cmmntyList(CmmntyVO vo) {
+		
 		return map.cmmntyList(vo);
 	}
 

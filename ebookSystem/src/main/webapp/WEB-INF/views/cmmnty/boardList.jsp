@@ -2,12 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>자유게시판</title>
 <script>
+	function goList(p) {
+		location.href="noticeList?page="+p
+	}
 	$(function() {
 		//클릭시 글상세조회
 		$("table").on("click", "tr", function() {
@@ -58,7 +62,7 @@
 						
 					</tbody>
 				</table>
-				
+				<my:paging jsFunc="goList" paging="${paging}" />
 			</div>
 		</div>
 

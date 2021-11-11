@@ -36,10 +36,10 @@ public class CmmntyController {
 	String noticeList(Model model, CmmntyVO vo, Paging paging) {
 		vo.setCmmntyFlCd("01");
 		
-		//페이징처리
-		vo.setStart(paging.getFirst());
-		vo.setEnd(paging.getLast()); 
-		paging.setTotalRecord(cmmntyDao.getCount(vo));
+			//페이징처리
+			vo.setStart(paging.getFirst());
+			vo.setEnd(paging.getLast()); 
+			paging.setTotalRecord(cmmntyDao.getCount(vo));
 		
 		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
 		model.addAttribute("notices", lists);
@@ -85,7 +85,7 @@ public class CmmntyController {
 		vo.setCmmntyFlCd("01");
 		vo.setCmmntyDelyn("N");
 		vo = cmmntyDao.cmmntySelectList(vo);
-
+		
 		model.addAttribute("notice", vo);
 		return "cmmnty/noticeSelectList";
 	}

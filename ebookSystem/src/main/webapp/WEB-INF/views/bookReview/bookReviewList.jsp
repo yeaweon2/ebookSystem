@@ -18,28 +18,18 @@ body {
 
 /* Float four columns side by side */
 .column {
-  float: left;
   width: 25%;
   padding: 0 10px;
 }
 
 /* Remove extra left and right margins, due to padding */
-.row {margin: 0 -5px;}
+.row {margin: 0 -10px;}
 
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
-}
-
-/* Responsive columns */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
 }
 
 /* Style the counter cards */
@@ -50,6 +40,19 @@ body {
   background-color: #f1f1f1;
 }
 </style>
+<script>
+$(function() {
+	//클릭시 글상세조회
+	$("table").on("click", "tr", function() {
+		event.stopPropagation();
+		var id = $(this).closest("tr").data("id");
+		$("#reviewId").val(id);
+
+		frm.submit();
+	})
+
+});
+</script>
 </head>
 <body>
 	<div class="inner-page pt-6">
@@ -57,28 +60,60 @@ body {
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
 					<h2>책리뷰</h2><br><br>
+			
 				</div>
 				
 			</div>
-	<div>
-		<input type="button" onclick="location.href='reviewInsertForm'" class="btn-primary pull-right"  value="글쓰기">
-	</div>
-	<!--  책리뷰 조회 -->
-	<c:forEach var="list" items="${lists }">
+
+	<!--  베스트 리뷰조회 -->
 		<div class="reviewList">
-			
 			<div class="row">
-  				<div class="column">
+			<h3>베스트 리뷰</h3>
+  			<c:forEach var="list" items="${bests }">
+  				<div class="col-md-3">
     				<div class="card">
-    				<img width='60px' height='90px' src='${pageContext.request.contextPath}/fileUp${list.bookCoverPath}${list.bookCover}'>
-     					 <h3>${list.reviewTitle}</h3>
+    				<img width='80px' height='120px' src='${pageContext.request.contextPath}/fileUp${list.bookCoverPath}${list.bookCover}'>
+    					<h4>${list.bookNm}</h4>
+     					 <h5>${list.reviewTitle}</h5>
+     					 <p>작성자: ${list.reviewWriter}</p>
+     					 <p>추천수: ${list.reviewLikeit }</p>
       					 <p><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.insDt}"/></p>
-     					 <p>${list.reviewContents}</p>
+     					 <button type="button">더보기</button>
     				</div>
   				</div>
+			</c:forEach>  				
   			</div>
 		</div>
-	</c:forEach>
+	<!-- 리뷰 리스트--><br><br>
+		<div class="reviewList">
+			<input type="button" onclick="location.href='reviewInsertForm'" class="btn-primary pull-right"  value="글쓰기">
+			<table class="table table-hover" style="cursor:pointer" >
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>조회수</th>
+							<th>작성일</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<c:forEach var="rv" items="${review }">
+							<tr class="reviewSelect" data-id="${rv.reviewId}">
+								<td>${rv.reviewNo}</td>
+								<td>${rv.reviewTitle} <c:if test="${rv.reviewReplyCnt ne '0'}">(${rv.reviewReplyCnt})</c:if></td>
+								<td>${rv.reviewWriter}</td>
+								<td>${rv.reviewHit}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${rv.insDt}"/></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+		</div>
+		<form action="reviewSelectList" method="post" id="frm">
+		<input type="hidden" id="reviewId" name="reviewId">
+	</form>
 	</div>
 	</div>
 </body>

@@ -13,18 +13,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.ebook.prj.cmmnty.service.CmmntyService;
 import co.ebook.prj.cmmnty.vo.CmmntyVO;
+import co.ebook.prj.common.vo.Paging;
 
 @Controller
 public class FaqController {
 	@Autowired
 	private CmmntyService cmmntyDao;
 
+	@Autowired
+	String filePath;
+	
 	// FAQ 전체조회
 	@RequestMapping("/faqList")
-	String faqList(Model model, CmmntyVO vo) {
-		
+	String faqList(Model model, CmmntyVO vo, Paging paging) {
 		vo.setCmmntyFlCd("02");
-		vo.setCmmntyDelyn("N");
+		
+		//페이징처리
+		vo.setStart(paging.getFirst());
+		vo.setEnd(paging.getLast()); 
+		paging.setTotalRecord(cmmntyDao.getCount(vo));
+		
 		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
 		System.out.println(lists);
 		model.addAttribute("faqs", lists);

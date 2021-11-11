@@ -7,12 +7,13 @@ import lombok.Data;
 @Data
 public class BookReviewVO {
 	private Integer reviewId; 		//리뷰번호
+	private Integer reviewNo;		//게시글정렬
 	private String bookId;			//책id
 	private String reviewTitle;		//리뷰제목
 	private String reviewContents;  //리뷰내용
 	private String reviewWriter;	//리뷰작성자
 	private int reviewHit;			//리뷰조회수
-	private String reviewLikeit;	//리뷰좋아요수
+	private int reviewLikeit;	//리뷰좋아요수
 	private int reviewReplyCnt;		//리뷰댓글수
 	private String reviewAtchNm;	//첨부파일
 	private String reviewAtchPath;	//첨부파일경로
@@ -22,4 +23,7 @@ public class BookReviewVO {
 	
 	private String bookCover;
 	private String bookCoverPath;
+	private String bookNm;
+	private String bookWriter;
+
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,6 +85,10 @@
 }
 </style>
 <script>
+	function goList(p) {
+		location.href="noticeList?page="+p
+	}
+
 	$(
 			function() {
 				//FAQ수정
@@ -180,6 +185,7 @@
 					<button type="button" class="faqInsert btn-primary">글쓰기</button>
 				</c:if>
 			</div>
+			<my:paging jsFunc="goList" paging="${paging}" />
 		</div>
 	</div>
 

@@ -29,13 +29,27 @@ public class BookReviewController {
 	@Autowired
 	LendService lendDao;
 	
-	//전체리뷰 리스트
+	//전체리스트
 	@RequestMapping("/bookReviewList")
 	String bookReviewList(Model model, BookReviewVO vo) {
-		List<BookReviewVO> lists = bookReviewDao.bookReviewList(vo);
-		model.addAttribute("lists", lists);
+		List<BookReviewVO> bests = bookReviewDao.bookReviewList(vo);
+		model.addAttribute("bests", bests);
 	
+		List<BookReviewVO> lists = bookReviewDao.reviewList(vo);
+		model.addAttribute("review", lists);
+
 		return "bookReview/bookReviewList";
+	}
+	
+	//단건조회
+	@RequestMapping("/reviewSelectList")
+	String reviewSelectList(Model model, BookReviewVO vo, HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		vo.setReviewWriter((String) session.getAttribute("id"));
+		
+		vo = bookReviewDao.reviewSelectList(vo);
+		model.addAttribute("list", vo);
+		return "bookReview/reviewSelectList";
 	}
 	
 	//대여리스트 
@@ -61,8 +75,6 @@ public class BookReviewController {
 	//리뷰 입력
 	@RequestMapping("/reviewInsert")
 	String reviewInsert(Model model, BookReviewVO vo, HttpServletRequest request) {
-		System.out.println(vo.toString());
-		System.out.println("========================리뷰를 입력합시다");
 		
 		HttpSession session = request.getSession();
 		vo.setReviewWriter((String)session.getAttribute("id"));

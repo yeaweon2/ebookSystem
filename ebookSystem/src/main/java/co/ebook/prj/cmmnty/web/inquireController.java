@@ -13,21 +13,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.ebook.prj.cmmnty.service.CmmntyService;
 import co.ebook.prj.cmmnty.vo.CmmntyVO;
+import co.ebook.prj.common.vo.Paging;
 
 @Controller
 public class inquireController {
 	@Autowired
 	private CmmntyService cmmntyDao;
 
+	@Autowired
+	String filePath;
+	
 	// 1:1문의 전체조회
 	@RequestMapping("/inquireList")
-	String inquireList(Model model, CmmntyVO vo, HttpServletRequest request) {
+	String inquireList(Model model, CmmntyVO vo, Paging paging, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 		vo.setCmmntyWriter((String) session.getAttribute("id"));
-		
 		vo.setCmmntyFlCd("03");
-		vo.setCmmntyDelyn("N");
+		
+		//페이징처리
+		vo.setStart(paging.getFirst());
+		vo.setEnd(paging.getLast()); 
+		paging.setTotalRecord(cmmntyDao.getCount(vo));
+		
 		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
 		model.addAttribute("inquires", lists);
 		return "cmmnty/inquireList";

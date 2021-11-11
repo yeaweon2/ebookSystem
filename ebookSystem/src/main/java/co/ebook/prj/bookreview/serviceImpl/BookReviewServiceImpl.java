@@ -21,7 +21,6 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 	@Override
 	public int bookReviewInsert(BookReviewVO vo) {
-		map.bookMile(vo);
 		return map.bookReviewInsert(vo);
 	}
 
@@ -33,6 +32,16 @@ public class BookReviewServiceImpl implements BookReviewService {
 	@Override
 	public int bookReviewDelete(BookReviewVO vo) {
 		return map.bookReviewDelete(vo);
+	}
+
+	@Override
+	public List<BookReviewVO> reviewList(BookReviewVO vo) {
+		return map.reviewList(vo);
+	}
+
+	@Override
+	public BookReviewVO reviewSelectList(BookReviewVO vo) {
+		return map.reviewSelectList(vo);
 	}
 
 }

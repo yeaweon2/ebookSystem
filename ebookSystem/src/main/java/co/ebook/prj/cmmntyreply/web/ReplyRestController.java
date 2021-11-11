@@ -39,7 +39,7 @@ public class ReplyRestController {
 
 	// 댓글입력
 	@RequestMapping(value = "/replyInsert", method = RequestMethod.POST)
-	public Map replyInsert(Model model, @RequestBody ReplyVO vo, HttpServletRequest request) {
+	public Map<String, Object> replyInsert(Model model, @RequestBody ReplyVO vo, HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
 		vo.setCreplyWriter((String) session.getAttribute("id")); //댓글입력시 이름으로저장
@@ -59,7 +59,7 @@ public class ReplyRestController {
 
 	// 댓글수정
 	@RequestMapping(value = "/replyUpdate", method = RequestMethod.PUT)
-	public Map replyUpdate(Model model, @RequestBody ReplyVO vo, HttpServletRequest request) {
+	public Map<String, Object> replyUpdate(Model model, @RequestBody ReplyVO vo, HttpServletRequest request) {
 		
 		vo.setCreplyWriter((String) request.getAttribute("id"));
 
@@ -76,7 +76,7 @@ public class ReplyRestController {
 
 	// 댓글삭제
 	@RequestMapping(value = "/replyDelete", method = RequestMethod.DELETE)
-	public Map replyDelete(@RequestBody ReplyVO vo, Model model) {
+	public Map<String, Object> replyDelete(@RequestBody ReplyVO vo, Model model) {
 
 		int result = replyDao.replyDelete(vo);
 		HashMap<String, Object> map = new HashMap<String, Object>();

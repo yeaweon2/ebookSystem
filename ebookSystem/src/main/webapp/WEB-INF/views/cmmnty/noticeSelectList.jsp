@@ -63,8 +63,8 @@
       })
   });
    
-   //대댓글 입력양식
-   function rReplyInputForm(){
+   //댓글 입력양식
+    function rReplyInputForm(){
 	   $("#comments-list").on("click", "#rreplyInputBtn",function(){
 		   event.stopPropagation();
 		
@@ -77,25 +77,10 @@
 		        		     				    $('<td>').html($("<a class='rRbtnUp pointer' id='rRbtnUp' style='display :none'>").html("수정")),
 		        		     				    $('<td>').html($("<a class='rRbtnDel pointer' id='rRbtnDel' style='display :none'>").html("삭제"))		   						        		     				   
 		        		     					)
-			)//rcomments-list 끝 
+			)
 	   }); 
-   }
+   } 
    
-   //대댓글 입력
-
-
-	/* $.ajax({
-            url : 'replyInsert',
-            method : 'POST',
-             ,
-            dataType : 'json',
-            data : JSON.stringify({creplyContents : creplyContents , cmmntyId : cmmntyId }),
-            success : function(data){
-               		 replySelect();
-               	     $("#rRbtnSave").val('');
-                     }
-         });  */      
- 
 
    //댓글 조회
    function replySelect() {
@@ -116,7 +101,7 @@
 	         $('<table class="table">').append($('<tr>').append('<td>').html(item.creplyWriter),
 	        		             			   $('<tr>').append($('<td id="rContents">').html(item.creplyContents)),
 	        		     					   $('<tr>').append($('<td>').append('<small>').html(item.insDt),
-				        		     				   		    $('<td>').html($("<a class='rreplyInputBtn pointer' id='rreplyInputBtn'>").html("답글쓰기")),
+				        		     				   		   // $('<td>').html($("<a class='rreplyInputBtn pointer' id='rreplyInputBtn'>").html("답글쓰기")),
 				        		     				 		    $('<td>').html($("<a class='btnUp pointer' id='btnUp'>").html("수정")),
 				        		     				 		    $('<td>').html($("<a class='pointer' id='btnSave' style='display :none'>").html("저장")),
 				        		     				 		    $('<td>').html($("<a class='btnDel pointer' id='btnDel' >").html("삭제")),
@@ -270,7 +255,6 @@
 				<tr>
 					<td>
 					첨부파일: <a href ="download?cmmntyAtchNm=${notice.cmmntyAtchNm}">${notice.cmmntyAtchNm}</a> 
-					
 					</td>
 				</tr>
 			</table>

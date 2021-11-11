@@ -21,7 +21,7 @@
 		WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
 		  AND CMMNTY_DELYN ='N'
 		   
-		ORDER BY cMMNTY_ID DESC
+		ORDER BY CMMNTY_ID DESC
 		<![CDATA[ 
         ) A ) B WHERE CMMNTY_NO >= #{start} and CMMNTY_NO <= #{end} 
         ]]>
@@ -40,7 +40,7 @@
 			, CMMNTY_REPLY_CNT
 			, CMMNTY_ATCH_NM
 			, CMMNTY_ATCH_PATH
-		 FROM community
+		 FROM COMMUNITY
 		WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
 	      AND CMMNTY_ID = #{cmmntyId}
 	</select>
