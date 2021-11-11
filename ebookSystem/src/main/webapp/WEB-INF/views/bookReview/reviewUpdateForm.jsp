@@ -48,70 +48,13 @@
 </style>
 <script>
 	$(function() {	
-		//대여리스트 가져오기
-		var modal = document.getElementById("myModal");
-		var span = document.getElementsByClassName("close")[0];
-			
-		$(".myBtn").on("click", function() {
-			modal.style.display = "block";
-			
-			//대여리스트가져오기
-			$.ajax({
-				url: 'reviewLendList',
-				contentType : 'application/json',
-				method : 'GET',
-				dataType: 'json',
-				success: function(data){
-					$("#lendList").empty();
-					
-					$("#lendList").append($("<div>").html("리뷰할 책을 선택해주세요!"))
-									
-									$.each(data, function(idx,item){
-										$("#lendList").append($("<table class='chk'>")
-															  .append($("<tr>")
-															  			.append($("<td class='bkimg'>").append($("<img width='60px' height='90px' src='${pageContext.request.contextPath}/fileUp"+ item.bookCoverPath + item.bookCover+ "'>")))
-															  			.append($("<td class='bknm'>").html(item.bookNm))
-															  			.append($("<td class='bkw'>").html(item.bookWriter))
-															  ).data("bookid", item.bookId)
-													 )//table끝
-													  
-									})//each끝
-									
-					$('#lendList').on('dblclick',".chk", function(){ //부모한테걸어서 아직생성되지않은 테이블에 이벤트를 준다
-						var bookid = $(this).data("bookid")
-						var imgsrc = $(this).find(".bkimg").children().attr('src')
-						
-						$("#bookLendList").empty();
-						$('#bookLendList').append( $("<img width='50px' height='70px'>").attr("src", imgsrc))
-										  .append($(this).find(".bknm").html())
-										  .append($(this).find(".bkw").html())
-										  .append($("<input type='hidden' id='bookId' name='bookId'>").val(bookid))
-						modal.style.display = "none";
-					
-					}) 
-				}//function끝
-			})
-			
-			
-
-		})
-		
-		span.onclick = function() {
-	 	 modal.style.display = "none";
-		}
-		window.onclick = function(event) {
-	 	 if (event.target == modal) {
-		   modal.style.display = "none";
-	    }
-	}
-		
 		//썸머노트높이
 		$('.summernote').summernote({
 			height : 300
 		});
 		
 		//책리뷰입력
-		$('#reviewInputBtn').on('click', function() {
+		$('#reviewUpdateBtn').on('click', function() {
 			bookfrm.submit();
 		})
 	});
@@ -126,42 +69,30 @@
 					<br> <br>
 				</div>
 			</div>
-			<form id="bookfrm" name="bookfrm" action="reviewInsert" method="post">
+			<form id="bookfrm" name="bookfrm" action="bookReviewUpdate" method="post">
 			<table class="table">
 				<tr>
-					<td><input type="text" class="form-control" name="reviewTitle" id="reviewTitle" placeholder="제목을 입력해 주세요"></td>
+					<td><input type="text" class="form-control" name="reviewTitle" id="reviewTitle" value ="${list.reviewTitle }" ></td>
 				</tr>
 				<tr>
 					<td>
-						<input type="button" class="myBtn pull-right btn-primary" value="대여목록조회">
 						<div id="bookLendList">
-						
+						<img width='80px' height='120px' src='${pageContext.request.contextPath}/fileUp${list.bookCoverPath}${list.bookCover}'>
+						${list.bookNm}(${list.bookWriter })
 						</div></td>
 				</tr>
 				<tr>
-					<td><textarea name="reviewContents" id="summernote" class="summernote" placeholder="내용을 입력해 주세요"></textarea></td>
+					<td><textarea name="reviewContents" id="summernote" class="summernote" >${list.reviewContents }" </textarea></td>
 				</tr>
 				<tr>
 					<td><input type="file" name="reviewAtchNm" placeholder="파일 선택" multiple></td>
 					
 			</table>
-			<input type="button" id="reviewInputBtn" value="등록" class="ebookBtn">
+			<input type="button" id="reviewUpdateBtn" value="수정" class="ebookBtn">
 			<input type="button" onclick="location.href='bookReviewList'" value="취소" class="ebookBtn">
+			<input type="hidden" id="reviewId" name="reviewId" value="${list.reviewId}">
 			</form>	
 	</div>
 </div>
-	<!-- The Modal -->
-	<div id="myModal" class="modal">
-		<!-- Modal content -->
-		<div class="modal-content">
-			<form id="frm" name="frm" method="post">
-				
-				<div id="lendList">
-					
-				</div>
-				<input type="hidden" name="reviewId" id="reviewId" value="${list.reviewId}">
-			</form>
-		</div>
-	</div>
 </body>
 </html>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -86,6 +87,37 @@ public class BookReviewController {
 		} else {
 			model.addAttribute("msg", "실패");
 		}
+		return "redirect:bookReviewList";
+	}
+	
+	//리뷰 수정양식
+	@RequestMapping("/reviewUpdateForm")
+	public String reviewUpdateForm(Model model, BookReviewVO vo) {
+		vo = bookReviewDao.reviewSelectList(vo);
+		model.addAttribute("list", vo);
+		return "bookReview/reviewUpdateForm";
+	}
+	
+	//리뷰 수정
+	@RequestMapping("/bookReviewUpdate")
+	public String bookReviewUpdate(Model model, BookReviewVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		vo.setBookWriter((String)session.getAttribute("id"));
+		
+		int list = bookReviewDao.bookReviewUpdate(vo);
+		if (list != 0) {
+			model.addAttribute("msg", "성공");
+		} else {
+			model.addAttribute("msg", "실패");
+		}
+		return "redirect:bookReviewList";
+	}
+	
+	// 리뷰 삭제
+	@PostMapping("/bookReviewDelete")
+	public String bookReviewDelete(Model model, BookReviewVO vo) {
+		bookReviewDao.bookReviewDelete(vo);
+
 		return "redirect:bookReviewList";
 	}
 }

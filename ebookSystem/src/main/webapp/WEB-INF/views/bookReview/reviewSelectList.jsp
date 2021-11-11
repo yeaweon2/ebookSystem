@@ -89,7 +89,7 @@
             frm.action = "reviewUpdateForm";
      	 } else {
               if (confirm('삭제하시겠습니까?') == true) {
-               frm.action = "reviewDelete";
+               frm.action = "bookReviewDelete";
               } else {
                return false;
             } //else

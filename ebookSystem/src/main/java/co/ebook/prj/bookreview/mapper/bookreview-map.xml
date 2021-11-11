@@ -16,7 +16,7 @@
 	      FROM ( SELECT ROW_NUMBER() OVER (ORDER BY REVIEW_LIKEIT DESC ) AS RN
 	       	 , R.* FROM REVIEW R ) A , BOOK B
 	     WHERE A.BOOK_ID = B.BOOK_ID 
-		   AND RN < 5
+		   AND RN < 4
            AND REVIEW_DEL_YN = 'N'
 		]]>
 	</select>
@@ -79,5 +79,22 @@
 						  , sysdate			, sysdate	
 						  , #{reviewContents})
 	</insert>
+	
+	<!-- 리뷰 수정 -->
+	<update id="bookReviewUpdate" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
+	UPDATE REVIEW
+		   SET REVIEW_TITLE 	= #{reviewTitle} 
+		     , REVIEW_CONTENTS 	= #{reviewContents}
+		     , UDT_DT = sysdate
+		 WHERE REVIEW_ID = #{reviewId} 
+	</update>
+	
+	<!--  리뷰 삭제 -->
+	<update id="bookReviewDelete" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
+	UPDATE REVIEW
+		   SET REVIEW_DEL_YN = 'Y'
+		     , UDT_DT = sysdate
+		 WHERE REVIEW_ID = #{reviewId}
+	</update>
 	
 </mapper>
