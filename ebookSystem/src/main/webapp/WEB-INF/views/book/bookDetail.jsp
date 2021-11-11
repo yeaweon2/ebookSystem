@@ -195,7 +195,7 @@ ul.sidenav li a:hover {
 	 		}); 			
 		});
 		
-		$(".likeItBtn").on("click", function(){
+		$("#likeItBtn").on("click", function(){
 			var bookId = $("#bookId").val();
 			
 			$.ajax({
@@ -216,7 +216,7 @@ ul.sidenav li a:hover {
 		});
 		
 		// 버킷 클릭시
-		$(".bucketBtn").on("click", function(){
+		$("#bucketBtn").on("click", function(){
 			var bookId = $("#bookId").val();
 			
 			$.ajax({
@@ -569,8 +569,8 @@ ul.sidenav li a:hover {
 								<div class="pull-right">
 									<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
 									<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
-									<button class="bucketBtn" ><i class="fa fa-bookmark-o"></i></button>
-									<button class="bucketBtn" ><i class="fa fa-thumbs-o-up"></i></button>							
+									<button id="bucketBtn" class="bucketBtn" ><i class="fa fa-bookmark-o"></i></button>
+									<button id="likeItBtn" class="bucketBtn" ><i class="fa fa-thumbs-o-up"></i></button>							
 								</div>
 							</c:if>
 						</div>
