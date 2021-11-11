@@ -34,6 +34,8 @@ public class ManagerConfirmVO {
 	private String mcnfmReject;
 	private String mcnfmAtchNm;
 	private String mcnfmAtchPath;
+	private String mcnfmAmt;
+	private String mcnfmCnfmrNm; 
 	private Date insDt;
 	private Date udtDt;
 }

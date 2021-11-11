@@ -51,7 +51,13 @@ select {
 	width:110px;
 }	
 </style>
-<script type="text/javascript">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+
+
+
+<!-- <script type="text/javascript">
 	$(function(){
 		$("#cnfmBtn").on("click", function(){
 			var chkCnt = 0;
@@ -150,7 +156,7 @@ select {
 	
 	
 
-</script>
+</script> -->
 </head>
 <body>
 <section>
@@ -163,40 +169,39 @@ select {
 	        	</div>
 			</div>
 			<div class="row pull-right" style="margin-top:10px;margin-bottom:10px;">
-				<button type="button" id="cnfmBtn" class="btn ebookBtn">신청취소</button>
 				<button type="button" id="rejectModalBtn" class="btn ebookBtn">수 정</button>
 			</div>
 				
 			<div class="row">
 				<table id="bcnfmTb" class="table table-hover" style="cursor: pointer;">
 						<tr>
+							<th></th>
 							<th>상호명</th>
 							<th>대표자명</th> 
-							<th>승인신청일자</th>
+							<th>신청일자</th>
 							<th>승인일자</th>
 							<th>승인상태</th>
 							<th>승인자</th>
 							<th>계약시작일자</th>
 							<th>계약종료일자</th>
+							<c:if test="${not empty mcnId }">
+							<th>구분</th>
+							</c:if>
 						</tr>
 						<tbody>
 							<tr>
+								<td>${sub.subspAmt }</td>
 								<td>${man.mcnfmCoNm}</td>
 								<td>${man.mcnfmRpspr}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${man.mcnfmReqDt}"/></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${man.mcnfmCnfmDt}"/></td>
-								<c:if test="${man.mcnfmStCd eq '승인'}">
-									<td style="color:red;font-weight:bold">${man.mcnfmStCd}</td>
-								</c:if>
-								<c:if test="${man.mcnfmStCd eq '보류'}">
-									<td style="color:#0c2e8a;font-weight:bold">${man.mcnfmStCd}</td> 
-								</c:if>
-								<c:if test="${man.mcnfmStCd eq '처리중' }">
-									<td style="font-weight:bold">${man.mcnfmStCd}</td>
-								</c:if>
-								<td>${man.mcnfmCnfmr}</td>
+								<td style="color:red;font-weight:bold">${man.mcnfmStNm}</td>
+								<td>${man.mcnfmCnfmrNm}</td>
 								<td>${man.mcnfmCntrSdt}</td>
 								<td>${man.mcnfmCntrEdt}</td>
+								<c:if test="${not empty mcnId }">
+								<td><button type="button" id="subImport" class="btn ebookBtn" >계약하기</button></td>
+								</c:if>
 							</tr>
 						</tbody>
 					</table>
@@ -208,7 +213,65 @@ select {
 
 <form action="" method="post" id="frm">
 	<input type="hidden" id="memberId" name="memberId" >
+	<input type="hidden" id="mcnfmPrice" name="mcnfmPrice" value="${man.mcnfmAmt }">
 </form>	
+
+
+<script>
+$(function(){
+	$("#subImport").on("click",function () {
+		console.log("==============");
+		var sAmt = $("#mcnfmPrice").val();
+		
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp33573268');
+		IMP.request_pay({
+			pg: "html5_inicis",
+		    pay_method: "${sub.subspPaySt}",
+		    merchant_uid: "${sub.impUid}",
+		    name: "상품명",
+		    amount: "${sub.subspAmt}",
+			merchant_uid: 'merchant_' + new Date().getTime(),
+			name: 'E로운생활 매니저 계약권',
+			amount: sAmt,
+		}, function (rsp) {
+			console.log(rsp);
+				if (rsp.success) {
+					
+					var SubscriptionVO = {
+							subspPayMthd :rsp.apply_num,
+							subspPayAmt : rsp.paid_amount,
+							impUid : rsp.imp_uid,
+							subspAmt : sAmt,
+					}
+					
+				 	$.ajax({
+						url : 'SuccessSup' ,
+						type : 'post',
+						dataType : 'text',
+						data : SubscriptionVO,
+						success : function(){
+							alert("성공됨.");
+							window.location.href = "myInfo";
+							
+						},
+						error : function(rej){
+							console.log(rej);
+						}
+					}); 
+				 	 
+				} else {
+					alert("결제에 실패하였습니다.   " + '\n실패이유 : ' + rsp.error_msg);
+				}
+			});
+		});
+	
+
+
+
+
+
+</script>
 
 </body>
 </html>

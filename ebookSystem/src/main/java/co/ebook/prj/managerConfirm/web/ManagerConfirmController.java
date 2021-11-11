@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.ebook.prj.login.mapper.LoginMapper;
+import co.ebook.prj.login.service.LoginService;
+import co.ebook.prj.login.vo.LoginVO;
 import co.ebook.prj.managerConfirm.service.ManagerConfirmService;
 import co.ebook.prj.managerConfirm.vo.ManagerConfirmVO;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
+import co.ebook.prj.subscription.vo.SubscriptionVO;
 
 @Controller
 public class ManagerConfirmController {
@@ -30,6 +35,9 @@ public class ManagerConfirmController {
 	
 	@Autowired
 	MemberService memberDao;
+	
+	@Autowired
+	LoginMapper loginDao;
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder){
@@ -64,15 +72,21 @@ public class ManagerConfirmController {
 //	매니저승인상태변경(업체승인)
 	@ResponseBody
 	@RequestMapping("/managerCfChange") 
-	public void managerCfChange(Model model ,@RequestParam(value="managerArr[]") List<String> managerArr) {
+	public void managerCfChange(Model model ,@RequestParam(value="managerArr[]") List<String> managerArr, LoginVO lVo, HttpServletRequest request) {
 		ManagerConfirmVO vo;
+		HttpSession session = request.getSession();
+		lVo.setMemberId((String)session.getAttribute("id"));
+		
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------" + lVo);
 		 
 		for(int i = 0; i < managerArr.size() ; i++ ) {
 			vo = new ManagerConfirmVO();
 			vo.setMcnfmId(Integer.parseInt(managerArr.get(i)));
-			System.out.println("=========>>" + vo.getMcnfmId());
+
 			int result2 = managerCfDao.managerConfirm(vo);
-			System.out.println("=-------------------------------------->> result2 > " + result2 );
+			model.addAttribute("loVo", loginDao.getLoginInfo(lVo));
+			
+			System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------" + loginDao.getLoginInfo(lVo));
 		}
 	}
 	
@@ -84,10 +98,16 @@ public class ManagerConfirmController {
 	
 //	업체등록 성공
 	@RequestMapping("/managerRegistSuccess")
-	public String managerRegistSuccess(Model model, ManagerConfirmVO vo) {
+	public String managerRegistSuccess(Model model, ManagerConfirmVO vo, MemberVO mVo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		vo.setMemberId((String)session.getAttribute("id"));
+		
 		managerCfDao.managerRegistInsert(vo);
+		
+		model.addAttribute("man", managerCfDao.managerSelect(vo));
 		return "manager/registList";
 	}
+	
 	
 //	매니저정보수정폼
 	@RequestMapping("managerUpdateForm")
@@ -111,6 +131,8 @@ public class ManagerConfirmController {
 		model.addAttribute("managerConfirm", vo);
 		return "redirect:managerList";
 	}
+	
+	
 	
 }
 

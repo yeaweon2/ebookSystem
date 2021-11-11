@@ -15,6 +15,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberMapper map;
 	
+	
 //	회원 전체리스트 조회 (21.10.17.김유리)
 	@Override
 	public List<MemberVO> memberSelectList() {  
@@ -93,7 +94,6 @@ public class MemberServiceImpl implements MemberService {
 		return map.updateStCd(vo);
 	}
 
-	
 	
 	
 	

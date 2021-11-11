@@ -52,6 +52,8 @@ public class LoginController {
 				session.setAttribute("stcd"		, vo.getMemberStCd());
 				session.setAttribute("cartCnt"	, vo.getCartCnt());
 				session.setAttribute("subYn"	, vo.getMemberSubYn());
+				session.setAttribute("cnfmYn"   , vo.getManagerCnfmYn());
+				session.setAttribute("mcnId"    , vo.getMcnfmId());
 				views = "redirect:home"; 
 			} else  {
 				model.addAttribute("message", "휴면회원이거나 탈퇴회원입니다. 관리자에게 1:1문의를 남겨주세요.");

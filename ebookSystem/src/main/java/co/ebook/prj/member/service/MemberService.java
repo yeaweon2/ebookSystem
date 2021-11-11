@@ -43,4 +43,5 @@ public interface MemberService {
 	
 //	휴면회원변경
 	int updateStCd(MemberVO vo);
+
 }

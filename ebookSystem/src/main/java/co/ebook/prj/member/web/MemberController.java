@@ -3,17 +3,14 @@ package co.ebook.prj.member.web;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.velocity.tools.view.WebappUberspector.GetAttributeExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -23,11 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.login.service.LoginService;
-import co.ebook.prj.login.web.MemScheduler;
+import co.ebook.prj.managerConfirm.mapper.ManagerConfirmMapper;
+import co.ebook.prj.managerConfirm.vo.ManagerConfirmVO;
 import co.ebook.prj.member.mapper.MemberMapper;
-import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
 import co.ebook.prj.subscription.service.SubscriptionService;
 import co.ebook.prj.subscription.vo.SubscriptionVO;
@@ -46,6 +42,9 @@ public class MemberController {
 	
 	@Autowired
 	String filePath;
+	
+	@Autowired
+	ManagerConfirmMapper manCoDao;
 	
 
 	
@@ -278,33 +277,24 @@ public class MemberController {
 	
 //	월정액 결제성공 후 데이터 저장
 	@RequestMapping("/SuccessSup") 
-	public String SuccessSup(Model model , MemberVO vo, SubscriptionVO sVo, HttpServletRequest request, String args[]) {
+	public String SuccessSup(Model model , ManagerConfirmVO mVo, MemberVO vo, SubscriptionVO sVo, HttpServletRequest request, String args[]) {
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));
 		sVo.setMemberId((String)session.getAttribute("id"));
+		mVo.setMemberId((String)session.getAttribute("id"));
 
 		System.out.println("여기야여기==============================>"+vo.toString());
 		System.out.println("여기야여기============================>"+sVo.toString());
 		
 		
 		model.addAttribute("member", memberDao.memSubUpdate(vo));
+		model.addAttribute("manCo", manCoDao.managerUpdate(mVo));
 		model.addAttribute("sub", subDao.subInsert(sVo));
 		System.out.println("==============================?????????????????????" + vo);
 		return "redirect:myInfo";
 	} 
 	
-	
-//	@Scheduled(cron="0/1 * * * * *")
-//	@RequestMapping(value="/postSend") 
-//	 public void scheduler(MemberVO vo) {
-//
-//    	int updateSc = memberDao.updateStCd(vo);
-//    	System.out.println("DB조회값:"+updateSc); 
-//	    	
-//	 	}
-//	
-	
-	
+
 	
 	
 	

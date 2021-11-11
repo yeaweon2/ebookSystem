@@ -86,7 +86,7 @@ $(function() {
 								<th>승인상태</th>
 								<th>계약시작일자</th>
 								<th>계약종료일자</th>
-								<th>계약구분</th>
+								<th>계약요청기간</th>
 								<th>승인자ID</th>
 							</tr>
 							<c:forEach items="${lists}" var="managerConfirm" varStatus="status">

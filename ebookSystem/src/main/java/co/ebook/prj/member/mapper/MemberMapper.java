@@ -1,5 +1,6 @@
 package co.ebook.prj.member.mapper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import co.ebook.prj.member.vo.MemberVO;
@@ -43,4 +44,5 @@ public interface MemberMapper {
 	
 //	휴면회원변경
 	int updateStCd(MemberVO vo);
+
 }

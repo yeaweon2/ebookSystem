@@ -6,35 +6,34 @@
 	<update id = "managerConfirm" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
 		 update manager_confirm 
 		    set mcnfm_st_cd = '02',
-		    	mcnfm_cnfm_dt = sysdate
+		    	mcnfm_cnfm_dt = sysdate,
+		    	mcnfm_cnfmr = #{mcnfmCnfmr}
 		  where mcnfm_id = #{mcnfmId}
 		    and mcnfm_st_cd = '01'
+		    
 		    	
     </update>
 	
 	<insert id="managerRegistInsert" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
 		 insert 
 		  into	manager_confirm 
-				(mcnfm_id					,member_id
-				,mcnfm_req_dt				,mcnfm_st_cd
-				,mcnfm_cnfmr				,mcnfm_cnfm_dt
+				(mcnfm_id					,mcnfm_st_cd
+				,member_id					,mcnfm_req_dt				
 				,mcnfm_bizno				,mcnfm_co_nm
 				,mcnfm_co_tel				,mcnfm_rpspr
-				,mcnfm_cntr_fl_cd			,mcnfm_cntr_sdt
-				,mcnfm_cntr_edt				,mcnfm_reject
+				,mcnfm_cntr_fl_cd			,mcnfm_reject
 				,mcnfm_atch_nm				,mcnfm_atch_path
-				,ins_dt						,udt_dt)
+				,ins_dt						,udt_dt
+				,mcnfm_amt					,mcnfm_cnfmr)
 		values
-				(#{mcnfmId}				,#{memberId}
-				,sysdate				,#{mcnfmStCd }
-				,#{mcnfmStNm}			,#{mcnfmCnfmr}
-				,#{mcnfmCnfmDt} 		,#{mcnfmBizno}
-				,#{mcnfmCoTel } 		,#{mcnfmCoNm }
-				,#{mcnfmRpspr}  		,#{mcnfmCntrFlCd }
-				,#{mcnfmCntrFlNm}		,#{mcnfmCntrSdt}
-				,#{mcnfmCntrEdt}		,#{mcnfmReject}
-				,#{mcnfmAtchNm} 		,#{mcnfmAtchPath }
-				,sysdate				,sysdate )
+				(mancon_seq.nextval			,'01'
+				,#{memberId}				,sysdate				
+				,#{mcnfmBizno}				,#{mcnfmCoNm }
+				,#{mcnfmCoTel } 			,#{mcnfmRpspr}
+				,'01'						,#{mcnfmReject}
+				,#{mcnfmAtchNm} 			,#{mcnfmAtchPath }
+				,sysdate					,sysdate
+				,#{mcnfmAmt}				,#{mcnfmCnfmr} )
 	</insert>
 	
 	<update id="managerconfirmUpdate" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
@@ -70,7 +69,8 @@
                          (select scodes.scode_nm from scodes where lcode = 'MC' and scode = mcnfm_st_cd ) as mcnfm_st_nm,
                          (select scodes.scode_nm from scodes where lcode = 'MS' and scode = member_st_cd ) as member_st_nm,
                          (select scodes.scode_nm from scodes where lcode = 'MR' and scode = member_fl_cd ) as member_fl_nm,
-                          a.member_fl_cd
+                          a.member_fl_cd,
+                          ( select m.member_nm from member m where m.member_id = b.mcfm_cnfmr ) as mcnfm_cnfmr_nm 
            from  manager_confirm b, member a
           where  b.member_id= a.member_id and b.member_id = #{memberId} 
 	</select>

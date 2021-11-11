@@ -101,15 +101,16 @@
 		    </div> 
 				</c:if>
 		     <div class="col-lg-8 mb-8 mb-lg-0" style="margin-left: 270px;">
+				<c:if test="${auth eq 'M'}">
 				<div style="height:150px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
-			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">내글 관리</h4>
-					<h5 align="left" style="margin-left: 25px;">내가 쓴 글 및 댓글</h5>
-					<h6 align="left" style="margin-left: 25px;">내가 쓴 글과 댓글 목록 확인 </h6>
+			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">내 신청 관리</h4>
+					<h5 align="left" style="margin-left: 25px;">업체등록신청 바로 확인</h5>
 
 		    		<div align="right" style="margin-right: 20px;">
-						<button type="button" id="check_module" class="btn btn-outline-primary" onclick="location.href='lendList'" value="보기"> 보기</button>
+						<button type="button" id="check_module" class="btn btn-outline-primary" onclick="location.href='registList'" value="보기"> 보기</button>
 					</div><br><br><br>
 			    </div><br><br>
+				</c:if>			    
 			    <c:if test="${subYn eq 'Y'}">
 			    <div style="height:200px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
 			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">월정액 결제내역</h4>

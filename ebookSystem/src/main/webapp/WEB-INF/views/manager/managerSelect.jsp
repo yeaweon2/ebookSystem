@@ -77,7 +77,7 @@
 								<td>${managerConfirm.mcnfmCntrSdt }</td>
 								<th>계약종료일자</th>
 								<td>${managerConfirm.mcnfmCntrEdt }</td>
-								<th>계약구분</th>
+								<th>계약요청기간</th>
 								<td>${managerConfirm.mcnfmCntrFlNm }</td>
 								<th></th>
 								<td></td>
@@ -89,8 +89,8 @@
 								<td>${member.memberTel }</td>
 								<th>Email</th>
 								<td>${member.memberEmail }</td>
-								<th>휴대폰인증</th>
-								<td>${member.memberPhoneVld }</td>
+								<th></th>
+								<td></td>
 							</tr>
 							<tr>
 								<th>프로필파일명</th>

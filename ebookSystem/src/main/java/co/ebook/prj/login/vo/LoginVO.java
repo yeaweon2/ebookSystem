@@ -16,7 +16,10 @@ public class LoginVO {
 	private String memberFlCd;
 	private String memberStCd;
 	private String memberSubYn;
+	private String managerCnfmYn;
+	private String mcnfmId;
 	private String cartCnt;
 	private String updatePw;
 	private String updateid;
+	
 }
