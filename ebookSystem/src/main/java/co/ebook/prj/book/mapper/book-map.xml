@@ -107,6 +107,10 @@
 			  , BOOK_WRITER_INTRO
 			  , BOOK_DESC
 			  , BCNFM_ID
+              , ( SELECT ROUND(AVG(BREPLY_STAR),1)
+                    FROM BOOK_REPLY
+                   WHERE BOOK_ID = #{bookId} 
+                     AND NVL(BREPLY_STAR ,0) > 0 ) AS BOOK_AVG			  
 		   FROM BOOK
 		  WHERE BOOK_ID = #{bookId}  
 		  ]]>

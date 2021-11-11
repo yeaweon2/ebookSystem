@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -135,8 +134,8 @@ body {
 }
 
 .star {
-font-size: 16px;
-color : #f15e5e;
+	font-size: 16px;
+	color : #f15e5e;
 }
 
 .comment-text {
@@ -208,8 +207,8 @@ ul.sidenav li a:hover {
 					console.log(res);
 					if(res.result=="01"){
 						alert("추천완료");
-						var likeItCnt = $("#likeIt").val();
-						$("#likeIt").val(likeItCnt+1);						
+						var likeItCnt = $("#likeIt").html();
+						$("#likeIt").html(parseInt(likeItCnt)+1);						
 					}
 				}
 			});
@@ -560,11 +559,10 @@ ul.sidenav li a:hover {
 							<div class="row">
 								추 천 : <span id="likeIt">${book.bookLikeit}</span>
 							</div>
-							<br/>
-							<br/>
-							<br/>
-							
+							<div class="row">
+								BOOK 평 점 :  ${book.bookAvg}
 								
+							</div>
 							<c:if test="${auth eq 'U' || auth eq 'A'}">
 								<div class="pull-right">
 									<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>

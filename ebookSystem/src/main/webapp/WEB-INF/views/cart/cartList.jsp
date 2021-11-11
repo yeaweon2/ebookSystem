@@ -132,6 +132,12 @@
 		$("#lendBtn").on("click", function(){
 			console.log( $("#cartTbody").find("#chkInput:checked").length );
 			
+			var subYn = `${subYn}`;
+			if( subYn == 'N'){
+				alert("월정액 구매 후 대여가능합니다.");
+				return false;
+			}
+			
 			if( $("#cartTbody").find("#chkInput:checked").length ==  0 ){
 				alert("선택한 건이 없습니다.");
 				return false;

@@ -1,5 +1,7 @@
 package co.ebook.prj.bucket.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.bucket.service.BucketService;
 import co.ebook.prj.bucket.vo.BucketVO;
+import co.ebook.prj.bucket.vo.RutinVO;
 
 @Controller
 public class BucketController {
@@ -136,10 +139,51 @@ public class BucketController {
 	}	
 	
 	@RequestMapping("/bookRutin")
-	public String bookRutin(Model model , HttpServletRequest request ) {
+	public String bookRutin(Model model , RutinVO vo, HttpServletRequest request ) {
+		
+		SimpleDateFormat format1 = new SimpleDateFormat ("yyyyMM");
+		Date today = new Date();
+		String todayMM = format1.format(today);
+		
+		HttpSession session = request.getSession();
+
+		vo.setGrDt(todayMM);
+		vo.setMemberId((String)session.getAttribute("id"));
+		
+		List<RutinVO> loginRutin = bucketDao.bookLoginRutin(vo);
+		List<RutinVO> lendRutin = bucketDao.bookLendRutin(vo);
+		List<RutinVO> bucketRutin = bucketDao.bookBucketRutin(vo);
+		
+		
+		
+		model.addAttribute("todayMM", todayMM );
+		model.addAttribute("loginRutin", loginRutin);
+		model.addAttribute("lendRutin", lendRutin );
+		model.addAttribute("bucketRutin", bucketRutin);
+		
 		return "bucket/bookRutin";
 	}
 	
-	
+	@RequestMapping("/bookRestRutin")
+	@ResponseBody
+	public HashMap<String, Object> bookRestRutin(Model model , @RequestBody RutinVO vo, HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		vo.setMemberId((String)session.getAttribute("id"));
+		
+		List<RutinVO> loginRutin = bucketDao.bookLoginRutin(vo);
+		List<RutinVO> lendRutin = bucketDao.bookLendRutin(vo);
+		List<RutinVO> bucketRutin = bucketDao.bookBucketRutin(vo);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (vo != null) {
+			map.put("result", "01");
+			map.put("loginRutin", loginRutin);
+			map.put("lendRutin", lendRutin);
+			map.put("bucketRutin", bucketRutin);
+		} else {
+			map.put("result", "02");
+		}
+		return map;		
+	}
 	
 }

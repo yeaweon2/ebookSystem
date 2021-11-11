@@ -70,7 +70,7 @@
                          (select scodes.scode_nm from scodes where lcode = 'MS' and scode = member_st_cd ) as member_st_nm,
                          (select scodes.scode_nm from scodes where lcode = 'MR' and scode = member_fl_cd ) as member_fl_nm,
                           a.member_fl_cd,
-                          ( select m.member_nm from member m where m.member_id = b.mcfm_cnfmr ) as mcnfm_cnfmr_nm 
+                          ( select m.member_nm from member m where m.member_id = b.mcnfm_cnfmr ) as mcnfm_cnfmr_nm 
            from  manager_confirm b, member a
           where  b.member_id= a.member_id and b.member_id = #{memberId} 
 	</select>

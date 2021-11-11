@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.bucket.vo.BucketVO;
+import co.ebook.prj.bucket.vo.RutinVO;
 
 public interface BucketService {
 	 
@@ -24,5 +25,15 @@ public interface BucketService {
 	List<BucketVO> bucketDuplChk(BucketVO vo);
 
 	int bucketDoneCancelUpdate(BucketVO vo);
+
+	
+	// BOOK 루틴 조회 -----------------------------------------
+	
+	List<RutinVO> bookLoginRutin(RutinVO vo);
+	
+	List<RutinVO> bookLendRutin(RutinVO vo);
+	
+	List<RutinVO> bookBucketRutin(RutinVO vo);
+	
 }
 

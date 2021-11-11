@@ -41,6 +41,7 @@ public class BookVO {
 	private String attchUpFlag;
 	private int rank;
 	private String fileCnt;
+	private String bookAvg;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")

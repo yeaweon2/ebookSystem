@@ -103,6 +103,40 @@
 		 WHERE bucket_id = #{bucketId}
 		   AND book_id = #{bookId}
 		   AND MEMBER_ID = #{memberId}
-		     
 	</update>	
+	
+	<select id="bookLoginRutin"   parameterType="co.ebook.prj.bucket.vo.RutinVO"  resultType="co.ebook.prj.bucket.vo.RutinVO">
+	   SELECT to_char(login_dt, 'yyyymm') as grDt  , count(1) as rutinCnt 
+		 FROM login_history
+		WHERE member_id = #{memberId}
+		  AND to_char(login_dt, 'yyyymm') = #{grDt}
+		GROUP by to_char(login_dt, 'yyyymm') 	
+	</select>
+	
+	<select id="bookLendRutin" parameterType="co.ebook.prj.bucket.vo.RutinVO"  resultType="co.ebook.prj.bucket.vo.RutinVO">
+	   SELECT to_char(ins_dt, 'yyyymm') as grDt  , count(1)  as rutinCnt
+		 FROM LEND
+		WHERE MEMBER_ID = #{memberId}
+		  AND to_char(ins_dt, 'yyyymm') = #{grDt}  
+		GROUP BY to_char(ins_dt, 'yyyymm')
+	</select>
+	
+	<select id="bookBucketRutin" parameterType="co.ebook.prj.bucket.vo.RutinVO"  resultType="co.ebook.prj.bucket.vo.RutinVO">
+		SELECT *        
+		  FROM (
+		     SELECT to_char(ins_dt, 'yyyymm') as grDt , count(1) as rutinCnt , 'all' as flag
+		       FROM BUCKET_BOOK
+		      where MEMBER_ID = #{memberId}
+		      group by to_char(ins_dt, 'yyyymm'), 'all'
+		   union all 
+		     SELECT to_char(ins_dt, 'yyyymm') as grDt , count(1) as rutinCnt , 'gr' as flag
+		       FROM BUCKET_BOOK
+		      where MEMBER_ID = #{memberId}
+		        and bucket_done_dt is not null
+		      group by to_char(ins_dt, 'yyyymm'), 'gr'
+			) A
+		WHERE A.grDt = #{grDt}
+		 ORDER  BY FLAG DESC
+		
+	</select>
 </mapper>
