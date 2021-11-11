@@ -2,9 +2,6 @@ package co.ebook.prj.common.service;
 
 import java.util.List;
 
-import co.ebook.prj.book.vo.BookVO;
-import co.ebook.prj.bucket.vo.BucketVO;
-import co.ebook.prj.cmmnty.vo.CmmntyVO;
 import co.ebook.prj.common.vo.BookCnfmTopVO;
 import co.ebook.prj.common.vo.BucketTopVO;
 import co.ebook.prj.common.vo.CommCodeVO;

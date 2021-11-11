@@ -20,7 +20,6 @@ import co.ebook.prj.book.service.BatchService;
 import co.ebook.prj.book.service.BookService;
 import co.ebook.prj.book.vo.BatchVO;
 import co.ebook.prj.book.vo.BookVO;
-import co.ebook.prj.lend.vo.LendVO;
 
 @Controller
 public class BatchController {

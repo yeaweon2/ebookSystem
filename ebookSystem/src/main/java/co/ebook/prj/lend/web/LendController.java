@@ -134,7 +134,7 @@ public class LendController {
 		System.out.println("====================================>>");
 		
 		// bookReading시 대여 HIT 증가
-		int result = lendDao.lendUpdate(vo);
+		lendDao.lendUpdate(vo);
 		
 		// 해당 도서 상세조회
 		LendVO lend = lendDao.lendDetail(vo);

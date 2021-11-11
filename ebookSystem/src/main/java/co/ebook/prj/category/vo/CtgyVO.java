@@ -3,7 +3,6 @@ package co.ebook.prj.category.vo;
 import java.util.Date;
 
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class CtgyVO {

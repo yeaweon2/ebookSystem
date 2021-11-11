@@ -34,7 +34,7 @@ public class CartController {
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));  
 		System.out.println(vo.toString());
-		int result = cartDao.cartInsert(vo);
+		cartDao.cartInsert(vo);
 		
 		List<CartVO> lists = cartDao.cartList(vo);
 		model.addAttribute("lists", lists);

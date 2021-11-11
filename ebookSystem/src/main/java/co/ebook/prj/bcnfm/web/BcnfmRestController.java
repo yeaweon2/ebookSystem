@@ -1,7 +1,5 @@
 package co.ebook.prj.bcnfm.web;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;

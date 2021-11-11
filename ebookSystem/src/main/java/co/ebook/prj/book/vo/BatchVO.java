@@ -1,9 +1,6 @@
 package co.ebook.prj.book.vo;
 
 import java.util.Date;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Data;
 
 @Data

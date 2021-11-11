@@ -2,7 +2,6 @@ package co.ebook.prj.category.web;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -34,7 +33,7 @@ public class CtgyRestController {
 	
 	//등록
 	@RequestMapping(value="/ctgyInsert" ,method=RequestMethod.POST) 
-	public Map ctgyLcodeInsert(Model model , @RequestBody CtgyVO vo ) { 
+	public HashMap<String,Object> ctgyLcodeInsert(Model model , @RequestBody CtgyVO vo ) { 
 		vo.setCtgyWriter("admin");
 		int result = ctgyDao.ctgyInsert(vo);
 		
@@ -50,7 +49,7 @@ public class CtgyRestController {
 	
 	
 	@RequestMapping(value="/ctgyUpdate" ,method=RequestMethod.PUT) 
-	public Map ctgyUpdate(Model model , @RequestBody CtgyVO vo ) {
+	public HashMap<String,Object> ctgyUpdate(Model model , @RequestBody CtgyVO vo ) {
 		vo.setCtgyWriter("admin");
 		int result = ctgyDao.ctgyUpdate(vo);
 		System.out.println("카테고리 : " + result + " 건 수정완료 ======> ");
@@ -64,7 +63,7 @@ public class CtgyRestController {
 	}
 	
 	@RequestMapping(value="/ctgyDelete" ,method=RequestMethod.DELETE) 
-	public Map ctgyDelete(Model model , @RequestBody CtgyVO vo ) {
+	public HashMap<String,Object> ctgyDelete(Model model , @RequestBody CtgyVO vo ) {
 		
 		int result = ctgyDao.ctgyDelete(vo);
 		System.out.println("카테고리 : " + result + " 건 삭제완료 ======> ");
