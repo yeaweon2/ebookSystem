@@ -98,6 +98,7 @@
 			  , BOOK_CNFM_YN
 			  , BOOK_ISBN
 			  , MEMBER_ID
+			  , ( select member_nm from member m where m.member_id = b.member_id ) as member_nm 
 			  , BOOK_COVER
 			  , BOOK_COVER_PATH
 			  , INS_DT
@@ -111,7 +112,7 @@
                     FROM BOOK_REPLY
                    WHERE BOOK_ID = #{bookId} 
                      AND NVL(BREPLY_STAR ,0) > 0 ) AS BOOK_AVG			  
-		   FROM BOOK
+		   FROM BOOK b
 		  WHERE BOOK_ID = #{bookId}  
 		  ]]>
 	</select>

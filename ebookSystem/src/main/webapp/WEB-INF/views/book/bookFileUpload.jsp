@@ -181,9 +181,6 @@ $(function () {
     	
     	var bookId = $(this).data("bookid");
     	
-    	console.log(bookId);
-    	console.log(files);
-    	
         var formData = new FormData();
         var fileList = files;
         if(files.length > 0){
@@ -370,18 +367,13 @@ function F_FileMultiUpload(files, obj) {
 						return false;
 					}	
 				}else{
-					/*if($.inArray(ext, ["epub"]) == -1) {
-						alert("epub 파일만 등록 가능합니다.");
+					if($.inArray(ext, ["mp3"]) == -1) {
+						alert("mp3 파일만 등록 가능합니다.");
 						$("#attchFiles").empty();
 						$("#noFileTxt").html("Drag & Drop Files Here");
 						return false;
-					}*/	
+					}
 				}
-				
-				
-			
-            
-            
             
 			$("#fileList")
 			.append($("<tr id='bodyTr' class='fileTr' data-filename='"+ fileNm +"'>")

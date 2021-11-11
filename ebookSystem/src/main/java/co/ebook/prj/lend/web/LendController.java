@@ -129,10 +129,6 @@ public class LendController {
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));
 		
-		System.out.println("====================================>>");
-		System.out.println(vo.toString());
-		System.out.println("====================================>>");
-		
 		// bookReading시 대여 HIT 증가
 		lendDao.lendUpdate(vo);
 		
@@ -142,16 +138,17 @@ public class LendController {
 		// book 파일조회
 		List<BatchVO> batchList = lendDao.readingBook(vo);
 		
-		System.out.println("====================================>>");
-		System.out.println(lend);
-		System.out.println("====================================>>");
-		System.out.println(batchList);
-		System.out.println("====================================>>");
-		
 		model.addAttribute("lend", lend);
 		model.addAttribute("batchList", batchList);
 		
-		return "lend/bookReading";
+		String views = ""; 
+		if( "E".equals(lend.getBookFlCd()) ) {
+			views = "lend/bookReading";
+		}else {
+			views = "lend/bookListening";
+		}
+		
+		return views;
 	}
 	
 	@RequestMapping("/fileAdd")

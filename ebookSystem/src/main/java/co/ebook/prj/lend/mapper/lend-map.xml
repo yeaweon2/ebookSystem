@@ -14,6 +14,7 @@
 	         ,  REPLACE ( REPLACE(B.BOOK_INTRO , CHR(13), '') , CHR(10), '<br/>') as book_intro
 	         , B.BOOK_COVER
 	         , B.BOOK_COVER_PATH 
+	         , B.BOOK_FL_CD
 	      FROM LEND L
 	         , BOOK B
 	     WHERE L.BOOK_ID = B.BOOK_ID

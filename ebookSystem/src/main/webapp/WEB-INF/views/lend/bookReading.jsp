@@ -61,6 +61,7 @@
   </style>
   <script type="text/javascript">
   	$(function(){
+  		
   		$("#batchList").on("click", "tr" , function(){
   			
   			
@@ -173,6 +174,10 @@
   		      })
   		    });
   		});
+  		
+  		
+  		$("#batchList").find("tr").first().click();
+  		
   	});
   </script>
 </head>
@@ -183,44 +188,43 @@
 			<div class="row box">
 				<div class="row">
 					<div class="col-sm-3">
-						<img width="140" height="200" src="${pageContext.request.contextPath}/fileUp${lend.bookCoverPath}${lend.bookCover}">
+						<div class="row">
+							<img width="140" height="200" src="${pageContext.request.contextPath}/fileUp${lend.bookCoverPath}${lend.bookCover}">
+							<h3>${lend.bookNm}</h3>
+							<h4>${lend.bookPublCo}(${lend.bookWriter})</h4>
+						</div>
+						<div class="row" style="margin-top:50px">
+							<h4 >BOOK 파일 LIST</h4>
+							<table id="batchList" class="table">
+							<c:forEach var="batch" items="${batchList}">
+								<tr class="row batch" data-batchnm="${batch.batchNm}" data-batchpath="${batch.batchPath}">
+									<td>${batch.batchOrd}.${batch.batchNm}</td> 
+								</tr>
+							</c:forEach>
+							</table>
+						</div>
 					</div>
 					<div class="col-sm-9">
 						<div class="row">
-							<h3>${lend.bookNm}</h3>
-							<h4>${lend.bookPublCo}(${lend.bookWriter})</h4>
-							<span>${lend.bookIntro}</span>
+							<div id="start" class="col-sm-9" style="margin-top:10px">
+								<div class="frame row box">
+									<div class="col-sm-1" style="padding-top:300px">
+										<a id="prev" href="#start" class="arrow pull-left"><i class="fa fa-angle-double-left" style="font-size:36px"></i></a>
+									</div>	
+									<div  class="col-sm-10">
+										<div id="viewer" class="spreads"></div>
+										<div id="extras">
+											<ul id="highlights"></ul>
+										</div>
+									</div>
+									<div class="col-sm-1" style="padding-top:300px" >
+										<a id="next" href="#start" class="arrow pull-right"><i class="fa fa-angle-double-right" style="font-size:36px"></i></a>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-sm-3" style="padding-top:100px">
-						<h4 >BOOK 파일 LIST</h4>
-						<table id="batchList" class="table">
-						<c:forEach var="batch" items="${batchList}">
-							<tr class="row batch" data-batchnm="${batch.batchNm}" data-batchpath="${batch.batchPath}">
-								<td>${batch.batchOrd}.${batch.batchNm}</td> 
-							</tr>
-						</c:forEach>
-						</table>
-					</div>
-					<div id="start" class="col-sm-9" style="margin-top:10px">
-						<div class="frame row box">
-							<div class="col-sm-1" style="padding-top:300px">
-								<a id="prev" href="#start" class="arrow pull-left"><i class="fa fa-angle-double-left" style="font-size:36px"></i></a>
-							</div>	
-							<div  class="col-sm-10">
-								<div id="viewer" class="spreads"></div>
-								<div id="extras">
-									<ul id="highlights"></ul>
-								</div>
-							</div>
-							<div class="col-sm-1" style="padding-top:300px" >
-								<a id="next" href="#start" class="arrow pull-right"><i class="fa fa-angle-double-right" style="font-size:36px"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>	
 			</div>
 		</div>
 	</div>

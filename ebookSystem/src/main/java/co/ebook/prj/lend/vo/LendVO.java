@@ -18,5 +18,6 @@ public class LendVO {
 	private String bookIntro;
 	private String bookCover;
 	private String bookCoverPath;
+	private String bookFlCd;
 	
 }

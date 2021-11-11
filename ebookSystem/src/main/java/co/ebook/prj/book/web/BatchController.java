@@ -57,8 +57,9 @@ public class BatchController {
 		
 		List<BatchVO> list = null;
 		
-		String folder = "/bookfile/";
-		filePath =  filePath + folder;		
+		String real_path = "";
+		String folder = "/bookfile/"+vo.getBookId()+"/";
+		real_path =  filePath + folder;		
 		
 		HttpSession session = request.getSession();
 		vo.setBatchWriter((String)session.getAttribute("id"));
@@ -84,12 +85,20 @@ public class BatchController {
 													// 파일이 저장될 최종폴더
 	
 							// UUID.randomUUID().toString() + "_" +
-							File fileSave = new File( filePath , mfile.getOriginalFilename());
+							
+							
+							File fileSave = new File( real_path , mfile.getOriginalFilename());
 							System.out.println("----------------------------------------------> fileSave");
 							System.out.println(fileSave);
 							System.out.println("----------------------------------------------> fileSave");
 							
-							mfile.transferTo(fileSave);
+							if(!fileSave.exists()){
+								fileSave.getParentFile().mkdirs();
+								mfile.transferTo(fileSave);
+							}
+							
+							
+
 							
 							batchDao.batchInsert(vo);
 							

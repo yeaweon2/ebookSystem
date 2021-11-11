@@ -130,7 +130,7 @@
 				alert("로그인 후 진행해 주세요.");
 				return false;
 			} 
-			// frm.submit();
+			frm.submit();
 		});
 		
 		// 파일 수정버튼 클릭시 

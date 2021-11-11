@@ -175,14 +175,11 @@ public class BucketController {
 		List<RutinVO> bucketRutin = bucketDao.bookBucketRutin(vo);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		if (vo != null) {
-			map.put("result", "01");
-			map.put("loginRutin", loginRutin);
-			map.put("lendRutin", lendRutin);
-			map.put("bucketRutin", bucketRutin);
-		} else {
-			map.put("result", "02");
-		}
+	
+		map.put("loginRutin", loginRutin);
+		map.put("lendRutin", lendRutin);
+		map.put("bucketRutin", bucketRutin);
+		
 		return map;		
 	}
 	
