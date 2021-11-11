@@ -107,7 +107,7 @@
 					<h5 align="left" style="margin-left: 25px;">업체등록신청 바로 확인</h5>
 
 		    		<div align="right" style="margin-right: 20px;">
-						<button type="button" id="check_module" class="btn btn-outline-primary" onclick="location.href='registList'" value="보기"> 보기</button>
+						<button type="button" id="check_module" class="btn btn-outline-primary" onclick="location.href='registSelect'" value="보기"> 보기</button>
 					</div><br><br><br>
 			    </div><br><br>
 				</c:if>			    

@@ -28,7 +28,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-5 mb-5 mb-lg-0" style="align:right; margin-right: 50px" >
-				<form action="managerRegistInsert" class="needs-validation"  method="post" id="frm" name ="frm" enctype = "multipart/form-data" novalidate>
+				<form action="" class="needs-validation"  method="post" id="frm" name ="frm" enctype = "multipart/form-data" novalidate>
 					<table class="table">
 						<tr>
 							<th>상호명</th> 

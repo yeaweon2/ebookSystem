@@ -54,7 +54,7 @@
 		values
 				(#{memberId},            #{memberPw},       #{memberNm},       #{memberNicknm},   '01',
 				 'M',                    #{memberEmail},    #{memberBirth},    #{memberGen},      #{memberMile},
-				 #{memberTel},           #{memberSubYn}, #{managerCnfmYn},  #{memberLikeFld},  #{memberProfileNm}, 
+				 #{memberTel},           'N', 				'N',			   #{memberLikeFld},  #{memberProfileNm}, 
 				 #{memberProfilePath},   sysdate,           sysdate)
 	</insert>
 	

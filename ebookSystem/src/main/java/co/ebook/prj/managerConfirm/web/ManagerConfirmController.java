@@ -72,21 +72,18 @@ public class ManagerConfirmController {
 //	매니저승인상태변경(업체승인)
 	@ResponseBody
 	@RequestMapping("/managerCfChange") 
-	public void managerCfChange(Model model ,@RequestParam(value="managerArr[]") List<String> managerArr, LoginVO lVo, HttpServletRequest request) {
+	public void managerCfChange(Model model ,@RequestParam(value="managerArr[]") List<String> managerArr, HttpServletRequest request) {
 		ManagerConfirmVO vo;
 		HttpSession session = request.getSession();
-		lVo.setMemberId((String)session.getAttribute("id"));
 		
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------" + lVo);
 		 
 		for(int i = 0; i < managerArr.size() ; i++ ) {
 			vo = new ManagerConfirmVO();
 			vo.setMcnfmId(Integer.parseInt(managerArr.get(i)));
 
+			System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------" + vo.toString());
 			int result2 = managerCfDao.managerConfirm(vo);
-			model.addAttribute("loVo", loginDao.getLoginInfo(lVo));
 			
-			System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------" + loginDao.getLoginInfo(lVo));
 		}
 	}
 	
@@ -100,12 +97,14 @@ public class ManagerConfirmController {
 	@RequestMapping("/managerRegistSuccess")
 	public String managerRegistSuccess(Model model, ManagerConfirmVO vo, MemberVO mVo, HttpServletRequest request) {
 		HttpSession session = request.getSession();
+		
 		vo.setMemberId((String)session.getAttribute("id"));
 		
 		managerCfDao.managerRegistInsert(vo);
+		managerCfDao.managerconfirmUpdate(vo);
 		
 		model.addAttribute("man", managerCfDao.managerSelect(vo));
-		return "manager/registList";
+		return "manager/registSelect";
 	}
 	
 	

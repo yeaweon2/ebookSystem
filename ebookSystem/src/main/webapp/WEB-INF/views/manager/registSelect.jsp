@@ -212,7 +212,7 @@ select {
 
 
 <form action="" method="post" id="frm">
-	<input type="hidden" id="memberId" name="memberId" >
+	<input type="hidden" id="memberId" name="${mam.memberId }" >
 	<input type="hidden" id="mcnfmPrice" name="mcnfmPrice" value="${man.mcnfmAmt }">
 </form>	
 
