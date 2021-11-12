@@ -86,7 +86,7 @@ $(function() {
 								<th>승인상태</th>
 								<th>계약시작일자</th>
 								<th>계약종료일자</th>
-								<th>계약요청기간</th>
+								<th>계약요청금액</th>
 								<th>승인자ID</th>
 							</tr>
 							<c:forEach items="${lists}" var="managerConfirm" varStatus="status">
@@ -101,7 +101,7 @@ $(function() {
 									<td>${managerConfirm.mcnfmStNm }</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmCntrSdt }" /></td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmCntrEdt }" /></td>
-									<td>${managerConfirm.mcnfmCntrFlNm }</td>
+									<td>${managerConfirm.mcnfmAmt } 원</td>
 									<td>${managerConfirm.mcnfmCnfmr}</td>
 								</tr>
 							</c:forEach>

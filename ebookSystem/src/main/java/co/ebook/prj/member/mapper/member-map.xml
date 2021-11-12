@@ -100,6 +100,7 @@
 		   		member_nicknm = #{memberNicknm}, 
            		member_email = #{memberEmail},
            		member_tel = #{memberTel},
+           		member_mile = #{memberMile},
            		member_like_fld = #{memberLikeFld},
            		member_profile_nm  = #{memberProfileNm},
            		member_profile_path = #{memberProfilePath},

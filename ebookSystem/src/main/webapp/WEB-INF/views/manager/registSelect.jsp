@@ -54,7 +54,61 @@ select {
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
+<script>
 
+$(document).ready(function(){
+	
+	$("#payImport").on("click",function () {
+		console.log("==============");
+		console.log(${man.mcnfmAmt });
+		
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp33573268');
+		IMP.request_pay({
+			pg: "html5_inicis",
+		    pay_method: "${pay.subspPaySt}",
+		    merchant_uid: "${pay.impUid}",
+		    name: "상품명",
+		    amount: "${man.mcnfmAmt }",
+			merchant_uid: 'merchant_' + new Date().getTime(),
+			name: 'E로운생활 매니저 계약권',
+		}, function (rsp) {
+			console.log(rsp);
+				if (rsp.success) {
+					
+					var PayHistoryVO = {
+							payMthd :rsp.apply_num,
+							payAmt : rsp.paid_amount,
+							impUid : rsp.imp_uid,
+					}
+					
+				 	$.ajax({
+						url : 'SuccessPay' ,
+						type : 'post',
+						dataType : 'text',
+						data : PayHistoryVO,
+						success : function(){
+							alert("성공됨.");
+							window.location.href = "myInfo";
+							
+						},
+						error : function(rej){
+							console.log(rej);
+						}
+					}); 
+				 	 
+				} else {
+					alert("결제에 실패하였습니다.   " + '\n실패이유 : ' + rsp.error_msg);
+				}
+			});
+		});
+	
+});
+
+
+
+
+</script>
 
 
 <!-- <script type="text/javascript">
@@ -184,6 +238,7 @@ select {
 							<th>승인자</th>
 							<th>계약시작일자</th>
 							<th>계약종료일자</th>
+							<th>계약예상가격</th>
 							<c:if test="${not empty mcnId }">
 							<th>구분</th>
 							</c:if>
@@ -199,8 +254,9 @@ select {
 								<td>${man.mcnfmCnfmrNm}</td>
 								<td>${man.mcnfmCntrSdt}</td>
 								<td>${man.mcnfmCntrEdt}</td>
+								<td>${man.mcnfmAmt }</td>
 								<c:if test="${not empty mcnId }">
-								<td><button type="button" id="subImport" class="btn ebookBtn" >계약하기</button></td>
+								<td><button type="button" id="payImport" class="btn ebookBtn" >계약하기</button></td>
 								</c:if>
 							</tr>
 						</tbody>
@@ -212,66 +268,12 @@ select {
 
 
 <form action="" method="post" id="frm">
-	<input type="hidden" id="memberId" name="${mam.memberId }" >
+	<input type="hidden" id="memberId" name=memberId >
 	<input type="hidden" id="mcnfmPrice" name="mcnfmPrice" value="${man.mcnfmAmt }">
 </form>	
 
 
-<script>
-$(function(){
-	$("#subImport").on("click",function () {
-		console.log("==============");
-		var sAmt = $("#mcnfmPrice").val();
-		
-		var IMP = window.IMP; // 생략가능
-		IMP.init('imp33573268');
-		IMP.request_pay({
-			pg: "html5_inicis",
-		    pay_method: "${sub.subspPaySt}",
-		    merchant_uid: "${sub.impUid}",
-		    name: "상품명",
-		    amount: "${sub.subspAmt}",
-			merchant_uid: 'merchant_' + new Date().getTime(),
-			name: 'E로운생활 매니저 계약권',
-			amount: sAmt,
-		}, function (rsp) {
-			console.log(rsp);
-				if (rsp.success) {
-					
-					var SubscriptionVO = {
-							subspPayMthd :rsp.apply_num,
-							subspPayAmt : rsp.paid_amount,
-							impUid : rsp.imp_uid,
-							subspAmt : sAmt,
-					}
-					
-				 	$.ajax({
-						url : 'SuccessSup' ,
-						type : 'post',
-						dataType : 'text',
-						data : SubscriptionVO,
-						success : function(){
-							alert("성공됨.");
-							window.location.href = "myInfo";
-							
-						},
-						error : function(rej){
-							console.log(rej);
-						}
-					}); 
-				 	 
-				} else {
-					alert("결제에 실패하였습니다.   " + '\n실패이유 : ' + rsp.error_msg);
-				}
-			});
-		});
-	
 
-
-
-
-
-</script>
 
 </body>
 </html>

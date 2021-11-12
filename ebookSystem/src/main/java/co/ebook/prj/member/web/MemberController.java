@@ -188,7 +188,6 @@ public class MemberController {
 		sVo.setMemberId((String)session.getAttribute("id"));
 		sVo = subDao.subSelect(sVo);
 		model.addAttribute("sub", sVo);
-		System.out.println("==============1===========1==========>>>>" +vo.toString());
 		vo = memberDao.memberSelect(vo);
 		model.addAttribute("member", vo);
 		return"member/myPage";
@@ -201,14 +200,9 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		int result = 0;
 		vo.setMemberId((String)session.getAttribute("id"));	
-		System.out.println("-----------------------------------------여기");
-		System.out.println("-----------------------------------------여기");
-		System.out.println("-----------------------------------------여기");
-		System.out.println("-----------------------------------------여기");
 		String fileName = "";
 		String real_filePath = "";
 		String folder = "/profile/";
-		System.out.println("-----------------------------------------여기"+attchFile);
 		
 		try {
 			if ( attchFile != null ) {
@@ -233,17 +227,20 @@ public class MemberController {
 			e.printStackTrace();
 		}			
 		
-		System.out.println("----------------------------->> ");
 		System.out.println( fileName );
 		System.out.println( folder );
-		System.out.println("----------------------------->> ");
 		
 		vo.setMemberProfileNm(fileName);
 		vo.setMemberProfilePath(folder);
 	
 		result = memberDao.myPageUpdate(vo);
 		model.addAttribute("member", vo);
-
+		
+		session.setAttribute("subYn", "'Y'");
+		session.setAttribute("memf",     vo.getMemberProfilePath());
+		session.setAttribute("memfn",    vo.getMemberProfileNm());
+		session.setAttribute("mile",     vo.getMemberMile());
+		
 		return "member/myInfo";
 	}
 	
@@ -291,6 +288,9 @@ public class MemberController {
 		model.addAttribute("manCo", manCoDao.managerUpdate(mVo));
 		model.addAttribute("sub", subDao.subInsert(sVo));
 		System.out.println("==============================?????????????????????" + vo);
+		
+		session.setAttribute("subYn", "'Y'");
+		
 		return "redirect:myInfo";
 	} 
 	

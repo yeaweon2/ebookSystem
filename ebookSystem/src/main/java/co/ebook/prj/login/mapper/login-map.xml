@@ -2,19 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.ebook.prj.login.mapper.LoginMapper">
 	<select id="getLoginInfo" resultType="co.ebook.prj.login.vo.LoginVO">
-		SELECT member_id
-             , member_pw
-             , member_nm
-             , member_nicknm
-             , member_fl_cd
-             , member_st_cd
+		SELECT a.member_id
+             , a.member_pw
+             , a.member_nm
+             , a.member_nicknm
+             , a.member_fl_cd
+             , a.member_st_cd
+             , (select scodes.scode_nm from scodes where lcode = 'MR' and scode = member_fl_cd ) as member_fl_nm
              , ( SELECT COUNT(1) FROM BOOK_CART C WHERE C.MEMBER_ID = #{memberId} ) as cartCnt
-             , member_sub_yn 
-             , manager_cnfm_yn
-             , mcnfm_id
-   		  FROM MEMBER
-		 WHERE member_id = #{memberId} 
-		   AND member_pw = #{memberPw}
+             , a.member_sub_yn 
+             , a.manager_cnfm_yn
+             , a.mcnfm_id
+             , a.member_profile_path
+             , a.member_profile_nm
+             , a.member_mile
+             , c.subsp_edt
+             , b.mcnfm_cntr_edt
+   		  FROM 
+   		  		member             a
+   		  	   , manager_confirm   b
+   		  	   , subscription      c
+		 WHERE a.member_id = b.member_id (+)
+    	   and a.member_id = c.member_id (+)
+  		   and a.member_id = #{memberId}
+   		   and a.member_pw = #{memberPw}
+	
 	</select>
 	
 	

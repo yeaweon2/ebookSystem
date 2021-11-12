@@ -15,6 +15,62 @@
  }
 
 </style>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	
+//	사업자등록번호 확인
+	 $("#biznoSearch").on("click", function(){
+		 var bizno = $("#mcnfmBizno").val();
+		if(bizno.length != 10 ) {
+			alert("사업자등록번호를 다시 입력하세요.");
+			$("#mcnfmBizno").focus();
+			return false;
+		}else{
+			alert("확인되었습니다.")
+			$("#mcnfmRpspr").focus();
+			return true;
+		}
+		
+	}); 
+
+
+
+//  라디오버튼 값 가져오기
+	$(document).ready(function(){
+		var amt = $("#mcnfmCntr:checked").val();
+		console.log(amt +"----------");
+			$("#mcnfmAmt").val(amt);
+			
+	});
+
+
+
+//  금액 input박스에 넣어주기
+	$("#amtCdTd").on("click", "input", function(){
+		
+		var amt = $("#mcnfmCntr:checked").val();
+		
+		$("#mcnfmAmt").val(amt);
+		
+	});
+
+
+
+
+
+//	신청버튼 클릭 시 값 저장
+	$("#regist").on("click", function(){
+		alert('업체등록신청이 완료되었습니다. 신청내역 확인페이지로 이동합니다.');
+		frm.action="managerRegistSuccess";
+		frm.submit(); 
+				
+		});
+	
+	
+})
+	
+</script>		
 
 </head>
 <body>
@@ -59,13 +115,14 @@
 							<th>계약기간</th>
 							<td id="amtCdTd">
 								<div class="form-check-inline" style="word-spacing :10px">
-									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="100000" class="form-check-input" checked="checked" required>
+									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="200" class="form-check-input" checked="checked" required>
 									<label class="form-check-label" for="mcnfmCntr">1개월 : 100,000원</label><br>
-									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="500000" class="form-check-input" required>
+									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="300" class="form-check-input" required>
 									<label class="form-check-label" for="mcnfmCntr">6개월 : 500,000원</label><br>
-									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="990000" class="form-check-input" required>
-									<label class="form-check-label" for="mcnfmCntr">12개월 : 990,000원</label><br>
-									<input type="hidden" id="mcnfmPrice" name="mcnfmPrice" value="${man.mcnfmAmt }">
+									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="400" class="form-check-input" required>
+									<label class="form-check-label" for="mcnfmCntr">12개월 : 990,000원</label><br><br>
+									<label>선택한 계약가격</label>
+									<input type="text" id="mcnfmAmt" name="mcnfmAmt" value="">
 								</div>
 							</td>
 						</tr>
@@ -152,56 +209,6 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
 
-//	사업자등록번호 확인
-	 $("#biznoSearch").on("click", function(){
-		 var bizno = $("#mcnfmBizno").val();
-		if(bizno.length != 10 ) {
-			alert("사업자등록번호를 다시 입력하세요.");
-			$("#mcnfmBizno").focus();
-			return false;
-		}else{
-			alert("확인되었습니다.")
-			$("#mcnfmRpspr").focus();
-			return true;
-		}
-		
-	}); 
-
-
-
-//  라디오버튼 값 가져오기
-	$(document).ready(function(){
-		var amt = $("#mcnfmCntr:checked").val();
-		console.log(amt +"----------");
-			$("#mcnfmPrice").val(amt);
-			
-	});
-
-
-
-//  금액 input박스에 넣어주기
-	$("#amtCdTd").on("click", "input", function(){
-		
-		var amt = $("#mcnfmCntr:checked").val();
-		
-		$("#mcnfmPrice").val(amt);
-		
-	});
-
-
-
-
-
-//	신청버튼 클릭 시 값 저장
-	$("#regist").on("click", function(){
-		alert('업체등록신청이 완료되었습니다. 신청내역 확인페이지로 이동합니다.');
-		frm.action="managerRegistSuccess";
-		frm.submit(); 
-				
-		});
-	
-</script>		
 </body>
 </html>

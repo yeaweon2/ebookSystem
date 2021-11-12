@@ -25,6 +25,8 @@ import co.ebook.prj.managerConfirm.service.ManagerConfirmService;
 import co.ebook.prj.managerConfirm.vo.ManagerConfirmVO;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
+import co.ebook.prj.payHistory.mapper.PayMapper;
+import co.ebook.prj.payHistory.vo.PayVO;
 import co.ebook.prj.subscription.vo.SubscriptionVO;
 
 @Controller
@@ -38,6 +40,12 @@ public class ManagerConfirmController {
 	
 	@Autowired
 	LoginMapper loginDao;
+	
+	@Autowired
+	PayMapper payDao;
+	
+	@Autowired
+	ManagerConfirmService manCoDao;
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder){
@@ -72,9 +80,8 @@ public class ManagerConfirmController {
 //	매니저승인상태변경(업체승인)
 	@ResponseBody
 	@RequestMapping("/managerCfChange") 
-	public void managerCfChange(Model model ,@RequestParam(value="managerArr[]") List<String> managerArr, HttpServletRequest request) {
+	public void managerCfChange(Model model ,@RequestParam(value="managerArr[]") List<String> managerArr) {
 		ManagerConfirmVO vo;
-		HttpSession session = request.getSession();
 		
 		 
 		for(int i = 0; i < managerArr.size() ; i++ ) {
@@ -95,8 +102,7 @@ public class ManagerConfirmController {
 	
 //	업체등록 성공
 	@RequestMapping("/managerRegistSuccess")
-	public String managerRegistSuccess(Model model, ManagerConfirmVO vo, MemberVO mVo, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String managerRegistSuccess(Model model, ManagerConfirmVO vo, MemberVO mVo, HttpSession session) {
 		
 		vo.setMemberId((String)session.getAttribute("id"));
 		
@@ -106,9 +112,56 @@ public class ManagerConfirmController {
 		model.addAttribute("man", managerCfDao.managerSelect(vo));
 		return "manager/registSelect";
 	}
+
 	
 	
-//	매니저정보수정폼
+//	업체정보등록 페이지 호출
+	@RequestMapping("/registSelect")
+	public String registSelect(Model model, ManagerConfirmVO vo, MemberVO mVo, HttpSession session) {
+		vo.setMemberId((String)session.getAttribute("id"));
+		
+		model.addAttribute("man", managerCfDao.managerSelect(vo));
+		return "manager/registSelect";
+	}
+	
+	
+	
+	
+//	계약결제성공 후 데이터 저장
+	@RequestMapping("/SuccessPay") 
+	public String SuccessPay(Model model , ManagerConfirmVO mVo, MemberVO vo, PayVO pVo, HttpServletRequest request, String args[]) {
+		HttpSession session = request.getSession();
+		vo.setMemberId((String)session.getAttribute("id"));
+		mVo.setMemberId((String)session.getAttribute("id"));
+
+		System.out.println("여기야여기==============================>"+vo.toString());
+		System.out.println("!!!!!!!!!!!!!여기야여기============================>"+pVo.toString());
+		
+		
+		model.addAttribute("pay", memberDao.memSubUpdate(vo));
+		model.addAttribute("manCo", manCoDao.managerUpdate(mVo));
+		
+		System.out.println("??????????==============================?????????????????????" + vo);
+		
+		session.setAttribute("subYn", "'Y'");
+		
+		return "redirect:myInfo";
+	} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	//	매니저정보수정폼
 	@RequestMapping("managerUpdateForm")
 	public String memberUpdateForm(Model model, ManagerConfirmVO vo, MemberVO mVo, HttpSession session) {
 		vo = managerCfDao.managerSelect(vo);

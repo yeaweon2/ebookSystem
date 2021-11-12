@@ -83,7 +83,7 @@
 	<tiles:insertAttribute name="footer"/>
 	
  	</div>
- 	<div id="adviceChat">
+ 		<div id="adviceChat">
  		<img src="resources/img/chat2.png" class="avatar pointer">
  	</div>
     <div class="flexpanel">
@@ -92,31 +92,31 @@
                 <div class="widget mb50">
                     <h4 class="widget-title">My Info</h4>
                     <div align="center">
-                        <c:if test="${empty member.memberProfilePath}">
+                        <c:if test="${empty memf}">
 							<img id="proimg1" src="resources/assets/img/noimg.jpg" >&nbsp;&nbsp;
 						</c:if>
-						<c:if test="${not empty member.memberProfilePath}">
-							<img id="proimg1" src="${pageContext.request.contextPath}/fileUp/profile/${member.memberProfileNm}" >&nbsp;&nbsp;
+						<c:if test="${not empty memf}">
+							<img id="proimg1" src="${pageContext.request.contextPath}/fileUp/profile/${memfn}" >&nbsp;&nbsp;
 						</c:if>
                     </div><br>
                     <div align="center">
-                       <p id="n">${member.memberNicknm} 님</p>
-                       <label>${member.memberFlNm }</label>
+                       <p id="n">${nicknm} 님</p>
+                       <label>${flNm}</label>
                     </div>
 					<div align="center" ><br>
 						<table>
 							<tr id="st">
 								<th id="st" onclick="location.href='myInfo'" >내정보보기</th>
 								<c:if test="${auth eq 'U'}">
-								<th id="st">월정액종료일<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sub.subspEdt }" /></p></th>
-								<th id="st">마일리지<p id="p">${member.memberMile} p</p></th>
+								<th id="st">월정액종료일<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sube}" /></p></th>
+								<th id="st">마일리지<p id="p">${mile} p</p></th>
 								</c:if>
 								<c:if test="${auth eq 'M'}">
-								<th id="st">계약만료일자<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmCntrEdt }" /></p></th>
+								<th id="st">계약만료일자<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${mcnEd }" /></p></th>
 								</c:if>
 							</tr>
                    		</table>
-                   	</div>  
+                   	</div>
                 </div>
             </div>
         </div>

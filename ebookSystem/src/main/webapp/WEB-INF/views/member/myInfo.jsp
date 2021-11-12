@@ -60,6 +60,20 @@
 								<th style="width:650px;"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sub.subspEdt }" /></th>
 							</tr>
 							</c:if>
+							<c:if test="${auth eq 'M'}">
+							<tr>
+								<th style="width:900px;">계약기간</th>
+								<th style="width:300px;"></th>
+							</tr>
+							<tr>
+								<td style="width:300px;">시작일자 :  </td>
+								<th style="width:650px;"><fmt:formatDate pattern="yyyy-MM-dd"  value="${pay.mcnfmCnTrSdt }" /></th>
+							</tr>
+							<tr>
+								<td style="width:300px;">종료일자 :  </td>
+								<th style="width:650px;"><fmt:formatDate pattern="yyyy-MM-dd"  value="${pay.mcnfmCnTrEdt }" /></th>
+							</tr>
+							</c:if>
 						</table>
 					</form>
 				</div>
@@ -76,10 +90,10 @@
 						</div><br><br><br>
 			    </div><br><br>
 		    </div> 
-		    	<c:if test="${auth ne 'A'}">
+		    
+				<c:if test="${auth eq 'U'}">
 		    <div class="col-lg-8 mb-8 mb-lg-0">
 				<div style="height:150px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
-				<c:if test="${auth eq 'U'}">
 			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">도서대여 관리</h4>
 					<h5 align="left" style="margin-left: 25px;">내 대여정보</h5>
 					<h6 align="left" style="margin-left: 25px;">대여도서 목록보기에서 바로보기 </h6>
@@ -87,31 +101,10 @@
 					<div align="right" style="margin-right: 20px;">
 						<button type="button" id="check_module" class="btn btn-outline-primary" onclick="location.href='lendList'" value="보기"> 보기</button>
 					</div><br><br><br>
-				</c:if>
-				<c:if test="${auth eq 'M'}">
-			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">도서등록 관리</h4>
-					<h5 align="left" style="margin-left: 25px;">내 등록도서 정보</h5>
-					<h6 align="left" style="margin-left: 25px;">등록도서 목록 바로보기 </h6>
-			    	
-		    		<div align="right" style="margin-right: 20px;">
-						<button type="button" id="check_module" class="btn btn-outline-primary" onclick="location.href='bookList'" value="보기"> 보기</button>
-					</div><br><br><br>
-				</c:if>
-			    </div><br><br>
+			  </div><br><br>
 		    </div> 
-				</c:if>
-		     <div class="col-lg-8 mb-8 mb-lg-0" style="margin-left: 270px;">
-				<c:if test="${auth eq 'M'}">
-				<div style="height:150px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
-			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">내 신청 관리</h4>
-					<h5 align="left" style="margin-left: 25px;">업체등록신청 바로 확인</h5>
-
-		    		<div align="right" style="margin-right: 20px;">
-						<button type="button" id="check_module" class="btn btn-outline-primary" onclick="location.href='registSelect'" value="보기"> 보기</button>
-					</div><br><br><br>
-			    </div><br><br>
-				</c:if>			    
-			    <c:if test="${subYn eq 'Y'}">
+					
+				 <c:if test="${subYn eq 'Y'}">
 			    <div style="height:200px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
 			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">월정액 결제내역</h4>
 					<h5 align="left" style="margin-left: 25px;">상품 금액 : ${sub.subspAmt} 원</h5>
@@ -120,7 +113,47 @@
 					<h5 align="left" style="margin-left: 25px;">현재 마일리지 : ${member.memberMile} point</h5>
 					<h5 align="left" style="margin-left: 25px;">결제코드 : ${sub.impUid} </h5>
 			    </div><br><br>
+			   	</c:if>		
+			   	
+				</c:if>
+				
+				
+				<c:if test="${auth eq 'M'}">
+				 <div class="col-lg-8 mb-8 mb-lg-0">
+				<div style="height:150px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
+			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">도서등록 관리</h4>
+					<h5 align="left" style="margin-left: 25px;">내 등록도서 정보</h5>
+					<h6 align="left" style="margin-left: 25px;">등록도서 목록 바로보기 </h6>
+			    	
+		    		<div align="right" style="margin-right: 20px;">
+						<button type="button" id="check_module" class="btn btn-outline-primary" onclick="location.href='bookList'" value="보기"> 보기</button>
+					</div><br><br><br>
+			    </div><br><br>
+		    </div> 
+		    
+		    
+		     <div class="col-lg-8 mb-8 mb-lg-0" style="margin-left: 270px;">
+				<div style="height:150px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
+			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">내 신청 관리</h4>
+					<h5 align="left" style="margin-left: 25px;">업체등록신청 바로 확인</h5>
+
+		    		<div align="right" style="margin-right: 20px;">
+						<button type="button" id="check_module" class="btn btn-outline-primary" onclick="location.href='registSelect'" value="보기"> 보기</button>
+					</div><br><br><br>
+			    </div><br><br>
+			   </div> 
+			    
+			    <c:if test="${subYn eq 'Y'}">
+			    <div style="height:200px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
+			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">매니저계약 결제내역</h4>
+					<h5 align="left" style="margin-left: 25px;">계약 금액 : ${pay.payAmt} 원</h5>
+					<h5 align="left" style="margin-left: 25px;">결제코드 : ${pay.impUid} </h5>
+			    </div><br><br>
 			   	</c:if>	
+			   
+			   	</c:if>
+			    
+			   	
 		    </div> 
 		</div> 
      </div>
