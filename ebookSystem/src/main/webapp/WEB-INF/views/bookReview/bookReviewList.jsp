@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +42,10 @@ body {
 }
 </style>
 <script>
+	function goList(p) {
+		location.href="bookReviewList?page="+p
+	}
+
 $(function() {
 	//클릭시 글상세조회
 	$("table").on("click", "tr", function() {
@@ -50,7 +55,14 @@ $(function() {
 
 		frm.submit();
 	})
-
+	
+	//더보기 클릭시 글상세조회
+	$(".card").on("click", "#more", function(){
+		var id = $(this).data("id");
+		$("#reviewId").val(id);
+		frm.submit();
+		
+	});
 });
 </script>
 </head>
@@ -72,13 +84,13 @@ $(function() {
   			<c:forEach var="list" items="${bests }">
   				<div class="col-md-3">
     				<div class="card">
-    				<img width='80px' height='120px' src='${pageContext.request.contextPath}/fileUp${list.bookCoverPath}${list.bookCover}'>
+    					<img width='80px' height='120px' src='${pageContext.request.contextPath}/fileUp${list.bookCoverPath}${list.bookCover}'>
     					<h4>${list.bookNm}</h4>
-     					 <h5>${list.reviewTitle}</h5>
-     					 <p>작성자: ${list.reviewWriter}</p>
-     					 <p>추천수: ${list.reviewLikeit }</p>
-      					 <p><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.insDt}"/></p>
-     					 <button type="button">더보기</button>
+     					<h5>${list.reviewTitle}</h5>
+     					<p>작성자: ${list.reviewWriter}</p>
+     					<p>추천수: ${list.reviewLikeit }</p>
+      					<p><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.insDt}"/></p>
+     					<button type="button" id="more" data-id="${list.reviewId }" >더보기</button>
     				</div>
   				</div>
 			</c:forEach>  				
@@ -110,10 +122,11 @@ $(function() {
 						</c:forEach>
 					</tbody>
 				</table>
+				<my:paging jsFunc="goList" paging="${paging}" />
 		</div>
 		<form action="reviewSelectList" method="post" id="frm">
 		<input type="hidden" id="reviewId" name="reviewId">
-	</form>
+		</form>
 	</div>
 	</div>
 </body>

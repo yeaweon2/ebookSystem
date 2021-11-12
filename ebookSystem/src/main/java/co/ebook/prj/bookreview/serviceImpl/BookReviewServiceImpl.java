@@ -41,7 +41,19 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 	@Override
 	public BookReviewVO reviewSelectList(BookReviewVO vo) {
+		map.reviewHit(vo);
 		return map.reviewSelectList(vo);
 	}
+
+	@Override
+	public int bookReviewLikeItUpdate(BookReviewVO vo) {
+		return map.reviewLikeItUpdate(vo);
+	}
+
+	@Override
+	public int getCount(BookReviewVO vo) {
+		return map.getCount(vo);
+	}
+
 
 }

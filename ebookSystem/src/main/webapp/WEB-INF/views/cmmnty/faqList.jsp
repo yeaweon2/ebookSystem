@@ -86,7 +86,7 @@
 </style>
 <script>
 	function goList(p) {
-		location.href="noticeList?page="+p
+		location.href="faqList?page="+p
 	}
 
 	$(

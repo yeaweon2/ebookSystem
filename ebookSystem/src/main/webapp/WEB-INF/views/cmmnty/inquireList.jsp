@@ -10,7 +10,7 @@
 <title>1:1문의</title>
 <script>
 	function goList(p) {
-		location.href="noticeList?page="+p
+		location.href="inquireList?page="+p
 	}
 	$(function() {
 		//클릭시 글상세조회

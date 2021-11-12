@@ -14,7 +14,32 @@
 	cursor: pointer;
 }
 </style>
+<script>
+$(function() {
+	$("#likeItBtn").on("click", function(){
+		var reviewId = $("#reviewId").val();
 
+	 	$.ajax({
+			url : 'reviewLikeItUpdate' ,
+			method : 'POST' ,
+			data : JSON.stringify({ reviewId : reviewId }),
+			contentType : 'application/json',					
+			dataType : 'json',
+			success : function(res){
+				console.log(res);
+				 if(res.result=="01"){
+					alert("추천완료");	
+					 var likeCnt = $("#LikeIt").text();
+					 $("#LikeIt").text(parseInt(likeCnt)+1);
+					 
+				} 
+			}
+		}); 
+	});
+})
+
+
+</script>
 </head>
 <body>
 	<div class="inner-page pt-6">
@@ -34,6 +59,8 @@
 					<td rowspan="2"><img width='80px' height='120px' src='${pageContext.request.contextPath}/fileUp${list.bookCoverPath}${list.bookCover}'></td>
 					<td ><h5>${list.bookNm}</h5></td>
 					<td>${list.bookWriter}</td>
+					<td>추  천:</td>
+					<td id="LikeIt"> ${list.reviewLikeit}</td>
 					<td><button id="likeItBtn" class="bucketBtn" ><i class="fa fa-thumbs-o-up"></i></button></td>
 				</tr>
 				<tr>
@@ -50,14 +77,19 @@
 			<div id="replyput">
 			<c:if test="${not empty id}">
 				<table class="table">
+				
 					<tr>
-						<th>${nicknm}</th>
-					</tr>
-					<tr>
+					    <!--  프로필 -->
+						<td rowspan="2"><c:if test="${empty member.memberProfilePath}">
+							<img id="proimg1" src="resources/assets/img/noimg.jpg" width="10px;">&nbsp;&nbsp;
+						</c:if>
+						<c:if test="${not empty member.memberProfilePath}">
+							<img id="proimg1" src="${pageContext.request.contextPath}/fileUp/profile/${member.memberProfileNm}" width="10px;">
+						</c:if></td>
 						<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="160"></textarea>
 					</tr>
 					<tr>
-						<td colspan="2"></td>
+						<td>${nicknm}<td>
 						<td class="pull-right"><button type="button" id="replyInputBtn" data-reviewId="${list.reviewId}"class="btn-primary" >댓글등록</button></td>
 					</tr>
 				</table>

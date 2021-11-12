@@ -25,5 +25,8 @@ public class BookReviewVO {
 	private String bookCoverPath;
 	private String bookNm;
 	private String bookWriter;
+	
+	private int start;					 //페이징 시작
+	private int end;					 //페이징 끝
 
 }

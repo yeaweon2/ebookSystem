@@ -10,7 +10,7 @@
 <title>자유게시판</title>
 <script>
 	function goList(p) {
-		location.href="noticeList?page="+p
+		location.href="boardList?page="+p
 	}
 	$(function() {
 		//클릭시 글상세조회

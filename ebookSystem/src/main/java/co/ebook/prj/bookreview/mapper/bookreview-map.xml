@@ -5,6 +5,7 @@
 	<select id="bookReviewList" resultType="co.ebook.prj.bookreview.vo.BookReviewVO">
 		<![CDATA[
 		SELECT A.RN
+		     , A.REVIEW_ID
 	         , A.REVIEW_TITLE
 	         , A.REVIEW_WRITER 
 	         , A.INS_DT
@@ -95,6 +96,27 @@
 		   SET REVIEW_DEL_YN = 'Y'
 		     , UDT_DT = sysdate
 		 WHERE REVIEW_ID = #{reviewId}
+	</update> 
+	
+	<!-- 좋아요 증가 -->
+	<update id="reviewLikeItUpdate" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
+	UPDATE REVIEW
+	   SET REVIEW_LIKEIT = REVIEW_LIKEIT + 1 
+	 WHERE REVIEW_ID = #{reviewId} 
 	</update>
+	
+	<!-- 조회수 -->
+	<update id="reviewHit" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
+	 UPDATE REVIEW 
+	 	SET REVIEW_HIT = REVIEW_HIT+1
+	  WHERE REVIEW_ID = #{reviewId}   
+	</update>
+	
+	<!-- 전체글 카운터 -->
+	<select id="getCount" resultType="int">
+		SELECT COUNT(*)
+  		  FROM REVIEW
+ 		 WHERE REVIEW_DEL_YN = 'N'
+	</select>
 	
 </mapper>
