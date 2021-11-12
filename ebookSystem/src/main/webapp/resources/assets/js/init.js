@@ -62,7 +62,8 @@ $(document).ready(function(){
 
     //NEAT VID EMBEDS
     $().prettyEmbed({ useFitVids: true });
-    
+
+/*    20211112 cyw 
     var magnificPopup = jQuery.magnificPopup.instance;
     jQuery('.lb-link, .image-gallery').magnificPopup({
       preloader:true,
@@ -75,7 +76,7 @@ $(document).ready(function(){
           }
         }
     });
-
+*/
     //BACK TO TOP
     $('a#back-to-top').on('click', function(event){
       event.preventDefault();
@@ -253,6 +254,8 @@ $(document).ready(function(){
       });
     }
 
+
+/*    20211112 cyw 
     $("#mapwrapper.alt-map").gMap({ 
         controls: false,
         scrollwheel: false,
@@ -273,6 +276,8 @@ $(document).ready(function(){
         zoom: 14,
         styles: [{"featureType":"all","elementType":"labels.text","stylers":[{"saturation":"12"},{"color":"#000000"},{"lightness":"-5"},{"gamma":"7.71"},{"weight":"10.00"},{"invert_lightness":true}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#ffffff"},{"visibility":"on"}]}]
     });
+*/
+    
 });
 
 /*-----------------------------------------------------------------------------------*/
