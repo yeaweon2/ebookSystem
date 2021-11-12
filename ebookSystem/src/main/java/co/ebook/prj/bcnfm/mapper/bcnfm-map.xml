@@ -21,10 +21,6 @@
        order by nvl( c.bcnfm_st_cd, '04') 
 	</select>
 	
-	<select id="bcnfmDetail" resultType="co.ebook.prj.bcnfm.vo.BcnfmVO">
-	
-	</select>
-	
 	<insert id="bcnfmInsert" parameterType="co.ebook.prj.bcnfm.vo.BcnfmVO">
 	INSERT INTO BOOK_CONFIRM (
 		BCNFM_ID 	, BOOK_ID		, BCNFM_REQ_DT	, 
@@ -50,13 +46,7 @@
 		     , UDT_DT = SYSDATE
 		 WHERE BCNFM_ID = #{bcnfmId}
 	</update>
-	
-	<delete id="bcnfmDelete" >
-	
-	
-	</delete>
-	
-	
+
 	<update id="bcnfmIdUpdate">
 		UPDATE BOOK
        	   SET BCNFM_ID = ( SELECT MAX(BCNFM_ID) FROM BOOK_CONFIRM 

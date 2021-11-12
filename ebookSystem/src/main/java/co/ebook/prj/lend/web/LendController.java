@@ -39,9 +39,7 @@ public class LendController {
 		}else {
 			for(LendVO vo : lists) {
 				vo.setMemberId(id);	
-				System.out.println("=================================>");
-				System.out.println(vo.toString());
-				
+
 				int duplchk = lendDao.lendDuplChk(vo);
 				
 				if( duplchk > 0 ) {

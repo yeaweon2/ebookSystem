@@ -32,7 +32,6 @@ $(function(){
 		var fileCntChk = 0; 
 		var tdArr = []; 
 		$("#chkInput:checked").each(function(){
-			
 			var fileCnt = $(this).closest("tr").data("filecnt");
 			var id = $(this).closest("tr").data("id");
 			if( id != "" ){
@@ -42,7 +41,6 @@ $(function(){
 			if( fileCnt < 1 ){
 				fileCntChk++;
 			}
-			
 	    });
 		
 		if(fileCntChk > 0){
@@ -50,8 +48,7 @@ $(function(){
 			return false;
 		}
 		 
-	
- 		 $.ajax({
+ 		$.ajax({
 			url : 'bookCnfrmReq' ,
 			data : { tdArr : tdArr } ,
 			method : 'POST' ,

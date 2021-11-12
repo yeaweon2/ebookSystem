@@ -116,54 +116,90 @@
 				$(".bookCoverCard").find("img").attr("src", e.target.result);
 				
 			};
-			
+				
 			$(".bookCoverCard").find("h3").html(event.target.files[0].name);
-			console.log(event.target.files[0]);
-			reader.readAsDataURL(event.target.files[0]);
-		});
-		
-		
-		
-		// 수정버튼 클릭시 -----------------------------------------------------------
-		$("#bookUpdateBtn").on("click",function(){
-		    $("#bookUpdateBtn").prop("disabled", true);   
+				reader.readAsDataURL(event.target.files[0]);
+			});
 			
-		    if( ! attchUpFlag ){
-		    	$("attchFile").val("");	
-		    }
-		    
-		    var formData = new FormData($("#frm")[0]);
-
-			 $.ajax({
-				url : 'bookUpdate' ,
-				data : formData , 
-				method : 'POST' ,
-				enctype: "multipart/form-data",
-				cache: false, 
-				contentType: false, 
-				processData: false,
-				success : function(res){
-					$("#bookUpdateBtn").prop("disabled", false);
-					console.log(res.msg);
-					if($("#msg").val() == "success"){
-						alert("수정이 완료되었습니다.");
-					}else{
-						alert("수정시 오류가 발생하였습니다.");
-					}
+			// 승인처리
+			$("#cnfmBtn").on("click",function(){
+				
+				var book = [];
 					
-				},
-				error : function(rej){
-					console.log(rej);
-					$("#bookUpdateBtn").prop("disabled", false);
+				var bcnfmId = `${books.bcnfmId}`;
+				var bookId = `${books.bookId}`;
+				var data = {
+					bcnfmId : bcnfmId,
+					bookId : bookId
+				};
+				
+				book.push(data);
+
+				console.log(book);
+				if( bcnfmId == '' ){
+					alert("승인 신청이 되지않은 BOOK입니다.");
+					return false;
+				}
+				
+				if( `${books.fileCnt}` == '0'){
+					alert("등록된 BOOK 파일이 존재하지 않습니다. ");
+					return false;
+				}
+				
+			 $.ajax({
+				url : 'bookAdminCnfm' ,
+				data :  JSON.stringify(book)  ,
+				contentType : 'application/json',
+				method : 'POST' ,
+				dataType : 'json' ,
+				success : function(data){
+					console.log(data);
+					alert("승인완료");
 				}
 			}); 
 		});
-		
-		// 파일 수정버튼 클릭시 
-		$("#bookCoverEditBtn").on("click", function(){
-			$("#attchFile").click();
-		});
-		
+			
+			
+			// 수정버튼 클릭시 -----------------------------------------------------------
+			$("#bookUpdateBtn").on("click",function(){
+			    $("#bookUpdateBtn").prop("disabled", true);   
+				
+			    if( ! attchUpFlag ){
+			    	$("attchFile").val("");	
+			    }
+			    
+			    var formData = new FormData($("#frm")[0]);
+	
+				 $.ajax({
+					url : 'bookUpdate' ,
+					data : formData , 
+					method : 'POST' ,
+					enctype: "multipart/form-data",
+					cache: false, 
+					contentType: false, 
+					processData: false,
+					success : function(res){
+						$("#bookUpdateBtn").prop("disabled", false);
+						console.log(res.msg);
+						if($("#msg").val() == "success"){
+							alert("수정이 완료되었습니다.");
+						}else{
+							alert("수정시 오류가 발생하였습니다.");
+						}
+						
+					},
+					error : function(rej){
+						console.log(rej);
+						$("#bookUpdateBtn").prop("disabled", false);
+					}
+				}); 
+			});
+			
+			// 파일 수정버튼 클릭시 
+			$("#bookCoverEditBtn").on("click", function(){
+				$("#attchFile").click();
+			});
+			
 		$("#bookFileForm").on("click", function(){
 			frm.action = "bookFileUpload";
 			frm.submit();
@@ -300,6 +336,8 @@
 										<button type="button" id="bookUpdateBtn" class="btn ebookBtn">수 정</button>
 										<button type="button" id="bookDeleteBtn" class="btn ebookBtn" onclick="bookDelete()">삭 제</button>
 										<c:if test="${auth eq 'A' }">
+											<button type="button" id="cnfmBtn" class="btn ebookBtn">승 인</button>
+											<button type="button" id="rejectModalBtn" class="btn ebookBtn">보 류</button>
 											<button type="button" class="btn ebookBtn" onclick="location.href='bcnfmList'">BOOK승인목록</button>
 										</c:if>
 										<c:if test="${auth eq 'M' }">

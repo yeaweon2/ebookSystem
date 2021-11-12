@@ -63,12 +63,7 @@
   	$(function(){
   		
   		$("#batchList").on("click", "tr" , function(){
-  			
-  			
   			var epubFilePath = `${pageContext.request.contextPath}` + "/fileUp" + $(this).data("batchpath") + $(this).data("batchnm");
-  			
-  			console.log(epubFilePath);
-  			
   			
   			// Load the epub
   		    var book =  ePub(epubFilePath);
@@ -80,7 +75,7 @@
   		      manager: "continuous"
   		    });
 
-  		    var displayed = rendition.display(6);
+  		    var displayed = rendition.display(0);
 
   		    // Navigation loaded
   		    book.loaded.navigation.then(function(toc){
@@ -128,14 +123,7 @@
 
   		    });
 
-  		    this.rendition.themes.default({
-  		      '::selection': {
-  		        'background': 'rgba(255,255,0, 0.3)'
-  		      },
-  		      '.epubjs-hl' : {
-  		        'fill': 'yellow', 'fill-opacity': '0.3', 'mix-blend-mode': 'multiply'
-  		      }
-  		    });
+
 
   		    // Illustration of how to get text from a saved cfiRange
   		    var highlights = document.getElementById('highlights');

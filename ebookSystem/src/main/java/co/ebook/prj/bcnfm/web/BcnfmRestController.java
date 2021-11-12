@@ -1,5 +1,6 @@
 package co.ebook.prj.bcnfm.web;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -47,15 +48,25 @@ public class BcnfmRestController {
 	
 	// 관리자 승인 처리
 	@RequestMapping(value="/bookAdminReject" , method=RequestMethod.POST) 
-	public void bookAdminReject(Model model , @RequestBody List<BcnfmVO> lists , HttpSession session) {
+	public HashMap<String,Object> bookAdminReject(Model model , @RequestBody List<BcnfmVO> lists , HttpSession session) {
 		
 		System.out.println(lists.toString());
-		
+		int result = 0;
 		for(BcnfmVO vo : lists) {
 			vo.setBcnfmCnfmr((String)session.getAttribute("id"));
 			vo.setBcnfmStCd("03");
-			bcnfmDao.bcnfmUpdate(vo);
+			
+			int v = bcnfmDao.bcnfmUpdate(vo);
+			result = result + v;
 		}
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		if(result > 0 ) {
+			map.put("result", "01");
+		}else {
+			map.put("result", "02");
+		}
+		return map;
 	}		
 	
 	

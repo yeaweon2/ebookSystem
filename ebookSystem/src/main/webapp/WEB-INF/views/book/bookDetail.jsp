@@ -172,6 +172,22 @@ ul.sidenav li a:hover {
 <script type="text/javascript">
 	$(function(){
 		
+		var bookAvg = parseFloat(`${book.bookAvg}`);
+		console.log(`${book.bookAvg}`);
+		console.log(bookAvg);
+		for( var i = 1; i <= 5 ; i++){
+			if( i < bookAvg ){
+				$("#bookAvg").append($("<i class='star fas fa-star' style='font-size: 20px'>"));		
+			}else{
+				if( i > bookAvg && i-1 < bookAvg ){
+					$("#bookAvg").append($("<i class='star fas fa-star-half-alt' style='font-size: 20px'>"));
+				}else{
+					$("#bookAvg").append($("<i class='star far fa-star' style='font-size: 20px'>"));
+				}
+			}
+		}
+		
+		
 		// 장바구니 클릭시 
 		$("#bookCartForm").on("click", function(){
 			var bookId = $("#bookId").val();
@@ -532,6 +548,10 @@ ul.sidenav li a:hover {
 		});	 
 		
 	});
+	
+	
+	
+	
 </script>
 </head>
 <body>
@@ -556,15 +576,14 @@ ul.sidenav li a:hover {
 								<h1 class="display-5 fw-bold">${book.bookNm}</h1>
 								<h3>${book.bookPublCo} ( ${book.bookWriter} )</h3>
 							</div>
-							<div class="row">
+							<div class="row" style="margin-top:10px">
 								추 천 : <span id="likeIt">${book.bookLikeit}</span>
 							</div>
-							<div class="row">
-								BOOK 평 점 :  ${book.bookAvg}
-								
+							<div class="row" id="bookAvg" style="margin-top:10px">
+								BOOK 평 점 :   ${book.bookAvg}
 							</div>
 							<c:if test="${auth eq 'U' || auth eq 'A'}">
-								<div class="pull-right">
+								<div class="pull-right" style="margin-top:70px">
 									<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
 									<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
 									<button id="bucketBtn" class="bucketBtn" ><i class="fa fa-bookmark-o"></i></button>

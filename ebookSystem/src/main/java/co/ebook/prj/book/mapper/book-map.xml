@@ -111,7 +111,8 @@
               , ( SELECT ROUND(AVG(BREPLY_STAR),1)
                     FROM BOOK_REPLY
                    WHERE BOOK_ID = #{bookId} 
-                     AND NVL(BREPLY_STAR ,0) > 0 ) AS BOOK_AVG			  
+                     AND NVL(BREPLY_STAR ,0) > 0 ) AS BOOK_AVG			
+              , ( SELECT COUNT(1) FROM BOOK_ATTACH A WHERE A.BOOK_ID = #{bookId} ) AS FILE_CNT
 		   FROM BOOK b
 		  WHERE BOOK_ID = #{bookId}  
 		  ]]>

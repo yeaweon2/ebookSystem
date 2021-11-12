@@ -63,8 +63,11 @@
 <section>
 	<div class="section-inner">		
 		<div class="container">
-			<h2 class="title text-center">대여LIST</h2>
-			
+			<div class="row mb-1" style="margin-left:20px;margin-bottom:50px">
+				<div class="section-header" style="height:20px">
+	          		<h2><img width="60px" height="60px" src="resources/img/borrowBook.png"> ${nicknm}님의 대여 LIST</h2>
+	        	</div>
+			</div>
 			<div id="mainDiv" class="row" style="padding:5px">
 				<c:forEach var="lend" items="${lends}">
 					<div id="card" class="col-md-5" >

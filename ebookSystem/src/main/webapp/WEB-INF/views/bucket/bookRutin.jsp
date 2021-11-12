@@ -113,6 +113,8 @@
 			var grMM = "";
 			if( parseInt(mm)  < 10 ){
 				grMM = "0" + $("#mm").html()
+			}else{
+				grMM = $("#mm").html();
 			}
 			
 			var	grDt = $("#yy").html() + grMM; 
@@ -192,7 +194,9 @@
 			
 			var grMM = "";
 			if( parseInt(mm)  < 10 ){
-				grMM = "0" + $("#mm").html()
+				grMM = "0" + $("#mm").html();
+			}else{
+				grMM = $("#mm").html();
 			}
 			
 			var	grDt = $("#yy").html() + grMM; 

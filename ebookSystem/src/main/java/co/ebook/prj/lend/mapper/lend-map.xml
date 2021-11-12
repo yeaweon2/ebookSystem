@@ -31,6 +31,7 @@
 	         , L.lend_hit
 	         , b.book_cover
 	         , b.book_cover_path  
+	         , b.book_fl_cd 
 		  FROM LEND L
 		     , BOOK B
 		 WHERE L.BOOK_ID = B.BOOK_ID

@@ -155,7 +155,7 @@ font-weight: bold;
 					console.log(res);
 					console.log(res.result);
 					console.log(res.bucket.bucketDoneDt);
-					
+					console.log(item);
 					item.siblings(".doneYn").html("완료일자 : " + res.bucket.bucketDoneDt).css("color", "red");
 					item.addClass("hidden");
 					item.siblings("#bucketDoneCancel").removeClass("hidden");
@@ -280,12 +280,11 @@ font-weight: bold;
 									<div>
 										<h4>${bucket.bucketNo}. ${bucket.bookNm}</h4>
 										<h5>${bucket.bookPublCo} / ${bucket.bookWriter}</h5>
-										
-										<c:if test="${ not empty bucket.bucketDoneDt }">
-											<div class="doneYn" style="color:red">완료일자 : ${bucket.bucketDoneDt}</div>
-											
-										</c:if>
-										
+										<div class="doneYn" style="color:red">
+											<c:if test="${ not empty bucket.bucketDoneDt }">
+												완료일자 : ${bucket.bucketDoneDt}
+											</c:if>
+										</div>
 										<button id="bucketDel" class="btn ebookBtn-sm pull-right"><i class="fa fa-trash-o"></i> 지우기</button>
 										<c:if test="${ not empty bucket.bucketDoneDt }">
 											<button id="bucketDone" class="btn ebookBtn-sm pull-right hidden"><i class="fa fa-check-square-o"></i> 버킷완료</button>

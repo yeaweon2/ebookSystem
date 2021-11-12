@@ -12,33 +12,25 @@
     	font-size: 16px;
     }
     
-    .batch:hover{
-    	text-decoration: underline;
-    	font-size: 17px;
-    	font-weight: bold; 
-    	cursor: pointer;
-    }
-
   </style>
   <script type="text/javascript">
   	$(function(){
-  		
-  		$("#batchList").on("click", "tr" , function(){
-  			
+  		$("#lendList").on("click", function(){
   			
   		});
-  		
-  		
-  		$("#batchList").find("tr").first().click();
-  		
   	});
   </script>
 </head>
 <body>
 <section>
 	<div class="section-inner">		
-		<div class="container">
-			<div class="row box">
+		<div class="container">			
+			<div class="row mb-1" style="margin-top: 30px;padding-left:30px">
+				<div class="section-header" style="height:20px">
+	          		<h2><img width="50px" height="50px" src="resources/img/audioBook.png"> 오디오북 LISTENING</h2>
+	        	</div>
+			</div>			
+			<div class="row box" style="margin-top: 20px">
 				<div class="row">
 					<div class="col-sm-3">
 						<div class="row">
@@ -48,20 +40,20 @@
 						</div>
 					</div>
 					<div class="col-sm-9">
+						<div class="row "><a href="lendList" class="btn ebookBtn-sm pull-right" id="lendList">나의대여LIST</a></div>
 						<div class="row">
 							<h4 >BOOK 파일 LIST</h4>
 							<table id="batchList" class="table">
-							<c:forEach var="batch" items="${batchList}">
-								<tr class="row batch" data-batchnm="${batch.batchNm}" data-batchpath="${batch.batchPath}">
-									<td>${batch.batchOrd}.${batch.batchNm}</td>
-									<td>
-										<audio controls>
-											<source src="${pageContext.request.contextPath}/fileUp${batch.batchPath}${batch.batchNm}">
-										</audio>
-									</td> 
-								</tr>
-								
-							</c:forEach>
+								<c:forEach var="batch" items="${batchList}">
+									<tr class="row batch" data-batchnm="${batch.batchNm}" data-batchpath="${batch.batchPath}">
+										<td style="vertical-align: middle;">${batch.batchOrd}.${batch.batchNm}</td>
+										<td>
+											<audio controls="controls">
+												<source src="${pageContext.request.contextPath}/fileUp${batch.batchPath}${batch.batchNm}" type="audio/mp3" >
+											</audio>
+										</td> 
+									</tr>
+								</c:forEach>
 							</table>
 						</div>
 					</div>
