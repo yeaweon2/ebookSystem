@@ -4,8 +4,7 @@
 
 	<!-- 211018 공지사항 전체조회  -->
 	<select  id="cmmntyList" resultType="co.ebook.prj.cmmnty.vo.CmmntyVO">
-	SELECT B.* FROM ( SELECT A.* , ROWNUM CMMNTY_NO FROM (
-		SELECT 
+	SELECT B.* FROM ( SELECT A.* , ROWNUM CMMNTY_NO FROM ( SELECT 
 			  CMMNTY_ID
 			, CMMNTY_TITLE 
 			, CMMNTY_CONTENTS
@@ -13,7 +12,7 @@
 			, CMMNTY_WRITER
 			, INS_DT
 			, UDT_DT
-			, CMMNTY_hit
+			, CMMNTY_HIT
 			, CMMNTY_ATCH_NM
 			, CMMNTY_ATCH_PATH
 			, PROC_DONE_YN
@@ -22,6 +21,7 @@
 		  AND CMMNTY_DELYN ='N'
 		   
 		ORDER BY CMMNTY_ID DESC
+		
 		<![CDATA[ 
         ) A ) B WHERE CMMNTY_NO >= #{start} and CMMNTY_NO <= #{end} 
         ]]>

@@ -119,4 +119,15 @@
  		 WHERE REVIEW_DEL_YN = 'N'
 	</select>
 	
+	<!-- 마일리지넣기 -->
+	<update id="memberMile" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
+		UPDATE MEMBER
+  		   SET MEMBER_MILE = MEMBER_MILE+500
+ 		 WHERE member_id = #{reviewWriter}
+  		   AND exists ( SELECT 1
+              			  FROM BUCKET_BOOK 
+             			 WHERE MEMBER_ID = #{reviewWriter}
+               			   AND BOOK_ID = #{bookId}
+ 		)
+	</update>
 </mapper>

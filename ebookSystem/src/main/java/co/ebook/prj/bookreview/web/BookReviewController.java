@@ -89,7 +89,7 @@ public class BookReviewController {
 	
 	//리뷰 입력
 	@RequestMapping("/reviewInsert")
-	String reviewInsert(Model model, BookReviewVO vo, HttpServletRequest request) {
+	String reviewInsert(Model model, BookReviewVO vo, MemberVO mvo,HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 		vo.setReviewWriter((String)session.getAttribute("id"));

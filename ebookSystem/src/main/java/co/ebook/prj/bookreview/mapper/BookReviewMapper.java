@@ -5,6 +5,7 @@ import java.util.List;
 import co.ebook.prj.bookreview.vo.BookReviewVO;
 
 public interface BookReviewMapper {
+	
 	List<BookReviewVO> bookReviewList(BookReviewVO vo);
 
 	List<BookReviewVO> reviewList(BookReviewVO vo);
@@ -24,5 +25,9 @@ public interface BookReviewMapper {
 	
 	//전체카운트
 	int getCount(BookReviewVO vo);
+	
+	//마일리지
+	int memberMile(BookReviewVO vo);
+
 
 }

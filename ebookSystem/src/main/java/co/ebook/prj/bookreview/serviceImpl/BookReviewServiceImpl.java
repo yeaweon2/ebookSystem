@@ -21,6 +21,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 	@Override
 	public int bookReviewInsert(BookReviewVO vo) {
+		map.memberMile(vo);
 		return map.bookReviewInsert(vo);
 	}
 
