@@ -124,7 +124,7 @@
     
     <script src="resources/assets/js/bootstrap.min.js"></script>
     <script src="resources/assets/js/plugins.js"></script>
-    <script src="resources/assets/js/init.js"></script>
+    <script src="resources/assets/js/init.js"></script>       
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
