@@ -10,6 +10,7 @@
 <title>기업회원가입 폼</title>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/form-validation.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">  
 
@@ -25,12 +26,20 @@
 			success: function(data){
 				if (data > 0) { 
 					if ( div == "Y" ) { 
-						alert("중복된 ID입니다.");
+						Swal.fire({
+		                    icon: 'error',
+		                    title: '중복된 ID',
+		                    text: '다른 ID로 변경하세요.',
+		                });
 						}
 					return false;				
 				} else {
 					if ( div == "Y" ) { 
-						alert("사용가능한 ID입니다.");
+						Swal.fire({
+		                    icon: 'success',
+		                    title: '사용가능 ID',
+		                    text: '사용가능한 ID입니다.',
+		                });
 						}
 					return true;
 				}
@@ -54,12 +63,20 @@
 			success: function(data){
 				if (data > 0) {
 					if ( div == "Y" ) { 
-						alert("중복된 닉네임입니다.");
+						Swal.fire({
+							  icon: 'error',
+			                    title: '중복된 닉네임',
+			                    text: '다른 닉네임으로 변경하세요.',
+							});
 						}
 					return false;				
 				} else {
 					if ( div == "Y" ) { 
-						alert("사용가능한 닉네임입니다.");
+						Swal.fire({
+		                    icon: 'success',
+		                    title: '사용가능한 닉네임',
+		                    text: '사용가능한 닉네임입니다.',
+		                });
 						}
 					return true;
 				}
@@ -239,11 +256,19 @@
 	
 	$("#join").on("click", function(){
 		if($("#memberPw").val() !== $("#password").val())	{
-			alert('비밀번호 입력값이 일치하지 않습니다.');
+			Swal.fire({
+                icon: 'error',
+                title: '비밀번호 불일치!',
+                text: '입력된 비밀번호가 일치하지 않습니다.',
+            });
 			$("#memberPw").focus();
 			
 		}else{
-			alert('회원가입이 완료되었습니다. 홈으로 이동합니다.');
+			Swal.fire({
+                icon: 'success',
+                title: 'E로운생활에 오신걸 환영합니다.',
+                text: '홈으로 이동합니다.',
+            });
 			frm.action="managerJoinSuccess";
 			frm.submit(); 
 		}	

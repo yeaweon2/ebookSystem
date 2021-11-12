@@ -53,7 +53,7 @@ select {
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
 
 $(document).ready(function(){
@@ -88,7 +88,11 @@ $(document).ready(function(){
 						dataType : 'text',
 						data : PayHistoryVO,
 						success : function(){
-							alert("성공됨.");
+							Swal.fire({
+			                    icon: 'success',
+			                    title: '결제완료',
+			                    text: '결제내역 조회 페이지로 이동됩니다.',
+			                });
 							window.location.href = "myInfo";
 							
 						},
@@ -98,7 +102,11 @@ $(document).ready(function(){
 					}); 
 				 	 
 				} else {
-					alert("결제에 실패하였습니다.   " + '\n실패이유 : ' + rsp.error_msg);
+					Swal.fire({
+	                    icon: 'error',
+	                    title: '결제실패',
+	                    text: '실패이유 :  '+ rsp.error_msg,
+	                });
 				}
 			});
 		});

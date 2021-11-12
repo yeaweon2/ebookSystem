@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>매니저리스트</title>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
@@ -56,7 +56,11 @@ $(function() {
 				console.log(rej);
 			}
 		});
-		alert("업체등록 승인완료.");
+		Swal.fire({
+            icon: 'success',
+            title: '등록신청 승인완료.',
+            text: '정상적으로 완료되었습니다.',
+        });
 	}
 
 

@@ -61,7 +61,6 @@ public class LoginController {
 				session.setAttribute("mcnEd"    , vo.getMcnfmCntrEdt());
 				session.setAttribute("flNm"     , vo.getMemberFlNm());	
 				
-				
 				views = "redirect:home"; 
 			} else  {
 				model.addAttribute("message", "휴면회원이거나 탈퇴회원입니다. 관리자에게 1:1문의를 남겨주세요.");

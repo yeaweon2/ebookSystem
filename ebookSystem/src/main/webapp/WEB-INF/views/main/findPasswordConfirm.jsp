@@ -8,7 +8,11 @@
 </head>
 <body>
 <script>
- 	alert("비밀번호가 변경되었습니다.");
+Swal.fire({
+    icon: 'success',
+    title: '변경완료',
+    text: '비밀번호 변경이 완료되었습니다.',
+});
  	self.close();
 </script>
 </body>

@@ -7,6 +7,8 @@
 <title>매니저등록신청</title>
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script type="text/javascript">
 </script>
 <style type="text/css">
@@ -23,11 +25,21 @@ $(document).ready(function(){
 	 $("#biznoSearch").on("click", function(){
 		 var bizno = $("#mcnfmBizno").val();
 		if(bizno.length != 10 ) {
-			alert("사업자등록번호를 다시 입력하세요.");
+			Swal.fire({
+                icon: 'error',
+                title: '잘못된 사업자등록번호',
+                text: '다시 입력하세요.',
+            });
+
 			$("#mcnfmBizno").focus();
 			return false;
 		}else{
-			alert("확인되었습니다.")
+			Swal.fire({
+                icon: 'success',
+                title: '사업자등록번호 확인.',
+                text: '확인이 완료되었습니다.',
+            });
+
 			$("#mcnfmRpspr").focus();
 			return true;
 		}

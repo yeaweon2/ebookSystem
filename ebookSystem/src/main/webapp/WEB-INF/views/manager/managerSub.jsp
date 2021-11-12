@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
 <script>
@@ -45,7 +45,12 @@ $(function(){
 						dataType : 'text',
 						data : SubscriptionVO,
 						success : function(){
-							alert("성공됨.");
+							Swal.fire({
+			                    icon: 'success',
+			                    title: '결제완료',
+			                    text: '결제내역 조회 페이지로 이동됩니다.',
+			                });
+
 							window.location.href = "myInfo";
 							
 						},
@@ -55,7 +60,11 @@ $(function(){
 					}); 
 				 	 
 				} else {
-					alert("결제에 실패하였습니다.   " + '\n실패이유 : ' + rsp.error_msg);
+					Swal.fire({
+	                    icon: 'error',
+	                    title: '결제실패',
+	                    text: '실패이유 :  '+ rsp.error_msg,
+	                });
 				}
 			});
 		});
@@ -72,72 +81,6 @@ $(function(){
 
 
 	
-//  체크박스 클릭 시 전체 선택
-	$("#chkuse").on("click", function(){
-		var amt = $("#amtCd:checked").val();
-		var chkMile = $("#chkuse").data("membermile");
-		var chk = $(this).is(":checked");
-		console.log(chkMile);
-		if(chk){
-			$("#chkuse").prop('checked', true);
-			$("#useMile").attr("disabled",true);
-			$("#chArea").val(chkMile);
-			$("#total").val(amt-chkMile);
-		}else{
-			$("#chkuse").prop('checked', false);
-			$("#useMile").attr("disabled",false);
-			$("#chArea").val("0");
-			$("#total").val(amt);
-		}
-	});
-	
-	
-	
-	
-//	체크박스 이벤트중지
-	$("#membermile").on("click", function() {
-		event.stopPropagation();
-		if ($(event.target).find("#allMile").prop('checked') == false) {
-			$(event.target).find("#allMile").prop('checked', true);
-		} else {
-			$(event.target).find("#allMile").prop('checked', false);
-		}
-	});
-	
-	
-
-//  금액 text박스에 넣어주기(total값)
-	$("#amtCdTd").on("click", "input", function(){
-		
-		var amt = $("#amtCd:checked").val();
-		var mile = $("#useMile").val();
-		
-			$("#txArea").val(amt);
-			$("#chArea").val(mile);
-			$("#total").val(amt-mile);
-		
-	});
-	
-//  마일리지 사용
-	$("#useMile").on("keyup" , function(){
-		var amt = $("#amtCd:checked").val();
-		var mile = $(this).val();
-		var membermile = $("#membermile").data("membermile");
-		console.log(  mile + " / " +  membermile );
-		if( membermile <  mile || mile < 0 ){
-			alert("마일리지를 바르게 입력해주세요.");
-			$(this).val("0");
-			$("#chArea").val("0");
-			$("#total").val(amt);
-		}else{
-			$("#chArea").val(mile);
-			$("#total").val(amt-mile);
-		}
-		$("${member.memberMile}").val(($("#membermile").val())-($("#chArea").val()));
-		$("#frm").submit();  
-			
-		
-	});
 	
 	
 });

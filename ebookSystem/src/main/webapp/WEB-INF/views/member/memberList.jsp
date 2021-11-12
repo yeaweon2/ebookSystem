@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원목록</title>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="resources/js/form-validation.js"></script>
 <script type="text/javascript">
 
@@ -53,7 +53,11 @@ $(function() {
 				console.log(rej);
 			}
 		});
-		alert("휴면해제완료");
+		 Swal.fire({
+             icon: 'success',
+             title: '휴면해제완료.',
+             text: '정상적으로 완료되었습니다.',
+         });
 	}
 </script>
 </head>

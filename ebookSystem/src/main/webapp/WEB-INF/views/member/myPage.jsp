@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+<script src="resources/js/form-validation.js"></script>
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -24,7 +24,11 @@ $("#attchFile").on("change", function(){
 		var ext = $("#attchFile").val().split(".").pop().toLowerCase();
 		console.log(ext);
 		if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp"]) == -1) {
-			alert("첨부파일은 이미지 파일만 등록 가능합니다.\n ( 첨부가능 확장자 : 'jpg', 'jpeg', 'png', 'gif', 'bmp' )");
+			Swal.fire({
+                icon: 'error',
+                title: '첨부파일은 이미지 파일만 등록 가능합니다',
+                text: '( 첨부가능 확장자 : jpg, jpeg, png, gif, bmp )',
+            });
 			$("#attchFile").val("");
 			return false;
 		}
@@ -35,7 +39,11 @@ $("#attchFile").on("change", function(){
 	var fileSize = $("#attchFile")[0].files[0].size;
 	console.log(fileSize);
 	if(fileSize > maxSize){
-		alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+		Swal.fire({
+            icon: 'error',
+            title: '첨부파일 사이즈는 5MB 이내로 등록 가능합니다.',
+            text: '다시 등록하세요.',
+        });
 		$("#attchFile").val("");
 		return false;
 	}

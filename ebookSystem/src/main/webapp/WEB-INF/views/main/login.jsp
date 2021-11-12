@@ -18,6 +18,7 @@
 	$(function(){
 		$("#loginBtn").on("click", function(){
 			event.preventDefault();
+
 			frm.submit();
 		});
 	

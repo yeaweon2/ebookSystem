@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
 
@@ -46,7 +47,12 @@ $(function(){
 						dataType : 'text',
 						data : SubscriptionVO,
 						success : function(){
-							alert("성공됨.");
+							Swal.fire({
+			                    icon: 'success',
+			                    title: '결제완료',
+			                    text: '결제내역 조회 페이지로 이동됩니다.',
+			                });
+
 							window.location.href = "myInfo";
 							
 						},
@@ -56,7 +62,11 @@ $(function(){
 					}); 
 				 	 
 				} else {
-					alert("결제에 실패하였습니다.   " + '\n실패이유 : ' + rsp.error_msg);
+					Swal.fire({
+	                    icon: 'error',
+	                    title: '결제실패',
+	                    text: '실패이유 :  '+ rsp.error_msg,
+	                });
 				}
 			});
 		});
@@ -125,8 +135,14 @@ $(function(){
 		var mile = $(this).val();
 		var membermile = $("#membermile").data("membermile");
 		console.log(  mile + " / " +  membermile );
+		
 		if( membermile <  mile || mile < 0 ){
-			alert("마일리지를 바르게 입력해주세요.");
+			Swal.fire({
+                icon: 'error',
+                title: '입력실패',
+                text: '마일리지를 올바르게 입력하세요.',
+            });
+			
 			$(this).val("0");
 			$("#chArea").val("0");
 			$("#total").val(amt);

@@ -57,6 +57,7 @@ function MemberEdit(str) {
 			 $("#managerCnfmYn").val($("#managerCnfmYnY option:selected").val());
 			 $("#memberStCd").val($("#memberStCdY option:selected").val());
 			 $("#memberGen").val($("#memberGenY option:selected").val());
+			
 			 
 			frm.action = "memberUpdate";
 			frm.submit();
