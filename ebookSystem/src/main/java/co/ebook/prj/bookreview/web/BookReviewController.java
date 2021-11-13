@@ -120,9 +120,9 @@ public class BookReviewController {
 		
 		int list = bookReviewDao.bookReviewUpdate(vo);
 		if (list != 0) {
-			model.addAttribute("msg", "성공");
+			model.addAttribute("msg", "01");
 		} else {
-			model.addAttribute("msg", "실패");
+			model.addAttribute("msg", "02");
 		}
 		return "redirect:bookReviewList";
 	}

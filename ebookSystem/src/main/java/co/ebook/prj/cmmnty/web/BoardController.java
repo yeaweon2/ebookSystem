@@ -67,9 +67,9 @@ public class BoardController {
 
 		System.out.println("자유게시판:" + lists + "건 입력완료 --------------");
 		if (lists > 0) {
-			model.addAttribute("msg", "성공");
+			model.addAttribute("msg", "01");
 		} else {
-			model.addAttribute("msg", "실패");
+			model.addAttribute("msg", "02");
 		}
 		return "redirect:boardList";
 	}
@@ -101,9 +101,9 @@ public class BoardController {
 
 		int list = cmmntyDao.cmmntyUpdate(vo);
 		if (list != 0) {
-			model.addAttribute("msg", "성공");
+			model.addAttribute("msg", "01");
 		} else {
-			model.addAttribute("msg", "실패");
+			model.addAttribute("msg", "02");
 		}
 		return "redirect:boardList";
 

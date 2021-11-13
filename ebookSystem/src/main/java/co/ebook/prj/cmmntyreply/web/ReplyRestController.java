@@ -67,9 +67,9 @@ public class ReplyRestController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		if (result > 0) {
-			map.put("result", "success");
+			map.put("result", "01");
 		} else {
-			map.put("result", "fail");
+			map.put("result", "02");
 		}
 		return map;
 	}
@@ -82,9 +82,9 @@ public class ReplyRestController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		if (result > 0) {
-			map.put("result", "success");
+			map.put("result", "01");
 		} else {
-			map.put("result", "fail");
+			map.put("result", "02");
 		}
 
 		return map;

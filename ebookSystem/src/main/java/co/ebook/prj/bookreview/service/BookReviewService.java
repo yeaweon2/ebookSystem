@@ -17,7 +17,8 @@ public interface BookReviewService {
 	int bookReviewUpdate(BookReviewVO vo);
 
 	int bookReviewDelete(BookReviewVO vo);
-
+	
+	//좋아요
 	int bookReviewLikeItUpdate(BookReviewVO vo);
 	
 	//글카운터

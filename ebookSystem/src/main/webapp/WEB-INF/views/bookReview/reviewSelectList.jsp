@@ -18,8 +18,7 @@
 $(function() {
 	$("#likeItBtn").on("click", function(){
 		var reviewId = $("#reviewId").val();
-
-	 	$.ajax({
+	 	 $.ajax({
 			url : 'reviewLikeItUpdate' ,
 			method : 'POST' ,
 			data : JSON.stringify({ reviewId : reviewId }),
@@ -27,12 +26,12 @@ $(function() {
 			dataType : 'json',
 			success : function(res){
 				console.log(res);
-				 if(res.result=="01"){
+				    if(res.result=="01"){
 					alert("추천완료");	
 					 var likeCnt = $("#LikeIt").text();
 					 $("#LikeIt").text(parseInt(likeCnt)+1);
 					 
-				} 
+				}  
 			}
 		}); 
 	});
@@ -80,12 +79,7 @@ $(function() {
 				
 					<tr>
 					    <!--  프로필 -->
-						<td rowspan="2"><c:if test="${empty member.memberProfilePath}">
-							<img id="proimg1" src="resources/assets/img/noimg.jpg" width="10px;">&nbsp;&nbsp;
-						</c:if>
-						<c:if test="${not empty member.memberProfilePath}">
-							<img id="proimg1" src="${pageContext.request.contextPath}/fileUp/profile/${member.memberProfileNm}" width="10px;">
-						</c:if></td>
+						
 						<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="160"></textarea>
 					</tr>
 					<tr>

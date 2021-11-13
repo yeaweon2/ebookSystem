@@ -142,14 +142,14 @@
 				});
 
 				//FAQ삭제
-				$(".faqDelete")
-						.on(
-								"click",
-								function() {
-									var a = $(this).data("id");
-									location.href = "${pageContext.request.contextPath}/faqDelete?cmmntyId="
-											+ a
-								});
+				$(".faqDelete").on("click",function() {
+				var a = $(this).data("id");
+				if(confirm("정말 삭제 하시겠습니까?") == true){
+				location.href = "${pageContext.request.contextPath}/faqDelete?cmmntyId="+ a
+				}else{
+					return;
+				}
+				});
 
 			}) //끝
 </script>
