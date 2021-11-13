@@ -5,7 +5,7 @@
 	<insert id="payInsert" parameterType="co.ebook.prj.payHistory.vo.PayVO">
 		insert 
 		  into  pay_history
-		  		(pay_id,   
+		  		(pay_id   
 				,mcnfm_id
 				,pay_dt
 				,imp_uid
@@ -23,23 +23,22 @@
 				,#{impUid}
 				,'04'
 				,#{payMthd}
-				,	
-				<if test="payAmt == '100000'">
+				,#{payAmt}
+				,sysdate
+				,
+				<if test="payAmt == '200'">
 				to_char(add_months(sysdate, 1), 'YYYY-MM-DD'),
 				</if>
-				<if test="payAmt == '500000'">
+				<if test="payAmt == '300'">
 				to_char(add_months(sysdate, 3), 'YYYY-MM-DD'),
 				</if>
-				<if test="payAmt == '990000'">
+				<if test="payAmt == '500'">
 				to_char(add_months(sysdate, 12), 'YYYY-MM-DD'),
 				</if>
-				sysdate
-				,#{mcnfmCntrEdt}
-				,sysdate 	
+				sysdate 	
 				,sysdate)
 				
 	</insert>
-
 
 
 </mapper>

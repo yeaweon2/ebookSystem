@@ -6,16 +6,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 
-@Getter
-@Setter
+@Data
 public class ManagerConfirmVO {
 	private int mcnfmId;
 	private String memberId;
-	private Date mcnfmReqDt;
 	private String mcnfmStCd;
 	private String mcnfmStNm;
 	private String mcnfmCnfmr;
@@ -23,19 +20,22 @@ public class ManagerConfirmVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")
 	private Date mcnfmCnfmDt;
+	private Date mcnfmReqDt;
+	private Date mcnfmCntrSdt;
+	private Date mcnfmCntrEdt;
+	private Date insDt;
+	private Date udtDt;
+	
 	private String mcnfmBizno;
 	private String mcnfmCoTel;
 	private String mcnfmCoNm;
 	private String mcnfmRpspr;
 	private String mcnfmCntrFlCd;
 	private String mcnfmCntrFlNm;
-	private Date mcnfmCntrSdt;
-	private Date mcnfmCntrEdt;
 	private String mcnfmReject;
 	private String mcnfmAtchNm;
 	private String mcnfmAtchPath;
 	private String mcnfmAmt;
 	private String mcnfmCnfmrNm; 
-	private Date insDt;
-	private Date udtDt;
+	private int payAmt;
 }

@@ -32,8 +32,6 @@ import co.ebook.prj.subscription.vo.SubscriptionVO;
 @Controller
 public class ManagerConfirmController {
 	
-	@Autowired
-	ManagerConfirmService managerCfDao;
 	
 	@Autowired
 	MemberService memberDao;
@@ -47,6 +45,7 @@ public class ManagerConfirmController {
 	@Autowired
 	ManagerConfirmService manCoDao;
 	
+	
 	@InitBinder
     protected void initBinder(WebDataBinder binder){
         DateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -58,7 +57,7 @@ public class ManagerConfirmController {
 //  매니저목록조회(매니저관리)
 	@RequestMapping("/managerList")
 	public String managerList(Model model) {
-		List<ManagerConfirmVO> lists = managerCfDao.managerSelectList();	
+		List<ManagerConfirmVO> lists = manCoDao.managerSelectList();	
 		
 		model.addAttribute("lists", lists);
 		return "manager/managerList";
@@ -70,9 +69,9 @@ public class ManagerConfirmController {
 	String managerSelect(Model model, ManagerConfirmVO vo, MemberVO mVo) {
 		
 		System.out.println("============" + vo.toString());
-		System.out.println("============" + managerCfDao.managerSelect(vo));
+		System.out.println("============" + manCoDao.managerSelect(vo));
 		model.addAttribute("member", memberDao.memberSelect(mVo));
-		model.addAttribute("managerConfirm", managerCfDao.managerSelect(vo));
+		model.addAttribute("managerConfirm", manCoDao.managerSelect(vo));
 		return "manager/managerSelect";
 	}
 	
@@ -89,7 +88,7 @@ public class ManagerConfirmController {
 			vo.setMcnfmId(Integer.parseInt(managerArr.get(i)));
 
 			System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------" + vo.toString());
-			int result2 = managerCfDao.managerConfirm(vo);
+			int result2 = manCoDao.managerConfirm(vo);
 			
 		}
 	}
@@ -106,10 +105,10 @@ public class ManagerConfirmController {
 		
 		vo.setMemberId((String)session.getAttribute("id"));
 		
-		managerCfDao.managerRegistInsert(vo);
-		managerCfDao.managerconfirmUpdate(vo);
+		manCoDao.managerRegistInsert(vo);
+		manCoDao.managerconfirmUpdate(vo);
 		
-		model.addAttribute("man", managerCfDao.managerSelect(vo));
+		model.addAttribute("man", manCoDao.managerSelect(vo));
 		return "manager/registSelect";
 	}
 
@@ -120,7 +119,7 @@ public class ManagerConfirmController {
 	public String registSelect(Model model, ManagerConfirmVO vo, MemberVO mVo, HttpSession session) {
 		vo.setMemberId((String)session.getAttribute("id"));
 		
-		model.addAttribute("man", managerCfDao.managerSelect(vo));
+		model.addAttribute("man", manCoDao.managerSelect(vo));
 		return "manager/registSelect";
 	}
 	
@@ -137,9 +136,18 @@ public class ManagerConfirmController {
 		System.out.println("여기야여기==============================>"+vo.toString());
 		System.out.println("!!!!!!!!!!!!!여기야여기============================>"+pVo.toString());
 		
+		memberDao.memSubUpdate(vo);
+		manCoDao.manSubUpdate(mVo);
+		manCoDao.managerSelect(mVo);
+		manCoDao.payInsert(pVo);
 		
-		model.addAttribute("pay", memberDao.memSubUpdate(vo));
-		model.addAttribute("manCo", manCoDao.managerUpdate(mVo));
+		model.addAttribute("member", memberDao.memSubUpdate(vo));
+		model.addAttribute("man", manCoDao.manSubUpdate(mVo));
+		
+		System.out.println("!!!!!!-----------------------" +mVo.toString());
+		
+		
+		model.addAttribute("pay", manCoDao.payInsert(pVo));
 		
 		System.out.println("??????????==============================?????????????????????" + vo);
 		
@@ -164,7 +172,7 @@ public class ManagerConfirmController {
 	//	매니저정보수정폼
 	@RequestMapping("managerUpdateForm")
 	public String memberUpdateForm(Model model, ManagerConfirmVO vo, MemberVO mVo, HttpSession session) {
-		vo = managerCfDao.managerSelect(vo);
+		vo = manCoDao.managerSelect(vo);
 		mVo = memberDao.memberSelect(mVo);
 		// vo.setMemberId((String)session.getAttribute("id")); 개인회원 마이페이지수정시에 session필요
 		model.addAttribute("member", mVo);
@@ -177,8 +185,8 @@ public class ManagerConfirmController {
 	@RequestMapping("/managerUpdate")
 	public String managerUpdate(Model model, ManagerConfirmVO vo, MemberVO mVo) {
 		memberDao.memberUpdate(mVo);
-		managerCfDao.managerUpdate(vo);
-		managerCfDao.managerConfirm(vo);
+		manCoDao.managerUpdate(vo);
+		manCoDao.managerConfirm(vo);
 		model.addAttribute("member", mVo);
 		model.addAttribute("managerConfirm", vo);
 		return "redirect:managerList";

@@ -3,6 +3,7 @@ package co.ebook.prj.managerConfirm.mapper;
 import java.util.List;
 
 import co.ebook.prj.managerConfirm.vo.ManagerConfirmVO;
+import co.ebook.prj.payHistory.vo.PayVO;
 
 public interface ManagerConfirmMapper {
 //	매니저전체조회
@@ -22,4 +23,10 @@ public interface ManagerConfirmMapper {
 	
 //	매니저정보수정(매니저정보수정)
 	int managerUpdate(ManagerConfirmVO vo);
+	
+//	매니저계약체결
+	int manSubUpdate(ManagerConfirmVO vo);
+	
+//	결제내역
+	int payInsert(PayVO vo);
 }

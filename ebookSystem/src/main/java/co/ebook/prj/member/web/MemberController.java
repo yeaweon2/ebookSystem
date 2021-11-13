@@ -25,6 +25,7 @@ import co.ebook.prj.managerConfirm.mapper.ManagerConfirmMapper;
 import co.ebook.prj.managerConfirm.vo.ManagerConfirmVO;
 import co.ebook.prj.member.mapper.MemberMapper;
 import co.ebook.prj.member.vo.MemberVO;
+import co.ebook.prj.payHistory.service.PayService;
 import co.ebook.prj.subscription.service.SubscriptionService;
 import co.ebook.prj.subscription.vo.SubscriptionVO;
 
@@ -45,7 +46,6 @@ public class MemberController {
 	
 	@Autowired
 	ManagerConfirmMapper manCoDao;
-	
 
 	
 	
@@ -274,18 +274,16 @@ public class MemberController {
 	
 //	월정액 결제성공 후 데이터 저장
 	@RequestMapping("/SuccessSup") 
-	public String SuccessSup(Model model , ManagerConfirmVO mVo, MemberVO vo, SubscriptionVO sVo, HttpServletRequest request, String args[]) {
+	public String SuccessSup(Model model , MemberVO vo, SubscriptionVO sVo, HttpServletRequest request, String args[]) {
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));
 		sVo.setMemberId((String)session.getAttribute("id"));
-		mVo.setMemberId((String)session.getAttribute("id"));
 
 		System.out.println("여기야여기==============================>"+vo.toString());
 		System.out.println("여기야여기============================>"+sVo.toString());
 		
 		
 		model.addAttribute("member", memberDao.memSubUpdate(vo));
-		model.addAttribute("manCo", manCoDao.managerUpdate(mVo));
 		model.addAttribute("sub", subDao.subInsert(sVo));
 		System.out.println("==============================?????????????????????" + vo);
 		

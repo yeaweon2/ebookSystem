@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>회원목록</title>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="resources/js/form-validation.js"></script>
 <script type="text/javascript">
 

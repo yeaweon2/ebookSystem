@@ -10,7 +10,6 @@
 <title>개인회원가입 폼</title>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/form-validation.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 

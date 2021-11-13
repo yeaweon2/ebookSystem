@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>매니저회원 상세보기</title>
 
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script src="resources/js/form-validation.js"></script>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>

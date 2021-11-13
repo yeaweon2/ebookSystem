@@ -114,7 +114,7 @@
                             <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">MY PAGE <span class="pe-7s-angle-down"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="myInfo">나의정보관리</a></li>
-                                <c:if test="${cnfmYn eq 'N' && empty mcnId }">
+                                <c:if test="${cnfmYn eq 'N' && empty mcnEd }">
                                 <li><a href="managerRegist">매니저신청</a></li>
                                 </c:if>
                             </ul>

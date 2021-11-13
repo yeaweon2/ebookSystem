@@ -10,6 +10,7 @@ import co.ebook.prj.managerConfirm.service.ManagerConfirmService;
 import co.ebook.prj.managerConfirm.vo.ManagerConfirmVO;
 import co.ebook.prj.member.mapper.MemberMapper;
 import co.ebook.prj.member.vo.MemberVO;
+import co.ebook.prj.payHistory.vo.PayVO;
 
 @Repository
 public class ManagerConfirmServiceImpl implements ManagerConfirmService {
@@ -61,5 +62,15 @@ public class ManagerConfirmServiceImpl implements ManagerConfirmService {
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" + vo + mVo);
 		mapp.confirmUpdate(mVo);
 		return map.managerUpdate(vo);
+	}
+
+	@Override
+	public int manSubUpdate(ManagerConfirmVO vo) {
+		return map.manSubUpdate(vo);
+	}
+
+	@Override
+	public int payInsert(PayVO vo) {
+		return map.payInsert(vo);
 	}
 }

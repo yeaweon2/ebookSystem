@@ -53,7 +53,6 @@ select {
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
 
 $(document).ready(function(){
@@ -247,7 +246,7 @@ $(document).ready(function(){
 							<th>계약시작일자</th>
 							<th>계약종료일자</th>
 							<th>계약예상가격</th>
-							<c:if test="${not empty mcnId }">
+							<c:if test="${not empty man.mcnfmCnfmDt}">
 							<th>구분</th>
 							</c:if>
 						</tr>
@@ -263,7 +262,7 @@ $(document).ready(function(){
 								<td>${man.mcnfmCntrSdt}</td>
 								<td>${man.mcnfmCntrEdt}</td>
 								<td>${man.mcnfmAmt }</td>
-								<c:if test="${not empty mcnId }">
+									<c:if test="${not empty man.mcnfmCnfmDt}">
 								<td><button type="button" id="payImport" class="btn ebookBtn" >계약하기</button></td>
 								</c:if>
 							</tr>

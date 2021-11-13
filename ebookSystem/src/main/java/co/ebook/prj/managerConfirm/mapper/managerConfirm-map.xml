@@ -88,4 +88,62 @@
 		 where  member_id = #{memberId}	
 	</update>
 	
+	
+	<update id="manSubUpdate" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
+		update  manager_confirm
+		   set  
+		   		mcnfm_st_cd = '04',
+		   		mcnfm_cntr_sdt = sysdate,
+		   		<if test="payAmt == '200'">
+				mcnfm_cntr_edt =  to_char(add_months(sysdate, 1), 'YYYY-MM-DD'),
+				</if>
+				<if test="payAmt == '300'">
+				mcnfm_cntr_edt =  to_char(add_months(sysdate, 6), 'YYYY-MM-DD'),
+				</if>
+				<if test="payAmt == '500'">
+				mcnfm_cntr_edt =  to_char(add_months(sysdate, 12), 'YYYY-MM-DD'),
+				</if>
+				udt_dt   = sysdate
+		 where  member_id = #{memberId}	
+	</update>
+	
+	
+	<insert id="payInsert" parameterType="co.ebook.prj.payHistory.vo.PayVO">
+		insert 
+		  into  pay_history
+		  		(pay_id   
+				,mcnfm_id
+				,pay_dt
+				,imp_uid
+				,pay_st_cd
+				,pay_mthd
+				,pay_amt
+				,mcnfm_cntr_sdt
+				,mcnfm_cntr_edt
+				,ins_dt
+				,udt_dt)
+						  		
+		values  (pay_seq.nextval
+				,mancon_seq.nextval
+				,sysdate
+				,#{impUid}
+				,'04'
+				,#{payMthd}
+				,#{payAmt}
+				,sysdate
+				,
+				<if test="payAmt == '200'">
+				to_char(add_months(sysdate, 1), 'YYYY-MM-DD'),
+				</if>
+				<if test="payAmt == '300'">
+				to_char(add_months(sysdate, 3), 'YYYY-MM-DD'),
+				</if>
+				<if test="payAmt == '500'">
+				to_char(add_months(sysdate, 12), 'YYYY-MM-DD'),
+				</if>
+				sysdate
+				,sysdate)
+				
+	</insert>
+	
 </mapper>
