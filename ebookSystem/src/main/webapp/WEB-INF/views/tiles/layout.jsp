@@ -46,7 +46,8 @@
     <title>e로운생활</title>
 	
 	
-	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <!-- Bootstrap Core CSS -->
     <link href="resources/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/assets/css/animate.css" rel="stylesheet">
