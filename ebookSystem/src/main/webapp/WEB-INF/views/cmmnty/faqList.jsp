@@ -24,7 +24,7 @@
 	color: #242424;
 	cursor: pointer;
 	padding: 18px;
-	width: 800px;
+	width: 90%;
 	border: none;
 	text-align: left;
 	outline: none;

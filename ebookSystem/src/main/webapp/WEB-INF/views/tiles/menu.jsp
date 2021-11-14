@@ -83,7 +83,6 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="myInfo">개인정보관리</a></li>
                                 <li><a href="lendList">나의대여목록</a></li>
-                                <li><a href="#">내글관리</a></li>
                             </ul>
                         </li>   
 					</c:if>        
