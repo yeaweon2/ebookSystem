@@ -13,6 +13,42 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
+	
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	$(function(){
+		$("#loginBtn").on("click", function(){
+			event.preventDefault();
+
+			frm.submit();
+		});
+	
+	});
+	
+	
+	  
+	 
+    $("#memberId").keydown(function(e) {
+		if (e.keyCode == 13) {
+			alert("비밀번호를 입력하세요");
+		}
+	});
+
+    
+      
+    $("#memberPw").keydown(function(e) {
+			if (e.keyCode == 13) {
+				$("#loginBtn").trigger('click');
+			}
+	});
+
+});   
+
+</script>
+
 <style>
 .btn-social-login {
   transition: all .2s;
@@ -203,11 +239,11 @@ fieldset, img {
         <form  action="loginProc" method="post" name="findform" id="frm" >
             <div class="box_login">
                 <div class="inp_text">
-                <label for="id" class="screen_out">아이디</label>
-                <input type="email" id="memberId" name="memberId" placeholder="ID">
+                <label for="memberId" class="screen_out">아이디</label>
+                <input type="text" id="memberId" name="memberId" placeholder="ID">
                 </div>
                 <div class="inp_text">
-                <label for="loginPw" class="screen_out">비밀번호</label>
+                <label for="memberPw" class="screen_out">비밀번호</label>
                 <input type="password" id="memberPw" name="memberPw" placeholder="Password">
                 </div>
             </div><br>
@@ -241,22 +277,9 @@ fieldset, img {
     </div>
 </div>
 </div><br><br><br><br><br>
- <script type='text/javascript'>
-       
-    $("#memberId").keydown(function(e) {
-		if (e.keyCode == 13) {
-			alert("비밀번호를 입력하세요");
-		}
-	});
-
+<script type="text/javascript">
+  
     
-      
-    $("#memberPw").keydown(function(e) {
-			if (e.keyCode == 13) {
-				$("#loginBtn").trigger('click');
-			}
-	});
-
     
     	//카카오 로그인
         //<![CDATA[
@@ -275,7 +298,6 @@ fieldset, img {
         	
         });
       //]]>
-    	
     </script>
 </body>
 </html>
