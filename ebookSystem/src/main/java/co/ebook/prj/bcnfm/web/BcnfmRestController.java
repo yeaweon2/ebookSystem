@@ -24,13 +24,39 @@ public class BcnfmRestController {
 	
 	// BOOK 등록후 승인 신청
 	@RequestMapping(value="/bookCnfrmReq" , method=RequestMethod.POST) 
-	public void bookCnfrmReq(Model model , @RequestParam(value="tdArr[]") List<String> tdArr) {
+	public HashMap<String,Object> bookCnfrmReq(Model model , @RequestParam(value="tdArr[]") List<String> tdArr) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
 		BcnfmVO vo;
+		int cnt = 0;
 		for(int i = 0; i < tdArr.size() ; i++ ) {
 			vo = new BcnfmVO();
 			vo.setBookId(tdArr.get(i));
-			bcnfmDao.bcnfmInsert(vo);
+			
+			BcnfmVO result = bcnfmDao.bcnfmReqDuplChk(vo);
+			if( result.getBcnfmId() == 0 ) {		// 미처리건 ==> insert
+				bcnfmDao.bcnfmInsert(vo);	
+			}else {
+				if("01".equals(result.getBcnfmStCd())){		// 처리중일경우 break
+					map.put("bookNm", vo.getBookNm());
+					map.put("bcnfmStCd", "01");
+					break;
+				}else if("02".equals(result.getBcnfmStCd())){	// 승인완료건	break
+					map.put("bookNm", vo.getBookNm());
+					map.put("bcnfmStCd", "02");
+					break;
+				}else {					// 보류건	==> insert
+					bcnfmDao.bcnfmInsert(vo);
+				}
+			}
+			cnt++;
 		}
+		
+		if( tdArr.size() == cnt ) {
+			map.put("bookNm", "all");
+			map.put("bcnfmStCd", "00");	
+		}
+		
+		return map;
 	}
 	
 	// 관리자 승인 처리

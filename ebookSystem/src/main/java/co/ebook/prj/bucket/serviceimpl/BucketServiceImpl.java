@@ -9,6 +9,7 @@ import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.bucket.mapper.BucketMapper;
 import co.ebook.prj.bucket.service.BucketService;
 import co.ebook.prj.bucket.vo.BucketVO;
+import co.ebook.prj.bucket.vo.RutinListVO;
 import co.ebook.prj.bucket.vo.RutinVO;
 
 @Repository
@@ -72,5 +73,13 @@ public class BucketServiceImpl implements BucketService {
 		return map.bookBucketRutin(vo);
 	}
 
+	@Override
+	public List<RutinListVO> bookLendRutinList(RutinVO vo) {
+		return map.bookLendRutinList(vo);
+	}
 
+	@Override
+	public List<RutinListVO> bookBucketRutinList(RutinVO vo) {
+		return map.bookBucketRutinList(vo);
+	}
 }

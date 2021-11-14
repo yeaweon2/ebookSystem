@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.bucket.vo.BucketVO;
+import co.ebook.prj.bucket.vo.RutinListVO;
 import co.ebook.prj.bucket.vo.RutinVO;
 
 public interface BucketService {
@@ -34,6 +35,12 @@ public interface BucketService {
 	List<RutinVO> bookLendRutin(RutinVO vo);
 	
 	List<RutinVO> bookBucketRutin(RutinVO vo);
+	
+	List<RutinListVO> bookLendRutinList(RutinVO vo);
+	
+	List<RutinListVO> bookBucketRutinList(RutinVO vo);
+	
+	
 	
 }
 

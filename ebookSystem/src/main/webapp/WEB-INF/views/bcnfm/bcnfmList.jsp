@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 	  display: none; /* Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 1; /* Sit on top */
-	  padding-top: 100px; /* Location of the box */
+	  padding-top: 50px; /* Location of the box */
 	  left: 0;
 	  top: 0;
 	  width: 100%; /* Full width */
@@ -28,7 +29,7 @@
 	  margin: auto;
 	  width: 50%; /* Full width */
 	  height: 30%; /* Full height */	  
-	  padding: 40px;
+	  padding: 30px;
 	  border: 1px solid #888;
 	}
 	
@@ -36,7 +37,7 @@
 	.close {
 	  color: #aaaaaa;
 	  float: right;
-	  font-size: 28px;
+	  font-size: 40px;
 	  font-weight: bold;
 	}
 	
@@ -53,6 +54,60 @@ select {
 </style>
 <script type="text/javascript">
 	$(function(){
+		
+		$.ajax({
+			url: 'ctgyLcodeList',    
+			method: 'GET',
+			contentType : 'application/json;charset=utf-8',
+			dataType: 'json',
+			success: function(res){
+				
+				$("#lcodeSelBox").empty();
+				
+				$("#lcodeSelBox").append($("<option>").val("").text("전체"));
+				$.each(res, function(idx,item){
+					$("#lcodeSelBox").append($("<option>").val(item.ctgyId).text(item.ctgyNm)); 
+				});
+				
+				
+				$("#lcodeSelBox").change();
+			}
+		});
+
+		// 대분류 카테고리 선택시 소분류 select box에 셋팅 -------------------------------------------------------------------------------- 
+		$("#lcodeSelBox").on("change", function(){
+			var ctgyGrId = $(this).find("option:selected").val();
+			$("#ctgyGrId").val($(this).find("option:selected").val());
+				
+			$.ajax({
+				url: 'ctgyDetailList',    
+				method: 'POST',
+				data : JSON.stringify({ ctgyGrId : ctgyGrId }),
+				contentType : 'application/json',
+				dataType: 'json',
+				success: function(res){
+					
+					$("#scodeSelBox").empty();
+					$("#scodeSelBox").append($("<option>").val("").text("전체"));
+					$.each(res, function(idx,item){
+						$("#scodeSelBox").append($("<option>").val(item.ctgyId).text(item.ctgyNm));
+					});
+					$("#ctgyId").val($("#scodeSelBox").find("option:selected").val());
+				}
+			});
+		});
+		
+		// 소분류 카테고리 선택시 카테고리 값 셋팅 -------------------------------------------------------------------------------
+		$("#scodeSelBox").on("change", function(){
+			$("#ctgyId").val($(this).find("option:selected").val());
+		});
+		
+		
+		$("#srchCnfmCd").on("change", function(){
+			$("#bcnfmStCd").val($(this).find("option:selected").val());
+		});
+		
+		
 		$("#cnfmBtn").on("click", function(){
 			var chkCnt = 0;
 			var book = [];
@@ -75,11 +130,19 @@ select {
 			
 			console.log(book);
 			if( book == null ){
-				alert("승인처리건을 선택한 후 진행해주세요.");
+				Swal.fire({ 
+				   icon: 'error',  
+				   title: '선택된 건이 없습니다.',  
+				   text: '승인처리건을 선택한 후 진행해주세요.',  
+				});			
 				return false;
 			}
 			if( chkCnt > 0 ){
-				alert("파일이 등록되지 않은 BOOK은 승인할 수 없습니다.");
+				Swal.fire({ 
+				   icon: 'error',  
+				   title: '파일 미등록 BOOK',  
+				   text: '파일이 등록되지 않은 BOOK은 승인할 수 없습니다.',  
+				});				
 				return false;	
 			}
 			
@@ -91,6 +154,12 @@ select {
 				dataType : 'json' ,
 				success : function(data){
 					console.log(data);
+					
+					Swal.fire({ 
+					   icon: 'success',  
+					   title: '승인완료!!',  
+					   text: '정상적으로 승인처리되었습니다.',  
+					});					
 				}
 			}); 
 		});
@@ -99,7 +168,11 @@ select {
 			$("#myModal").css("display", "none");
 			var rejectMsg = $("#rejectMsg").val();
 			if(rejectMsg == ""){
-				alert("보류사유를 작성해주세요.");
+				Swal.fire({ 
+				   icon: 'error',  
+				   title: '보류사유 미입력',  
+				   text: '승인 보류 사유를 작성한 후 진행해주세요.',  
+				});				
 				return false;
 			}
 			
@@ -118,8 +191,13 @@ select {
 				book.push(data);
 		    });
 			
+			console.log(book);
 			if( book == null ){
-				alert("승인처리건을 선택한 후 진행해주세요.");
+				Swal.fire({ 
+				   icon: 'error',  
+				   title: '선택된 건이 없습니다.',  
+				   text: '승인처리건을 선택한 후 진행해주세요.',  
+				});				
 				return false;
 			}
 			
@@ -131,12 +209,13 @@ select {
 				dataType : 'json' ,
 				success : function(data){
 					console.log(data);
+					Swal.fire({ 
+					   icon: 'success',  
+					   title: '승인보류완료!!',  
+					   text: '정상적으로 보류 처리되었습니다.',  
+					});						
 				}
 			}); 
-		});
-		
-		$("#bcnfmTb").find("tbody").on("click", ".chkTd", function(){
-			event.stopPropagation();
 		});
 		
 		$("#bcnfmTb").find("tbody").on("click", "tr", function(){
@@ -146,9 +225,21 @@ select {
 			$("#frm").find("#bookId").val(bookId);
 			frm.submit();
 		});
+		
+		$("#bcnfmTb").find("tbody").on("click", ".chkTd", function(){
+			event.stopPropagation();
+		});
+		
+		$("#srchBtn").on("click", function(){
+			goList(1);
+		});
 	});
 	
-	
+function goList(p) {
+	searchFrm.page.value = p;
+	searchFrm.submit();
+	location.href="bcnfmList?page="+p;
+}	
 
 </script>
 </head>
@@ -163,38 +254,97 @@ select {
 	        	</div>
 			</div>
 			<div class="row srchBox">
-
-						<table >
-							<tr>
-								<th width="100px">신청일자 : </th>
-								<td><input type="date" id="srchDate"></td>
-								<th>검색조건 : </th>
-								<td><input type="text" id="srchTxt"></td>
-								<th>BOOK구분 : </th>
-								<td>
-									<input type="radio" id="bookFlCd" name="bookFlCd" value="ALL" checked >전체
-									<input type="radio" id="bookFlCd" name="bookFlCd" value="E" >eBook
-									<input type="radio" id="bookFlCd" name="bookFlCd" value="A" >오디오북
-								</td>
-							</tr>
-							<tr>
-								<th>승인일자</th>
-								<td><input type="date" id="srchDate"></td>
-								<th>신청자</th>
-								<td><input type="text" id="srchTxt"></td>
-								<th>승인상태</th>
-								<td>
-									<select id="srchCnfmCd" class="form-select form-select-sm">
-										<option value="00" selected>전체</option>
-										<option value="04">미신청</option>
-										<option value="01">처리중</option>
-										<option value="03">보류</option>
-										<option value="02">승인</option>
-									</select>
-								</td>
-							</tr>
-						</table>
-					
+				<form name="searchFrm" action="bcnfmList" method="post">
+						<div class="col-md-9">
+							<div class="row">
+								<div class="col-md-6" style="padding-left:0;">	
+									<div class="col-md-3">		
+										<label>카테고리 :</label>
+									</div>
+									<div class="col-md-9">
+										<select id="lcodeSelBox" class="form-control" style="float:left;width:150px;margin-right:10px"></select><select id="scodeSelBox" class="form-control" style="float:left;width:150px;" ></select>
+									</div>
+									<input type="hidden" id="ctgyId" name="ctgyId" >
+									<input type="hidden" id="ctgyGrId" name="ctgyGrId" >
+								</div>
+								<div class="col-md-6">
+									<label style="margin-right:20px">BOOK구분 : </label>
+									<input id="all" name="bookFlCd" type="radio" value="" class="form-check-input" checked required>
+									<label class="form-check-label" for="all">전체</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input id="eBook" name="bookFlCd" type="radio" value="E" class="form-check-input" required>
+									<label class="form-check-label" for="eBook">eBook</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input id="audioBook" name="bookFlCd" type="radio" value="A" class="form-check-input" required>
+									<label class="form-check-label" for="audioBook">오디오북</label>
+								</div>
+							</div>
+							<div class="row" >
+								<div class="col-md-6" style="padding-left:0px">
+									<div class="col-md-3" >
+										<label> 검색조건 : </label>
+									</div>
+									<div class="col-md-3" style="margin-left:0px">
+										<select id="srchVal" class="form-control" style="width:100px;">
+											<option value="01" selected>제목</option>
+											<option value="02">출판사</option>
+											<option value="03">저자</option>
+										</select>
+									</div>
+									<div class="col-md-6" style="margin-left:0px">
+										<input type="text" id="srchTxt" class="form-control" >
+									</div>
+								</div>
+								<div class="col-md-6" >
+									<div class="col-md-3" style="padding-left:0px; padding-right:0px;"> 
+										<label>승인상태 : </label>
+									</div>
+									<div class="col-md-9" style="padding-left:0px">
+										<select id="srchCnfmCd" class="form-control" style="width:120px;padding-left:0px">
+											<option value="00" selected>전체</option>
+											<option value="04">미신청</option>
+											<option value="01">처리중</option>
+											<option value="03">보류</option>
+											<option value="02">승인</option>
+										</select>
+										<input type="hidden" id="bcnfmStCd" name="bcnfmStCd" >
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6" style="padding-left:0;"> 
+									<div class="col-md-3">		
+										<label>신청일자 :</label>
+									</div>
+									<div class="col-md-4" style="padding-left:0;">		
+										<input id="bcnfmReqSDt" name="bcnfmReqSDt" type="date" class="bcnfmReqSDt form-control" style="width:180px;float:left;"> 
+									</div>
+									<div class="col-md-1" style="align-items : center;">
+										<h3>~</h3>
+									</div>
+									<div class="col-md-4" style="padding-left:0;">
+										<input id="bcnfmReqSDt" name="bcnfmReqEDt" type="date" class="bcnfmReqEDt form-control" style="width:180px">
+									</div>
+								</div>
+								<div class="col-md-6" style="padding-left:0;">
+									<div class="col-md-3">		
+										<label>승인일자 :</label>
+									</div>
+									<div class="col-md-4" style="padding-left:0;">		
+										<input id="bcnfmCnfmSDt" name="bcnfmCnfmSDt" type="date" class="bcnfmCnfmSDt form-control" style="width:180px;float:left;"> 
+									</div>
+									<div class="col-md-1" style="align-items : center;">
+										<h3>~</h3>
+									</div>
+									<div class="col-md-4" style="padding-left:0;">
+										<input id="bcnfmCnfmEDt" name="bcnfmCnfmEDt" type="date" class="bcnfmCnfmEDt form-control" style="width:180px">
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-md-3">
+						<button type="button" id="srchBtn" class="btn ebookBtn-sm" >조회</button>
+					</div>	
+					<input type="hidden" name="page" value="1"> 
+				</form>
 			</div>				
 			<div class="row pull-right" style="margin-top:10px;margin-bottom:10px;">
 				<button type="button" id="cnfmBtn" class="btn ebookBtn">승 인</button>
@@ -203,17 +353,19 @@ select {
 				
 			<div class="row">
 				<table id="bcnfmTb" class="table table-hover" style="cursor: pointer;">
-						<tr>
-							<th></th>
-							<th>No</th>
-							<th>신청일자</th>
-							<th>신청자</th> 
-							<th>BOOK명</th>
-							<th>파일갯수</th>
-							<th>상태</th>
-							<th>승인일자</th>
-							<th>승인자</th>
-						</tr>
+						<thead>
+							<tr>
+								<th></th>
+								<th>No</th>
+								<th>신청일자</th>
+								<th>신청자</th> 
+								<th>BOOK명</th>
+								<th>파일갯수</th>
+								<th>상태</th>
+								<th>승인일자</th>
+								<th>승인자</th>
+							</tr>
+						<thead>
 						<tbody>
 							<c:forEach var="list" items="${lists}" >
 								<tr data-bcnfmid="${list.bcnfmId}" data-bookid="${list.bookId}" data-filecnt="${list.fileCnt}">
@@ -252,6 +404,9 @@ select {
 						</tbody>
 					</table>
 			</div>
+			<div id="pagingDiv" class="row" style="text-align: center;" >
+				<my:paging jsFunc="goList" paging="${paging}" />  
+			</div>				
 		</div>
 	</div>	
 </section>	
@@ -259,10 +414,25 @@ select {
 <div id="myModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
-    <span id="close" class="close">&times;</span>
-    <p>승인 보류 사유를 입력해주세요.</p>
-    <input type="text" id="rejectMsg" name="rejectMsg">
-    <button type="button" id="rejectBtn" class="btn btn-primary">확인</button>
+  	<div class="row">
+    	<span id="close" class="close" style="color:black;font-size:40px;">&times;</span>
+    </div>
+	<div class="row mb-1">
+		<div class="section-header col-sm-8" style="height:20px">
+			<h4><img width="40px" height="40px" src="resources/img/bcnfmReject.png"> 승인 보류 사유를 입력해주세요.</h4>
+		</div>
+		<div class="col-sm-4" style="padding-left:0">
+    		<button type="button" id="rejectBtn" class="btn ebookBtn-sm pull-left">확인</button>
+    	</div>	
+	</div>	    
+    <div class="row" style="margin-top:30px">
+    	<div class="col-sm-12">
+    		<textarea id="rejectMsg" name="rejectMsg" rows="4" cols="60"></textarea>
+    	</div>
+    	
+    </div>
+    
+    
   </div>
 </div>
 <form action="bookUpdateForm" method="post" id="frm">

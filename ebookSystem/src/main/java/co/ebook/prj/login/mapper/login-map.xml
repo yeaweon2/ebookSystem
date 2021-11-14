@@ -16,15 +16,10 @@
              , a.member_profile_path
              , a.member_profile_nm
              , a.member_mile
-             , c.subsp_edt
-             , b.mcnfm_cntr_edt
-   		  FROM 
-   		  		member             a
-   		  	   , manager_confirm   b
-   		  	   , subscription      c
-		 WHERE a.member_id = b.member_id (+)
-    	   and a.member_id = c.member_id (+)
-  		   and a.member_id = #{memberId}
+    		 , ( select max(subsp_edt) from  subscription where member_id = #{memberId} ) as subsp_edt 
+    		 , ( select max(mcnfm_cntr_edt) from manager_confirm where member_id = #{memberId} ) as mcnfm_cntr_edt
+   		  FROM member             a
+		 WHERE a.member_id = #{memberId}
    		   and a.member_pw = #{memberPw}
 	
 	</select>

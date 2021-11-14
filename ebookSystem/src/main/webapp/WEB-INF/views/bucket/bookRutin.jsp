@@ -54,9 +54,6 @@
 }
 </style>
 <script type="text/javascript">
-	console.log(`${lendRutin}`);
-	console.log(`${lendRutin}`);
-	console.log(`${bucketRutin}`);
 	
 	var today = `${todayMM}`;
 	var yy = today.substring(0,4);
@@ -111,14 +108,15 @@
 			}
 
 			var grMM = "";
-			if( parseInt(mm)  < 10 ){
+			if( parseInt($("#mm").html())  < 10 ){
 				grMM = "0" + $("#mm").html()
 			}else{
 				grMM = $("#mm").html();
 			}
 			
 			var	grDt = $("#yy").html() + grMM; 
-
+			console.log( grMM + " / " + grDt + " / " + $("#mm").html());
+			
 			$.ajax({
 				url : 'bookRestRutin' ,
 				method : 'POST' ,
@@ -126,12 +124,10 @@
 				contentType : 'application/json',					
 				dataType : 'json',
 				success : function(res){
-					console.log(res);
-					console.log(res.bucketRutin);
-					console.log(res.lendRutin);
-					console.log(res.loginRutin);
 					
-					console.log(res.bucketRutin.length);
+					$("#lendList").find("tbody").empty();
+					$("#bucketList").find("tbody").empty();
+					
 					if(res.bucketRutin.length > 0){
 						if( res.bucketRutin.length == 1 ){
 							$("#bucketDoneCnt").html("0 회 / ");
@@ -143,6 +139,14 @@
 								$("#bucketDoneCnt").html(item.rutinCnt+ "회 / ");	
 							}
 						});
+						
+						$.each(res.bucketRutinList,function(idx,item){
+							$("#bucketList").find("tbody").append( $("<tr>")
+												.append( $("<td>").append($("<img width='50' height='70'>").attr("src" , "/prj/fileUp" + item.bookCoverPath + item.bookCover ) ) )
+												.append( $("<td>").html("<label>" + item.bookNm + "</label><br/>" + item.bookPublCo + "(" + item.bookWriter + ")" )) 
+												.append( $("<td>").html(item.bucketDoneDt)  )
+										)
+						});						
 					}else{
 						$("#bucketAllCnt").html("/ 0 회");	
 						$("#bucketDoneCnt").html("0 회");	
@@ -152,6 +156,15 @@
 						$.each(res.lendRutin,function(idx,item){
 							$("#lendCnt").html(item.rutinCnt+ "회");
 						});	
+						
+						$.each(res.lendRutinList,function(idx,item){
+							$("#lendList").find("tbody")
+										.append( $("<tr>")
+											.append( $("<td>").append($("<img width='50' height='70'>").attr("src" , "/prj/fileUp" + item.bookCoverPath + item.bookCover ) ) )
+											.append( $("<td>").html("<label>" + item.bookNm + "</label><br/>" + item.bookPublCo + "(" + item.bookWriter + ")" ))
+											.append( $("<td>").html(item.insDt)  )
+							)
+						});						
 					}else{
 						$("#lendCnt").html("0 회");
 					}
@@ -163,6 +176,10 @@
 					}else{
 						$("#loginCnt").html("0 회");
 					}
+					
+					
+					
+					
 				}
 			});
 		});
@@ -193,14 +210,15 @@
 			}
 			
 			var grMM = "";
-			if( parseInt(mm)  < 10 ){
+			if( parseInt($("#mm").html())  < 10 ){
 				grMM = "0" + $("#mm").html();
 			}else{
 				grMM = $("#mm").html();
 			}
 			
 			var	grDt = $("#yy").html() + grMM; 
-
+			console.log( grMM + " / " + grDt + " / " + $("#mm").html());
+			
 			$.ajax({
 				url : 'bookRestRutin' ,
 				method : 'POST' ,
@@ -209,11 +227,10 @@
 				dataType : 'json',
 				success : function(res){
 					console.log(res);
-					console.log(res.bucketRutin);
-					console.log(res.lendRutin);
-					console.log(res.loginRutin);
 					
-					console.log(res.bucketRutin.length);
+					$("#lendList").find("tbody").empty();
+					$("#bucketList").find("tbody").empty();
+					
 					if(res.bucketRutin.length > 0){
 						if( res.bucketRutin.length == 1 ){
 							$("#bucketDoneCnt").html("0 회 / ");
@@ -226,15 +243,33 @@
 								$("#bucketDoneCnt").html(item.rutinCnt+ "회 / ");	
 							}
 						});
+						
+						$.each(res.bucketRutinList,function(idx,item){
+							$("#bucketList").find("tbody").append( $("<tr>")
+												.append( $("<td>").append($("<img width='50' height='70'>").attr("src" , "/prj/fileUp" + item.bookCoverPath + item.bookCover ) ) )
+												.append( $("<td>").html("<label>" + item.bookNm + "</label><br/>" + item.bookPublCo + "(" + item.bookWriter + ")" ))
+												.append( $("<td>").html(item.bucketDoneDt)  )
+										)
+						});
 					}else{
 						$("#bucketAllCnt").html("/ 0 회");	
-						$("#bucketDoneCnt").html("0 회");	
+						$("#bucketDoneCnt").html("0 회");
 					}
 					
 					if(res.lendRutin.length > 0){
 						$.each(res.lendRutin,function(idx,item){
 							$("#lendCnt").html(item.rutinCnt+ "회");
-						});	
+														
+						});
+						
+						$.each(res.lendRutinList,function(idx,item){
+							$("#lendList").find("tbody")
+								.append( $("<tr>")
+									.append( $("<td>").append($("<img width='50' height='70'>").attr("src" , "/prj/fileUp" + item.bookCoverPath + item.bookCover ) ) )
+									.append( $("<td>").html("<label>" + item.bookNm + "</label><br/>" + item.bookPublCo + "(" + item.bookWriter + ")" ))
+									.append( $("<td>").html(item.insDt)  )
+								)
+						});
 					}else{
 						$("#lendCnt").html("0 회");
 					}
@@ -260,12 +295,12 @@
 <section>
 	<div class="section-inner">		
 		<div class="container">
-			<div class="row mb-1" style="margin-top: 20px">
-				<div class="section-header" style="height:20px">
+			<div class="row mb-1" >
+				<div class="section-header" >
 	          		<h2><img width="50px" height="50px" src="resources/img/books.png"> ${nicknm}님의 독서루틴</h2>
 	        	</div>
 			</div>	
-			<div class="row " >
+			<div class="row" >
 				<div class="col-sm-1" style="width:350px"> 
 				<label class="today" style="top:580px;left:470px;"><span id="yy"></span>년 <span id="mm"></span>월</label>
 				</div>
@@ -333,6 +368,65 @@
 				</div>
 				<div class="col-sm-1"> 
 				
+				</div>
+			</div>
+			<div class="row box" style="top:-50">
+				<div class="col-sm-5">
+					<div class="row mb-1" >
+						<div class="section-header" >
+			          		<h2><img width="40px" height="40px" src="resources/img/lendTitle.png"> ${nicknm}님의 대여내역</h2>
+			        	</div>
+					</div>	
+					<div class="row">
+						<table id="lendList" class="table">
+							<thead>
+								<tr>
+								<td colspan="2">대여BOOK</td>
+								<td>대여일자</td>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="lendList" items="${lendRutinList}" >
+									<tr>
+										<td>
+											<img width="50" height="70" src="/prj/fileUp${lendList.bookCoverPath}${lendList.bookCover}">
+										</td>
+										<td><label>${lendList.bookNm}</label><br>${lendList.bookPublCo}(${lendList.bookWriter})</td>
+										<td>${lendList.insDt}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-sm-5 col-sm-offset-1">
+					<div class="row mb-1">
+						<div class="section-header" >
+			          		<h2><img width="40px" height="40px" src="resources/img/bucketTitle.png"> ${nicknm}님의 버킷BOOK</h2>
+			        	</div>
+					</div>
+					<div class="row">
+						<table id="bucketList" class="table">
+							<thead>
+								<tr>
+								<td colspan="2">버킷BOOK</td>
+								<td>버킷완료일자</td>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="bucketList" items="${bucketRutinList}" >
+									<tr>
+										<td>
+											<img width="50" height="70" src="/prj/fileUp${bucketList.bookCoverPath}${bucketList.bookCover}">
+										</td>
+										<td><label>${bucketList.bookNm}</label><br>${bucketList.bookPublCo}(${bucketList.bookWriter})</td>
+										<td>${bucketList.bucketDoneDt}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					
+					</div>
 				</div>
 			</div>
 		</div>

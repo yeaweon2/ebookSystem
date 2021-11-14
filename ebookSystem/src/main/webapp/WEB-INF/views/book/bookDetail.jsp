@@ -566,7 +566,7 @@ ul.sidenav li a:hover {
 						<li><a href="bookReviewList">BOOK REVIEW</a></li>						
 					</ul>
 				</div>
-				<div class="col-sm-9">
+				<div class="col-sm-9" style="margin-left:0">
 					<div class="row">
 						<div class="col-sm-4" >
 							<img width="240" height="270" style="margin-top:20px" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}">

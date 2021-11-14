@@ -6,7 +6,7 @@ import co.ebook.prj.bcnfm.vo.BcnfmVO;
 
 public interface BcnfmMapper {
 	
-	List<BcnfmVO> bcnfmList();
+	List<BcnfmVO> bcnfmList(BcnfmVO vo);
 	
 	BcnfmVO bcnfmDetail(BcnfmVO vo);
 	
@@ -17,4 +17,8 @@ public interface BcnfmMapper {
 	int bcnfmDelete(BcnfmVO vo);
 	
 	int bcnfmIdUpdate(BcnfmVO vo);
+	
+	int bcnfmListCount(BcnfmVO vo); 
+	
+	BcnfmVO bcnfmReqDuplChk(BcnfmVO vo);
 }

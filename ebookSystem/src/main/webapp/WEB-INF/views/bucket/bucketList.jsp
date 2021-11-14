@@ -152,17 +152,22 @@ font-weight: bold;
 				contentType : 'application/json',					
 				dataType : 'json',
 				success : function(res){					
-					console.log(res);
-					console.log(res.result);
-					console.log(res.bucket.bucketDoneDt);
-					console.log(item);
+					
+					Swal.fire({ 
+					   icon: 'success',  
+					   title: '버킷완료!!',  
+					   text: '정상적으로 등록되었습니다.',  
+					});
+					
 					item.siblings(".doneYn").html("완료일자 : " + res.bucket.bucketDoneDt).css("color", "red");
 					item.addClass("hidden");
 					item.siblings("#bucketDoneCancel").removeClass("hidden");
 					
 					item.closest("tr").find("td:first")
 							.append( $("<div style='position: relative;left:50px; top: -130px;height:50px;width:50px'>")
-											.append($("<img height='150px' width='150px' src='resources/assets/img/buketDone.png'>"))); 
+											.append($("<img height='150px' width='150px' src='resources/assets/img/buketDone.png'>")));
+					
+					
 				}
 			});	
 		});
@@ -204,11 +209,14 @@ font-weight: bold;
 				data : JSON.stringify({ bookId : bookId }),
 				contentType : 'application/json',					
 				dataType : 'json',
-				success : function(res){
-					console.log(res);
-					
+				success : function(res){					
 					if(res.result == "중복"){
-						alert("해당 도서는 이미 버킷BOOK으로 등록되어있습니다.");
+						Swal.fire({ 
+						   icon: 'error',  
+						   title: '버킷BOOK 중복',  
+						   text: '이미 버킷BOOK으로 등록되어 있습니다.',  
+						});
+						
 						return false;
 					}else{
 						$("#bucketList").append(

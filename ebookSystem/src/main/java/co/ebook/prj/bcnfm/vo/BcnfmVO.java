@@ -24,6 +24,7 @@ public class BcnfmVO {
 	private String bcnfmReqNm;
 	private String bcnfmStCd;
 	private String bcnfmCnfmr;
+	private String bookCnfmYn;
 	private String fileCnt;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -32,4 +33,27 @@ public class BcnfmVO {
 	private String bcnfmReject;
 	private Date insDt;
 	private Date udtDt;
+	
+	// 페이징 처리
+	private int start;
+	private int end;	
+	
+	private String bookFlCd;
+
+	private String bookPublCo;
+	private String bookWriter;	
+	private String bcnfmReqSDt;
+	private String bcnfmReqEDt;
+
+	private String bcnfmCnfmSDt;
+	private String bcnfmCnfmEDt;
+	private String ctgyId;
+	private String ctgyGrId;
+	private String srchVal;
+	private String srchTxt;
+	private String srchCnfmCd;
+	
+	
+	
+	
 }

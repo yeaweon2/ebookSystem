@@ -136,7 +136,38 @@
 		      group by to_char(ins_dt, 'yyyymm'), 'gr'
 			) A
 		WHERE A.grDt = #{grDt}
-		 ORDER  BY FLAG DESC
-		
+		 ORDER  BY FLAG DESC		
+	</select>
+	
+	<select id="bookLendRutinList" resultType="co.ebook.prj.bucket.vo.RutinListVO" parameterType="co.ebook.prj.bucket.vo.RutinVO">
+	   	SELECT L.BOOK_ID 
+             , B.BOOK_NM
+             , B.BOOK_PUBL_CO
+             , B.BOOK_WRITER
+             , B.BOOK_COVER
+             , B.BOOK_COVER_PATH
+             , L.LEND_HIT
+             , L.INS_DT
+		  FROM LEND L
+             , BOOK B
+		 WHERE L.BOOK_ID = B.BOOK_ID
+           AND L.MEMBER_ID = #{memberId}
+		   AND to_char(L.ins_dt, 'yyyymm') = #{grDt}	
+	</select>
+	
+	<select id="bookBucketRutinList" resultType="co.ebook.prj.bucket.vo.RutinListVO" parameterType="co.ebook.prj.bucket.vo.RutinVO">
+		SELECT C.BOOK_ID 
+             , B.BOOK_NM
+             , B.BOOK_PUBL_CO
+             , B.BOOK_WRITER
+             , B.BOOK_COVER
+             , B.BOOK_COVER_PATH
+             , C.BUCKET_DONE_DT
+		  FROM BUCKET_BOOK C
+		     , BOOK B
+		 where C.BOOK_ID = B.BOOK_ID 
+		   AND C.MEMBER_ID = #{memberId}
+		   AND to_char(C.ins_dt, 'yyyymm') = #{grDt}
+		 ORDER BY C.BUCKET_ORD		
 	</select>
 </mapper>

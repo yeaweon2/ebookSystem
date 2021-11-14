@@ -64,10 +64,6 @@
 						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
 					</if>
 					
-					<if test="bookPublSDt != null and bookPublSDt != ''">
-						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
-					</if>
-					
 					<if test="ctgyId != null and ctgyId != ''">
 						and b.ctgy_id = #{ctgyId}
 					</if>
@@ -415,10 +411,6 @@
 					 
 					<if test="insDt != null and insDt != ''">
 						and b.ins_dt = #{insDt}
-					</if>
-					
-					<if test="bookPublSDt != null and bookPublSDt != ''">
-						and b.book_publ_dt between #{bookPublSDt} and #{bookPublEDt}
 					</if>
 					
 					<if test="bookPublSDt != null and bookPublSDt != ''">

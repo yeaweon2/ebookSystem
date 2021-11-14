@@ -14,11 +14,6 @@ public class BcnfmServiceImpl implements BcnfmService {
 	
 	@Autowired
 	BcnfmMapper map;
-	
-	@Override
-	public List<BcnfmVO> bcnfmList() {
-		return map.bcnfmList();
-	}
 
 	@Override
 	public BcnfmVO bcnfmDetail(BcnfmVO vo) {
@@ -43,6 +38,21 @@ public class BcnfmServiceImpl implements BcnfmService {
 	@Override
 	public int bcnfmDelete(BcnfmVO vo) {
 		return map.bcnfmDelete(vo);
+	}
+
+	@Override
+	public int bcnfmListCount(BcnfmVO vo) {
+		return map.bcnfmListCount(vo);
+	}
+
+	@Override
+	public List<BcnfmVO> bcnfmList(BcnfmVO vo) {
+		return map.bcnfmList(vo);
+	}
+
+	@Override
+	public BcnfmVO bcnfmReqDuplChk(BcnfmVO vo) {
+		return map.bcnfmReqDuplChk(vo);
 	}
 
 	

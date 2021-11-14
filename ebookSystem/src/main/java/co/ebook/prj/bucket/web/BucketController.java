@@ -19,6 +19,7 @@ import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.bucket.service.BucketService;
 import co.ebook.prj.bucket.vo.BucketVO;
+import co.ebook.prj.bucket.vo.RutinListVO;
 import co.ebook.prj.bucket.vo.RutinVO;
 
 @Controller
@@ -154,12 +155,16 @@ public class BucketController {
 		List<RutinVO> lendRutin = bucketDao.bookLendRutin(vo);
 		List<RutinVO> bucketRutin = bucketDao.bookBucketRutin(vo);
 		
-		
+		List<RutinListVO> lendRutinList = bucketDao.bookLendRutinList(vo);
+		List<RutinListVO> bucketRutinList = bucketDao.bookBucketRutinList(vo);
 		
 		model.addAttribute("todayMM", todayMM );
 		model.addAttribute("loginRutin", loginRutin);
 		model.addAttribute("lendRutin", lendRutin );
 		model.addAttribute("bucketRutin", bucketRutin);
+		
+		model.addAttribute("lendRutinList", lendRutinList);
+		model.addAttribute("bucketRutinList", bucketRutinList);
 		
 		return "bucket/bookRutin";
 	}
@@ -174,11 +179,17 @@ public class BucketController {
 		List<RutinVO> lendRutin = bucketDao.bookLendRutin(vo);
 		List<RutinVO> bucketRutin = bucketDao.bookBucketRutin(vo);
 		
+		List<RutinListVO> lendRutinList = bucketDao.bookLendRutinList(vo);
+		List<RutinListVO> bucketRutinList = bucketDao.bookBucketRutinList(vo);
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 	
 		map.put("loginRutin", loginRutin);
 		map.put("lendRutin", lendRutin);
 		map.put("bucketRutin", bucketRutin);
+		
+		map.put("lendRutinList", lendRutinList);
+		map.put("bucketRutinList", bucketRutinList);
 		
 		return map;		
 	}

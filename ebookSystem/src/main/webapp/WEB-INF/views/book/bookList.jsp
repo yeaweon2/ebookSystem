@@ -44,7 +44,11 @@ $(function(){
 	    });
 		
 		if(fileCntChk > 0){
-			alert("BOOK 파일을 등록하지 않은 건은 승인신청 할 수 없습니다.");
+			Swal.fire({ 
+			   icon: 'error',  
+			   title: 'BOOK파일 미등록건',  
+			   text: 'BOOK 파일을 등록 후 진행해 주세요.',  
+			});
 			return false;
 		}
 		 
@@ -55,6 +59,27 @@ $(function(){
 			dataType : 'json' ,
 			success : function(data){
 				console.log(data);
+				console.log(data.bookNm);
+				var bookNm = data.bookNm;
+				var msg = "";
+				var icon = "error";
+				
+				if( data.bcnfmStCd == "01"){
+					msg = '이미 승인신청이 진행중인 BOOK입니다.';
+				}else if( data.bcnfmStCd == "02"){
+					msg = '이미 승인완료된 BOOK입니다.';
+				}else if( data.bcnfmStCd == "00" ){
+					icon = 'success' ;
+					bookNm = "승인처리완료";
+					msg = '정상적으로 승인처리 되었습니다.';
+				}
+				
+				Swal.fire({ 
+				   icon: icon,  
+				   title: bookNm,  
+				   text: msg,  
+				});
+
 			}
 		});  
 	});
