@@ -87,4 +87,9 @@ public class BookServiceImpl implements BookService {
 	public int bookLikeItUpdate(BookVO vo) {
 		return map.bookLikeItUpdate(vo);
 	}
+
+	@Override
+	public List<BookVO> ctgyBookList(BookVO vo) {
+		return map.ctgyBookList(vo);
+	}
 }

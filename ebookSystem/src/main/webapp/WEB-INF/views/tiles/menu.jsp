@@ -66,6 +66,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="bestSeller">BEST SELLER</a></li>
                                 <li><a href="bookSrchList">BOOK 검색</a></li>
+                                <li><a href="ctgyBookList">카테고리 BOOK</a></li>
                             </ul>
                         </li>
 					<c:if test="${auth eq 'U'}">                        

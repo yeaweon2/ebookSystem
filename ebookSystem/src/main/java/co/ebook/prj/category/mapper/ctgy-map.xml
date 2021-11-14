@@ -19,6 +19,7 @@
 		SELECT *
 		  FROM CATEGORY
 		 WHERE CTGY_GR_ID = #{ctgyGrId}
+		   AND ctgy_use_yn = 'Y'
 		 ORDER BY CTGY_ID
 	</select>
 	
@@ -40,4 +41,13 @@
 		DELETE FROM CATEGORY
 		 WHERE CTGY_ID = #{ctgyId}
 	</delete>
+	
+	<select id="ctgyMenuList" resultType="co.ebook.prj.category.vo.CtgyVO">
+		SELECT CTGY_ID 
+	         , CTGY_NM
+            , ( select count(1) from category c where c.ctgy_gr_id = a.ctgy_id  and c.ctgy_use_yn = 'Y' ) as child_cnt	         
+		  FROM CATEGORY a 
+		 WHERE ctgy_use_yn = 'Y'
+		 ORDER BY CTGY_ID
+	</select>
 </mapper>

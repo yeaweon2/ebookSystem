@@ -40,4 +40,7 @@ public interface BookMapper {
 	
 	// BOOK 추천 클릭시 업데이트
 	int bookLikeItUpdate(BookVO vo);
+	
+	// 카테고리별 BOOK 조회
+	List<BookVO> ctgyBookList(BookVO vo);
 }

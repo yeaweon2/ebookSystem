@@ -45,7 +45,7 @@
 
     <title>e로운생활</title>
 	
-	
+	<!--  -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <!-- Bootstrap Core CSS -->
@@ -84,9 +84,9 @@
 	<tiles:insertAttribute name="footer"/>
 	
  	</div>
- 		<div id="adviceChat">
- 		<img src="resources/img/chat2.png" class="avatar pointer">
- 	</div>
+<!-- 	<div id="adviceChat">
+		<img src="resources/img/chat2.png" class="avatar pointer">
+	</div> -->
     <div class="flexpanel">
         <div class="viewport-wrap">
             <div class="viewport">

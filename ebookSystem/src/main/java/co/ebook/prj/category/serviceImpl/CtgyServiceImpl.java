@@ -48,4 +48,9 @@ public class CtgyServiceImpl implements CtgyService {
 		return map.ctgysList();
 	}
 
+	@Override
+	public List<CtgyVO> ctgyMenuList() {
+		return map.ctgyMenuList();
+	}
+
 }

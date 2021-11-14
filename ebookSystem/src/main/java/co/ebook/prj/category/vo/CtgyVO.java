@@ -13,7 +13,5 @@ public class CtgyVO {
 	private String ctgyWriter;
 	private Date insDt;
 	private Date udtDt;
-	
-
-	
+	private String childCnt;
 }

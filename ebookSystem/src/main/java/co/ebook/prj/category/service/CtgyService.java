@@ -17,4 +17,6 @@ public interface CtgyService {
 	int ctgyUpdate(CtgyVO vo);
 	
 	int ctgyDelete(CtgyVO vo);
+	
+	List<CtgyVO> ctgyMenuList();
 }

@@ -18,6 +18,7 @@ public class BookVO {
 	private String bookId;
 	private String ctgyId;
 	private String ctgyNm;
+	private String ctgyGrId;
 	private String ctgyGrNm;
 	private String bookNm;
 	private String bookFlCd;

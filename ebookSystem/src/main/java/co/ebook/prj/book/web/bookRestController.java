@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import co.ebook.prj.book.service.BookService;
 import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
+import co.ebook.prj.category.vo.CtgyVO;
 import co.ebook.prj.common.vo.Paging;
 
 @RestController
@@ -186,5 +187,17 @@ public class bookRestController {
 		return map;
 	}
 	
+	
+	@RequestMapping(value="/ctgyRestBookList", method=RequestMethod.POST )
+	public HashMap<String,Object> ctgyRestBookList(Model model, @RequestBody BookVO vo) {
+		
+		List<BookVO> bookLists = bookDao.ctgyBookList(vo);
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("result", "01");
+		map.put("bookLists", bookLists);
+	
+		return map;
+	}	
 	
 }

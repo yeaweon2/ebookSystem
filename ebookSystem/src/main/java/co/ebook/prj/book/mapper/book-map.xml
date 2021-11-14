@@ -442,4 +442,34 @@
 	 	   SET book_likeit = book_likeit + 1 
 	 	 WHERE book_id = #{bookId} 
 	</update>	
+	
+	<select id="ctgyBookList" resultType="co.ebook.prj.book.vo.BookVO" parameterType="co.ebook.prj.book.vo.BookVO">
+
+		SELECT ROWNUM as bookNo
+	         , ( SELECT scodes.scode_nm FROM scodes 
+	              WHERE lcode = 'BF' AND scode = b.book_fl_cd ) as book_fl_cd
+	         , b.book_id
+	         , b.ins_dt
+	         , b.book_cover
+	         , b.book_cover_path
+	         , b.book_nm
+             , b.book_isbn
+             , b.book_publ_dt
+	         , b.book_publ_co
+	         , b.book_writer
+             , b.book_likeit
+	         , b.book_hit
+             ,  ( select ctgy_nm from category 
+                   where ctgy_id in ( select ctgy_gr_id from category where ctgy_id = b.ctgy_id  ) ) as ctgy_gr_nm
+             , ( select ctgy_nm from category where ctgy_id = b.ctgy_id  )  ctgy_nm
+		  FROM BOOK B 
+	     WHERE BOOK_USEYN = 'Y' 
+			<if test="ctgyId != null and ctgyId != ''">
+				and ctgy_id = #{ctgyId}
+			</if>
+			
+			<if test="ctgyGrId != null and ctgyGrId != ''">
+				and ctgy_id in ( select ctgy_id from category where ctgy_Gr_id = #{ctgyGrId}  )
+			</if>	
+	</select>
 </mapper>

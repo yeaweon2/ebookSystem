@@ -24,6 +24,8 @@ import co.ebook.prj.book.service.BreplyService;
 import co.ebook.prj.book.vo.BookSrchVO;
 import co.ebook.prj.book.vo.BookVO;
 import co.ebook.prj.book.vo.BreplyVO;
+import co.ebook.prj.category.service.CtgyService;
+import co.ebook.prj.category.vo.CtgyVO;
 import co.ebook.prj.common.vo.Paging;
 
 @Controller
@@ -34,6 +36,9 @@ public class BookController {
 	
 	@Autowired
 	BreplyService breplyDao;
+	
+	@Autowired 
+	CtgyService ctgyDao;
 	
 	@Autowired
 	String filePath;
@@ -243,6 +248,26 @@ public class BookController {
 		model.addAttribute("lists", lists);
 		return "book/bookSrchList";
 	}
+	
+	
+	@RequestMapping("ctgyBookList")
+	public String ctgyBookList(Model model, BookVO vo) {
+		
+		List<CtgyVO> ctgyLists = ctgyDao.ctgyMenuList();
+		
+		
+		List<BookVO> bookLists = bookDao.ctgyBookList(vo);
+		
+		if(bookLists.size() > 0) {
+			model.addAttribute("msg", "01");
+			model.addAttribute("bookLists", bookLists);
+			model.addAttribute("ctgyLists", ctgyLists);
+		}else {
+			model.addAttribute("msg", "02");
+		}
+		
+		return "book/ctgyBookList";
+	}	
 	
 }
 

@@ -35,5 +35,5 @@ public interface BookService {
 	
 	int bookLikeItUpdate(BookVO vo);
 	
-		
+	List<BookVO> ctgyBookList(BookVO vo);
 }
