@@ -17,9 +17,9 @@ public class CtgyController {
 	@Autowired 
 	CtgyService ctgyDao;
 	
-	@GetMapping("/ctgyList")
-	public String ctgyList(Model model) {
-		List<CtgyVO> lists = ctgyDao.ctgyList();
+	@RequestMapping("/ctgyList")
+	public String ctgyList(Model model, CtgyVO vo) {
+		List<CtgyVO> lists = ctgyDao.ctgyList(vo);
 				
 		if(lists.size() > 0) {
 			model.addAttribute("msg", "성공");

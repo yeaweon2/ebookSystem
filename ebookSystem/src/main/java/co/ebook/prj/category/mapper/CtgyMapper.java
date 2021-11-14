@@ -5,9 +5,9 @@ import java.util.List;
 import co.ebook.prj.category.vo.CtgyVO;
 
 public interface CtgyMapper {
-	List<CtgyVO> ctgyList();
+	List<CtgyVO> ctgyList(CtgyVO vo);
 	
-	List<CtgyVO> ctgysList();
+	List<CtgyVO> ctgysList(CtgyVO vo);
 	
 	List<CtgyVO> ctgyDetailList(CtgyVO vo);
 	

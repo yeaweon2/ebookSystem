@@ -6,9 +6,9 @@ import co.ebook.prj.category.vo.CtgyVO;
 
 public interface CtgyService {
 
-	List<CtgyVO> ctgyList();
+	List<CtgyVO> ctgyList(CtgyVO vo);
 	
-	List<CtgyVO> ctgysList();
+	List<CtgyVO> ctgysList(CtgyVO vo);
 	
 	List<CtgyVO> ctgyDetailList(CtgyVO vo);
 	

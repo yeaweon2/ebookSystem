@@ -76,10 +76,10 @@ public class CtgyRestController {
 		return map;
 	}
 	
-	@RequestMapping(value="/ctgyLcodeList", method=RequestMethod.GET)
-	public List<CtgyVO> ctgyLcodeList(Model model,  CtgyVO vo ) {
+	@RequestMapping(value="/ctgyLcodeList", method=RequestMethod.POST)
+	public List<CtgyVO> ctgyLcodeList(Model model,  @RequestBody CtgyVO vo ) {
 		
-		List<CtgyVO> lists = ctgyDao.ctgyList();
+		List<CtgyVO> lists = ctgyDao.ctgyList(vo);
 		
 		return lists; 
 	}		

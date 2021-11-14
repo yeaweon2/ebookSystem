@@ -16,9 +16,9 @@ public class CtgyServiceImpl implements CtgyService {
 	private CtgyMapper map;
 	
 	@Override
-	public List<CtgyVO> ctgyList() {
+	public List<CtgyVO> ctgyList(CtgyVO vo) {
 		// 2021.10.17 최예원  카테고리 대분류 목록조회
-		return map.ctgyList();
+		return map.ctgyList(vo);
 	}
 
 	@Override
@@ -44,8 +44,8 @@ public class CtgyServiceImpl implements CtgyService {
 
 	// main화면에서 사용할 카테고리 자식노드 조회쿼리 
 	@Override
-	public List<CtgyVO> ctgysList() {
-		return map.ctgysList();
+	public List<CtgyVO> ctgysList(CtgyVO vo) {
+		return map.ctgysList(vo);
 	}
 
 	@Override

@@ -14,4 +14,5 @@ public class CtgyVO {
 	private Date insDt;
 	private Date udtDt;
 	private String childCnt;
+	private String pageFlag;
 }

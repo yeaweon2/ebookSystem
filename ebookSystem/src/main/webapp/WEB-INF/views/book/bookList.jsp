@@ -14,6 +14,56 @@
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script type="text/javascript">
 $(function(){
+	var pageFlag= 'sub';
+	// 화면 진입시 카테고리 대분류 조회 후 셋팅 --------------------------------------------------------------------------------------
+	$.ajax({
+		url: 'ctgyLcodeList',    
+		method: 'POST',
+		data : JSON.stringify({ pageFlag : pageFlag }),
+		contentType : 'application/json;charset=utf-8',
+		dataType: 'json',
+		success: function(res){
+			
+			$("#lcodeSelBox").empty();
+			
+			$("#lcodeSelBox").append($("<option>").val("").text("전체"));
+			$.each(res, function(idx,item){
+				$("#lcodeSelBox").append($("<option>").val(item.ctgyId).text(item.ctgyNm)); 
+			});
+			
+			
+			$("#lcodeSelBox").change();
+		}
+	});
+
+	// 대분류 카테고리 선택시 소분류 select box에 셋팅 -------------------------------------------------------------------------------- 
+	$("#lcodeSelBox").on("change", function(){
+		var ctgyGrId = $(this).find("option:selected").val();
+		$("#ctgyGrId").val($(this).find("option:selected").val());
+		
+		$.ajax({
+			url: 'ctgyDetailList',    
+			method: 'POST',
+			data : JSON.stringify({ ctgyGrId : ctgyGrId,  pageFlag : pageFlag }),
+			contentType : 'application/json',
+			dataType: 'json',
+			success: function(res){
+				
+				$("#scodeSelBox").empty();
+				$("#scodeSelBox").append($("<option>").val("").text("전체"));
+				$.each(res, function(idx,item){
+					$("#scodeSelBox").append($("<option>").val(item.ctgyId).text(item.ctgyNm));
+				});
+				$("#ctgyId").val($("#scodeSelBox").find("option:selected").val());
+			}
+		});
+	});
+	
+	// 소분류 카테고리 선택시 카테고리 값 셋팅 -------------------------------------------------------------------------------
+	$("#scodeSelBox").on("change", function(){
+		$("#ctgyId").val($(this).find("option:selected").val());
+	});
+	
 	
 	$("#srchBtn").click();
 	

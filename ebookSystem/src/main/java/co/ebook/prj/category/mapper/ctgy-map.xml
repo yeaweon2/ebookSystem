@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.ebook.prj.category.mapper.CtgyMapper">
-	<select id="ctgyList" resultType="co.ebook.prj.category.vo.CtgyVO">
+	<select id="ctgyList" resultType="co.ebook.prj.category.vo.CtgyVO" parameterType="co.ebook.prj.category.vo.CtgyVO">
 	 	SELECT *
 		  FROM CATEGORY
 		 WHERE CTGY_GR_ID IS NULL
+		<if test="pageFlag != null and pageFlag != ''">
+			and ctgy_use_yn = 'Y'
+		</if>
 		 ORDER BY CTGY_ID
 	</select>
 	
@@ -12,14 +15,17 @@
 	 	SELECT *
 		  FROM CATEGORY
 		 WHERE CTGY_GR_ID IS NOT NULL
+		   and ctgy_use_yn = 'Y'
 		 ORDER BY CTGY_ID
 	</select>	
 	
-	<select id="ctgyDetailList" resultType="co.ebook.prj.category.vo.CtgyVO">
+	<select id="ctgyDetailList" resultType="co.ebook.prj.category.vo.CtgyVO" parameterType="co.ebook.prj.category.vo.CtgyVO">
 		SELECT *
 		  FROM CATEGORY
 		 WHERE CTGY_GR_ID = #{ctgyGrId}
+		 <if test="pageFlag != null and pageFlag != ''">
 		   AND ctgy_use_yn = 'Y'
+		 </if>
 		 ORDER BY CTGY_ID
 	</select>
 	
