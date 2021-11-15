@@ -34,11 +34,7 @@ public class CmmntyVO {
 	
 	private int start;					 //페이징 시작
 	private int end;					 //페이징 끝
-	
-	private String regDate;
-	private String searchKeyword;
-	private String searchCondition;
-	private String sort;
+
 	
 	
 	
