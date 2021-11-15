@@ -33,6 +33,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 	@Override
 	public int bookReviewDelete(BookReviewVO vo) {
+		map.memberMileDel(vo);
 		return map.bookReviewDelete(vo);
 	}
 

@@ -17,14 +17,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Float four columns side by side */
-.column {
-  width: 25%;
-  padding: 0 10px;
-}
 
-/* Remove extra left and right margins, due to padding */
-.row {margin: 0 -10px;}
 
 /* Clear floats after the columns */
 .row:after {
@@ -35,10 +28,14 @@ body {
 
 /* Style the counter cards */
 .card {
+  margin: * auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 16px;
   text-align: center;
-  background-color: #f1f1f1;
+  background-color: #fff;
+}
+.child{
+margin-left:-265px;
 }
 </style>
 <script>
@@ -74,23 +71,23 @@ $(function() {
 					<h2><img width="40px" height="40px" src="resources/img/books.png"> 책리뷰</h2><br><br>
 			
 				</div>
-				
+								
 			</div>
 
+	
 	<!--  베스트 리뷰조회 -->
 		<div class="reviewList">
 			<div class="row">
-			<h3>베스트 리뷰</h3>
+			<br><br>
   			<c:forEach var="list" items="${bests }">
-  				<div class="col-md-3">
+  				<div class="col-md-4">
     				<div class="card">
-    					<img width='80px' height='120px' src='${pageContext.request.contextPath}/fileUp${list.bookCoverPath}${list.bookCover}'>
+    					<img width="200px;" height="300px;" src='${pageContext.request.contextPath}/fileUp${list.bookCoverPath}${list.bookCover}' style="position:relative">
     					<h4>${list.bookNm}</h4>
      					<h5>${list.reviewTitle}</h5>
      					<p>작성자: ${list.reviewWriter}</p>
      					<p>추천수: ${list.reviewLikeit }</p>
-      					<p><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.insDt}"/></p>
-     					<button type="button" id="more" data-id="${list.reviewId }" >더보기</button>
+     					<button type="button" id="more" class="ebookBtn"data-id="${list.reviewId }" >더보기</button>
     				</div>
   				</div>
 			</c:forEach>  				
@@ -98,7 +95,9 @@ $(function() {
 		</div>
 	<!-- 리뷰 리스트--><br><br>
 		<div class="reviewList">
+		<c:if test="${not empty id}">
 			<input type="button" onclick="location.href='reviewInsertForm'" class="btn-primary pull-right"  value="글쓰기">
+			</c:if>
 			<table class="table table-hover" style="cursor:pointer" >
 					<thead>
 						<tr>

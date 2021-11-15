@@ -113,6 +113,7 @@
 		
 		//책리뷰입력
 		$('#reviewInputBtn').on('click', function() {
+			alert("마일리지 500포인트가 적립되셨습니다.");
 			bookfrm.submit();
 		})
 	});

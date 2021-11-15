@@ -92,6 +92,8 @@ $(function() {
 					<input type="button" onclick="location.href='bookReviewList'" class="btn-primary" value="목록보기"> 
 					<c:if test="${id eq list.reviewWriter}">
 					<input type="button" onclick="reviewEdit('U')" class="btn-primary" value="수정">
+					</c:if>
+					<c:if test="${auth eq 'A' || id eq board.cmmntyWriter }">
 					<input type="button" onclick="reviewEdit('D')"class="btn-primary" value="삭제">
 					</c:if>
 					</div><br><br>
@@ -114,7 +116,7 @@ $(function() {
          if (str == 'U') {
             frm.action = "reviewUpdateForm";
      	 } else {
-              if (confirm('삭제하시겠습니까?') == true) {
+              if (confirm('삭제하시면 적립된 500포인트가 소멸됩니다.') == true) {
                frm.action = "bookReviewDelete";
               } else {
                return false;

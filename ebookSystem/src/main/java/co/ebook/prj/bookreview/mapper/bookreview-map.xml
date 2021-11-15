@@ -6,11 +6,11 @@
 		<![CDATA[
 		SELECT A.RN
 		     , A.REVIEW_ID
-	         , A.REVIEW_TITLE
+		     , SUBSTR ( A.REVIEW_TITLE, 1 , 12 )  || '....'    AS REVIEW_TITLE
 	         , A.REVIEW_WRITER 
 	         , A.INS_DT
 	         , A.REVIEW_LIKEIT
-	         , SUBSTR ( B.BOOK_NM, 1 , 12 )  || '....'    AS BOOK_NM
+	         , SUBSTR ( B.BOOK_NM, 1 , 15 )  || '....'    AS BOOK_NM
 	         , B.BOOK_ID
 	         , B.BOOK_COVER
 	         , B.BOOK_COVER_PATH 
@@ -156,6 +156,13 @@
 	
 	<!--  마일리지빼기 -->
 	<update id="memberMileDel" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
-		
+				UPDATE MEMBER
+  		   SET MEMBER_MILE = MEMBER_MILE-500
+ 		 WHERE member_id = 'mem111'
+  		   AND not exists ( SELECT 1
+              			  FROM BUCKET_BOOK 
+             			 WHERE MEMBER_ID = #{reviewWriter}
+               			   AND BOOK_ID = #{bookId}
+               			   )
 	</update>
 </mapper>
