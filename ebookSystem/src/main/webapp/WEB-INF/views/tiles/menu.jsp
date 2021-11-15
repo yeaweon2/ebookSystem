@@ -25,7 +25,7 @@
 									</a>
 								</li>
 							</c:if>
-							<li><div>${id} : ${name} : ${nicknm} : ${auth} : ${stcd} </div></li>
+							
                         </ul>
 						
                         <div class="pull-right text-right">
