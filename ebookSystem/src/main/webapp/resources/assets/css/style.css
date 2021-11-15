@@ -515,7 +515,7 @@ fieldset[disabled] .btn-primary.active {
 }
 
 .navbar-brand.logo img {
-    max-height: 20px;
+    max-height: 25px;
     top: -3px;
     position: relative;
 }
@@ -1385,6 +1385,7 @@ footer.white-wrapper {
 
 footer.white-wrapper * {
     color: #fff;
+  
 }
 
 footer.white-wrapper span.copyright {
@@ -1392,10 +1393,12 @@ footer.white-wrapper span.copyright {
     text-transform: uppercase;
     text-transform: none;
     line-height: 40px
+    
 }
 
 footer.white-wrapper .social-links li {
     padding: 15px 30px
+
 }
 
 footer.white-wrapper .social-links li a {
@@ -1416,9 +1419,9 @@ footer.white-wrapper .social-links li a {
 /* FOOTER STYLES */
 
 .footer-image-bg {
-    background-image: url(../img/footer-bg.jpeg);
-    background-size: cover;
-    background-position: center center;
+    background-image: url(../img/footer-bg.png);
+    background-size: contain;
+    background-position: 250%;
 }
 
 .footer-image-bg .dark-wrapper,
@@ -1433,7 +1436,7 @@ footer.white-wrapper .social-links li a {
 }
 
 .dark-footer-image-bg {
-    background-image: url(../img/dark-footer-bg.jpeg);
+    background-image: url(../img/dark-footer-bg.png);
     background-size: cover;
     background-position: center center;
 }
