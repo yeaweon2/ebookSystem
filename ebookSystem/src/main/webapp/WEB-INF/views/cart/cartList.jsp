@@ -57,7 +57,12 @@
 			
 
 			if( $("#cartTbody").find("#chkInput:checked").length == 0 ){
-				alert("선택한 건이 없습니다.");
+				
+				Swal.fire({ 
+ 				   icon: 'error',  
+ 				   title: '자료오류',  
+ 				   text: '선택한 건이 없습니다.',  
+ 				});					
 				return false;
 			}else{
 				var books = [];
@@ -134,12 +139,20 @@
 			
 			var subYn = `${subYn}`;
 			if( subYn == 'N'){
-				alert("월정액 구매 후 대여가능합니다.");
+				Swal.fire({ 
+ 				   icon: 'error',  
+ 				   title: '대여오류',  
+ 				   text: '월정액 구매 후 대여가능합니다.',  
+ 				});	
 				return false;
 			}
 			
 			if( $("#cartTbody").find("#chkInput:checked").length ==  0 ){
-				alert("선택한 건이 없습니다.");
+				Swal.fire({ 
+	 				   icon: 'error',  
+	 				   title: '자료오류',  
+	 				   text: '선택한 건이 없습니다.',  
+	 				});	
 				return false;
 			}else{
 				var books = [];
@@ -166,7 +179,11 @@
 					dataType : 'json' ,
 					success : function(data){
 						console.log(data);
-						alert("성공");
+						Swal.fire({ 
+		    				   icon: 'success',  
+		    				   title: '대여성공',  
+		    				   text: '정상적으로 대여처리 완료하였습니다.',  
+		    			});	
 					}
 				}); 		
 			}

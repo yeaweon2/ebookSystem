@@ -114,6 +114,16 @@ $(function(){
 		frm.submit();
 	});
 	
+	$("#newUl").on("click", "li", function(){
+		$("#bookId").val($(this).data("id"));
+		frm.submit();
+	});
+	
+	$("#likesUl").on("click", "li", function(){
+		$("#bookId").val($(this).data("id"));
+		frm.submit();
+	});	
+	
 	$(".slideshow-container").on("click", ".mySlides", function(){
 		alert("책리뷰 완성되면 넘어가도록 수정예정");
 	});

@@ -10,7 +10,6 @@
 <link rel='stylesheet' href='resources/bookDetail/style.css' type='text/css' media='all'/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <style type="text/css">
 body {
@@ -200,7 +199,11 @@ ul.sidenav li a:hover {
 	 			success : function(data){
 	 				console.log(data);
 	 				if(data.result == "01"){
-	 					alert("이미 카트에 담겨있는 BOOK입니다. ");
+	 					Swal.fire({ 
+		    				   icon: 'error',  
+		    				   title: '카트중복',  
+		    				   text: '이미 카트에 담겨있는 BOOK입니다. ',  
+		    			});	 					
 	 					return;
 	 				}else{
 	 					frm.action = "cartInsert";
@@ -222,7 +225,11 @@ ul.sidenav li a:hover {
 				success : function(res){
 					console.log(res);
 					if(res.result=="01"){
-						alert("추천완료");
+						Swal.fire({ 
+		    				   icon: 'error',  
+		    				   title: '추천완료',  
+		    				   text: '정상적으로 추천되었습니다.',  
+		    			});						
 						var likeItCnt = $("#likeIt").html();
 						$("#likeIt").html(parseInt(likeItCnt)+1);						
 					}
@@ -509,7 +516,6 @@ ul.sidenav li a:hover {
 					$("#childBox").addClass("hidden");
 					$("#childBox").find("textarea").val("");
 					
-					console.log(target.closest(".parentReply").find("p"));
 					target.closest(".parentReply").find(".media-body:first").append(
 							$("<div class='media' style='margin-left:50px'>")
 								.append($("<div class='pull-left'>")
@@ -534,9 +540,7 @@ ul.sidenav li a:hover {
 													)
 										)
 								)
-					
-					
-					
+
 				}
 			});
 		});
@@ -548,9 +552,6 @@ ul.sidenav li a:hover {
 		});	 
 		
 	});
-	
-	
-	
 	
 </script>
 </head>

@@ -113,14 +113,7 @@ $(function(){
 	
 	// 대분류 Row 클릭시 소분류 조회 ----------------------------------------
 	 $("#lcodeTb").on("click", ".lcodeTr", function(event){
-		
-		 
-		if( lcodeUpdateId != "" && lcodeUpdateId  != $(this).data("id")){
-			alert("수정중인 건을 저장한 후 진행해주세요.");
-			return false;
-		}
-			
-		 
+
 		btnSToggle("C");
 		// 클릭시 Row행 색상변경
 		lTableBgColorReset();
@@ -285,9 +278,12 @@ $(function(){
 	});		
 	
 	
-	// 대분류 Row 클릭시 소분류 조회 ----------------------------------------
+	// 소분류 테이블 Row 클릭시 소분류 조회 ----------------------------------------
 	 $("#scodeTb").on("click", ".scodeTr", function(event){
 		 scodeTrDataId = $(this).data("id");
+		// 클릭시 Row행 색상변경
+			sTableBgColorReset();
+			$(this).addClass("clickTr");
 	 });
 	 
 	// 대분류 저장 버튼 클릭시 -------------------------------------------------------------------
