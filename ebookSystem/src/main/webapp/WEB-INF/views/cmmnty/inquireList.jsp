@@ -30,7 +30,7 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>1:1 문의</h2>
+					<h2><img width="40px" height="40px" src="resources/img/pen.png"> 1:1 문의</h2>
 					<br>
 					<br>
 				</div>

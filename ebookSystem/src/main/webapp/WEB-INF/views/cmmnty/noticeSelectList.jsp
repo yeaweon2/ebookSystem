@@ -263,16 +263,22 @@
 			<div id="replyput">
 			<c:if test="${not empty id}">
 				<table class="table">
-					<tr>
-						<th>${nicknm}</th>
-					</tr>
-					<tr>
-						<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="160"></textarea>
-					</tr>
-					<tr>
-						<td colspan="2"></td>
-						<td class="pull-right"><button type="button" id="replyInputBtn" data-cmmntyId="${notice.cmmntyId}"class="btn-primary" >댓글등록</button></td>
-					</tr>
+				<tr><td>
+					<c:if test="${empty memf}">
+							<img id="proimg1" src="resources/assets/img/noimg.jpg" >
+						</c:if>
+					<c:if test="${not empty memf}">
+							<img id="proimg1" src="${pageContext.request.contextPath}/fileUp/profile/${memfn}" >&nbsp;&nbsp;
+					</c:if></td>
+					<td>
+					<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="160"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>${nicknm}</th>
+					<td colspan="2"></td>
+					<td class="pull-right"><button type="button" id="replyInputBtn" data-cmmntyId="${notice.cmmntyId}"class="btn-primary" >댓글등록</button></td>
+				</tr>
 				</table>
 			</c:if>
 			</div><hr><div>

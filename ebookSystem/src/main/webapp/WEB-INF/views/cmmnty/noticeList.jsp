@@ -30,9 +30,8 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>공지사항</h2><br><br>
+					<h2><img width="40px" height="40px" src="resources/img/note.png"> 공지사항</h2><br><br>
 				</div>
-				
 			</div>
 				<c:if test="${auth eq 'A'|| auth eq 'M'}">   
 				<button type="button" onclick="location.href='noticeInsertForm'" class="btn-primary pull-right">글쓰기</button>

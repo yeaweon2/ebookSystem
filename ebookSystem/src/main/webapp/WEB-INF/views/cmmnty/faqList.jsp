@@ -159,7 +159,7 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>자주 묻는 질문</h2>
+					<h2><img width="40px" height="40px" src="resources/img/note.png"> 자주 묻는 질문</h2>
 					<br> <br>
 				</div>
 			</div>

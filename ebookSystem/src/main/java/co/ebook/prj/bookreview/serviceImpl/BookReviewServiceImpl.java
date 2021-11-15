@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import co.ebook.prj.bookreview.mapper.BookReviewMapper;
 import co.ebook.prj.bookreview.service.BookReviewService;
 import co.ebook.prj.bookreview.vo.BookReviewVO;
+import co.ebook.prj.lend.vo.LendVO;
 
 @Repository
 public class BookReviewServiceImpl implements BookReviewService {
@@ -55,6 +56,13 @@ public class BookReviewServiceImpl implements BookReviewService {
 	public int getCount(BookReviewVO vo) {
 		return map.getCount(vo);
 	}
+
+	@Override
+	public List<LendVO> reviewLendList(LendVO vo) {
+		return map.reviewLendList(vo);
+	}
+
+
 
 
 }

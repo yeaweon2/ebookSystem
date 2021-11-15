@@ -75,7 +75,8 @@ public class BookReviewController {
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));
 		
-		List<LendVO> lists = lendDao.lendList(vo);
+		
+		List<LendVO> lists = bookReviewDao.reviewLendList(vo);
 		
 		return lists;
 	}

@@ -71,7 +71,7 @@ $(function() {
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>책리뷰</h2><br><br>
+					<h2><img width="40px" height="40px" src="resources/img/books.png"> 책리뷰</h2><br><br>
 			
 				</div>
 				

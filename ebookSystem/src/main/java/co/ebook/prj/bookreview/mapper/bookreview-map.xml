@@ -63,6 +63,29 @@
 	     AND A.REVIEW_ID = #{reviewId}       
 	</select>
 	
+	<!--  대여 리스트 -->
+	<select id="reviewLendList" resultType="co.ebook.prj.lend.vo.LendVO" parameterType="co.ebook.prj.lend.vo.LendVO">
+	<![CDATA[
+	    SELECT L.LEND_ID 
+	         , L.BOOK_ID
+	         , L.LEND_HIT
+	         , L.MEMBER_ID
+	         , L.LEND_DATE
+	         , B.BOOK_NM
+	         , B.BOOK_PUBL_CO 
+	         , B.BOOK_WRITER
+	         ,  REPLACE ( REPLACE(B.BOOK_INTRO , CHR(13), '') , CHR(10), '<br/>') as book_intro
+	         , B.BOOK_COVER
+	         , B.BOOK_COVER_PATH 
+	         , B.BOOK_FL_CD
+	      FROM LEND L
+	         , BOOK B
+	     WHERE L.BOOK_ID = B.BOOK_ID
+	       AND L.MEMBER_ID = #{memberId}
+	       AND l.book_id not in  ( select distinct book_id from review r where  review_writer = #{memberId}  )
+	 ]]>        
+	</select>
+	
 	<!-- 리뷰 입력 -->
 	<insert id="bookReviewInsert" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
 		INSERT INTO REVIEW(   
@@ -122,12 +145,17 @@
 	<!-- 마일리지넣기 -->
 	<update id="memberMile" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
 		UPDATE MEMBER
-  		     SET MEMBER_MILE = MEMBER_MILE+500
+  		   SET MEMBER_MILE = MEMBER_MILE+500
  		 WHERE member_id = #{reviewWriter}
   		   AND exists ( SELECT 1
-              			    FROM BUCKET_BOOK 
-             			   WHERE MEMBER_ID = #{reviewWriter}
-               			      AND BOOK_ID = #{bookId}
+              			  FROM BUCKET_BOOK 
+             			 WHERE MEMBER_ID = #{reviewWriter}
+               			   AND BOOK_ID = #{bookId}
  		)
+	</update>
+	
+	<!--  마일리지빼기 -->
+	<update id="memberMileDel" parameterType="co.ebook.prj.bookreview.vo.BookReviewVO">
+		
 	</update>
 </mapper>

@@ -3,6 +3,7 @@ package co.ebook.prj.bookreview.service;
 import java.util.List;
 
 import co.ebook.prj.bookreview.vo.BookReviewVO;
+import co.ebook.prj.lend.vo.LendVO;
 
 public interface BookReviewService {
 
@@ -23,4 +24,7 @@ public interface BookReviewService {
 	
 	//글카운터
 	int getCount(BookReviewVO vo);
+	
+	//대여리스트
+	List<LendVO> reviewLendList(LendVO vo);
 }

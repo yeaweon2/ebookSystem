@@ -56,6 +56,7 @@
 			modal.style.display = "block";
 			
 			//대여리스트가져오기
+
 			$.ajax({
 				url: 'reviewLendList',
 				contentType : 'application/json',
@@ -65,7 +66,7 @@
 					$("#lendList").empty();
 					
 					$("#lendList").append($("<div>").html("리뷰할 책을 선택해주세요!"))
-									
+								
 									$.each(data, function(idx,item){
 										$("#lendList").append($("<table class='chk'>")
 															  .append($("<tr>")

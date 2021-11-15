@@ -31,9 +31,8 @@
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
-					<h2>자유게시판</h2><br><br>
+					<h2><img width="40px" height="40px" src="resources/img/note.png">자유게시판</h2><br><br>
 				</div>
-				
 			</div>
 				<c:if test="${not empty id}">
 				<button type="button" onclick="location.href='boardInsertForm'" class="pull-right btn-primary">글쓰기</button>
