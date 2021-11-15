@@ -12,6 +12,7 @@
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+ <script src = "https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 
 	
@@ -44,8 +45,80 @@ $(document).ready(function(){
 				$("#loginBtn").trigger('click');
 			}
 	});
+    
+    
+    
 
-});   
+    //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('a14afe36c9cbe3e8149b6c194be98c69');
+    // 카카오 로그인 버튼을 생성합니다.
+    Kakao.Auth.createLoginButton({
+        container: '#kakao-login-btn',
+        success: function (authObj) {
+            alert(JSON.stringify(authObj));
+        },
+        fail: function (err) {
+            alert(JSON.stringify(err));
+        }
+    });
+  //]]>
+ 
+ 
+    
+    
+    
+    
+    function kakaoLogin() {
+    	Kakao.Auth.login({
+    		success: function (response) {
+    		Kakao.API.request({
+    			url: '/v2/user/me',
+    			success: function (response) {
+    				kakaoLoginPro(response)
+    			},
+    			fail: function (error) {
+    				console.log(error)
+    			},
+    		})
+    	},
+    		fail: function (error) {
+    			console.log(error)
+    		},
+    	});
+    
+    
+    function kakaoLoginPro(response){
+    	var data = {id:response.id,email:response.kakao_account.email}
+    	$.ajax({
+    		type : 'POST',
+    		url : '/user/kakaoLoginPro.do',
+    		data : data,
+    		dataType : 'json',
+    		success : function(data){
+    			console.log(data)
+    			if(data.JavaData == "YES"){
+    				alert("로그인되었습니다.");
+    				location.href = '/user/usermain.do'
+    			}else if(data.JavaData == "register"){
+    				$("#kakaoemail").val(response.kakao_account.email);
+    				$("#kakaoId").val(response.id);
+    				$("#kakaoForm").submit();
+    			}else{
+    				alert("로그인에 실패했습니다");
+    			}
+    			
+    		},
+    		error: function(xhr, status, error){
+    			alert("로그인에 실패했습니다."+error);
+    		}
+    	});
+    
+   
+	};   
+    };
+});
+
 
 </script>
 
@@ -208,28 +281,6 @@ fieldset, img {
   </head>
  <body>
  
- <%
-// 	네이버 로그인
-        String clientId = "fS4shoi86zkoG3WEiReF";//애플리케이션 클라이언트 아이디값";
-        String redirectURI = URLEncoder.encode("http://localhost/prj/home", "UTF-8");
-        SecureRandom random = new SecureRandom();
-        String state = new BigInteger(130, random).toString();
-        String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-        apiURL += "&client_id=" + clientId;
-        apiURL += "&redirect_uri=" + redirectURI;
-        apiURL += "&state=" + state;
-        session.setAttribute("state", state);
-     %>
-     
-     
-     
- 
- 
- 
- 
- 
- 
- 
  
  <div id="str" style="margin-bottom: 500px;">
  <div class="inner_login">
@@ -247,8 +298,9 @@ fieldset, img {
                 <input type="password" id="memberPw" name="memberPw" placeholder="Password">
                 </div>
             </div><br>
-            <div align="right">
-                <span class="txt_find">
+            <div align="left">
+                <span class="txt_find" >
+                 <a href="memberJoin" class="link_find" style="margin-right: 110px; margin-left: 10px; color: #CD5C5C;"> <b>회원가입</b></a>
                 <a href="find_id_form" class="link_find">아이디</a>
                     / 
                 <a href="find_password_form" class="link_find">비밀번호 찾기</a>
@@ -258,46 +310,63 @@ fieldset, img {
             <button type="button" class="btn_login" id="loginBtn">로그인</button>
             </div><br>
             <div align="center">
-            <button id="kakao-login-btn" class='btn-social-login' style='background:#1FC700; margin-right: 10px;'><i class="xi-2x xi-naver"></i></button>
-			<button id="naver_id_login" class='btn-social-login' onclick="location.href='<%=apiURL%>'" style='background:#FFEB00'><i class="xi-2x xi-kakaotalk text-dark"></i></button>
+            <div id="naver_id_login">
+            <button id="naver_id_login" class='btn-social-login'  onclick="location.href='callback'" style='background:#1FC700; margin-right: 10px;'><i class="xi-2x xi-naver"></i></button>
+			</div>
+			
+			<button id="kakao-login-btn" class='btn-social-login' style='background:#FFEB00'><i class="xi-2x xi-kakaotalk text-dark"></i></button>
             </div>
             <div class="login_append">
                 <div class="inp_chk"> <!-- 체크시 checked 추가 -->
                 <label for="keepLogin" class="lab_g">
         <span class="img_top ico_check"></span>
         </label>
+        <input type="hidden" id="kakaoemail" name="kakaoemail" >
+         <input type="hidden" id="kakaoename" name="kakaoename" >
+          <input type="hidden" id="kakaoebirth" name="kakaoebirth" >
                 </div>
             </div>
-            <div>
-            <h5><p style="color: #F08080;">회원가입을 하시면 다양하고 특별한 혜택을 누릴 수 있습니다</p></h5>
-             <button  id="join" type="button" class="btn_login" onclick="location.href='memberJoin'">회원가입</button>
-             </div>
+        </form>
+        <form id="kakaoForm">
+        <tr>
+        <td><a href="javascript:kakaoLogin()" >kakao Login</a></td>
+			<td class="btnTd"></td>
+		</tr>
+         <input type="hidden" id="kakaoemail" name="kakaoemail" >
+         <input type="hidden" id="kakaoename" name="kakaoename" >
+          <input type="hidden" id="kakaoebirth" name="kakaoebirth" >
+        
         </form>
       </div> 
     </div>
 </div>
 </div><br><br><br><br><br>
-<script type="text/javascript">
+
+
+
+
+      <!-- 네이버 로그인 버튼 노출 영역 -->
   
-    
-    
-    	//카카오 로그인
-        //<![CDATA[
-        // 사용할 앱의 JavaScript 키를 설정해 주세요.
-        Kakao.init('a14afe36c9cbe3e8149b6c194be98c69');
-        // 카카오 로그인 버튼을 생성합니다.
-        $("#kakao-login-btn").on("click", function(){
-            success: function (authObj) {
-            	//아작스 호출필요
-            	
-                alert(JSON.stringify(authObj));
-            },
-            fail: function (err) {
-                alert(JSON.stringify(err));
-            }
-        	
-        });
-      //]]>
+  <!-- //네이버 로그인 버튼 노출 영역 -->
+  <script type="text/javascript">
+  	var naver_id_login = new naver_id_login("fS4shoi86zkoG3WEiReF", "http://localhost/prj/home");
+  	var state = naver_id_login.getUniqState();
+  	naver_id_login.setDomain("http://localhost/prj");
+  	naver_id_login.setState(state);
+  	naver_id_login.setPopup();
+  	naver_id_login.init_naver_id_login();
+  	
+  	
+  	
+  	
+  	
+  	
+  
+        
+        
     </script>
+  	
+
+    
 </body>
 </html>

@@ -25,8 +25,6 @@ import co.ebook.prj.managerConfirm.service.ManagerConfirmService;
 import co.ebook.prj.managerConfirm.vo.ManagerConfirmVO;
 import co.ebook.prj.member.service.MemberService;
 import co.ebook.prj.member.vo.MemberVO;
-import co.ebook.prj.payHistory.mapper.PayMapper;
-import co.ebook.prj.payHistory.vo.PayVO;
 import co.ebook.prj.subscription.vo.SubscriptionVO;
 
 @Controller
@@ -39,8 +37,6 @@ public class ManagerConfirmController {
 	@Autowired
 	LoginMapper loginDao;
 	
-	@Autowired
-	PayMapper payDao;
 	
 	@Autowired
 	ManagerConfirmService manCoDao;
@@ -128,26 +124,30 @@ public class ManagerConfirmController {
 	
 //	계약결제성공 후 데이터 저장
 	@RequestMapping("/SuccessPay") 
-	public String SuccessPay(Model model , ManagerConfirmVO mVo, MemberVO vo, PayVO pVo, HttpServletRequest request, String args[]) {
+	public String SuccessPay(Model model , ManagerConfirmVO mVo,  HttpServletRequest request, String args[]) {
+		
+		MemberVO vo = new MemberVO();
+		
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));
 		mVo.setMemberId((String)session.getAttribute("id"));
 
-		System.out.println("여기야여기==============================>"+vo.toString());
-		System.out.println("!!!!!!!!!!!!!여기야여기============================>"+pVo.toString());
+		
+		System.out.println("!!!!!!!!!!!!!여기야여기============================>"+mVo.toString());
+		
+		
 		
 		memberDao.memSubUpdate(vo);
 		manCoDao.manSubUpdate(mVo);
-		manCoDao.managerSelect(mVo);
-		manCoDao.payInsert(pVo);
 		
-		model.addAttribute("member", memberDao.memSubUpdate(vo));
-		model.addAttribute("man", manCoDao.manSubUpdate(mVo));
+		model.addAttribute("man", manCoDao.managerSelect(mVo));
 		
 		System.out.println("!!!!!!-----------------------" +mVo.toString());
 		
 		
-		model.addAttribute("pay", manCoDao.payInsert(pVo));
+		manCoDao.payInsert(mVo);
+		
+		model.addAttribute("pay", manCoDao.paySelect(mVo));
 		
 		System.out.println("??????????==============================?????????????????????" + vo);
 		
@@ -155,16 +155,6 @@ public class ManagerConfirmController {
 		
 		return "redirect:myInfo";
 	} 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

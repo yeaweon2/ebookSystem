@@ -90,6 +90,37 @@ $("#attchFile").on("change", function(){
 			}
 		});
 	
+	
+	
+	// 회원탈퇴
+		
+	$().ready(function () {
+        $("#memDel").click(function () {
+            Swal.fire({
+                title: '정말로 탈퇴 하시겠습니까?',
+                text: "다시 되돌릴 수 없습니다. 신중하세요.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '탈퇴',
+                cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'E로운생활 회원탈퇴 되었습니다.',
+                    )
+                    
+                    
+                }
+            })
+        });
+    });
+	
+	
+	
+	
+	
 
 });
 </script>

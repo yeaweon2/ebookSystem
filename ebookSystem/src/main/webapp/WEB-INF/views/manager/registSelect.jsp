@@ -60,6 +60,8 @@ $(document).ready(function(){
 	$("#payImport").on("click",function () {
 		console.log("==============");
 		console.log(${man.mcnfmAmt });
+		var mcnfmId = $("#mcnfmId").val();
+		console.log(mcnfmId);
 		
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp33573268');
@@ -79,6 +81,7 @@ $(document).ready(function(){
 							payMthd :rsp.apply_num,
 							payAmt : rsp.paid_amount,
 							impUid : rsp.imp_uid,
+							mcnfmId : mcnfmId
 					}
 					
 				 	$.ajax({
@@ -117,107 +120,6 @@ $(document).ready(function(){
 
 </script>
 
-
-<!-- <script type="text/javascript">
-	$(function(){
-		$("#cnfmBtn").on("click", function(){
-			var chkCnt = 0;
-			var book = [];
-			$(".chkInput:checked").each(function(){
-				
-				var filecnt = $(this).closest("tr").data("filecnt");
-				if( filecnt == '0'){
-					chkCnt++;
-				} 
-				
-				var bcnfmId = $(this).closest("tr").data("bcnfmid");
-				var bookId = $(this).closest("tr").data("bookid");
-				var data = {
-					bcnfmId : bcnfmId,
-					bookId : bookId
-				};
-				
-				book.push(data);
-		    });
-			
-			console.log(book);
-			if( book == null ){
-				alert("승인처리건을 선택한 후 진행해주세요.");
-				return false;
-			}
-			if( chkCnt > 0 ){
-				alert("파일이 등록되지 않은 BOOK은 승인할 수 없습니다.");
-				return false;	
-			}
-			
-			 $.ajax({
-				url : 'bookAdminCnfm' ,
-				data :  JSON.stringify(book)  ,
-				contentType : 'application/json',
-				method : 'POST' ,
-				dataType : 'json' ,
-				success : function(data){
-					console.log(data);
-				}
-			}); 
-		});
-		
-		$("#rejectBtn").on("click", function(){
-			$("#myModal").css("display", "none");
-			var rejectMsg = $("#rejectMsg").val();
-			if(rejectMsg == ""){
-				alert("보류사유를 작성해주세요.");
-				return false;
-			}
-			
-			var book = [];
-			$(".chkInput:checked").each(function(){
-					
-				var bcnfmId = $(this).closest("tr").data("bcnfmid");
-				var bookId = $(this).closest("tr").data("bookid");
-				
-				var data = {
-					bcnfmId : bcnfmId ,
-					bookId : bookId ,
-					bcnfmReject : rejectMsg
-				};
-				
-				book.push(data);
-		    });
-			
-			if( book == null ){
-				alert("승인처리건을 선택한 후 진행해주세요.");
-				return false;
-			}
-			
-			 $.ajax({
-				url : 'bookAdminReject' ,
-				data :  JSON.stringify(book)  ,
-				contentType : 'application/json',
-				method : 'POST' ,
-				dataType : 'json' ,
-				success : function(data){
-					console.log(data);
-				}
-			}); 
-		});
-		
-		$("#bcnfmTb").find("tbody").on("click", ".chkTd", function(){
-			event.stopPropagation();
-		});
-		
-		$("#bcnfmTb").find("tbody").on("click", "tr", function(){
-			event.stopPropagation();
-			var bcnfmId = $(this).data("bcnfmid");
-			var bookId = $(this).data("bookid");
-			$("#frm").find("#bookId").val(bookId);
-			frm.submit();
-		});
-	});
-	
-	
-
-</script> -->
 </head>
 <body>
 <section>
@@ -241,12 +143,12 @@ $(document).ready(function(){
 							<th>대표자명</th> 
 							<th>신청일자</th>
 							<th>승인일자</th>
-							<th>승인상태</th>
+							<th>계약상태</th>
 							<th>승인자</th>
 							<th>계약시작일자</th>
 							<th>계약종료일자</th>
 							<th>계약예상가격</th>
-							<c:if test="${not empty man.mcnfmCnfmDt}">
+							<c:if test="${man.mcnfmStCd eq '02'}">
 							<th>구분</th>
 							</c:if>
 						</tr>
@@ -259,15 +161,16 @@ $(document).ready(function(){
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${man.mcnfmCnfmDt}"/></td>
 								<td style="color:red;font-weight:bold">${man.mcnfmStNm}</td>
 								<td>${man.mcnfmCnfmrNm}</td>
-								<td>${man.mcnfmCntrSdt}</td>
-								<td>${man.mcnfmCntrEdt}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${man.mcnfmCntrSdt}"/></td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${man.mcnfmCntrEdt}"/></td>
 								<td>${man.mcnfmAmt }</td>
-									<c:if test="${not empty man.mcnfmCnfmDt}">
+									<c:if test="${man.mcnfmStCd eq '02'}">
 								<td><button type="button" id="payImport" class="btn ebookBtn" >계약하기</button></td>
 								</c:if>
 							</tr>
 						</tbody>
 					</table>
+						<input type="hidden" id="mcnfmId" name="mcnfmId" value="${man.mcnfmId }" >
 			</div>
 		</div>
 	</div>	
@@ -275,7 +178,7 @@ $(document).ready(function(){
 
 
 <form action="" method="post" id="frm">
-	<input type="hidden" id="memberId" name=memberId >
+	<input type="hidden" id="memberId" name="memberId" >
 	<input type="hidden" id="mcnfmPrice" name="mcnfmPrice" value="${man.mcnfmAmt }">
 </form>	
 

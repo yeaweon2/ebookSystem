@@ -126,12 +126,12 @@ $(document).ready(function(){
 							<th>계약기간</th>
 							<td id="amtCdTd">
 								<div class="form-check-inline" style="word-spacing :10px">
-									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="200" class="form-check-input" checked="checked" required>
-									<label class="form-check-label" for="mcnfmCntr">1개월 : 200원</label><br>
-									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="300" class="form-check-input" required>
-									<label class="form-check-label" for="mcnfmCntr">6개월 : 300원</label><br>
-									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="400" class="form-check-input" required>
-									<label class="form-check-label" for="mcnfmCntr">12개월 : 500원</label><br><br>
+									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="100000" class="form-check-input" checked="checked" required>
+									<label class="form-check-label" for="mcnfmCntr">1개월 : 100,000원</label><br>
+									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="500000" class="form-check-input" required>
+									<label class="form-check-label" for="mcnfmCntr">6개월 : 500,000원</label><br>
+									<input id="mcnfmCntr" name="mcnfmCntr" type="radio" value="990000" class="form-check-input" required>
+									<label class="form-check-label" for="mcnfmCntr">12개월 : 990,000원</label><br><br>
 									<label>선택한 계약가격</label>
 									<input type="text" id="mcnfmAmt" name="mcnfmAmt" value="">
 								</div>

@@ -31,10 +31,14 @@ public class LoginVO {
 	private String cartCnt;
 	private String updatePw;
 	private String updateid;
+	private int payAmt;
+	private int impUid;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "Asia/Seoul")
 	private Date subspEdt;
-	private Date mcnfmCntrEdt;
+	private Date mcnfmCntrEdt; 
+	private Date mcnfmCntrSdt;
+	
 	
 }

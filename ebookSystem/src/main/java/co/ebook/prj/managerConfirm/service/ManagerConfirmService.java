@@ -3,7 +3,6 @@ package co.ebook.prj.managerConfirm.service;
 import java.util.List;
 
 import co.ebook.prj.managerConfirm.vo.ManagerConfirmVO;
-import co.ebook.prj.payHistory.vo.PayVO;
 
 public interface ManagerConfirmService {
 //	매니저전체조회
@@ -28,5 +27,8 @@ public interface ManagerConfirmService {
 	int manSubUpdate(ManagerConfirmVO vo);
 	
 //	결제내역
-	int payInsert(PayVO vo);
+	int payInsert(ManagerConfirmVO vo);
+	
+//	결제내역조회
+	ManagerConfirmVO paySelect(ManagerConfirmVO vo);
 }

@@ -24,7 +24,7 @@
 				,mcnfm_cntr_fl_cd			,mcnfm_reject
 				,mcnfm_atch_nm				,mcnfm_atch_path
 				,ins_dt						,udt_dt
-				,mcnfm_amt					,mcnfm_cnfmr)
+				,mcnfm_amt					)
 		values
 				(mancon_seq.nextval			,'01'
 				,#{memberId}				,sysdate				
@@ -33,7 +33,7 @@
 				,'01'						,#{mcnfmReject}
 				,#{mcnfmAtchNm} 			,#{mcnfmAtchPath }
 				,sysdate					,sysdate
-				,#{mcnfmAmt}				,#{mcnfmCnfmr} )
+				,#{mcnfmAmt}				)
 	</insert>
 	
 	<update id="managerconfirmUpdate" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
@@ -94,13 +94,13 @@
 		   set  
 		   		mcnfm_st_cd = '04',
 		   		mcnfm_cntr_sdt = sysdate,
-		   		<if test="payAmt == '200'">
+		   		<if test="payAmt == '100000'">
 				mcnfm_cntr_edt =  to_char(add_months(sysdate, 1), 'YYYY-MM-DD'),
 				</if>
-				<if test="payAmt == '300'">
+				<if test="payAmt == '500000'">
 				mcnfm_cntr_edt =  to_char(add_months(sysdate, 6), 'YYYY-MM-DD'),
 				</if>
-				<if test="payAmt == '500'">
+				<if test="payAmt == '990000'">
 				mcnfm_cntr_edt =  to_char(add_months(sysdate, 12), 'YYYY-MM-DD'),
 				</if>
 				udt_dt   = sysdate
@@ -108,7 +108,7 @@
 	</update>
 	
 	
-	<insert id="payInsert" parameterType="co.ebook.prj.payHistory.vo.PayVO">
+	<insert id="payInsert" parameterType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO">
 		insert 
 		  into  pay_history
 		  		(pay_id   
@@ -124,7 +124,7 @@
 				,udt_dt)
 						  		
 		values  (pay_seq.nextval
-				,mancon_seq.nextval
+				,#{mcnfmId}
 				,sysdate
 				,#{impUid}
 				,'04'
@@ -132,18 +132,37 @@
 				,#{payAmt}
 				,sysdate
 				,
-				<if test="payAmt == '200'">
+				<if test="payAmt == '100000'">
 				to_char(add_months(sysdate, 1), 'YYYY-MM-DD'),
 				</if>
-				<if test="payAmt == '300'">
-				to_char(add_months(sysdate, 3), 'YYYY-MM-DD'),
+				<if test="payAmt == '500000'">
+				to_char(add_months(sysdate, 6), 'YYYY-MM-DD'),
 				</if>
-				<if test="payAmt == '500'">
+				<if test="payAmt == '990000'">
 				to_char(add_months(sysdate, 12), 'YYYY-MM-DD'),
 				</if>
 				sysdate
 				,sysdate)
 				
 	</insert>
+	
+	<select id="paySelect" resultType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO" >
+ 		select  a.pay_id
+			 ,  a.pay_dt
+			 ,  b.mcnfm_id
+			 ,  a.imp_uid
+			 ,  a.pay_st_cd
+			 ,  a.pay_amt
+			 ,  a.mcnfm_cntr_sdt
+			 ,  a.mcnfm_cntr_edt
+			 ,  a.ins_dt
+			 ,  a.udt_dt
+          from  manager_confirm b
+             ,  pay_history a
+         where  a.mcnfm_id= b.mcnfm_id 
+           and  b.member_id = #{memberId}
+   
+	</select>
+	
 	
 </mapper>

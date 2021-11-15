@@ -25,7 +25,6 @@ import co.ebook.prj.managerConfirm.mapper.ManagerConfirmMapper;
 import co.ebook.prj.managerConfirm.vo.ManagerConfirmVO;
 import co.ebook.prj.member.mapper.MemberMapper;
 import co.ebook.prj.member.vo.MemberVO;
-import co.ebook.prj.payHistory.service.PayService;
 import co.ebook.prj.subscription.service.SubscriptionService;
 import co.ebook.prj.subscription.vo.SubscriptionVO;
 
@@ -46,7 +45,7 @@ public class MemberController {
 	
 	@Autowired
 	ManagerConfirmMapper manCoDao;
-
+	
 	
 	
 	@InitBinder
@@ -98,7 +97,7 @@ public class MemberController {
 	@RequestMapping("/memberJoinSuccess")
 	public String memberJoinSuccess(Model model, MemberVO vo) {
 		memberDao.memberInsert(vo);
-		return "main/home";
+		return "redirect:home";
 	}
 	
 //	기업회원가입폼
@@ -111,7 +110,7 @@ public class MemberController {
 	@RequestMapping("/managerJoinSuccess")
 	public String managerJoinSuccess(Model model, MemberVO vo) {
 		memberDao.managerInsert(vo);
-		return "main/home";
+		return "redirect:home";
 	}
 	
 //	멤버상태코드변경(휴면회원해제)
@@ -263,12 +262,21 @@ public class MemberController {
 //	마이페이지 메인
 	@RequestMapping("/myInfo")
 	public String myInfo(Model model, MemberVO vo, SubscriptionVO sVo, HttpServletRequest request) {
+		ManagerConfirmVO mVo = new ManagerConfirmVO();
+		
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));
 		sVo.setMemberId((String)session.getAttribute("id"));
+		mVo.setMemberId((String)session.getAttribute("id"));
+		
 		sVo = subDao.subSelect(sVo);
+		manCoDao.managerSelect(mVo);
+		manCoDao.paySelect(mVo);
+		
 		model.addAttribute("sub", sVo);
 		model.addAttribute("member", memberDao.memberSelect(vo));
+		model.addAttribute("pay", manCoDao.paySelect(mVo));
+		
 		return "member/myInfo";
 	}
 	

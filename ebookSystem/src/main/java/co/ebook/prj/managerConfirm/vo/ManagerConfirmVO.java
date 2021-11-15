@@ -25,6 +25,7 @@ public class ManagerConfirmVO {
 	private Date mcnfmCntrEdt;
 	private Date insDt;
 	private Date udtDt;
+	private Date payDt;
 	
 	private String mcnfmBizno;
 	private String mcnfmCoTel;
@@ -38,4 +39,11 @@ public class ManagerConfirmVO {
 	private String mcnfmAmt;
 	private String mcnfmCnfmrNm; 
 	private int payAmt;
+	private int payId;
+	private String impUid;
+	private String payStCd;
+	private String payMthd;
+	
+
+	
 }
