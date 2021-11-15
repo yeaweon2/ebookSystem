@@ -91,10 +91,7 @@
 			if( $("input[name='bookFlCd']:checked").val() != ""){
 				bookFlCd = $("input[name='bookFlCd']:checked").val();
 			}
-			
-			start = 1;
-			end = 8;
-			
+						
 			console.log( bookNm + " / " + bookPublCo );
 			
 			$.ajax({
@@ -149,7 +146,8 @@
 			}
 		});
 	});
-
+	
+	
 </script>
 
 </head>

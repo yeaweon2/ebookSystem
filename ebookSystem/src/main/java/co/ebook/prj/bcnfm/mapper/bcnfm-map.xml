@@ -21,11 +21,11 @@
 					    ,  book_confirm c  
 			       WHERE b.book_id = c.book_id 
 			       
-			       	 <if test='srchCnfmCd != null and srchCnfmCd != "" '>
-					 	<if test='srchCnfmCd == "01" or srchCnfmCd == "02" or srchCnfmCd == "03"'> 
-					 		 and c.bcnfm_st_cd = #{srchCnfmCd}
+			       	 <if test='bcnfmStCd != null and bcnfmStCd != "" '>
+					 	<if test='bcnfmStCd == "01" or bcnfmStCd == "02" or bcnfmStCd == "03"'> 
+					 		 and c.bcnfm_st_cd = #{bcnfmStCd}
 					 	</if>
-					 	<if test='srchCnfmCd == "04"'>
+					 	<if test='bcnfmStCd == "04"'>
 					 		and b.book_cnfm_yn = 'N'
 					 		and b.bcnfm_id is null  
 					 	</if>   
@@ -117,11 +117,11 @@
 					    ,  book_confirm c  
 			       WHERE b.book_id = c.book_id 
 			       
-			       	 <if test='srchCnfmCd != null and srchCnfmCd != "" '>
-					 	<if test='srchCnfmCd == "01" or srchCnfmCd == "02" or srchCnfmCd == "03"'> 
-					 		 and c.bcnfm_st_cd = #{srchCnfmCd}
+			       	 <if test='bcnfmStCd != null and bcnfmStCd != "" '>
+					 	<if test='bcnfmStCd == "01" or bcnfmStCd == "02" or bcnfmStCd == "03"'> 
+					 		 and c.bcnfm_st_cd = #{bcnfmStCd}
 					 	</if>
-					 	<if test='srchCnfmCd == "04"'>
+					 	<if test='bcnfmStCd == "04"'>
 					 		and b.book_cnfm_yn = 'N'
 					 		and b.bcnfm_id is null  
 					 	</if>   

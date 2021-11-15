@@ -45,7 +45,13 @@
 	
 	<delete id="ctgyDelete" parameterType="co.ebook.prj.category.vo.CtgyVO">
 		DELETE FROM CATEGORY
-		 WHERE CTGY_ID = #{ctgyId}
+		<if test='ctgyId.substring(1,3) == 00'>
+		WHERE CTGY_ID LIKE SUBSTR( #{ctgyId} , 0, 1) || '%' 
+		</if>
+		<if test='ctgyId.substring(1,3) != 00'>
+		WHERE CTGY_ID = #{ctgyId} 
+		</if>
+		 
 	</delete>
 	
 	<select id="ctgyMenuList" resultType="co.ebook.prj.category.vo.CtgyVO">
@@ -55,5 +61,17 @@
 		  FROM CATEGORY a 
 		 WHERE ctgy_use_yn = 'Y'
 		 ORDER BY CTGY_ID
+	</select>
+	
+	<select id="ctgybookCntChk" resultType="int">
+		SELECT COUNT(1)
+		  FROM BOOK 
+		<if test='ctgyId.substring(1,3) == 00'>
+		WHERE CTGY_ID LIKE SUBSTR( #{ctgyId} , 0, 1) || '%' 
+		</if>
+		<if test='ctgyId.substring(1,3) != 00'>
+		WHERE CTGY_ID = #{ctgyId} 
+		</if>
+		 		 
 	</select>
 </mapper>

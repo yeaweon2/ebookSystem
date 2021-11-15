@@ -53,4 +53,9 @@ public class CtgyServiceImpl implements CtgyService {
 		return map.ctgyMenuList();
 	}
 
+	@Override
+	public int ctgybookCntChk(CtgyVO vo) {
+		return map.ctgybookCntChk(vo);
+	}
+
 }

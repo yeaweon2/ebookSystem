@@ -92,4 +92,9 @@ public class BookServiceImpl implements BookService {
 	public List<BookVO> ctgyBookList(BookVO vo) {
 		return map.ctgyBookList(vo);
 	}
+
+	@Override
+	public BookVO bookChkCnt(BookVO vo) {
+		return map.bookChkCnt(vo);
+	}
 }

@@ -208,39 +208,80 @@ $(function(){
 	// 대분류 삭제버튼 클릭시 ---------------------------------------------------------------
 	$(".lcodeDBtn").on("click", function(){
 		
-		$.ajax({
-			url: 'ctgyDelete',    
-			method: 'DELETE',
-			data : JSON.stringify({ ctgyId : ctgyGrId }),
-			contentType : 'application/json',
-			dataType: 'json',
-			success: function(res){
-				console.log($("#lcodeContents tr[data-id='"+ ctgyGrId +"']"));
-				$("#lcodeContents tr[data-id="+ ctgyGrId +"]").empty();
-			},
-			error: function(rej){
-				console.log(rej);
-			}
-		});	
+		Swal.fire({ 
+			title: '대분류 삭제처리', 
+			text: "대분류 삭제시 자식 소분류도 같이 삭제 처리됩니다.", 
+			icon: 'warning', 
+			showCancelButton: true, 
+			confirmButtonColor: '#3085d6', 
+			cancelButtonColor: '#d33', 
+			confirmButtonText: '삭제', 
+			cancelButtonText: '취소' 
+		}).then((result) => { 
+			if (result.isConfirmed) { 
+				$.ajax({
+					url: 'ctgyDelete',    
+					method: 'DELETE',
+					data : JSON.stringify({ ctgyId : ctgyGrId }),
+					contentType : 'application/json',
+					dataType: 'json',
+					success: function(res){
+						console.log(res);
+						if( res.result == '01'){
+							$("#lcodeContents tr[data-id="+ ctgyGrId +"]").empty();
+							Swal.fire( '삭제처리 완료', '정상적으로 삭제되었습니다.', 'success' );	
+						}else if (res.result == '03'){
+							Swal.fire( '삭제오류', '해당 카테고리로 등록된 BOOK이 존재합니다.', 'error' );
+						}
+					},
+					error: function(rej){
+						console.log(rej);
+						Swal.fire( '삭제처리 중 오류발생', '삭제처리중 오류가 발생하였습니다.', 'error' );
+					}
+				});	
+			} 
+		})
+		
+		
+		
+		
 	});
 	
 	// 소분류 삭제버튼 클릭시 ---------------------------------------------------------------
 	$(".scodeDBtn").on("click", function(){
- 		
- 		$.ajax({
-			url: 'ctgyDelete',    
-			method: 'DELETE',
-			data : JSON.stringify({ ctgyId : scodeTrDataId }),
-			contentType : 'application/json',
-			dataType: 'json',
-			success: function(res){
-				console.log($("#scodeContents tr[data-id='"+ scodeTrDataId +"']"));
-				$("#scodeContents tr[data-id="+ scodeTrDataId +"]").empty();
-			},
-			error: function(rej){
-				console.log(rej);
+ 		console.log("scodeTrDataId");
+		Swal.fire({ 
+			title: '소분류 삭제처리', 
+			text: "정말 삭제하시겠습니까?", 
+			icon: 'warning', 
+			showCancelButton: true, 
+			confirmButtonColor: '#3085d6', 
+			cancelButtonColor: '#d33', 
+			confirmButtonText: '삭제', 
+			cancelButtonText: '취소' 
+		}).then((result) => { 
+			if (result.isConfirmed) { 
+				$.ajax({
+					url: 'ctgyDelete',    
+					method: 'DELETE',
+					data : JSON.stringify({ ctgyId : scodeTrDataId }),
+					contentType : 'application/json',
+					dataType: 'json',
+					success: function(res){
+						console.log(res);
+						if( res.result == '01'){
+							$("#scodeContents tr[data-id="+ scodeTrDataId +"]").empty();
+							Swal.fire( '삭제처리 완료', '정상적으로 삭제되었습니다.', 'success' );	
+						}else if (res.result == '03'){
+							Swal.fire( '삭제오류', '해당 카테고리로 등록된 BOOK이 존재합니다.', 'error' );
+						}
+					},
+					error: function(rej){
+						console.log(rej);
+					}
+				}); 
 			}
-		}); 
+		})
 	});		
 	
 	

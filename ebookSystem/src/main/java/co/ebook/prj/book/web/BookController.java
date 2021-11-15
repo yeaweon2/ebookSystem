@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.ebook.prj.book.service.BookService;
@@ -201,28 +204,37 @@ public class BookController {
 	}
 	
 	@RequestMapping("/bookDelete")
-	public String bookDelete(Model model , BookVO vo) {
+	@ResponseBody
+	public HashMap<String,Object> bookDelete(Model model , @RequestBody BookVO vo) {
 		System.out.println("//----------------------------------------");
 		System.out.println(vo.toString());
 		
 		int result = 0;
-		// 승인처리된 도서의 경우 사용여부만 변경 , 삭제불가 
-		if( "Y".equals(vo.getBookCnfmYn())){
-			result = bookDao.bookUseYnUpdate(vo);	
-		}  else {
-			// 승인 미처리된 도서의 경우 삭제처리
-			result = bookDao.bookDelete(vo);
-		}
+		HashMap<String,Object> map = new HashMap<String,Object>();
 		
-		String view = "";
-		if( result > 0 ) {
-			model.addAttribute("msg", "01");	// 성공
+		vo = bookDao.bookChkCnt(vo);
+		
+		if( vo.getLendCnt() > 0 ) {
+			map.put("result", "03");
+		}else if( vo.getBcnfmId() != null || "".equals(vo.getBcnfmId()) ){
+			map.put("result", "04");
 		}else {
-			model.addAttribute("msg", "02");	// 에러	
+			// 승인처리된 도서의 경우 사용여부만 변경 , 삭제불가 
+			if( "Y".equals(vo.getBookCnfmYn())){
+				result = bookDao.bookUseYnUpdate(vo);	
+			}  else {
+				// 승인 미처리된 도서의 경우 삭제처리
+				result = bookDao.bookDelete(vo);
+			}
+			
+			if( result > 0 ) {
+				map.put("result", "01");	
+			}else {
+				map.put("result", "02");	
+			}
 		}
-		view = "redirect:bookList";
 		
-		return view;
+		return map;
 	}
 	
 	

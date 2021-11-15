@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.ebook.prj.bcnfm.service.BcnfmService;
@@ -19,7 +20,7 @@ public class BcnfmController {
 	
 	// BOOK 승인목록 조회 
 	@RequestMapping("/bcnfmList")
-	public String bcnfmList(Model model, BcnfmVO vo, Paging paging){
+	public String bcnfmList(Model model, @ModelAttribute("vo") BcnfmVO vo, Paging paging){
 		
 		System.out.println("==================================>");
 		System.out.println(vo.toString());
@@ -27,6 +28,15 @@ public class BcnfmController {
 		//페이징처리
 		vo.setStart(paging.getFirst());
 		vo.setEnd(paging.getLast()); 
+		
+		if( "01".equals(vo.getSrchVal())  ) {
+			vo.setBookNm(vo.getSrchTxt());
+		}else if( "02".equals(vo.getSrchVal())  ) {
+			vo.setBookPublCo(vo.getSrchTxt());
+		}else if( "03".equals(vo.getSrchVal())  ) {
+			vo.setBookWriter(vo.getSrchTxt());
+		}
+		
 		paging.setTotalRecord(bcnfmDao.bcnfmListCount(vo));
 		
 		List<BcnfmVO> lists = bcnfmDao.bcnfmList(vo);

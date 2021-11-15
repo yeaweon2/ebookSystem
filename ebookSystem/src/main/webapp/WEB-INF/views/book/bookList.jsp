@@ -389,6 +389,7 @@ function goList(p) {
 			</div>
 			<div class="row" style="margin-right:20px;margin-top:20px">
 				<button id="bookCnfmBtn" class="btn ebookBtn-sm pull-right" >승인신청</button>
+				<button id="bookCnfmBtn" class="btn ebookBtn-sm pull-right" >승인취소</button>
 			</div>
 			<div class="row" style="margin-top:20px">
 				<table id="bookTb" class="table table-hover" style="cursor: pointer;">

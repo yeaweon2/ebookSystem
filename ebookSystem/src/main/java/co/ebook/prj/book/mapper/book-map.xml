@@ -472,4 +472,13 @@
 				and ctgy_id in ( select ctgy_id from category where ctgy_Gr_id = #{ctgyGrId}  )
 			</if>	
 	</select>
+	
+	<select id="bookChkCnt" resultType="co.ebook.prj.book.vo.BookVO">
+		SELECT BCNFM_ID
+			 , B.BOOK_ID
+	         , BOOK_CNFM_YN  
+	         , ( SELECT COUNT(1) FROM LEND WHERE BOOK_ID = #{bookId}  ) AS LEND_CNT
+		  FROM BOOK B 
+		 WHERE BOOK_ID =  #{bookId} 
+	</select>
 </mapper>

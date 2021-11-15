@@ -29,10 +29,13 @@
 			 height: 300
 	 	}); 
 		
+		 var pageFlag = 'sub';
+		 
 		// 화면 진입시 카테고리 대분류 조회 후 셋팅 --------------------------------------------------------------------------------------
 		$.ajax({
 			url: 'ctgyLcodeList',    
-			method: 'GET',
+			method: 'POST',
+			data : JSON.stringify({ pageFlag : pageFlag }),
 			contentType : 'application/json;charset=utf-8',
 			dataType: 'json',
 			success: function(res){
@@ -52,7 +55,7 @@
 			$.ajax({
 				url: 'ctgyDetailList',    
 				method: 'POST',
-				data : JSON.stringify({ ctgyGrId : ctgyGrId }),
+				data : JSON.stringify({ ctgyGrId : ctgyGrId , pageFlag : pageFlag }),
 				contentType : 'application/json',
 				dataType: 'json',
 				success: function(res){

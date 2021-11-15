@@ -36,4 +36,7 @@ public interface BookService {
 	int bookLikeItUpdate(BookVO vo);
 	
 	List<BookVO> ctgyBookList(BookVO vo);
+	
+	// 삭제시 대여건수 , 승인처리된 book인지 체크하기 위한 조회
+	BookVO bookChkCnt(BookVO vo);
 }

@@ -43,4 +43,6 @@ public interface BookMapper {
 	
 	// 카테고리별 BOOK 조회
 	List<BookVO> ctgyBookList(BookVO vo);
+	
+	BookVO bookChkCnt(BookVO vo);
 }

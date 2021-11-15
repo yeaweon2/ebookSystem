@@ -110,116 +110,166 @@ select {
 		
 		
 		$("#cnfmBtn").on("click", function(){
-			var chkCnt = 0;
-			var book = [];
-			$(".chkInput:checked").each(function(){
-				
-				var filecnt = $(this).closest("tr").data("filecnt");
-				if( filecnt == '0'){
-					chkCnt++;
-				} 
-				
-				var bcnfmId = $(this).closest("tr").data("bcnfmid");
-				var bookId = $(this).closest("tr").data("bookid");
-				var data = {
-					bcnfmId : bcnfmId,
-					bookId : bookId
-				};
-				
-				book.push(data);
-		    });
-			
-			console.log(book);
-			if( book == null ){
-				Swal.fire({ 
-				   icon: 'error',  
-				   title: '선택된 건이 없습니다.',  
-				   text: '승인처리건을 선택한 후 진행해주세요.',  
-				});			
-				return false;
-			}
-			if( chkCnt > 0 ){
-				Swal.fire({ 
-				   icon: 'error',  
-				   title: '파일 미등록 BOOK',  
-				   text: '파일이 등록되지 않은 BOOK은 승인할 수 없습니다.',  
-				});				
-				return false;	
-			}
-			
-			 $.ajax({
-				url : 'bookAdminCnfm' ,
-				data :  JSON.stringify(book)  ,
-				contentType : 'application/json',
-				method : 'POST' ,
-				dataType : 'json' ,
-				success : function(data){
-					console.log(data);
-					
-					Swal.fire({ 
-					   icon: 'success',  
-					   title: '승인완료!!',  
-					   text: '정상적으로 승인처리되었습니다.',  
-					});					
-				}
-			}); 
+            	var chkCnt = 0;
+    			var book = [];
+    			var cnt = 0;
+    			$(".chkInput:checked").each(function(){
+    				cnt++;
+    				var filecnt = $(this).closest("tr").data("filecnt");
+    				if( filecnt == '0'){
+    					chkCnt++;
+    				} 
+    				
+    				var bcnfmId = $(this).closest("tr").data("bcnfmid");
+    				var bookId = $(this).closest("tr").data("bookid");
+    				var data = {
+    					bcnfmId : bcnfmId,
+    					bookId : bookId
+    				};
+    				
+    				book.push(data);
+    		    });
+    			
+    			console.log(book);
+    			
+    			if( cnt == 0 ){
+    				Swal.fire({ 
+    				   icon: 'error',  
+    				   title: '선택된 건이 없습니다.',  
+    				   text: '승인처리건을 선택한 후 진행해주세요.',  
+    				});			
+    				return false;
+    			}
+    			if( chkCnt > 0 ){
+    				Swal.fire({ 
+    				   icon: 'error',  
+    				   title: '파일 미등록 BOOK',  
+    				   text: '파일이 등록되지 않은 BOOK은 승인할 수 없습니다.',  
+    				});				
+    				return false;	
+    			}
+    			
+    			Swal.fire({
+                    title: 'BOOK 승인처리',
+                    text: "해당 자료를 승인처리 하시겠습니까?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '승인',
+                    cancelButtonText: '취소'
+                }).then((result) => {
+                    if (result.isConfirmed) {        			
+		      			 $.ajax({
+		      				url : 'bookAdminCnfm' ,
+		      				data :  JSON.stringify(book)  ,
+		      				contentType : 'application/json',
+		      				method : 'POST' ,
+		      				dataType : 'json' ,
+		      				success : function(data){
+		      					console.log(data);
+		      					
+		      					Swal.fire({ 
+		      					   icon: 'success',  
+		      					   title: '승인완료!!',  
+		      					   text: '정상적으로 승인처리되었습니다.',  
+		      					});
+		      					
+		      					goList(1);
+		      					
+		      					
+		      				}
+		      			}); 
+					}
+            });
 		});
 		
 		$("#rejectBtn").on("click", function(){
-			$("#myModal").css("display", "none");
-			var rejectMsg = $("#rejectMsg").val();
-			if(rejectMsg == ""){
-				Swal.fire({ 
-				   icon: 'error',  
-				   title: '보류사유 미입력',  
-				   text: '승인 보류 사유를 작성한 후 진행해주세요.',  
-				});				
-				return false;
-			}
 			
-			var book = [];
-			$(".chkInput:checked").each(function(){
+			 var rejectMsg = "";
+			Swal.fire({
+				  title: '보유사유 입력',
+				  html: `<input type="text" id="rejectmsg" class="swal2-input" placeholder="입력해주세요..">`,
+				  confirmButtonText: '확인',
+				  focusConfirm: false,
+				  preConfirm: () => {
+				    const rejectmsg = Swal.getPopup().querySelector('#rejectmsg').value
+				    if (!rejectmsg ) {
+				      Swal.showValidationMessage(`보유사유를 입력해주세요`);
+				    }
+				    return { rejectmsg: rejectmsg }
+				  }
+				}).then((result) => {
+					rejectMsg = result.value.rejectmsg;
 					
-				var bcnfmId = $(this).closest("tr").data("bcnfmid");
-				var bookId = $(this).closest("tr").data("bookid");
-				
-				var data = {
-					bcnfmId : bcnfmId ,
-					bookId : bookId ,
-					bcnfmReject : rejectMsg
-				};
-				
-				book.push(data);
-		    });
-			
-			console.log(book);
-			if( book == null ){
-				Swal.fire({ 
-				   icon: 'error',  
-				   title: '선택된 건이 없습니다.',  
-				   text: '승인처리건을 선택한 후 진행해주세요.',  
-				});				
-				return false;
-			}
-			
-			 $.ajax({
-				url : 'bookAdminReject' ,
-				data :  JSON.stringify(book)  ,
-				contentType : 'application/json',
-				method : 'POST' ,
-				dataType : 'json' ,
-				success : function(data){
-					console.log(data);
-					Swal.fire({ 
-					   icon: 'success',  
-					   title: '승인보류완료!!',  
-					   text: '정상적으로 보류 처리되었습니다.',  
-					});						
-				}
-			}); 
+						if(rejectMsg == ""){
+	        				Swal.fire({ 
+	        				   icon: 'error',  
+	        				   title: '보류사유 미입력',  
+	        				   text: '승인 보류 사유를 작성한 후 진행해주세요.' 
+	        				});				
+	        				return false;
+	        			}
+	        			
+	        			
+	        			var book = [];
+	        			var cnt = 0;
+	        			$(".chkInput:checked").each(function(){
+	        					
+	        				var bcnfmId = $(this).closest("tr").data("bcnfmid");
+	        				var bookId = $(this).closest("tr").data("bookid");
+	        				
+	        				var data = {
+	        					bcnfmId : bcnfmId ,
+	        					bookId : bookId ,
+	        					bcnfmReject : rejectMsg
+	        				};
+	        				
+	        				book.push(data);
+	        		    });
+	        			
+	        			console.log(book);
+	        			if( book.length == 0 ){
+	        				Swal.fire({ 
+	        				   icon: 'error',  
+	        				   title: '선택된 건이 없습니다.',  
+	        				   text: '승인처리건을 선택한 후 진행해주세요.'
+	        				});				
+	        				return false;
+	        			}
+	        			Swal.fire({
+		                       title: 'BOOK 보류처리',
+		                       text: "해당 건을 보류처리 하시겠습니까?",
+		                       icon: 'warning',
+		                       showCancelButton: true,
+		                       confirmButtonColor: '#3085d6',
+		                       cancelButtonColor: '#d33',
+		                       confirmButtonText: '보류',
+		                       cancelButtonText: '취소'
+		                   }).then((result) => {
+		                       if (result.isConfirmed) {         			
+		        			
+			         			 $.ajax({
+			         				url : 'bookAdminReject' ,
+			         				data :  JSON.stringify(book)  ,
+			         				contentType : 'application/json',
+			         				method : 'POST' ,
+			         				dataType : 'json' ,
+			         				success : function(data){
+			         					console.log(data);
+			         					Swal.fire({ 
+			         					   icon: 'success',  
+			         					   title: '보류완료!!',  
+			         					   text: '정상적으로 보류 처리되었습니다.'  
+			         					});						
+			         				}
+			         			}); 
+			                 }
+			             })					
+					})
 		});
 		
-		$("#bcnfmTb").find("tbody").on("click", "tr", function(){
+		$("table").on("click", "tr", function(){
 			event.stopPropagation();
 			var bcnfmId = $(this).data("bcnfmid");
 			var bookId = $(this).data("bookid");
@@ -229,6 +279,13 @@ select {
 		
 		$("#bcnfmTb").find("tbody").on("click", ".chkTd", function(){
 			event.stopPropagation();
+			if($(event.target).find("#chkInput").prop('checked') == false){
+				$(event.target).find("#chkInput").prop('checked', true);
+				$(event.target).closest("tr").css("backgroundColor" , "#50d8af");
+			}else{
+				$(event.target).find("#chkInput").prop('checked', false);
+				$(event.target).closest("tr").css("backgroundColor" , "");
+			}			
 		});
 		
 		$("#srchBtn").on("click", function(){
@@ -239,7 +296,6 @@ select {
 function goList(p) {
 	searchFrm.page.value = p;
 	searchFrm.submit();
-	location.href="bcnfmList?page="+p;
 }	
 
 </script>
@@ -255,7 +311,7 @@ function goList(p) {
 	        	</div>
 			</div>
 			<div class="row srchBox">
-				<form name="searchFrm" action="bcnfmList" method="post">
+				<form name="searchFrm" >
 						<div class="col-md-9">
 							<div class="row">
 								<div class="col-md-6" style="padding-left:0;">	
@@ -284,14 +340,14 @@ function goList(p) {
 										<label> 검색조건 : </label>
 									</div>
 									<div class="col-md-3" style="margin-left:0px">
-										<select id="srchVal" class="form-control" style="width:100px;">
+										<select id="srchVal" name="srchVal" class="form-control" style="width:100px;">
 											<option value="01" selected>제목</option>
 											<option value="02">출판사</option>
 											<option value="03">저자</option>
 										</select>
 									</div>
 									<div class="col-md-6" style="margin-left:0px">
-										<input type="text" id="srchTxt" class="form-control" >
+										<input type="text" id="srchTxt" name="srchTxt" class="form-control">
 									</div>
 								</div>
 								<div class="col-md-6" >
@@ -349,7 +405,7 @@ function goList(p) {
 			</div>				
 			<div class="row pull-right" style="margin-top:10px;margin-bottom:10px;">
 				<button type="button" id="cnfmBtn" class="btn ebookBtn">승 인</button>
-				<button type="button" id="rejectModalBtn" class="btn ebookBtn">보 류</button>
+				<button type="button" id="rejectBtn" class="btn ebookBtn">보 류</button>
 			</div>
 				
 			<div class="row">
@@ -376,7 +432,7 @@ function goList(p) {
 									<c:if test="${list.bcnfmStCd != '처리중' }">
 										<td></td>
 									</c:if>
-									<td>${list.bcnfmNo}</td>
+									<td>${list.rn}</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.bcnfmReqDt}"/></td>
 									<td>${list.bcnfmReqNm}</td>
 									<td>
@@ -441,7 +497,7 @@ function goList(p) {
 </form>	
 <script>
 	 
-	$("#rejectModalBtn").on("click", function(){
+/* 	$("#rejectModalBtn").on("click", function(){
 		$("#myModal").css("display", "block");	
 	});
 	
@@ -453,7 +509,7 @@ function goList(p) {
 		if (event.target == modal) {
 			$("#myModal").css("display", "none");
 		}
-	}
+	} */
 </script>
 </body>
 </html>

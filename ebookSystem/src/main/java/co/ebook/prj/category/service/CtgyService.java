@@ -19,4 +19,7 @@ public interface CtgyService {
 	int ctgyDelete(CtgyVO vo);
 	
 	List<CtgyVO> ctgyMenuList();
+	
+	int ctgybookCntChk(CtgyVO vo); 
+	
 }

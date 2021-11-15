@@ -18,4 +18,6 @@ public interface CtgyMapper {
 	int ctgyDelete(CtgyVO vo);	
 	
 	List<CtgyVO> ctgyMenuList();
+	
+	int ctgybookCntChk(CtgyVO vo);
 }

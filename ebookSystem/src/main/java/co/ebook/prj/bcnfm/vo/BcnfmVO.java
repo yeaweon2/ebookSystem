@@ -10,6 +10,7 @@ import lombok.Data;
 
 @Data
 public class BcnfmVO {
+	private int rn;
 	private int bcnfmNo;
 	private int bcnfmId;
 	private String bookId;

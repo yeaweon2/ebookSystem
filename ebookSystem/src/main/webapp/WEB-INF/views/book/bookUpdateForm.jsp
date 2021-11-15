@@ -29,10 +29,13 @@
 		var attchUpFlag = false;
 		$("#attchUpFlag").val("false");
 		
+		var pageFlag = 'sub';
+		
 		// 화면 진입시 카테고리 대분류 조회 후 셋팅 --------------------------------------------------------------------------------------
 		$.ajax({
 			url: 'ctgyLcodeList',    
-			method: 'GET',
+			method: 'POST',
+			data : JSON.stringify({ pageFlag : pageFlag }),
 			contentType : 'application/json;charset=utf-8',
 			dataType: 'json',
 			success: function(res){
@@ -59,12 +62,13 @@
 
 		// 대분류 카테고리 선택시 소분류 select box에 셋팅 -------------------------------------------------------------------------------- 
 		$("#lcodeSelBox").on("change", function(){
+			
 			var ctgyGrId = $(this).find("option:selected").val();
 				
 			$.ajax({
 				url: 'ctgyDetailList',    
 				method: 'POST',
-				data : JSON.stringify({ ctgyGrId : ctgyGrId }),
+				data : JSON.stringify({ ctgyGrId : ctgyGrId , pageFlag : pageFlag }),
 				contentType : 'application/json',
 				dataType: 'json',
 				success: function(res){
@@ -209,8 +213,40 @@
 	
 	
 	function bookDelete(){
-		frm.action = "bookDelete";
-		frm.submit();
+		
+		var bookId = $("#bookId").val();
+		
+		$.ajax({
+			url: 'bookDelete',    
+			method: 'POST',
+			data : JSON.stringify({ bookId : bookId }),
+			contentType : 'application/json;charset=utf-8',
+			dataType: 'json',
+			success: function(res){
+				console.log(res);
+				if(res.result == '01' ){
+					window.location.href = "bookList";
+				}else if(res.result == '03' ){
+					Swal.fire({ 
+						   icon: 'error',  
+						   title: '대여건이 존재합니다.',  
+						   text: '대여건이 존재할 경우 삭제가 불가능합니다. 관리자에게 문의해주세요.',  
+					});
+				}else if(res.result == '04' ){
+					Swal.fire({ 
+						   icon: 'error',  
+						   title: '승인 진행중인 건입니다.',  
+						   text: '승인 취소 후 진행해주세요.',  
+					});
+				}else{
+					Swal.fire({ 
+						   icon: 'error',  
+						   title: '오류발생',  
+						   text: '삭제시 오류가 발생하였습니다.',  
+					});
+				}
+			}
+		});
 	}
 
 </script>

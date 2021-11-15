@@ -65,22 +65,28 @@ public class CtgyRestController {
 	@RequestMapping(value="/ctgyDelete" ,method=RequestMethod.DELETE) 
 	public HashMap<String,Object> ctgyDelete(Model model , @RequestBody CtgyVO vo ) {
 		
-		int result = ctgyDao.ctgyDelete(vo);
-		System.out.println("카테고리 : " + result + " 건 삭제완료 ======> ");
+		int result = 0;
+		int cnt = ctgyDao.ctgybookCntChk(vo);
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		if(result > 0 ) {
-			map.put("result", "입력완료");
+		
+		if( cnt > 0 ) {
+			map.put("result", "03");
 		}else {
-			map.put("result", "오류발생");
+			result = ctgyDao.ctgyDelete(vo);	
+			System.out.println("카테고리 : " + result + " 건 삭제완료 ======> ");
+			if(result > 0 ) {
+				map.put("result", "01");
+			}else {
+				map.put("result", "02");
+				
+			}
 		}
 		return map;
 	}
 	
 	@RequestMapping(value="/ctgyLcodeList", method=RequestMethod.POST)
 	public List<CtgyVO> ctgyLcodeList(Model model,  @RequestBody CtgyVO vo ) {
-		
 		List<CtgyVO> lists = ctgyDao.ctgyList(vo);
-		
 		return lists; 
 	}		
 	
