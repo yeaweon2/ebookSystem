@@ -25,7 +25,7 @@
 <section>
 	<div class="section-inner">		
 		<div class="container">			
-			<div class="row mb-1" style="margin-top: 30px;padding-left:30px">
+			<div class="row mb-1" style="margin-top: 30px;margin-bottom: 50px;padding-left:30px">
 				<div class="section-header" style="height:20px">
 	          		<h2><img width="50px" height="50px" src="resources/img/audioBook.png"> 오디오북 LISTENING</h2>
 	        	</div>
@@ -34,13 +34,13 @@
 				<div class="row">
 					<div class="col-sm-3">
 						<div class="row">
-							<img width="140" height="200" src="${pageContext.request.contextPath}/fileUp${lend.bookCoverPath}${lend.bookCover}">
+							<img width="190" height="230" src="${pageContext.request.contextPath}/fileUp${lend.bookCoverPath}${lend.bookCover}">
 							<h3>${lend.bookNm}</h3>
-							<h4>${lend.bookPublCo}(${lend.bookWriter})</h4>
+							<h5>${lend.bookPublCo}(${lend.bookWriter})</h5>
 						</div>
 					</div>
 					<div class="col-sm-9">
-						<div class="row "><a href="lendList" class="btn ebookBtn-sm pull-right" id="lendList">나의대여LIST</a></div>
+						<div class="row "><a href="lendList" class="btn ebookBtn pull-right" id="lendList" style="text-align: center;vertical-align: middle;">대여목록</a></div>
 						<div class="row">
 							<h4 >BOOK 파일 LIST</h4>
 							<table id="batchList" class="table">

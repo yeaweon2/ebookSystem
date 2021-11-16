@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,13 +52,6 @@ public class BookController {
         DateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,true));
     }
-
-	@RequestMapping("/bookSrchList")
-	public String bookSrchList(Model model , BookVO vo , BookSrchVO svo, Paging paging , HttpServletRequest request ) {
-		
-		
-		return "book/bookSrchList";
-	}
 	
 	@RequestMapping("/bookList")
 	public String bookList(Model model , BookVO vo , BookSrchVO svo, Paging paging , HttpServletRequest request ) {
@@ -244,7 +238,7 @@ public class BookController {
 	}	
 	
 	@RequestMapping("/menuSrchBook")
-	public String menuSrchBook(Model model , BookSrchVO svo, Paging paging ) {
+	public String menuSrchBook(Model model , BookVO svo, Paging paging ) {
 		
 		paging.setPageUnit(8);
 		paging.setTotalRecord(bookDao.bookSrchPageCount(svo));	
@@ -281,5 +275,29 @@ public class BookController {
 		return "book/ctgyBookList";
 	}	
 	
+	// BOOK검색화면에서 조회버튼 클릭시 
+		@RequestMapping("/bookSrchList")
+		public String bookSrchList(Model model, BookVO svo, Paging paging , HttpServletRequest request) {
+			System.out.println("-----------------here------------>> ");
+			System.out.println(svo.toString());
+			System.out.println("-----------------here------------>> ");
+			
+			//페이징처리
+			svo.setStart(paging.getFirst());
+			svo.setEnd(paging.getLast()); 
+			
+			paging.setPageUnit(8);
+			paging.setTotalRecord(bookDao.bookSrchPageCount(svo));	
+			
+			System.out.println("----------------------------->> ");
+			System.out.println(paging.toString());
+			System.out.println(paging.toString());
+			
+			
+			List<BookVO> lists = bookDao.bookSrchPageList(svo);
+			model.addAttribute("lists", lists);
+			return "book/bookSrchList";
+		}
+			
 }
 

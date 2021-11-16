@@ -28,7 +28,7 @@ import co.ebook.prj.category.vo.CtgyVO;
 import co.ebook.prj.common.vo.Paging;
 
 @RestController
-public class bookRestController {
+public class BookRestController {
 
 	@Autowired
 	BookService bookDao;
@@ -42,7 +42,6 @@ public class bookRestController {
         DateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,true));
     }
-   
    
 	@RequestMapping(value="/bookUpdate", method=RequestMethod.POST )
    public BookVO bookUpdate(Model model, BookVO vo ) {
@@ -112,8 +111,8 @@ public class bookRestController {
    }
 	
 	// 매니저 BOOK조회화면에서 조회버튼 클릭시
-	@RequestMapping(value="/bookSrchList", method=RequestMethod.POST )
-	   public HashMap<String,Object> bookSrchList(Model model, @RequestBody BookSrchVO svo, Paging paging , HttpServletRequest request) {
+	@RequestMapping(value="/bookSrchBtnList", method=RequestMethod.POST )
+	   public HashMap<String,Object> bookSrchBtnList(Model model, @RequestBody BookSrchVO svo, Paging paging , HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 		svo.setMemberId((String)session.getAttribute("id"));
@@ -140,36 +139,6 @@ public class bookRestController {
 		return map;
 	}
 	
-	// BOOK검색화면에서 조회버튼 클릭시 
-	@RequestMapping(value="/bookSrchPage", method=RequestMethod.POST )
-	   public HashMap<String,Object> bookSrchPage(Model model, @RequestBody BookSrchVO svo, Paging paging , HttpServletRequest request) {
-		
-		
-		System.out.println("-----------------here------------>> ");
-		System.out.println(svo.toString());
-		System.out.println("-----------------here------------>> ");
-		
-		paging.setPageUnit(8);
-		paging.setTotalRecord(bookDao.bookSrchPageCount(svo));	
-		
-		System.out.println("----------------------------->> ");
-		System.out.println(paging.toString());
-		System.out.println(paging.toString());
-		
-		
-		List<BookVO> lists = bookDao.bookSrchPageList(svo);
-		
-		HashMap<String,Object> map = new HashMap<String,Object>();
-		if( lists != null ) {
-			map.put("result", "01");
-			map.put("lists", lists);
-			map.put("paging" , paging );
-		
-		}else {
-			map.put("result", "02");
-		}
-		return map;
-	}	
 	
 			
 	@RequestMapping(value="/bookLikeItUpdate", method=RequestMethod.POST )

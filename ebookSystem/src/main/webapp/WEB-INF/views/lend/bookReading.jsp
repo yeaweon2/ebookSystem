@@ -173,13 +173,18 @@
 <section>
 	<div class="section-inner">		
 		<div class="container">
+			<div class="row mb-1" style="margin-top: 30px;margin-bottom: 50px;padding-left:30px">
+				<div class="section-header" style="height:20px">
+	          		<h2><img width="50px" height="50px" src="resources/img/lendTitle.png"> eBook Reading</h2>
+	        	</div>
+			</div>	
 			<div class="row box">
 				<div class="row">
 					<div class="col-sm-3">
 						<div class="row">
-							<img width="140" height="200" src="${pageContext.request.contextPath}/fileUp${lend.bookCoverPath}${lend.bookCover}">
+							<img width="190" height="230" src="${pageContext.request.contextPath}/fileUp${lend.bookCoverPath}${lend.bookCover}">
 							<h3>${lend.bookNm}</h3>
-							<h4>${lend.bookPublCo}(${lend.bookWriter})</h4>
+							<h5>${lend.bookPublCo}(${lend.bookWriter})</h5>
 						</div>
 						<div class="row" style="margin-top:50px">
 							<h4 >BOOK 파일 LIST</h4>

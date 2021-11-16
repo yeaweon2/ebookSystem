@@ -9,7 +9,7 @@ public interface BookService {
 	
 	List<BookVO> bookList(BookSrchVO vo);
 
-	List<BookVO> bookSrchPageList(BookSrchVO vo);
+	List<BookVO> bookSrchPageList(BookVO vo);
 	
 	List<BookVO> newBooks();
 	
@@ -31,7 +31,7 @@ public interface BookService {
 	
 	int bookListCount(BookSrchVO vo);
 	
-	int bookSrchPageCount(BookSrchVO vo);
+	int bookSrchPageCount(BookVO vo);
 	
 	int bookLikeItUpdate(BookVO vo);
 	

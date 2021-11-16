@@ -10,7 +10,7 @@ public interface BookMapper {
 	List<BookVO> bookList(BookSrchVO vo);
 	
 	// BOOK검색화면
-	List<BookVO> bookSrchPageList(BookSrchVO vo);
+	List<BookVO> bookSrchPageList(BookVO vo);
 	
 	// BOOK상세화면
 	BookVO bookDetail(BookVO vo);
@@ -27,7 +27,7 @@ public interface BookMapper {
 	
 	int bookListCount(BookSrchVO vo);
 	
-	int bookSrchPageCount(BookSrchVO vo);
+	int bookSrchPageCount(BookVO vo);
 	
 	List<BookVO> newBooks();
 	

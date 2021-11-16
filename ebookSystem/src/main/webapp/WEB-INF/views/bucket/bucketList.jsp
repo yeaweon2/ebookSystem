@@ -100,9 +100,9 @@ font-weight: bold;
 						
 						$("#bucketSrchList").empty();
 						$.each(res,function(idx,item){
-							var tr = $("<tr id='srchTr' data-bookid='" + item.bookId + "'>").append( $("<td>").append("<img width='40' height='60' src='/prj/fileUp" + item.bookCoverPath + item.bookCover + "'>") )
-									 		  .append( $("<td id='srchBookNm' style='vertical-align:middle'>").html(item.bookNm) )
-									 		  .append( $("<td id='srchInsert' >").append( $("<i  class='fa fa-plus-square-o' style='font-size:25px'>")));
+							var tr = $("<tr id='srchTr' data-bookid='" + item.bookId + "'>").append( $("<td width='50px'>").append("<img width='40' height='60' src='/prj/fileUp" + item.bookCoverPath + item.bookCover + "'>") )
+									 		  .append( $("<td width='300px' id='srchBookNm' style='vertical-align:middle'>").html(item.bookNm) )
+									 		  .append( $("<td width='50px' id='srchInsert' >").append( $("<i  class='fa fa-plus-square-o' style='font-size:25px'>")));
 							$("#bucketSrchList").append(tr);
 						});
 					}
@@ -264,7 +264,7 @@ font-weight: bold;
 							<button id="searchBtn" ><i style="font-size:28px" class="fa">&#xf002;</i></button>
 						</div>
 						<div class="">
-							<table id="bucketSrchList" class="searchDiv pointer table-hover table">
+							<table id="bucketSrchList" class="searchDiv pointer table-hover">
 							</table>
 						</div>
 					</div>	

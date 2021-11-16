@@ -38,6 +38,7 @@
 		DELETE FROM BOOK_CART
   		 WHERE MEMBER_ID = #{memberId}
 		   AND BOOK_ID = #{bookId}
+		   AND CART_ID = #{cartId}
 	
 	</delete>
 

@@ -48,9 +48,6 @@
 			$("#itemDel").css("display", "block");
 		}
 
-		$("#closeBtn").on("click", function(){
-			$("#modalChoice").css("display", "none");
-		});
 		
 		// 선택삭제
 		$("#chkDelBtn").on("click", function(){
@@ -71,8 +68,8 @@
 					var bookId = $(this).closest("tr").data("bookid");
 					
 					var data = {
-							bookId : bookId
-						};
+						bookId : bookId
+					};
 					
 					if( data != "" ){
 						books.push(data);	
@@ -93,18 +90,47 @@
 			} 
 		});
 		
-		$("#cartDelete").on("click", function(){
+
+		$("#cartTbody").on("click", ".removeBtn" , function(){
+			event.stopPropagation();
+			
 			var bookId = $(this).closest("tr").data("bookid");
-			$.ajax({
-				url : 'cartDelete' ,
-				method : 'DELETE' ,
-				data :  JSON.stringify({bookId : bookId}) ,
-				contentType : 'application/json',
-				dataType : 'json' ,
-				success : function(data){
-					console.log(data);
-				}
-			});
+			var cartId = $(this).closest("tr").data("cartid");
+			
+			var books = [];
+			var data = {
+					bookId : bookId ,
+					cartId : cartId 
+				};
+			
+			if( data != "" ){
+				books.push(data);	
+			}
+			
+			Swal.fire({
+                title: 'BOOK삭제',
+                text: "해당 BOOK을 삭제하시겠습니까?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '확인',
+                cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+        			$.ajax({
+        				url : 'cartDelete' ,
+        				method : 'DELETE' ,
+        				data :  JSON.stringify(books) ,
+        				contentType : 'application/json',
+        				dataType : 'json' ,
+        				success : function(data){
+        					console.log(data);
+        					cartList();
+        				}
+        			});
+                }
+            });
 		});
 		
 		function cartList(){
@@ -120,12 +146,12 @@
 					
 					$.each(data,function(idx,item){
 						$("#cartTbody")
-						.append($("<tr class='pointer'>")
+						.append($("<tr class='pointer'>").data("cartid", item.cartId)
 									.append($("<td id='chkTd'>").append( $("<input id='chkInput' type='checkbox'>")))
 									.append($("<td>").html(item.insDt))
 									.append($("<td>").append( $("<img>") ).html(item.bookNm))
 									.append($("<td>").append( $("<button class='bucketBtn'>").append($("<i class='fa fa-heart'>")) )
-													 .append( $("<button class='removeBtn' data-toggle='modal' data-target=''#itemDel'>").append($("<i class='fa fa-remove'>")))
+													 .append( $("<button class='removeBtn'>").append($("<i class='fa fa-remove'>")))
 											
 									).data("bookid", item.bookId) 							
 						)
@@ -159,9 +185,11 @@
 				$("#cartTbody").find("#chkInput:checked").each(function(){
 					   
 					var bookId = $(this).closest("tr").data("bookid");
+					var cartId = $(this).closest("tr").data("cartid");
 					
 					var data = {
-							bookId : bookId
+							bookId : bookId ,
+							cartId : cartId
 						};
 					
 					if( data != "" ){
@@ -218,7 +246,12 @@
 <section>
 	<div class="section-inner">		
 		<div class="container">
-			<div class="table-responsive cart_info">
+			<div class="row mb-1" >
+				<div class="section-header" >
+	          		<h1><img width="50px" height="50px" src="resources/img/cart.png"> CART</h1>
+	        	</div>
+			</div>	
+			<div class="row">
 				<table class="table table-condensed">
 				<thead>
 					<tr class="cart_menu">
@@ -226,7 +259,7 @@
 						<th>등록일자</th>
 						<th class="image">BOOK</th>
 						<th class="description"></th>
-						<th>버킷 / 삭제</th>
+						<th>삭제</th>
 						<th></th>
 					</tr>
 					</thead>
@@ -239,7 +272,7 @@
 						
 					</c:if>
 					<c:forEach var="book" items="${lists}">
-						<tr class="pointer" data-bookid="${book.bookId}">
+						<tr class="pointer" data-bookid="${book.bookId}" data-cartid='${book.cartId}'>
 							<td id="chkTd"><input id="chkInput" type="checkbox"></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${book.insDt}"/></td>
 							<td class="cart_product">
@@ -251,31 +284,18 @@
 								<h4>${book.bookNm}</h4>
 								<p>${book.bookPublCo}(${book.bookWriter})</p>
 							</td>	
-							<td><button class="removeBtn btn btn-primary pull-right" data-toggle="modal" data-target="#itemDel" ><i class="fa fa-trash-o"></i></button></td>
+							<td><button class="removeBtn btn btn-primary pull-right" ><i class="fa fa-trash-o"></i></button></td>
 						</tr>
 					</c:forEach>
 					</tbody>
 				</table>
 			</div>
-			<button id="chkBucBtn" class="btn btn-primary">선택버킷</button>
-			<button id="chkDelBtn" class="btn btn-primary">선택삭제</button>
-			<button id="lendBtn" class="btn btn-primary pull-right"><i class="fa fa-toggle-right"></i>  대 여</button> 
+			<button id="chkBucBtn" class="btn ebookBtn">선택버킷</button>
+			<button id="chkDelBtn" class="btn ebookBtn">선택삭제</button>
+			<button id="lendBtn" class="btn ebookBtn pull-right"><i class="fa fa-toggle-right"></i>  대 여</button> 
 		</div>
 	</div>
 </section>	 
-<div  class="modal fade" id="itemDel" style="display: none">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-body p-4 text-center">
-				<h5 class="mb-0">삭제하시겠습니까?</h5>
-			</div>
-			<div class="modal-footer flex-nowrap p-0">
-				<button type="button" id="cartDelete" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-right"><strong>확인</strong></button>
-				<button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-dismiss="modal">취소</button>
-			</div>
-		</div>
-	</div>
-</div>
 <iframe id="iframe1" name="iframe1" style="display:none"></iframe>
 <form action="bookDetail" method="post" id="frm">
 	<input type="hidden" id="bookId" name="bookId" >

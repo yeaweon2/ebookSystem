@@ -49,7 +49,7 @@
 .today {
 	font-size:50px;
 	position: relative;
-	color: #6c757d;
+	color: #f0ebeb;
 	
 }
 </style>
@@ -145,11 +145,13 @@
 												.append( $("<td>").append($("<img width='50' height='70'>").attr("src" , "/prj/fileUp" + item.bookCoverPath + item.bookCover ) ) )
 												.append( $("<td>").html("<label>" + item.bookNm + "</label><br/>" + item.bookPublCo + "(" + item.bookWriter + ")" )) 
 												.append( $("<td>").html(item.bucketDoneDt)  )
-										)
+							)
 						});						
 					}else{
 						$("#bucketAllCnt").html("/ 0 회");	
-						$("#bucketDoneCnt").html("0 회");	
+						$("#bucketDoneCnt").html("0 회");
+						$("#bucketList").find("tbody").append( $("<tr>").append($("<td colspan='3'>").html("해당 자료가 존재하지않습니다.")));
+						
 					}
 					
 					if(res.lendRutin.length > 0){
@@ -167,6 +169,7 @@
 						});						
 					}else{
 						$("#lendCnt").html("0 회");
+						$("#lendList").find("tbody").append( $("<tr>").append($("<td colspan='3'>").html("해당 자료가 존재하지않습니다.")));
 					}
 				
 					if(res.loginRutin.length > 0){
@@ -254,6 +257,7 @@
 					}else{
 						$("#bucketAllCnt").html("/ 0 회");	
 						$("#bucketDoneCnt").html("0 회");
+						$("#bucketList").find("tbody").append( $("<tr>").append($("<td colspan='3'>").html("해당 자료가 존재하지않습니다.")));
 					}
 					
 					if(res.lendRutin.length > 0){
@@ -272,6 +276,7 @@
 						});
 					}else{
 						$("#lendCnt").html("0 회");
+						$("#lendList").find("tbody").append( $("<tr>").append($("<td colspan='3'>").html("해당 자료가 존재하지않습니다.")));
 					}
 				
 					if(res.loginRutin.length > 0){
@@ -295,83 +300,85 @@
 <section>
 	<div class="section-inner">		
 		<div class="container">
-			<div class="row mb-1" >
+			<div class="row" >
 				<div class="section-header" >
 	          		<h2><img width="50px" height="50px" src="resources/img/books.png"> ${nicknm}님의 독서루틴</h2>
 	        	</div>
 			</div>	
-			<div class="row" >
-				<div class="col-sm-1" style="width:350px"> 
-				<label class="today" style="top:580px;left:470px;"><span id="yy"></span>년 <span id="mm"></span>월</label>
-				</div>
-				<div class="col-sm-10 text-center">
-					<div class="row" style="padding:0">
-						<img src="resources/img/bookRutinBg.jpg" width="1200px" height="900px" style="opacity:0.6;position: relative;">
-						<div class="col-sm-2 col-sm-offset-1" > 
-						
-							<div class="row">
-								<div class="directionDiv" style="left:40px;top:-300px;width:50px">
-									<h1 id="prevMM" >1</h1>
+			<div class="row" style="background-image:url(resources/img/rutingrbg.png);width:1200px;height:500px;background-repeat: no-repeat;background-size: 100% 100%; border-radius: 1%;" >
+				<div class="col-sm-12" >
+					<div class="row" style="padding-top:80px;padding-bottom:20px" >
+						<div class="col-sm-12" style='padding-left:350px' > 
+							<label class="today"><span id="yy"></span>년 <span id="mm"></span>월</label>
+						</div>
+					</div>
+					<div class="row" >
+						<div class="col-sm-7">
+							<div class="row" >
+								<div class="col-sm-2 col-sm-offset-1" > 
+								
+									<div class="row">
+										<div class="directionDiv" style="left:40px;width:50px">
+											<h1 id="prevMM" >1</h1>
+										</div>
+									</div>
+									<div class="row">
+										<div class="directionDiv" style="left:40px;width:50px">
+											<img class="prevImg" width="40" height="40" src="resources/img/whitePrev.png">
+										</div>    
+									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="directionDiv" style="left:40px;top:-270px;width:50px">
-									<img class="prevImg" width="40" height="40" src="resources/img/whitePrev.png">
-								</div>    
-							</div>
-						</div>
-
-						<div class="col-sm-2" > 
-							<div id="lendDiv" class="rutinDiv" style="top:-305px;">
-								<img width="60" height="80" src="resources/img/lendCnt.png">
-								<p><label class="rutinLabel">대여횟수</label></p>
-								<c:forEach var="lend" items="${lendRutin}">
-									<label id="lendCnt" class="rutinLabel">${lend.rutinCnt} 회</label>
-								</c:forEach>
-							</div>
-						</div>
-						<div class="col-sm-2" >
-							<div id="bucketDiv" class="rutinDiv" style="left:50px;top:-305px;">
-								<p><img width="50" height="70" src="resources/img/bucketCnt.png"></p>
-								<p><label class="rutinLabel">버킷횟수</label></p>
-								<span>
-							 	<c:forEach var="buck" items="${bucketRutin}">
-									<c:if test="${buck.flag =='gr'}"><label id="bucketDoneCnt" class="rutinLabel">${buck.rutinCnt} 회 / </label></c:if>
-									<c:if test="${buck.flag =='all'}"><label id="bucketAllCnt" class="rutinLabel">${buck.rutinCnt} 회 </label></c:if>				
-								</c:forEach>
-								</span>
-							</div>
-						</div>
-						<div class="col-sm-2" >
-							<div id="loginDiv" class="rutinDiv"  style="left:100px;top:-305px;">
-								<p><img width="60" height="70" src="resources/img/loginCnt.png" ></p>
-								<p><label class="rutinLabel">접속횟수</label></p>
-								<c:forEach var="login" items="${loginRutin}">
-							 		<label id="loginCnt" class="rutinLabel">${login.rutinCnt} 회</label>
-								</c:forEach>
-							</div>
-						</div>
-						<div class="col-sm-2 col-sm-offset-1" >
-							<div class="row">
-								<div class="directionDiv" style="left:100px;top:-300px;width:50px">
-									<h1 id="nextMM" class="directionImg" style="font-family: 'Dancing Script', cursive;">3</h1>
+		
+								<div class="col-sm-2 " > 
+									<div id="lendDiv" class="rutinDiv text-center">
+										<img width="60" height="80" src="resources/img/lendCnt.png">
+										<p><label class="rutinLabel">대여횟수</label></p>
+										<c:forEach var="lend" items="${lendRutin}">
+											<label id="lendCnt" class="rutinLabel">${lend.rutinCnt} 회</label>
+										</c:forEach>
+									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="directionDiv" style="left:100px;top:-270px;width:50px">
-									<img class="nextImg" width="40" height="40" src="resources/img/whiteNext.png">
-								</div>    
-							</div>
-							
+								<div class="col-sm-2" >
+									<div id="bucketDiv" class="rutinDiv text-center" style="margin-left:80px;">
+										<p><img width="50" height="70" src="resources/img/bucketCnt.png"></p>
+										<p><label class="rutinLabel">버킷횟수</label></p>
+										<span>
+									 	<c:forEach var="buck" items="${bucketRutin}">
+											<c:if test="${buck.flag =='gr'}"><label id="bucketDoneCnt" class="rutinLabel">${buck.rutinCnt} 회 / </label></c:if>
+											<c:if test="${buck.flag =='all'}"><label id="bucketAllCnt" class="rutinLabel">${buck.rutinCnt} 회 </label></c:if>				
+										</c:forEach>
+										</span>
+									</div>
+								</div>
+								<div class="col-sm-2" >
+									<div id="loginDiv" class="rutinDiv text-center"  style="margin-left:160px;">
+										<p><img width="60" height="70" src="resources/img/loginCnt.png" ></p>
+										<p><label class="rutinLabel">접속횟수</label></p>
+										<c:forEach var="login" items="${loginRutin}">
+									 		<label id="loginCnt" class="rutinLabel">${login.rutinCnt} 회</label>
+										</c:forEach>
+									</div>
+								</div>
+								<div class="col-sm-2 col-sm-offset-1" style="margin-left:50px;">
+									<div class="row">
+										<div class="directionDiv" style="left:240px;width:50px">
+											<h1 id="nextMM" class="directionImg" style="font-family: 'Dancing Script', cursive;">3</h1>
+										</div>
+									</div>
+									<div class="row">
+										<div class="directionDiv" style="left:240px;width:50px">
+											<img class="nextImg" width="40" height="40" src="resources/img/whiteNext.png">
+										</div>    
+									</div>
+									
+								</div>
+							</div> 
 						</div>
-					</div> 
-				</div>
-				<div class="col-sm-1"> 
-				
+					</div>
 				</div>
 			</div>
-			<div class="row box" style="top:-50">
-				<div class="col-sm-5">
+			<div class="row " style="margin-top:50px">
+				<div class="col-sm-5 box">
 					<div class="row mb-1" >
 						<div class="section-header" >
 			          		<h2><img width="40px" height="40px" src="resources/img/lendTitle.png"> ${nicknm}님의 대여내역</h2>
@@ -399,7 +406,7 @@
 						</table>
 					</div>
 				</div>
-				<div class="col-sm-5 col-sm-offset-1">
+				<div class="col-sm-5 col-sm-offset-2 box">
 					<div class="row mb-1">
 						<div class="section-header" >
 			          		<h2><img width="40px" height="40px" src="resources/img/bucketTitle.png"> ${nicknm}님의 버킷BOOK</h2>

@@ -133,7 +133,15 @@ body {
 			
 		});
 		
-		$("table").on("click", ".chkTd", function(){
+		
+		$("tbody").on("click", "tr",function(){
+			event.stopPropagation();
+			
+			$("#bookId").val($(this).data("bookid"));
+			frm.submit();
+		});
+		
+		$("tbody").on("click", ".chkTd", function(){
 			event.stopPropagation();
 
 			if($(event.target).find(".chkInput").prop('checked') == false){
@@ -143,14 +151,10 @@ body {
 				$(event.target).find(".chkInput").prop('checked', false);
 				$(event.target).closest("tr").css("backgroundColor" , "");
 			}
-			
+			 
 		});
 		
-		
-		$("#bookList").find("tbody").on("click", "tr",function(){
-			$("#bookId").val($(this).data("bookid"));
-			frm.submit();
-		});   
+   
 		
 		$("#lendBtn").on("click", function(){
 			var subYn = `${subYn}`;
@@ -283,7 +287,7 @@ body {
 							<tbody>
 								<c:forEach var="book" items="${bookLists}">
 									<tr data-bookid="${book.bookId}">
-										<td id="chkTd"><input type="checkbox" class="chkInput" data-bookid="${book.bookId}" ></td>
+										<td class="chkTd"><input type="checkbox" class="chkInput" data-bookid="${book.bookId}" ></td>
 										<td>${book.bookFlCd}</td>
 										<td>
 											<img width="50" height="70" src="/prj/fileUp${book.bookCoverPath}${book.bookCover}">

@@ -61,7 +61,7 @@ public class CartRestController {
 	}	
 	
 	@RequestMapping("/cartRestList")
-	public List<CartVO> cartRestList(Model model, @RequestBody CartVO vo, HttpServletRequest request){
+	public List<CartVO> cartRestList(Model model, CartVO vo, HttpServletRequest request){
 		HttpSession session = request.getSession();
 		vo.setMemberId((String)session.getAttribute("id"));  
 		List<CartVO> lists = cartDao.cartList(vo);

@@ -55,6 +55,11 @@ public class BookVO {
 	private String cnfmStNm;	// BOOK목록에서 승인상태명 보여주기위해 사용
 	private int lendCnt;
 	
+	private String bookPublSDt;
+	private String bookPublEDt;
+	private String bcnfmStCd;
+	private String srchCnfmCd;
+	
 	// 페이징 처리
 	private int start;
 	private int end;

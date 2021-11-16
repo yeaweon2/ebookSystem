@@ -44,7 +44,7 @@
 						</if>
 					
 						
-						 #{breplyContents}	, #{breplyCloseYn} 	, #{breplyWriter}	, 
+						 #{breplyContents}	, #{breplyWriter}	, 
 						 SYSDATE			, SYSDATE    		, #{breplyStar} )
 		
 	</insert> 

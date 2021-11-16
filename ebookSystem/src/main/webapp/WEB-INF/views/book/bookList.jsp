@@ -186,7 +186,7 @@ $(function(){
 		console.log(start + " / " + end );		
 		
 		$.ajax({
-			url : 'bookSrchList' ,
+			url : 'bookSrchBtnList' ,
 			method : 'POST' ,
 			data : JSON.stringify(
 				{ 

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +12,6 @@
 .row {
 	margin-bottom : 10px;
 }
-
-
-
 
 </style>
 <script type="text/javascript">
@@ -70,15 +68,10 @@
 		
 		$("#srchBtn").on("click", function(){
 			
-			var bookNm = $(".bookNm").val();
-			var bookPublCo = $(".bookPublCo").val();
-			var bookWriter = $(".bookWriter").val();
 			var bookPublSDt = $(".bookPublSDt").val();
 			var bookPublEDt = $(".bookPublEDt").val();
-			var bookIsbn = $(".bookIsbn").val();
 			
 			if( bookPublSDt != null && bookPublEDt == null ){
-				alert("출간일 조회시 시작 및 종료일자를 모두 입력해주세요.");
 				Swal.fire({ 
  				   icon: 'error',  
  				   title: '출간일 입력오류',  
@@ -86,20 +79,10 @@
 	 			});	
 				return false;
 			}
+		
+			goList(1);
 			
-			
-			var ctgyId = $("#ctgyId").val();
-			var ctgyGrId = $("#ctgyGrId").val();
-			
-			var bookFlCd = "";
-
-			if( $("input[name='bookFlCd']:checked").val() != ""){
-				bookFlCd = $("input[name='bookFlCd']:checked").val();
-			}
-						
-			console.log( bookNm + " / " + bookPublCo );
-			
-			$.ajax({
+			/* $.ajax({
 				url: 'bookSrchPage',    
 				method: 'POST',
 				data :  JSON.stringify(
@@ -112,9 +95,7 @@
 							, bookIsbn : bookIsbn
 							, bookFlCd : bookFlCd
 							, ctgyId : ctgyId
-							, ctgyGrId : ctgyGrId
-							, start : start 
-							, end : end			
+							, ctgyGrId : ctgyGrId	
 						}
 					),
 				contentType : 'application/json',
@@ -136,7 +117,9 @@
 						)	
 					});
 				}
-			});
+			}); */
+			
+			
 		});
 		
 		
@@ -151,7 +134,11 @@
 			}
 		});
 	});
-	
+
+	function goList(p) {
+		frm.page.value = p;
+		frm.submit();
+	}	
 	
 </script>
 
@@ -166,7 +153,8 @@
 	        	</div>
 			</div>	
 			<div class="row">
-				<form id="frm" name="frm" >
+				<form id="frm" name="frm" action="bookSrchList">
+					<input type="hidden" name="page" value="1"> 
 					<div class="box row">
 						<div class="col-md-10">
 							<div class="row">	
@@ -182,7 +170,9 @@
 								</div>
 								<div class="col-md-6">
 									<label style="margin-right:20px">BOOK구분</label>
-									<input id="eBook" name="bookFlCd" type="radio" value="E" class="form-check-input" checked required>
+									<input id="all" name="bookFlCd" type="radio" value="" class="form-check-input" checked required>
+									<label class="form-check-label" for="all">전체</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input id="eBook" name="bookFlCd" type="radio" value="E" class="form-check-input" required>
 									<label class="form-check-label" for="eBook">eBook</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<input id="audioBook" name="bookFlCd" type="radio" value="A" class="form-check-input" required>
 									<label class="form-check-label" for="audioBook">오디오북</label>
@@ -228,8 +218,8 @@
 							</div>
 						</div>
 						<div class="col-md-2">
-							<button type="button" id="srchBtn" class="btn btn-black" style="position: relative;top:200px;left:40px">조 회</button>
-						</div>	
+							<button type="button" id="srchBtn" class="btn ebookBtn" style="position: relative;top:200px;left:40px;width:150px">&nbsp;&nbsp;조 회&nbsp;&nbsp;</button>
+						</div>	 
 					</div><!-- Box End -->
 					<div class="row box">
 						<table class="table table-striped table-hover pointer">
@@ -249,7 +239,7 @@
 									<c:forEach var="book" items="${lists}">
 										<tr data-id='${book.bookId}'>
 											<td>${book.bookFlCd}</td>
-											<td>${book.ctgyGrNm}${book.ctgyNm}</td>
+											<td>${book.ctgyGrNm}>${book.ctgyNm}</td>
 											<td><img width="50" height="70" src="${pageContext.request.contextPath}/fileUp${book.bookCoverPath}${book.bookCover}"></td>
 											<td>${book.bookNm}</td>
 											<td>${book.bookPublCo}</td>
@@ -269,6 +259,9 @@
 						</table>
 					</div>
 				</form>
+				<div id="pagingDiv" class="row" style="text-align: center;" >
+					<my:paging jsFunc="goList" paging="${paging}" />  
+				</div>
 			</div>
 		</div>
 	</div>

@@ -74,12 +74,12 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<BookVO> bookSrchPageList(BookSrchVO vo) {
+	public List<BookVO> bookSrchPageList(BookVO vo) {
 		return map.bookSrchPageList(vo);
 	}
 
 	@Override
-	public int bookSrchPageCount(BookSrchVO vo) {
+	public int bookSrchPageCount(BookVO vo) {
 		return map.bookSrchPageCount(vo);
 	}
 

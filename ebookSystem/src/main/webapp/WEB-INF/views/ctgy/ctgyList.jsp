@@ -573,12 +573,12 @@ $(function(){
 <body>
 <div class="inner-page pt-4">
 	<div class="container">
-		<div class="row mb-1" style="margin-top: 40px">
-			<div class="section-header">
-          		<h2>카테고리</h2>
-        	</div>
-		</div>
-		<div class="row box" >
+			<div class="row mb-1" style="margin-top:50px;margin-left:20px">
+				<div class="section-header" >
+	          		<h1><img width="50px" height="50px" src="resources/img/categoryMng.png"> 카테고리</h1>
+	        	</div>
+			</div>
+		<div class="row minibox" >
 			<div class="col-md-6">
 				<div class="package text-center bg-white">
 					<br/>
@@ -614,7 +614,7 @@ $(function(){
 						</table>					
 					<p>
 						<button type="button" class="lcodeABtn btn btn-success btn-custom-1 mt-4">추가</button>
-						<button type="button" class="lcodeUBtn btn btn-success btn-custom-1 mt-4">수정</button>
+						<button type="button" class="lcodeUBtn btn btn-success btn-custom-1 mt-4 hidden">수정</button>
 						<button type="button" class="lcodeDBtn btn btn-success btn-custom-1 mt-4">삭제</button>
 						<button type="button" class="lcodeSBtn btn btn-success btn-custom-1 mt-4 hidden" data-flag="A">저장</button>
 						<button type="button" class="lcodeCBtn btn btn-success btn-custom-1 mt-4 hidden" data-flag="A">취소</button>

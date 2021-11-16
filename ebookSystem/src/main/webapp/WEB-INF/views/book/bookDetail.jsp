@@ -585,7 +585,8 @@ ul.sidenav li a:hover {
 					<ul class="sidenav">
 						<li><a href="bestSeller">BEST SELLER</a></li>
 						<li><a href="bookSrchList">BOOK 검색</a></li>
-						<li><a href="bookReviewList">BOOK REVIEW</a></li>						
+						<li><a href="ctgyBookList">카테고리별 조회</a></li>
+						<li><a href="bookReviewList">BOOK REVIEW</a></li>							
 					</ul>
 				</div>
 				<div class="col-sm-9" style="margin-left:0">

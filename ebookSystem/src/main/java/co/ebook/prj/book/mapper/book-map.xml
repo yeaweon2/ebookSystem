@@ -308,7 +308,7 @@
 		]]>
 	</select>
 	
-	<select id="bookSrchPageList" resultType="co.ebook.prj.book.vo.BookVO" parameterType="co.ebook.prj.book.vo.BookSrchVO">
+	<select id="bookSrchPageList" resultType="co.ebook.prj.book.vo.BookVO" parameterType="co.ebook.prj.book.vo.BookVO">
 	 <![CDATA[
 			SELECT A.*
 			  FROM ( 
@@ -372,7 +372,7 @@
         ]]>
 	</select>
 	
-	<select id="bookSrchPageCount" resultType="int" parameterType="co.ebook.prj.book.vo.BookSrchVO">
+	<select id="bookSrchPageCount" resultType="int" parameterType="co.ebook.prj.book.vo.BookVO">
 
 			   SELECT count(*)
 			  FROM ( 
