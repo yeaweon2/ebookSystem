@@ -175,7 +175,7 @@ fieldset, img {
  <div id="str" style="margin-bottom: 500px;">
 	 <div class="inner_login">
 	    <div class="login_tistory">
-		<div align="center"><h2><span class="txt_lab">비밀번호 찾기</span></h2></div>
+		<div align="center" style="margin-top: 100px;"><h2><span class="txt_lab">비밀번호 찾기</span></h2></div>
 		<div>
 	        <form method="post" action="find_password" name="findform" id = "frm">
 					<c:if test="${check != 0}">
@@ -245,7 +245,7 @@ fieldset, img {
 			                </div>
 	           		 	</div><br>
 	           			 <div>
-	           				 <button type="button" class="btn_login" onclick="updatePassword()">Update Password</button>
+	           				 <button type="button" class="btn_login" onclick="updatePassword()">비밀번호 변경</button>
 	            		</div><br>
           			</div>
 				</div>

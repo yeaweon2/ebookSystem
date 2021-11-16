@@ -22,7 +22,6 @@
 				,mcnfm_bizno				,mcnfm_co_nm
 				,mcnfm_co_tel				,mcnfm_rpspr
 				,mcnfm_cntr_fl_cd			,mcnfm_reject
-				,mcnfm_atch_nm				,mcnfm_atch_path
 				,ins_dt						,udt_dt
 				,mcnfm_amt					)
 		values
@@ -30,8 +29,16 @@
 				,#{memberId}				,sysdate				
 				,#{mcnfmBizno}				,#{mcnfmCoNm }
 				,#{mcnfmCoTel } 			,#{mcnfmRpspr}
-				,'01'						,#{mcnfmReject}
-				,#{mcnfmAtchNm} 			,#{mcnfmAtchPath }
+				,<if test="mcnfmAmt == '100000'">
+				'01',
+				</if>
+				<if test="mcnfmAmt == '500000'">
+				'02',
+				</if>
+				<if test="mcnfmAmt == '990000'">
+				'03',
+				</if>						
+				#{mcnfmReject}
 				,sysdate					,sysdate
 				,#{mcnfmAmt}				)
 	</insert>
@@ -147,21 +154,30 @@
 	</insert>
 	
 	<select id="paySelect" resultType="co.ebook.prj.managerConfirm.vo.ManagerConfirmVO" >
- 		select  a.pay_id
-			 ,  a.pay_dt
-			 ,  b.mcnfm_id
-			 ,  a.imp_uid
-			 ,  a.pay_st_cd
-			 ,  a.pay_amt
-			 ,  a.mcnfm_cntr_sdt
-			 ,  a.mcnfm_cntr_edt
-			 ,  a.ins_dt
-			 ,  a.udt_dt
-          from  manager_confirm b
-             ,  pay_history a
-         where  a.mcnfm_id= b.mcnfm_id 
-           and  b.member_id = #{memberId}
-   
+ 		   SELECT
+			    pay_id,
+			    a.pay_dt,
+			    b.mcnfm_id,
+			    a.imp_uid,
+			    a.pay_st_cd,
+			    a.pay_amt,
+			    a.mcnfm_cntr_sdt,
+			    a.mcnfm_cntr_edt,
+			    a.ins_dt,
+			    a.udt_dt
+		 FROM
+			    manager_confirm  b,
+			    pay_history      a
+		 WHERE  a.mcnfm_id = b.mcnfm_id
+	   	   AND  b.member_id = #{memberId}
+	   	   and  a.pay_id in 
+	   	   					( select  max(pay_id)
+	                            FROM  manager_confirm  b,
+	                                  pay_history      a
+	                           WHERE  a.mcnfm_id = b.mcnfm_id
+	                             and  b.member_id = #{memberId}
+	                           group  by b.mcnfm_id ) 
+	   
 	</select>
 	
 	

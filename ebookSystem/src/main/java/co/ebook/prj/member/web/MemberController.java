@@ -277,6 +277,7 @@ public class MemberController {
 		model.addAttribute("member", memberDao.memberSelect(vo));
 		model.addAttribute("pay", manCoDao.paySelect(mVo));
 		
+		
 		return "member/myInfo";
 	}
 	
@@ -295,7 +296,7 @@ public class MemberController {
 		model.addAttribute("sub", subDao.subInsert(sVo));
 		System.out.println("==============================?????????????????????" + vo);
 		
-		session.setAttribute("subYn", "'Y'");
+		
 		
 		return "redirect:myInfo";
 	} 

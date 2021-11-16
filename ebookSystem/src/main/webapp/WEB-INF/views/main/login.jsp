@@ -9,10 +9,7 @@
 <html lang="ko">
   <head>
     <title>로그인 폼</title>
-    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
- <script src = "https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 
 	
@@ -28,7 +25,6 @@ $(document).ready(function(){
 		});
 	
 	});
-	
 	
 	  
 	 
@@ -47,76 +43,6 @@ $(document).ready(function(){
 	});
     
     
-    
-
-    //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('a14afe36c9cbe3e8149b6c194be98c69');
-    // 카카오 로그인 버튼을 생성합니다.
-    Kakao.Auth.createLoginButton({
-        container: '#kakao-login-btn',
-        success: function (authObj) {
-            alert(JSON.stringify(authObj));
-        },
-        fail: function (err) {
-            alert(JSON.stringify(err));
-        }
-    });
-  //]]>
- 
- 
-    
-    
-    
-    
-    function kakaoLogin() {
-    	Kakao.Auth.login({
-    		success: function (response) {
-    		Kakao.API.request({
-    			url: '/v2/user/me',
-    			success: function (response) {
-    				kakaoLoginPro(response)
-    			},
-    			fail: function (error) {
-    				console.log(error)
-    			},
-    		})
-    	},
-    		fail: function (error) {
-    			console.log(error)
-    		},
-    	});
-    
-    
-    function kakaoLoginPro(response){
-    	var data = {id:response.id,email:response.kakao_account.email}
-    	$.ajax({
-    		type : 'POST',
-    		url : '/user/kakaoLoginPro.do',
-    		data : data,
-    		dataType : 'json',
-    		success : function(data){
-    			console.log(data)
-    			if(data.JavaData == "YES"){
-    				alert("로그인되었습니다.");
-    				location.href = '/user/usermain.do'
-    			}else if(data.JavaData == "register"){
-    				$("#kakaoemail").val(response.kakao_account.email);
-    				$("#kakaoId").val(response.id);
-    				$("#kakaoForm").submit();
-    			}else{
-    				alert("로그인에 실패했습니다");
-    			}
-    			
-    		},
-    		error: function(xhr, status, error){
-    			alert("로그인에 실패했습니다."+error);
-    		}
-    	});
-    
-   
-	};   
-    };
 });
 
 
@@ -285,7 +211,7 @@ fieldset, img {
  <div id="str" style="margin-bottom: 500px;">
  <div class="inner_login">
     <div class="login_tistory">
-	<div align="center"><h2><span class="txt_lab">Login</span></h2></div>
+	<div align="center" style="margin-top: 100px;"><h2><span class="txt_lab">Login</span></h2></div>
 	<div>
         <form  action="loginProc" method="post" name="findform" id="frm" >
             <div class="box_login">
@@ -311,62 +237,21 @@ fieldset, img {
             </div><br>
             <div align="center">
             <div id="naver_id_login">
-            <button id="naver_id_login" class='btn-social-login'  onclick="location.href='callback'" style='background:#1FC700; margin-right: 10px;'><i class="xi-2x xi-naver"></i></button>
 			</div>
 			
-			<button id="kakao-login-btn" class='btn-social-login' style='background:#FFEB00'><i class="xi-2x xi-kakaotalk text-dark"></i></button>
             </div>
             <div class="login_append">
                 <div class="inp_chk"> <!-- 체크시 checked 추가 -->
                 <label for="keepLogin" class="lab_g">
         <span class="img_top ico_check"></span>
         </label>
-        <input type="hidden" id="kakaoemail" name="kakaoemail" >
-         <input type="hidden" id="kakaoename" name="kakaoename" >
-          <input type="hidden" id="kakaoebirth" name="kakaoebirth" >
                 </div>
             </div>
-        </form>
-        <form id="kakaoForm">
-        <tr>
-        <td><a href="javascript:kakaoLogin()" >kakao Login</a></td>
-			<td class="btnTd"></td>
-		</tr>
-         <input type="hidden" id="kakaoemail" name="kakaoemail" >
-         <input type="hidden" id="kakaoename" name="kakaoename" >
-          <input type="hidden" id="kakaoebirth" name="kakaoebirth" >
-        
         </form>
       </div> 
     </div>
 </div>
 </div><br><br><br><br><br>
 
-
-
-
-      <!-- 네이버 로그인 버튼 노출 영역 -->
-  
-  <!-- //네이버 로그인 버튼 노출 영역 -->
-  <script type="text/javascript">
-  	var naver_id_login = new naver_id_login("fS4shoi86zkoG3WEiReF", "http://localhost/prj/home");
-  	var state = naver_id_login.getUniqState();
-  	naver_id_login.setDomain("http://localhost/prj");
-  	naver_id_login.setState(state);
-  	naver_id_login.setPopup();
-  	naver_id_login.init_naver_id_login();
-  	
-  	
-  	
-  	
-  	
-  	
-  
-        
-        
-    </script>
-  	
-
-    
 </body>
 </html>

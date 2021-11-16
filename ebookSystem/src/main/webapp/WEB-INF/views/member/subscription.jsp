@@ -159,7 +159,31 @@ $(function(){
 });
 
 </script>
+<style>
+a {
+    color: #333;
+    text-decoration: none;
+}
 
+body, button, input, select, td, textarea, th {
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}    
+fieldset, img {
+    border: 0;
+}
+
+.btn_login {
+    margin: 20px 0 0;
+    width: 100%;
+    height: 48px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000;
+}
+</style>
 
 </head>
 <body>
@@ -207,7 +231,7 @@ $(function(){
 	       </div>
 		</div>
 			<div align="right" style="margin-right: 400px;">
-				<button type="button" id="check_module" class="btn btn-outline-primary"  value="가입하기"> 가입하기</button>
+				<button type="button" id="check_module" class="btn_login"  style="width:80px" value="가입하기">가입하기</button>
 			</div><br><br><br>
 	</div>
 </body>

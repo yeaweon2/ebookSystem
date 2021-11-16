@@ -88,6 +88,62 @@
 	
 	
 </script>
+<style>
+
+.text-dark { color: #343a40!important; }
+
+
+
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+body, button, input, select, td, textarea, th {
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}    
+fieldset, img {
+    border: 0;
+}
+.login_tistory .box_login {
+    margin: 35px 0 0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+.login_tistory .inp_text {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 18px 19px 19px;
+    box-sizing: border-box;
+}
+.login_tistory .inp_text+.inp_text {
+    border-top: 1px solid #ddd;
+}
+
+.btn_login {
+    margin: 20px 0 0;
+    width: 100%;
+    height: 48px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000;
+}
+.login_append {
+    overflow: hidden;
+    padding: 15px 0 0;
+}
+
+#str{
+	margin-top:500px;
+}
+</style>
 </head>
 <body class="bg-center">
 	<div class="inner-page pt-6">
@@ -111,8 +167,9 @@
 업체등록 신청 후 관리자의 승인이 이루어지며, 이후 도서등록 신청이 가능합니다.
 다른 자세한 사항은 1:1문의로 문의 바랍니다.
 						  </textarea>
-							</div>
-						</div>
+							</div><br><br>
+							
+						</div><br>
 						
 				<h4 class="mb-3"></h4>
 				<form class="needs-validation" novalidate action="managerJoinSuccess" id="frm" name ="frm">
@@ -120,7 +177,6 @@
 						<div class="col-sm-8">
 							<label for="name" class="form-label">이 름</label> 
 							<input type="text" class="form-control" id="memberNm" name="memberNm" placeholder="담당자이름를 입력하세요." required>
-							<div class="invalid-feedback">이름를 입력하세요.</div>
 						</div>
 					</div>
 					<br>
@@ -129,13 +185,11 @@
 						<div class="col-sm-7">
 							<label for="id" class="form-label">아이디</label>
 							<input type="text" class="form-control" id="memberId" name="memberId" placeholder="id" value="" required>
-							<div class="invalid-feedback">ID를 입력하세요.</div>
 						</div>
 
 						<div class="col-sm-2">
 							<br>
-							<button type="button" onclick="checkMemberId('Y');" class="btn btn-primary btn-lg">중복확인</button>
-							<div class="invalid-feedback">ID 중복확인을 하세요.</div>
+							<button type="button" class="btn_login" onclick="checkMemberId('Y');" style="width:80px">중복확인</button>
 						</div>
 					</div>
 					<br>
@@ -144,13 +198,11 @@
 						<div class="col-sm-4">
 							<label for="password" class="form-label">비밀번호</label>
 							<input type="text" class="form-control" id="memberPw" name="memberPw" placeholder="password" required>
-							<div class="invalid-feedback">비밀번호를 입력하세요.</div>
 						</div>
 
 						<div class="col-sm-4">
 							<label for="password" class="form-label">비밀번호 확인</label>
 							<input type="text" class="form-control" id="password" placeholder="password" required>
-							<div class="invalid-feedback">비밀번호를 한번더 입력하세요.</div>
 						</div>
 					</div>
 					<br>
@@ -159,7 +211,6 @@
 						<div class="col-sm-8">
 							<label for="tel" class="form-label">휴대전화</label>
 							<input type="text" class="form-control" id="memberTel" name="memberTel" placeholder="tel" required>
-							<div class="invalid-feedback">전화번호를 입력하세요.</div>
 						</div>
 					</div>
 					<br>
@@ -168,7 +219,6 @@
 						<div class="col-sm-8">
 							<label for="email" class="form-label">Email</label>
 							<input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="you@example.com">
-							<div class="invalid-feedback">Email을 바르게 입력하세요.</div>
 						</div>
 					</div>
 					<br>
@@ -177,13 +227,11 @@
 						<div class="col-sm-7">
 							<label for="nickname" class="form-label">닉네임</label>
 							<input type="text" class="form-control" id="memberNicknm" name="memberNicknm" placeholder="nickname" required>
-							<div class="invalid-feedback">닉네임을 입력하세요.</div>
 						</div>
 
 						<div class="col-sm-4">
 							<br>
-							<button type="button" onclick="checkNickName('Y');" class="btn btn-primary btn-lg">중복확인</button>
-							<div class="invalid-feedback">ID 중복확인을 하세요.</div>
+							<button type="button" class="btn_login" onclick="checkNickName('Y');" style="width:80px">중복확인</button>
 						</div>
 					</div>
 					<br>
@@ -192,7 +240,6 @@
 						<div class="col-md-5">
 							<label for="birth" class="form-label">생년월일</label>
 							<input type="text" class="form-control" id="memberBirth" name="memberBirth" placeholder="birth" required>
-							<div class="invalid-feedback">생년월일 입력하세요.</div>
 						</div>
 						
 						<div class="col-md-1">
@@ -208,13 +255,13 @@
 
 					</div>
 
-					<hr class="col-sm-8"><br><br>
+					<hr class="col-sm-8"><br><br><br>
 
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="agree" required>
 						<label class="form-check-label" for="agree">
 							개인정보 수집 및 이용에 동의합니다.(필수)</label>
-					</div>
+					</div><br>
 
 					<div class="col-sm-8">
 						<textarea name="content" cols="120" rows="10" readonly="readonly" class="container-fluid">
@@ -243,7 +290,7 @@
 
 					<hr class="col-sm-8">
 					<div class="col-sm-8" >
-						<button id="join" style="float:right; margin-right: 50px; padding-top: 10px" class="btn btn-primary btn-lg"  type="button">&nbsp;&nbsp;회원가입</button>
+						<button type="button" class="btn_login" onclick="checkNickName('Y');" id="join" style="float:right; margin-right: 30px; padding-top: 10px; width:100px">회원가입</button>
 					</div>
 				</form>
 			</div>

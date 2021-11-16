@@ -64,6 +64,31 @@ $(function() {
 
 
 </script>
+<style>
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+body, button, input, select, td, textarea, th {
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}    
+fieldset, img {
+    border: 0;
+}
+
+.btn_login {
+    margin: 20px 0 0;
+    width: 100%;
+    height: 48px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000;
+}
+</style>
 </head>
 <body>
 <div class="site-section">
@@ -90,7 +115,6 @@ $(function() {
 								<th>계약시작일자</th>
 								<th>계약종료일자</th>
 								<th>계약요청금액</th>
-								<th>승인자ID</th>
 							</tr>
 							<c:forEach items="${lists}" var="managerConfirm" varStatus="status">
 								<tr data-id="${managerConfirm.memberId}">
@@ -105,13 +129,12 @@ $(function() {
 									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmCntrSdt }" /></td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${managerConfirm.mcnfmCntrEdt }" /></td>
 									<td>${managerConfirm.mcnfmAmt } 원</td>
-									<td>${managerConfirm.mcnfmCnfmr}</td>
 								</tr>
 							</c:forEach>
 						</table>
 					</div>
 					<div>
-						<button type="submit" onclick="confirmManager()" class="btn btn-outline-primary">승인</button>
+						<button type="submit" onclick="confirmManager()" class="btn_login"  style="width:80px" value="승인">승인</button>
 					</div>
 				</div>
 				<form action="managerSelect" method="post" id="frm">

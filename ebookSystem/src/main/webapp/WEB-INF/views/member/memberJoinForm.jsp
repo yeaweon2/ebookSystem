@@ -106,6 +106,62 @@
 	
 
 </script>
+<style>
+
+.text-dark { color: #343a40!important; }
+
+
+
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+body, button, input, select, td, textarea, th {
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}    
+fieldset, img {
+    border: 0;
+}
+.login_tistory .box_login {
+    margin: 35px 0 0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+.login_tistory .inp_text {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 18px 19px 19px;
+    box-sizing: border-box;
+}
+.login_tistory .inp_text+.inp_text {
+    border-top: 1px solid #ddd;
+}
+
+.btn_login {
+    margin: 20px 0 0;
+    width: 100%;
+    height: 48px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000;
+}
+.login_append {
+    overflow: hidden;
+    padding: 15px 0 0;
+}
+
+#str{
+	margin-top:500px;
+}
+</style>
 </head>
 <body class="bg-center">
 	<div class="inner-page pt-6">
@@ -122,7 +178,6 @@
 						<div class="col-sm-8">
 							<label for="name" class="form-label">이 름</label> 
 							<input type="text" class="form-control" id="memberNm" name="memberNm" placeholder="name" required>
-							<div class="invalid-feedback">이름를 입력하세요.</div>
 						</div>
 					</div>
 					<br>
@@ -135,7 +190,7 @@
 
 						<div class="col-sm-2">
 							<br>
-							<button type="button" onclick="checkMemberId('Y');" class="btn btn-primary btn-lg" required>중복확인</button>
+							<button type="button" class="btn_login" onclick="checkMemberId('Y');" style="width:80px">중복확인</button>
 						</div>
 					</div>
 					<br>
@@ -177,7 +232,7 @@
 
 						<div class="col-sm-4">
 							<br>
-							<button type="button" onclick="checkNickName('Y');" class="btn btn-primary btn-lg" required>중복확인</button>
+							<button type="button" class="btn_login" onclick="checkNickName('Y');" style="width:80px">중복확인</button>
 						</div>
 					</div>
 					<br>
@@ -224,13 +279,14 @@
 						</div>
 					</div>
 
-					<hr class="col-sm-8"><br><br>
+					<hr class="col-sm-8"><br><br><br>
 
-					<div class="form-check">
+					<div class="form-check" >
 						<input type="checkbox" class="form-check-input" id="agree" required>
 						<label class="form-check-label" for="agree">
 							개인정보 수집 및 이용에 동의합니다.(필수)</label>
 					</div>
+					<br><br>
 
 					<div class="col-sm-8">
 						<textarea name="content" cols="120" rows="10" readonly="readonly" class="container-fluid">
@@ -256,12 +312,10 @@
 있음을 알려드립니다
 					  </textarea>
 					</div>
-
-
 					<hr class="col-sm-8" >
 					
 					<div class="col-sm-8" >
-						<button id="join" style="float:right; margin-right: 50px; padding-top: 10px" class="btn btn-primary btn-lg"  type="button">&nbsp;&nbsp;회원가입</button>
+						<button type="button" class="btn_login" onclick="checkNickName('Y');" id="join" style="float:right; margin-right: 30px; padding-top: 10px; width:100px">회원가입</button>
 					</div>
 				</form>
 			</div>

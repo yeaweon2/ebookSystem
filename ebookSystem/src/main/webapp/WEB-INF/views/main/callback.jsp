@@ -15,6 +15,12 @@
         
         // 네이버 사용자 프로필 조회
         naver_id_login.get_naver_userprofile("naverSignInCallback()");
+        Swal.fire({
+            icon: 'success',
+            title: '로그인 완료',
+            text: '로그인되셨습니다.',
+        });
+            self.close();
         
         // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
         function naverSignInCallback() {

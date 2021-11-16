@@ -57,10 +57,116 @@ $(function() {
              title: '휴면해제완료.',
              text: '정상적으로 완료되었습니다.',
          });
+		 
 	}
 </script>
+<style>
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+body, button, input, select, td, textarea, th {
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}    
+fieldset, img {
+    border: 0;
+}
+
+.btn_login {
+    margin: 20px 0 0;
+    width: 100%;
+    height: 48px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000;
+}
+</style>
 </head>
 <body>
+
+<!-- <div class="row srchBox" align="center" >
+	<div class="container">
+				<form name="searchFrm" >
+						<div class="col-md-9">
+							<div class="row" >
+								<div class="col-md-6" style="padding-left:0px">
+									<div class="col-md-3" >
+										<label> 검색조건 : </label>
+									</div>
+									<div class="col-md-3" style="margin-left:0px">
+										<select id="srchVal" name="srchVal" class="form-control" style="width:100px;">
+											<option value="01" selected>제목</option>
+											<option value="02">출판사</option>
+											<option value="03">저자</option>
+										</select>
+									</div>
+									<div class="col-md-6" style="margin-left:0px">
+										<input type="text" id="srchTxt" name="srchTxt" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-6" >
+									<div class="col-md-3" style="padding-left:0px; padding-right:0px;"> 
+										<label>승인상태 : </label>
+									</div>
+									<div class="col-md-9" style="padding-left:0px">
+										<select id="srchCnfmCd" class="form-control" style="width:120px;padding-left:0px">
+											<option value="00" selected>전체</option>
+											<option value="04">미신청</option>
+											<option value="01">처리중</option>
+											<option value="03">보류</option>
+											<option value="02">승인</option>
+										</select>
+										<input type="hidden" id="bcnfmStCd" name="bcnfmStCd" >
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6" style="padding-left:0;"> 
+									<div class="col-md-3">		
+										<label>신청일자 :</label>
+									</div>
+									<div class="col-md-4" style="padding-left:0;">		
+										<input id="bcnfmReqSDt" name="bcnfmReqSDt" type="date" class="bcnfmReqSDt form-control" style="width:180px;float:left;"> 
+									</div>
+									<div class="col-md-1" style="align-items : center;">
+										<h3>~</h3>
+									</div>
+									<div class="col-md-4" style="padding-left:0;">
+										<input id="bcnfmReqSDt" name="bcnfmReqEDt" type="date" class="bcnfmReqEDt form-control" style="width:180px">
+									</div>
+								</div>
+								<div class="col-md-6" style="padding-left:0;">
+									<div class="col-md-3">		
+										<label>승인일자 :</label>
+									</div>
+									<div class="col-md-4" style="padding-left:0;">		
+										<input id="bcnfmCnfmSDt" name="bcnfmCnfmSDt" type="date" class="bcnfmCnfmSDt form-control" style="width:180px;float:left;"> 
+									</div>
+									<div class="col-md-1" style="align-items : center;">
+										<h3>~</h3>
+									</div>
+									<div class="col-md-4" style="padding-left:0;">
+										<input id="bcnfmCnfmEDt" name="bcnfmCnfmEDt" type="date" class="bcnfmCnfmEDt form-control" style="width:180px">
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-md-3">
+						<button type="button" class="btn_login"  id="srchBtn" style="width:100px">조회</button>
+					</div>	
+					<input type="hidden" name="page" value="1"> 
+				</form>
+			</div>
+		</div>				
+			
+			 -->
+			
+			
+
 	<div class="site-section">
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
@@ -100,9 +206,8 @@ $(function() {
 						</table>
 					</div>
 					<div align="right">
-						<button type="submit" onclick="sleepMember()" class="btn btn-outline-primary">휴면해제</button>
-						<button type="button" onclick="fnExcelReport('table','회원리스트');">목록 다운로드</button>
-
+						<button type="submit" onclick="sleepMember()" class="btn_login"  style="width:80px">휴면해제</button>
+						<button type="button" class="btn_login"  onclick="fnExcelReport('table','회원리스트');" style="width:100px">다운로드</button>
 					</div><br><br><br>
 				</div>
 			</div>

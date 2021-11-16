@@ -144,7 +144,6 @@ $(document).ready(function(){
 							<th>신청일자</th>
 							<th>승인일자</th>
 							<th>계약상태</th>
-							<th>승인자</th>
 							<th>계약시작일자</th>
 							<th>계약종료일자</th>
 							<th>계약예상가격</th>
@@ -160,7 +159,6 @@ $(document).ready(function(){
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${man.mcnfmReqDt}"/></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${man.mcnfmCnfmDt}"/></td>
 								<td style="color:red;font-weight:bold">${man.mcnfmStNm}</td>
-								<td>${man.mcnfmCnfmrNm}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${man.mcnfmCntrSdt}"/></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${man.mcnfmCntrEdt}"/></td>
 								<td>${man.mcnfmAmt }</td>

@@ -72,7 +72,11 @@ $(document).ready(function(){
 
 //	신청버튼 클릭 시 값 저장
 	$("#regist").on("click", function(){
-		alert('업체등록신청이 완료되었습니다. 신청내역 확인페이지로 이동합니다.');
+		Swal.fire({
+            icon: 'success',
+            title: '업체등록신청이 완료되었습니다.',
+            text: '신청내역 조회 페이지로 이동합니다.',
+        });
 		frm.action="managerRegistSuccess";
 		frm.submit(); 
 				
@@ -82,7 +86,31 @@ $(document).ready(function(){
 })
 	
 </script>		
+<style>
+a {
+    color: #333;
+    text-decoration: none;
+}
 
+body, button, input, select, td, textarea, th {
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}    
+fieldset, img {
+    border: 0;
+}
+
+.btn_login {
+    margin: 20px 0 0;
+    width: 100%;
+    height: 48px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000;
+}
+</style>
 </head>
 <body>
 <div class="inner-page pt-4">
@@ -107,7 +135,7 @@ $(document).ready(function(){
 								<input type="text" id="mcnfmBizno" name="mcnfmBizno" size="50px" class="form-control" required>
 							</td>
 							<td colspan="2">
-								<button id="biznoSearch" type="button" class="btn btn-primary" data-toggle="modal" data-target="#mcnfmBizNoApiModal"> 확인 </button>
+								<button type="button" id="biznoSearch" class="btn_login" data-toggle="modal" data-target="#mcnfmBizNoApiModal" style="width:80px; height: 35px;">확인</button>
 							</td>
 						</tr>
 						<tr>
@@ -138,8 +166,8 @@ $(document).ready(function(){
 							</td>
 						</tr>
 					</table>
-					<div align="right">					
-						<button class="btn btn-primary btn-lg" type="button" id="regist">등록</button>
+					<div align="right">	
+						<button type="button" id="regist" class="btn_login" style="width:80px">등록</button>				
 					</div>
 				</form>
 			</div>
