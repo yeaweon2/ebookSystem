@@ -54,7 +54,7 @@ img {
                       <div class="col-sm-9 match-height">
                           <div class="row">
                               <div class="col-xs-12">
-                                  <ul id="bestUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
+                                  <ul id="bestUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="5" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
                                   <c:forEach var="bestbook" items="${bests}">
                                       <li data-id='${bestbook.bookId}'>
                                           <div class="row hover-item">
@@ -107,7 +107,7 @@ img {
                       <div class="col-sm-9 match-height">
                           <div class="row">
                               <div class="col-xs-12">
-                                  <ul id="newUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
+                                  <ul id="newUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="5" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
                                   <c:forEach var="newbook" items="${news}">
                                       <li data-id='${newbook.bookId}'>
                                           <div class="row hover-item">
@@ -160,7 +160,7 @@ img {
                     <div class="col-sm-9 match-height">
                         <div class="row">
                             <div class="col-xs-12">
-                                <ul id="likeUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
+                                <ul id="likeUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="5" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
                                 <c:forEach var="likebook" items="${likes}">
                                     <li data-id='${likebook.bookId}'>
                                         <div class="row hover-item">

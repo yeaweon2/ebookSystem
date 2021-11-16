@@ -75,7 +75,6 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="bookRutin">독서루틴</a></li>
                                 <li><a href="bucketList">버킷BOOK</a></li>
-                                <li><a href="scheList">BOOK캘린더</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">

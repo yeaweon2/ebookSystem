@@ -644,27 +644,29 @@ ul.sidenav li a:hover {
 					<div id="comments-list" class="row gap wow">
 						<div class="mt30 mb30 single-section-title">
 						    <h3>Comments</h3>
-						</div>	
-						<div id="comments-form" class="row box" >
-							<div class="col-md-12">
-								<div id="comment_message"></div>
-								<form method="post" id="commentform" class="comment-form">
-									<div class="col-md-3 ">
-										<label class="title">${nicknm}</label>
-									</div>
-									<div id="newStars" class="col-md-3 stars" style="padding-left:0"> 		
-										<i class="star far fa-star" data-flag="false" data-no="1"></i>
-										<i class="star far fa-star" data-flag="false" data-no="2"></i>
-										<i class="star far fa-star" data-flag="false" data-no="3"></i>
-										<i class="star far fa-star" data-flag="false" data-no="4"></i>
-										<i class="star far fa-star" data-flag="false" data-no="5"></i>
-									</div>
-									<div class="col-md-3"></div>
-									<div class="col-md-3"><a id="breplyInsert" class="btn ebookBtn-sm pull-right" href="#">등록</a></div>
-									<textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="댓글을 남겨주세요 *" required data-validation-required-message="Please enter a message."></textarea>
-								</form>
-							</div>
-						</div>						
+						</div>
+						<c:if test="${not empty id }">
+							<div id="comments-form" class="row box" >
+								<div class="col-md-12">
+									<div id="comment_message"></div>
+									<form method="post" id="commentform" class="comment-form">
+										<div class="col-md-3 ">
+											<label class="title">${nicknm}</label>
+										</div>
+										<div id="newStars" class="col-md-3 stars" style="padding-left:0"> 		
+											<i class="star far fa-star" data-flag="false" data-no="1"></i>
+											<i class="star far fa-star" data-flag="false" data-no="2"></i>
+											<i class="star far fa-star" data-flag="false" data-no="3"></i>
+											<i class="star far fa-star" data-flag="false" data-no="4"></i>
+											<i class="star far fa-star" data-flag="false" data-no="5"></i>
+										</div>
+										<div class="col-md-3"></div>
+										<div class="col-md-3"><a id="breplyInsert" class="btn ebookBtn-sm pull-right" href="#">등록</a></div>
+										<textarea name="breplyContentsNew" class="form-control" id="breplyContentsNew" placeholder="댓글을 남겨주세요 *" required data-validation-required-message="Please enter a message."></textarea>
+									</form>
+								</div>
+							</div>		
+						</c:if>				
 						<c:forEach var="reply" items="${replys}">
 							<c:if test="${reply.breplyClass != '1'}">
 								<div class="media parentReply">

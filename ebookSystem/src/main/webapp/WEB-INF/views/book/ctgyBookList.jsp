@@ -258,10 +258,16 @@ body {
 				</div>
 				<div class="col-md-9">
 					<div class="row mb-1">
-						<div class="section-header" style="padding-left:30px" >
+						<div class="section-header col-sm-9" style="padding-left:30px" >
 			          		<h2><img width="35px" height="35px" src="resources/img/category.png"><label id="ctgyMenuTitle" style="margin-left:20px">전 체</label> </h2>
 			        	</div>
-			        	<button class="btn ebookBtn-sm" id="lendBtn">선택대여</button>
+			        	<div class="col-sm-3">
+			        		<c:if test="${not empty id }">
+			        			<c:if test="${subYn eq 'Y' }">
+			        				<button class="btn ebookBtn-sm pull-right" style="margin-top:20px;margin-bottom:10px;margin-right:20px" id="lendBtn">선택대여</button>
+			        			</c:if>
+			        		</c:if>
+			        	</div>
 					</div>
 					<div class="row box">
 						<table id="bookList" class="table table-hover table-striped pointer">
