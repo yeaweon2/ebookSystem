@@ -105,14 +105,14 @@ body {font-family: Verdana, sans-serif; margin:0}
 	font-weight: bold;	
 }
 
-ul li {
+ul#iconmenu li {
 	list-style-type: none; 
 	float: left;
 	margin-left:7px;
 }
 
 
-ul li img:hover {
+ul#iconmenu li img:hover {
 	width:70px;
 	height:70px;
 }
@@ -205,7 +205,7 @@ $(function(){
 			<div class="row">
 				<div class="col-md-4 box" style="padding-left:0px; padding-right:0px">
 					<div class="row" style="padding:0; margin:0px">
-						<ul>
+						<ul id="iconmenu">
 							<li onclick="location.href='bestSeller'">
 								<figure>
 									<img src="resources/img/menuicon/menu1.png">
