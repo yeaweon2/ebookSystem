@@ -83,6 +83,7 @@
 	<select id="reviewTop" resultType="co.ebook.prj.common.vo.ReviewTopVO">
 	<![CDATA[
 			SELECT A.RN
+			     , A.review_id
 		         , A.REVIEW_TITLE
 		         , SUBSTR ( A.REVIEW_CONTENTS, 1 , 250 )  || '....'    AS REVIEW_CONTENTS
 		         , A.REVIEW_WRITER 

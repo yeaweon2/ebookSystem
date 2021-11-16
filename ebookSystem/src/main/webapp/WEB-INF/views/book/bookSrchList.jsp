@@ -79,6 +79,11 @@
 			
 			if( bookPublSDt != null && bookPublEDt == null ){
 				alert("출간일 조회시 시작 및 종료일자를 모두 입력해주세요.");
+				Swal.fire({ 
+ 				   icon: 'error',  
+ 				   title: '출간일 입력오류',  
+ 				   text: '출간일 조회시 시작 및 종료일자를 모두 입력해주세요. ',  
+	 			});	
 				return false;
 			}
 			
@@ -155,9 +160,11 @@
 <section>
 	<div class="section-inner">		
 		<div class="container">
-			<div class="row">
-				<h2 class="section-heading">BOOK 검색</h2>
-			</div>
+			<div class="row mb-1" >
+				<div class="section-header" >
+	          		<h1><img width="50px" height="50px" src="resources/img/books.png"> BOOK 검색</h1>
+	        	</div>
+			</div>	
 			<div class="row">
 				<form id="frm" name="frm" >
 					<div class="box row">

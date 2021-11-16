@@ -29,9 +29,9 @@ body {
   border: none;
   color: white;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   padding: 10px;
-  width: 150px;
+  width: 130px;
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
@@ -66,12 +66,12 @@ body {
 .bucketBtn {
 	background-color: white;
 	border: none;
-	color: blue;
+	color: black;
 	padding: 8px 12px;
 	font-size: 18px;
 	cursor: pointer;
 	border-radius: 50%;
-	border : 1px solid blue;	
+	border : 1px solid black;	
 }
 
 .bucketBtn i {
@@ -175,7 +175,7 @@ ul.sidenav li a:hover {
 		console.log(`${book.bookAvg}`);
 		console.log(bookAvg);
 		for( var i = 1; i <= 5 ; i++){
-			if( i < bookAvg ){
+			if( i <= bookAvg ){
 				$("#bookAvg").append($("<i class='star fas fa-star' style='font-size: 20px'>"));		
 			}else{
 				if( i > bookAvg && i-1 < bookAvg ){
@@ -226,7 +226,7 @@ ul.sidenav li a:hover {
 					console.log(res);
 					if(res.result=="01"){
 						Swal.fire({ 
-		    				   icon: 'error',  
+		    				   icon: 'success',  
 		    				   title: '추천완료',  
 		    				   text: '정상적으로 추천되었습니다.',  
 		    			});						
@@ -250,10 +250,18 @@ ul.sidenav li a:hover {
 				success : function(res){
 					console.log(res);
 					if(res.result == "중복"){
-						alert("해당 BOOK은 이미 버킷BOOK으로 등록되어있습니다.");
+						Swal.fire({ 
+						   icon: 'error',  
+						   title: '버킷 중복',  
+						   text: '이미 버킷BOOK으로 등록되어있습니다.',  
+						});
 						return false;
 					}else{
-						alert("정상적으로 등록되었습니다.");
+						Swal.fire({ 
+						   icon: 'success',  
+						   title: '버킷완료!!',  
+						   text: '정상적으로 등록되었습니다.',  
+						});
 					}
 				}
 			});
@@ -265,7 +273,11 @@ ul.sidenav li a:hover {
 			
 			var subYn = `${subYn}`;
 			if( subYn == 'N'){
-				alert("월정액 구매 후 대여가능합니다.");
+				Swal.fire({ 
+				   icon: 'error',  
+				   title: '월정액 미가입',  
+				   text: '월정액 구매 후 대여가능합니다.',  
+				});
 				return false;
 			}
 
@@ -278,13 +290,22 @@ ul.sidenav li a:hover {
 				success : function(res){
 					console.log(res);
 					if(res.result == "03"){
-						alert("이미 대여한 BOOK입니다.");
+						Swal.fire({ 
+						   icon: 'error',  
+						   title: '대여중복',  
+						   text: '이미 대여한 BOOK입니다.',  
+						});
 						return false;
 					}else if(res.result == "04"){
 						alert("세션종료되었습니다. 다시 로그인 후 진행해주세요.");
 						return false;
 					}else{
-						alert("정상적으로 등록되었습니다.");
+						
+						Swal.fire({ 
+						   icon: 'success',  
+						   title: '대여완료!!',  
+						   text: '정상적으로 등록되었습니다.',  
+						});
 					}
 				}
 			});
@@ -584,11 +605,11 @@ ul.sidenav li a:hover {
 								BOOK 평 점 :   ${book.bookAvg}
 							</div>
 							<c:if test="${auth eq 'U' || auth eq 'A'}">
-								<div class="pull-right" style="margin-top:70px">
+								<div class="pull-right" style="margin-top:70px;padding-left:0">
 									<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
 									<button type="button" class="button" id="bookLendForm"><span>BOOK대여 </span></button>
-									<button id="bucketBtn" class="bucketBtn" ><i class="fa fa-bookmark-o"></i></button>
-									<button id="likeItBtn" class="bucketBtn" ><i class="fa fa-thumbs-o-up"></i></button>							
+									<img id="bucketBtn" class="pointer" width="60px" height="60px" src="resources/img/bucketbtn.png">
+									<img id="likeItBtn" class="pointer" width="60px" height="60px" src="resources/img/likeitbook.png">							
 								</div>
 							</c:if>
 						</div>

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ReviewTopVO {
 	private String rn;
+	private String reviewId;
 	private String reviewTitle;
 	private String reviewContents;
 	private String reviewWriter ;

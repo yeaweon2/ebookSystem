@@ -105,6 +105,23 @@ body {font-family: Verdana, sans-serif; margin:0}
 	font-weight: bold;	
 }
 
+ul li {
+	list-style-type: none; 
+	float: left;
+	margin-left:7px;
+}
+
+
+ul li img:hover {
+	width:70px;
+	height:70px;
+}
+
+figcaption {
+	font-size: 12px;
+	text-align: center;
+}
+
 </style>
 <script type="text/javascript">
 $(function(){
@@ -125,7 +142,10 @@ $(function(){
 	});	
 	
 	$(".slideshow-container").on("click", ".mySlides", function(){
-		alert("책리뷰 완성되면 넘어가도록 수정예정");
+		var id = $(this).data("reviewid");
+		$("#reviewId").val(id);
+		frm.action = "reviewSelectList";
+		frm.submit();
 	});
 	
 	$(".bucketBook").on("mouseover", function(){
@@ -183,60 +203,138 @@ $(function(){
 	<div class="section-inner" id="dclick">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4 box" >
-					<c:if test="${auth eq 'U'}">	<!-- 일반사용자 -->
-						<div class="section-header">
-					   		<h2>${nicknm}님의 버킷 TOP5</h2>
-						</div>				   
-						<c:forEach var="list" items="${lists}">
-						   	<div class="row bucketBook pointer" onclick="location.href='bucketList'">
-								<div class="col-sm-2">
-									<img class="media-object" height="70" width="50" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">
-								</div>
-								<div class="col-sm-10">
-									<h4>${list.rn}. ${list.bookNm}</h4>
-									<label>${list.bookPublCo}(${list.bookWriter})</label>
-								</div>
-						   	</div>
-					   	</c:forEach>
-					</c:if>
-					<c:if test="${auth eq 'M'}">	<!-- 매니저 -->
-						<div class="section-header">
-					   		<h2>${nicknm}님의 미처리 BOOK</h2>
-						</div>				   
-						<c:forEach var="list" items="${lists}">
-						   	<div class="row bcnfmBook pointer" onclick="location.href='bookList'">
-								<div class="col-sm-2">
-									<img class="media-object" height="70" width="50" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">
-								</div>
-								<div class="col-sm-10">
-									<h4>${list.rn}. ${list.bookNm}</h4>
-									<label>${list.bookPublCo}(${list.bookWriter})</label>
-								</div>
-						   	</div>
-					   	</c:forEach>
-					</c:if>
-					<c:if test="${auth eq 'A'}">	<!-- 관리자 -->
-					   <div class="section-header">
-					   		<h3>${nicknm}님의 미처리 1:1 문의</h3>
-						</div>				   
-						<c:forEach var="list" items="${lists}">
-						   	<div class="row cmmntyAsk pointer" onclick="location.href='inquireList'">
-								<div class="col-sm-12" style='padding:0px; margin-left:20px'>
-									<p>${list.rn}. ${list.cmmntyTitle}<br/>&nbsp;&nbsp;&nbsp;&nbsp;${list.memberNm} ( ${list.insDt} )</p>
-								</div>
-						   	</div>
-					   	</c:forEach>
-					</c:if>
-					<c:if test="${empty auth}">		<!-- 로그인전 미접속상태 -->
-					   
-					</c:if>
+				<div class="col-md-4 box" style="padding-left:0px; padding-right:0px">
+					<div class="row" style="padding:0; margin:0px">
+						<ul>
+							<li onclick="location.href='bestSeller'">
+								<figure>
+									<img src="resources/img/menuicon/menu1.png">
+									<figcaption>베스트셀러</figcaption>
+								</figure>
+							</li>
+							<li onclick="location.href='bookSrchList'">
+								<figure>
+									<img src="resources/img/menuicon/menu2.png">
+									<figcaption>BOOK검색</figcaption>
+								</figure>
+							</li>
+							<c:if test="${empty id }">
+								<li onclick="location.href='ctgyBookList'">
+									<figure>
+										<img src="resources/img/menuicon/menu9.png">
+										<figcaption>카테고리별조회</figcaption>
+									</figure>
+								</li>
+							</c:if>
+							<c:if test="${auth eq 'A' }">
+								<li onclick="location.href='bcnfmList'">
+									<figure>
+										<img src="resources/img/menuicon/menu7.png">
+										<figcaption>BOOK승인</figcaption>
+									</figure>
+								</li>
+								<li onclick="location.href='myInfo'">
+									<figure>
+										<img src="resources/img/menuicon/menu8.png">
+										<figcaption>마이페이지</figcaption>
+									</figure>
+								</li>
+							</c:if>
+							<c:if test="${auth eq 'M' }">
+								<li onclick="location.href='bookInsertForm'">
+									<figure>
+										<img src="resources/img/menuicon/menu3.png">
+										<figcaption>BOOK등록</figcaption>
+									</figure>
+								</li>
+								<li onclick="location.href='bookInsertForm'">
+									<figure>
+										<img src="resources/img/menuicon/menu8.png">
+										<figcaption>마이페이지</figcaption>
+									</figure>
+								</li>
+							</c:if>
+							<c:if test="${auth eq 'U' }">
+								<li onclick="location.href='bookRutin'">
+									<figure>
+										<img src="resources/img/menuicon/menu4.png">
+										<figcaption>독서루틴</figcaption>
+									</figure>
+								</li>
+								<li onclick="location.href='bucketList'">
+									<figure>
+										<img src="resources/img/menuicon/menu5.png">
+										<figcaption>버킷BOOK</figcaption>
+									</figure>
+								</li>								
+								<li onclick="location.href='lendList'">
+									<figure>
+										<img src="resources/img/menuicon/menu6.png">
+										<figcaption>BOOK리딩</figcaption>
+									</figure>
+								</li>
+							</c:if>
+						</ul>
+					</div>
+					<hr>
+					<div class="row" style="margin-top:20px; padding-left:40px">
+							<c:if test="${auth eq 'U'}">	<!-- 일반사용자 -->
+								<div class="section-header">
+							   		<h2>${nicknm}님의 버킷 TOP5</h2>
+								</div>				   
+								<c:forEach var="list" items="${lists}">
+								   	<div class="row bucketBook pointer" onclick="location.href='bucketList'">
+										<div class="col-sm-2">
+											<img class="media-object" height="70" width="50" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">
+										</div>
+										<div class="col-sm-10">
+											<h4>${list.rn}. ${list.bookNm}</h4>
+											<label>${list.bookPublCo}(${list.bookWriter})</label>
+										</div>
+								   	</div>
+							   	</c:forEach>
+							</c:if>
+							<c:if test="${auth eq 'M'}">	<!-- 매니저 -->
+								<div class="section-header">
+							   		<h2>${nicknm}님의 미처리 BOOK</h2>
+								</div>				   
+								<c:forEach var="list" items="${lists}">
+								   	<div class="row bcnfmBook pointer" onclick="location.href='bookList'">
+										<div class="col-sm-2">
+											<img class="media-object" height="70" width="50" src="/prj/fileUp${list.bookCoverPath}${list.bookCover}">
+										</div>
+										<div class="col-sm-10">
+											<h4>${list.rn}. ${list.bookNm}</h4>
+											<label>${list.bookPublCo}(${list.bookWriter})</label>
+										</div>
+								   	</div>
+							   	</c:forEach>
+							</c:if>
+							<c:if test="${auth eq 'A'}">	<!-- 관리자 -->
+							   <div class="section-header">
+							   		<h3>${nicknm}님의 미처리 1:1 문의</h3>
+								</div>				   
+								<c:forEach var="list" items="${lists}">
+								   	<div class="row cmmntyAsk pointer" onclick="location.href='inquireList'">
+										<div class="col-sm-12" style='padding:0px; margin-left:20px'>
+											<p>${list.rn}. ${list.cmmntyTitle}<br/>&nbsp;&nbsp;&nbsp;&nbsp;${list.memberNm} ( ${list.insDt} )</p>
+										</div>
+								   	</div>
+							   	</c:forEach>
+							</c:if>
+							<c:if test="${empty auth}">		<!-- 로그인전 미접속상태 -->
+							   
+							</c:if>
+						</div>
+						<div class="row" style="margin-top:30px;padding-left:40px">
+							<img width="400px" height="280px" src="resources/img/banner1.png" onclick="location.href='bookReviewList'">
+						</div>
 				</div>
 				<div class="col-md-8">	
 					<div class="row srchBox">
 						<div class="col-sm-12 match-height">
 							<div class="row">
-	                      		<div class="col-md-12">
+	                      		<div class="col-md-12" style="margin-bottom:10px">
 									<ul class="mb30 list-inline wow">
 										<li><a id="bestB" class="btn btn-primary" href="#" >베스트셀러</a></li>
 										<li><a id="newB" class="btn btn-primary" href="#" >신작도서</a></li>
@@ -246,7 +344,7 @@ $(function(){
 							</div> 
 							<div class="row">
 								<div class="col-xs-12">
-									<ul id="bestUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
+									<ul id="bestUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled" data-items="4" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
 										<c:forEach var="bestbook" items="${bests}">
 											<li data-id='${bestbook.bookId}'>
 												<div class="row hover-item">
@@ -262,7 +360,7 @@ $(function(){
 											</li>
 										</c:forEach>
 									</ul>
-									<ul id="newUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled hidden" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
+									<ul id="newUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled hidden" data-items="4" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
 										<c:forEach var="newbook" items="${news}">
 											<li data-id='${newbook.bookId}'>
 												<div class="row hover-item">
@@ -278,7 +376,7 @@ $(function(){
 											</li>
 										</c:forEach>
 									</ul>									
-									<ul id="likesUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled hidden" data-items="3" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
+									<ul id="likesUl" class="owl-carousel-paged testimonial-owl wow fadeIn list-unstyled hidden" data-items="4" data-items-tablet="[768,2]" data-items-mobile="[479,1]">
 										<c:forEach var="likesbook" items="${likes}">
 											<li data-id='${likesbook.bookId}'>
 												<div class="row hover-item">
@@ -302,7 +400,7 @@ $(function(){
 						<div>
 							<div class="slideshow-container">
 								<c:forEach var="review" items="${reviewList}">
-								<div class="mySlides" data-bookid='${review.bookId}'>
+								<div class="mySlides" data-bookid='${review.bookId}' data-reviewid='${review.reviewId}'>
 									<div class="row pointer" style="padding:20px" >
 										<div class="col-md-3" >
 											<img src="/prj/fileUp${review.bookCoverPath}${review.bookCover}"  width="220px" height="280px">
@@ -336,6 +434,7 @@ $(function(){
 	</div>
 	<form action="bookDetail" method="post" id="frm">
 		<input type="hidden" id="bookId" name="bookId" >
+		<input type="hidden" id="reviewId" name="reviewId">
 	</form>
 </section>
 <script>
@@ -368,5 +467,6 @@ function showSlides(n) {
 
 
 </script>    
+
 
 
