@@ -36,31 +36,36 @@
 				<c:if test="${auth eq 'A'|| auth eq 'M'}">   
 				<button type="button" onclick="location.href='noticeInsertForm'" class="btn-primary pull-right">글쓰기</button>
 				</c:if>
-				<table class="table table-hover" style="cursor:pointer" >
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>조회수</th>
-						</tr>
-					</thead>
-					<tbody>
-					
-						<c:forEach var="notice" items="${notices }">
-							<tr class="noticeSelect" data-id="${notice.cmmntyId}">
-								<td>${notice.cmmntyNo}</td>
-								<td>${notice.cmmntyTitle} <c:if test="${notice.cmmntyReplyCnt ne '0'}">(${notice.cmmntyReplyCnt})</c:if></td>
-								<td>${notice.cmmntyWriter}</td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${notice.insDt}"/></td>
-								<td>${notice.cmmntyHit}</td>
+				<div class="row">
+					<table class="table table-hover" style="cursor:pointer" >
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성일</th>
+								<th>조회수</th>
 							</tr>
-						</c:forEach>
-					
-					</tbody>
-				</table>
-				<my:paging jsFunc="goList" paging="${paging}" />
+						</thead>
+						<tbody>
+						
+							<c:forEach var="notice" items="${notices }">
+								<tr class="noticeSelect" data-id="${notice.cmmntyId}">
+									<td>${notice.cmmntyNo}</td>
+									<td>${notice.cmmntyTitle} <c:if test="${notice.cmmntyReplyCnt ne '0'}">(${notice.cmmntyReplyCnt})</c:if></td>
+									<td>${notice.cmmntyWriter}</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${notice.insDt}"/></td>
+									<td>${notice.cmmntyHit}</td>
+								</tr>
+							</c:forEach>
+						
+						</tbody>
+					</table>
+				</div>
+				<div class="row text-center">
+					<my:paging jsFunc="goList" paging="${paging}" />
+				</div>
+				
 		</div>
 	</div>
 	<form action="noticeSelectList" method="post" id="frm">

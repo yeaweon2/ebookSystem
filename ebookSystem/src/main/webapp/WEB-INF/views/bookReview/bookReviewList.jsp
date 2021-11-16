@@ -95,7 +95,7 @@ $(function() {
 		</div>
 	<!-- 리뷰 리스트--><br><br>
 		<div class="reviewList">
-		<c:if test="${not empty id}">
+		<c:if test="${not empty id || auth eq 'M'}">
 			<input type="button" onclick="location.href='reviewInsertForm'" class="btn-primary pull-right"  value="글쓰기">
 			</c:if>
 			<table class="table table-hover" style="cursor:pointer" >

@@ -6,8 +6,11 @@ import co.ebook.prj.cmmnty.vo.CmmntyVO;
 
 public interface CmmntyService {
 	
-	//전체조회
+	//전체조회(컨텐츠X)
 	List<CmmntyVO> cmmntyList(CmmntyVO vo); 
+	
+	//FAQ전체조회
+
 	
 	//한건 상세조회
 	CmmntyVO cmmntySelectList(CmmntyVO vo);
