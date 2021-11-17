@@ -106,7 +106,9 @@ border-radius : 50%;
 	      $('#comments-list').append(
 	         
 	    		  $('<table class="table replyTb">')
-	    		  			.append($('<tr class="noimg">').append( $('<td>').append($('<img class="circle">'))),
+	    		  			.append($('<tr class="noimg">').append( $('<td>').append($('<img class="circle">'))
+	    		  					$('<tr>').append($('<td id="rContents">').html(item.creplyContents)),		
+	    		  			),
 	         						($('<tr>').append('<td>').html(item.creplyWriter)),
 	        		             			   $('<tr>').append($('<td id="rContents">').html(item.creplyContents)),
 	        		     					   $('<tr>').append($('<td>').append('<small>').html(item.insDt),
