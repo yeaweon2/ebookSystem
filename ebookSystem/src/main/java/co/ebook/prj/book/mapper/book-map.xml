@@ -20,6 +20,7 @@
 			        , b.book_hit
 			        , ( select count(1) from book_attach at  where at.book_id = b.book_id) as fileCnt
 			        , b.member_id
+			        , B.bcnfm_id
 			        , ( SELECT member_nm FROM member m  
 			             WHERE m.member_id = b.member_id ) member_nm
 		            , nvl( ( select scode_nm 
@@ -185,6 +186,7 @@
 			        , b.book_useyn
 			        , b.book_hit
 			        , b.member_id
+			        , B.bcnfm_id
 			        , ( SELECT member_nm FROM member m  
 			             WHERE m.member_id = b.member_id ) member_nm
 		            , nvl( ( select scode_nm 

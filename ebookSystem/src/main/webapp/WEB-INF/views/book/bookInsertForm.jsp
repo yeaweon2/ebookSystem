@@ -23,8 +23,18 @@
 </style>
 
 <script type="text/javascript">
+	var mcnEd =  `${mcnEd}`;
 	$(function(){
-	      
+	    
+		// 미계약자일 경우 알림표시
+		if( mcnEd == null || mcnEd == ''){
+			Swal.fire({ 
+			   icon: 'error',  
+			   title: '미계약',  
+			   text: '매니저 계약체결 후 BOOK 등록이 가능합니다.',  
+			});	
+		}
+
 		 $('.summernote').summernote({
 			 height: 300
 	 	}); 
@@ -121,8 +131,17 @@
 		});
 		
 		$("#bookInsertBtn").on("click" , function(){
-			console.log("--------------------->>");
-			console.log(  $(".bookNm").val() );
+			
+			// 미계약자일 경우 알림표시
+			if( mcnEd == null || mcnEd == ''){
+				Swal.fire({ 
+				   icon: 'error',  
+				   title: '미계약',  
+				   text: '매니저 계약체결 후 BOOK 등록이 가능합니다.',  
+				});
+				return false;
+			}			
+			
 			
 			if( $(".bookNm").val() == ""){
 				alert("BOOK명은 필수 입력입니다. ");

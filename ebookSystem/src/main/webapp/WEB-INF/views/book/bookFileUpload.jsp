@@ -173,9 +173,20 @@ $(function () {
     });
     
     
+    $("#fileClear").on("click", function(){
+    	event.preventDefault()
+    	$("#attchFiles").empty();
+		$("#noFileTxt").html("Drag & Drop Files Here");
+    });
+    
     $("#fileInsert").on("click", function(){
     	if( files == null ){
-    		alert("파일 등록후 진행해주세요.");
+    		Swal.fire({ 
+			   icon: 'error',  
+			   title: '파일오류',  
+			   text: '파일 등록후 진행해주세요.',  
+			});		
+    		
     		return false;
     	}
     	
@@ -204,7 +215,13 @@ $(function () {
 			processData: false,
 			success: function(res) {
 			    console.log(res);
-			    alert("등록이 완료되었습니다.");
+			    
+			    Swal.fire({ 
+				   icon: 'success',  
+				   title: '파일등록완료',  
+				   text: '정상적으로 처리되었습니다.',  
+				});	
+			    
 			    $("#bfileTbody").empty();
 			    $.each(res,function(idx,item){
 			    	$("#bfileTbody")
@@ -489,6 +506,7 @@ function F_FileMultiUpload_Callback(files) {
 					<div class="row pull-right">
 						<a href="fileAdd" id="ePubFile" class="btn-black smoothie">ePub파일만들기</a>
 						<a href="#" id="fileInsert" data-bookid="${book.bookId}" class="btn-black smoothie">파일등록</a>
+						<a href="#" id="fileClear" data-bookid="${book.bookId}" class="btn-black smoothie">비우기</a>
 					</div>
 				</div>	
 			</div>

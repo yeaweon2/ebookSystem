@@ -76,6 +76,56 @@ $(function(){
 		frm.submit();
 	});
 	
+	// 승인취소 클릭시
+	$("#bookCnfmCancelBtn").on("click", function(){
+		
+		var book = [];
+		var chk = 0;
+		
+		$("#chkInput:checked").each(function(){
+			var bcnfmId = $(this).closest("tr").data("bcnfmid");
+			var bookId = $(this).closest("tr").data("id");
+			var cnfmStNm = $(this).closest("tr").find("cnfmStNm").html();
+			var cnfmyn = $(this).closest("tr").data("cnfmyn");
+			
+			console.log(bcnfmId + " / " + cnfmyn);
+			
+			if( bcnfmId != "" && cnfmyn == "N" ){
+				console.log("here");
+				var data = {
+					bcnfmId : bcnfmId,
+					bookId : bookId
+				};
+				book.push(data);
+			}else{
+				chk++;
+				Swal.fire({ 
+				   icon: 'error',  
+				   title: '처리중인 건만 선택해주세요.',  
+				   text: '승인완료건은 관리자 승인취소 후 가능합니다.',  
+				});
+				return false;
+			}
+	    });
+
+		console.log(book);
+		console.log(chk);
+		
+		if( chk < 1 ){
+			$.ajax({
+				url : 'bookCnfrmCancel' ,
+				data :  JSON.stringify(book)  ,
+	 			contentType : 'application/json',
+				method : 'POST' ,
+				dataType : 'json' ,
+				success : function(data){
+					console.log(data);
+					$("#srchBtn").click();
+				}
+			});
+		}
+	});
+	
 	// 승인버튼 클릭시
 	$("#bookCnfmBtn").on("click", function(){
 
@@ -209,7 +259,7 @@ $(function(){
 				
 				$.each(res.lists,function(idx,item){
 					$("#bookTb").find("tbody")
-					.append( $("<tr>")
+					.append( $("<tr>").data("bcnfmid", item.bcnfmId).data("filecnt", item.fileCnt).data("cnfmyn", item.bookCnfmYn).data("id", item.bookId)
 								.append($("<td class='chkTd'>").append( $("<input type='checkbox' id='chkInput' >")))
 								.append($("<td>").html(item.bookNo) )
 								.append($("<td>").html(item.bookFlCd) )
@@ -388,8 +438,10 @@ function goList(p) {
 				</form>
 			</div>
 			<div class="row" style="margin-right:20px;margin-top:20px">
-				<button id="bookCnfmBtn" class="btn ebookBtn-sm pull-right" >승인신청</button>
-				<button id="bookCnfmBtn" class="btn ebookBtn-sm pull-right" >승인취소</button>
+				<c:if test="${not empty mcnEd}">
+					<button id="bookCnfmBtn" class="btn ebookBtn-sm pull-right" >승인신청</button>
+					<button id="bookCnfmCancelBtn" class="btn ebookBtn-sm pull-right" >승인취소</button>
+				</c:if>
 			</div>
 			<div class="row" style="margin-top:20px">
 				<table id="bookTb" class="table table-hover" style="cursor: pointer;">
@@ -410,7 +462,7 @@ function goList(p) {
 					</thead>
 					<tbody>
 						<c:forEach var="list" items="${lists}" >
-							<tr data-id="${list.bookId}" data-filecnt="${list.fileCnt}">
+							<tr data-id="${list.bookId}" data-filecnt="${list.fileCnt}" data-bcnfmid="${list.bcnfmId}" data-cnfmyn="${list.bookCnfmYn }">
 								<td class="chkTd" ><input type="checkbox" id="chkInput" ></td>
 								<td>${list.bookNo}</td>
 								<td>${list.bookFlCd}</td>
@@ -426,16 +478,16 @@ function goList(p) {
 								<td>${list.fileCnt}</td>
 								<td>${list.memberNm}</td>
 								<c:if test="${list.cnfmStNm eq '승인'}">
-									<td style="color:red;font-weight:bold">${list.cnfmStNm}</td>
+									<td style="color:red;font-weight:bold" id="cnfmStNm">${list.cnfmStNm}</td>
 								</c:if>
 								<c:if test="${list.cnfmStNm eq '보류'}">
-									<td style="color:#0c2e8a;font-weight:bold">${list.cnfmStNm}</td> 
+									<td style="color:#0c2e8a;font-weight:bold" id="cnfmStNm">${list.cnfmStNm}</td> 
 								</c:if>
 								<c:if test="${list.cnfmStNm eq '처리중'}">
-									<td style="color:green;font-weight:bold">${list.cnfmStNm}</td>
+									<td style="color:green;font-weight:bold" id="cnfmStNm">${list.cnfmStNm}</td>
 								</c:if>
 								<c:if test="${list.cnfmStNm eq '미신청'}">
-									<td>${list.cnfmStNm}</td>
+									<td id="cnfmStNm">${list.cnfmStNm}</td>
 								</c:if>
 							</tr>
 						</c:forEach>

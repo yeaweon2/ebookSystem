@@ -32,11 +32,14 @@ public class BcnfmServiceImpl implements BcnfmService {
 
 	@Override
 	public int bcnfmUpdate(BcnfmVO vo) {
+		map.bcnfmAdminUpdate(vo);				// book테이블에 승인여부 업데이트
 		return map.bcnfmUpdate(vo);
 	}
 
+	// 승인신청취소시에만 처리
 	@Override
 	public int bcnfmDelete(BcnfmVO vo) {
+		map.bcnfmCancelBookUpdate(vo);
 		return map.bcnfmDelete(vo);
 	}
 
@@ -53,6 +56,11 @@ public class BcnfmServiceImpl implements BcnfmService {
 	@Override
 	public BcnfmVO bcnfmReqDuplChk(BcnfmVO vo) {
 		return map.bcnfmReqDuplChk(vo);
+	}
+
+	@Override
+	public int bcnfmCancelBookUpdate(BcnfmVO vo) {
+		return map.bcnfmCancelBookUpdate(vo);
 	}
 
 	

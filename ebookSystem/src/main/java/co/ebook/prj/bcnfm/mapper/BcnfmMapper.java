@@ -21,4 +21,8 @@ public interface BcnfmMapper {
 	int bcnfmListCount(BcnfmVO vo); 
 	
 	BcnfmVO bcnfmReqDuplChk(BcnfmVO vo);
+	
+	int bcnfmCancelBookUpdate(BcnfmVO vo);
+	
+	int bcnfmAdminUpdate(BcnfmVO vo);
 }

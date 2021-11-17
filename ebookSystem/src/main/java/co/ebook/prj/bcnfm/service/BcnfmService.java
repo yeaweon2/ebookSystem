@@ -21,4 +21,5 @@ public interface BcnfmService {
 	// BOOK 승인신청전 중복체크
 	BcnfmVO bcnfmReqDuplChk(BcnfmVO vo);
 	
+	int bcnfmCancelBookUpdate(BcnfmVO vo);
 }

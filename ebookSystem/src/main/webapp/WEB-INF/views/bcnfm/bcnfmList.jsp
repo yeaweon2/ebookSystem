@@ -108,7 +108,81 @@ select {
 			$("#bcnfmStCd").val($(this).find("option:selected").val());
 		});
 		
+		// 승인취소
+		$("#cnfmCancelBtn").on("click", function(){
+			var chkCnt = 0;
+			var book = [];
+			var cnt = 0;
+			$(".chkInput:checked").each(function(){
+				cnt++;
+				
+				if( bcnfmId != "" && cnfmyn == "Y" ){
+					var bcnfmId = $(this).closest("tr").data("bcnfmid");
+					var bookId = $(this).closest("tr").data("bookid");
+					var data = {
+						bcnfmId : bcnfmId,
+						bookId : bookId
+					};
+					
+					book.push(data);
+				}else{
+					Swal.fire({ 
+					   icon: 'error',  
+					   title: '승인취소완료',  
+					   text: '정상적으로 취소 처리되었습니다.',  
+					});
+					return false;
+				}
+				
+				
+		    });
+			
+			console.log(book);
+			
+			if( cnt == 0 ){
+				Swal.fire({ 
+				   icon: 'error',  
+				   title: '선택된 건이 없습니다.',  
+				   text: '승인처리건을 선택한 후 진행해주세요.',  
+				});			
+				return false;
+			}
+			
+			Swal.fire({
+                title: 'BOOK 승인취소',
+                text: "해당 자료를 승인취소 하시겠습니까?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '승인',
+                cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.isConfirmed) {        			
+	      			 $.ajax({
+	      				url : 'bookAdminCnfmCancel' ,
+	      				data :  JSON.stringify(book)  ,
+	      				contentType : 'application/json',
+	      				method : 'POST' ,
+	      				dataType : 'json' ,
+	      				success : function(data){
+	      					console.log(data);
+	      					
+	      					Swal.fire({ 
+	      					   icon: 'success',  
+	      					   title: '승인취소완료!!',  
+	      					   text: '정상적으로 취소 처리되었습니다.',  
+	      					});
+	      					
+	      					goList(1);
+	      				}
+	      			}); 
+				}
+        	});
+			
+		});
 		
+		// 승인
 		$("#cnfmBtn").on("click", function(){
             	var chkCnt = 0;
     			var book = [];
@@ -404,8 +478,9 @@ function goList(p) {
 				</form>
 			</div>				
 			<div class="row pull-right" style="margin-top:10px;margin-bottom:10px;">
-				<button type="button" id="cnfmBtn" class="btn ebookBtn">승 인</button>
-				<button type="button" id="rejectBtn" class="btn ebookBtn">보 류</button>
+				<button type="button" id="cnfmBtn" class="btn ebookBtn-sm">승인</button>
+				<button type="button" id="cnfmCancelBtn" class="btn ebookBtn-sm">승인취소</button>
+				<button type="button" id="rejectBtn" class="btn ebookBtn-sm">보류</button>
 			</div>
 				
 			<div class="row">
@@ -425,7 +500,7 @@ function goList(p) {
 						<thead>
 						<tbody>
 							<c:forEach var="list" items="${lists}" >
-								<tr data-bcnfmid="${list.bcnfmId}" data-bookid="${list.bookId}" data-filecnt="${list.fileCnt}">
+								<tr data-bcnfmid="${list.bcnfmId}" data-bookid="${list.bookId}" data-filecnt="${list.fileCnt}" data-cnfmyn="${list.bookCnfmYn }">
 									<c:if test="${list.bcnfmStCd eq '처리중' }">
 										<td class="chkTd"><input type="checkbox" class="chkInput"></td>
 									</c:if>

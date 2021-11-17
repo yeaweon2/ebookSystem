@@ -77,6 +77,11 @@
 		UPDATE BOOK_CONFIRM
 		   SET BCNFM_ST_CD = #{bcnfmStCd}
 		   <if test="bcnfmStCd != null and bcnfmStCd != ''">
+		   		<if test="bcnfmStCd.equals('01')">
+		   		 , BCNFM_CNFMR = null
+				 , BCNFM_CNFM_DT = null
+				 , BCNFM_REJECT = null
+		   		</if>
 				<if test="bcnfmStCd.equals('02')">
 				 , BCNFM_CNFMR = #{bcnfmCnfmr}
 				 , BCNFM_CNFM_DT = SYSDATE
@@ -84,19 +89,40 @@
 				</if>
 				<if test="bcnfmStCd.equals('03')">
 				 , BCNFM_REJECT = #{bcnfmReject}
-				</if>		   	 
+				</if>
 			</if>
 		     , UDT_DT = SYSDATE
 		 WHERE BCNFM_ID = #{bcnfmId}
 	</update>
 
-	<update id="bcnfmIdUpdate">
+	<update id="bcnfmIdUpdate" parameterType="co.ebook.prj.bcnfm.vo.BcnfmVO">
 		UPDATE BOOK
-       	   SET BCNFM_ID = ( SELECT MAX(BCNFM_ID) FROM BOOK_CONFIRM 
+		   SET BCNFM_ID = ( SELECT MAX(BCNFM_ID) FROM BOOK_CONFIRM 
        	   					 WHERE BOOK_ID = #{bookId} )
-       	   	 , book_cnfm_yn = 'Y'
  		 WHERE BOOK_ID = #{bookId}		
 	</update>
+	
+	<update id="bcnfmAdminUpdate" parameterType="co.ebook.prj.bcnfm.vo.BcnfmVO">
+		UPDATE BOOK
+		   SET book_cnfm_yn = 'Y'       	   					 
+ 		 WHERE BOOK_ID = #{bookId}		
+	</update>
+	
+	<update id="bcnfmCancelBookUpdate" parameterType="co.ebook.prj.bcnfm.vo.BcnfmVO">
+		UPDATE BOOK
+		   SET book_cnfm_yn = 'N'
+		   <if test="bcnfmId != null and bcnfmId != '' ">
+		   	, BCNFM_ID = #{bcnfmId}
+		   </if>
+		   <if test="bcnfmId == null or bcnfmId == '' ">
+      	   	 , BCNFM_ID = NULL
+      	   </if>
+		 WHERE BOOK_ID = #{bookId}		
+	</update>
+	
+	<delete id="bcnfmDelete" parameterType="co.ebook.prj.bcnfm.vo.BcnfmVO">
+		DELETE FROM book_confirm WHERE bcnfm_id = #{bcnfmId}
+	</delete>
 	
 	<select id="bcnfmListCount" resultType="int" parameterType="co.ebook.prj.bcnfm.vo.BcnfmVO">
 			select  count(1) from ( 

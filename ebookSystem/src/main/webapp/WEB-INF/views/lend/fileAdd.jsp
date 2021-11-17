@@ -9,7 +9,10 @@
 <script type = "text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script type = "text/javascript" src = "https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <style type="text/css">
-
+.modal-backdrop {
+	z-index: -1;
+}
+	
 .minibox {
 	margin: 0 0 0 0;
     border: 1px solid #e4e1e3;
@@ -32,9 +35,16 @@ p {
 		
 		$("#pdfAdd").on("click", function(){
 			if( $("#pdfTitle").val() == "" ){
-				alert("파일명을 입력한 후 진행해주세요.");
+				Swal.fire({ 
+ 				   icon: 'error',  
+ 				   title: '파일명 미입력',  
+ 				   text: '파일명을 입력한 후 진행해주세요.',  
+ 				});	
 				return false;	
 			}
+			
+			console.log($('#wrap'));
+			$('#wrap').css("height", "auto");
 			
 			html2canvas($('#wrap')[0]).then(function(canvas) {
 				
@@ -60,6 +70,9 @@ p {
 				
 				doc.save(  $("#pdfTitle").val() + ".pdf"); //pdf저장
 			});
+			
+			$('#wrap').css("height", "495px");
+			
 		});
 		
 		$("#previewBtn").on("click", function(){
@@ -72,7 +85,12 @@ p {
 				var ext = $("#pdfFile").val().split(".").pop().toLowerCase();
 				console.log(ext);
 				if($.inArray(ext, ["pdf"]) == -1) {
-					alert("PDF 파일만 등록 가능합니다.");
+					Swal.fire({ 
+	 				   icon: 'error',  
+	 				   title: '파일오류',  
+	 				   text: 'PDF 파일만 등록 가능합니다.',  
+	 				});	
+					
 					$("#pdfFile").val("");
 					return false;
 				}
@@ -81,7 +99,12 @@ p {
 			
 		$("#convertFile").on("click", function(){
 			if($("#pdfFile").val() == "" ){
-				alert("PDF 파일을 입력한 후 진행해주세요.");
+				Swal.fire({ 
+ 				   icon: 'error',  
+ 				   title: '파일오류',  
+ 				   text: 'PDF 파일을 입력한 후 진행해주세요.',  
+ 				});	
+					
 				return false;	
 			}
 			epubFrm.submit();
@@ -135,14 +158,14 @@ p {
 						</div>
 						<div class="row" >
 							<div class="col-sm-9">
-							<form id="epubFrm" name="epubFrm" action="https://api.cloudconvert.com/convert" method="POST" enctype="multipart/form-data">
-							    <input type="hidden" name="input" value="upload">
-							    <input type="hidden" name="apikey" value="mYwzoSavODhFp3Fwb-7XwCbX9sXdBr2D9OjP4OXfltK4Kjbqf_jQ0_od1P3ctCJQ5czOn8GQNEqDxjCzTE7Prw">
-							    <input type="hidden" name="download" value="inline">
-							    <input type="hidden" name="inputformat" value="pdf">
-							    <input type="hidden" name="outputformat" value="epub">
-							    <input type="file" name="file" id="pdfFile" >
-							</form>
+								<form id="epubFrm" name="epubFrm" action="https://api.cloudconvert.com/convert" method="POST" enctype="multipart/form-data">
+								    <input type="hidden" name="input" value="upload">
+								    <input type="hidden" name="apikey" value="mYwzoSavODhFp3Fwb-7XwCbX9sXdBr2D9OjP4OXfltK4Kjbqf_jQ0_od1P3ctCJQ5czOn8GQNEqDxjCzTE7Prw">
+								    <input type="hidden" name="download" value="inline">
+								    <input type="hidden" name="inputformat" value="pdf">
+								    <input type="hidden" name="outputformat" value="epub">
+								    <input type="file" name="file" id="pdfFile" >
+								</form>
 							</div>
 							<div class="col-sm-2 col-sm-offset-1">
 								<input type="button" value="ePub변환" id="convertFile" class="ebookBtn-sm" >
@@ -154,7 +177,7 @@ p {
 				<div class="row">
 					<h4 style="padding-left:20px">미리보기</h4>
 				</div>
-				<div id="wrap" class="row box">
+				<div id="wrap" class="row box" style="overflow:auto;height:495px" >
 					<p></p> 
 				</div>	
 			</div>

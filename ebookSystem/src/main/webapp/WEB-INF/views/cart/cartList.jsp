@@ -48,7 +48,6 @@
 			$("#itemDel").css("display", "block");
 		}
 
-		
 		// 선택삭제
 		$("#chkDelBtn").on("click", function(){
 			

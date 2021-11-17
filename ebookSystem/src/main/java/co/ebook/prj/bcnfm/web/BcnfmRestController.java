@@ -59,6 +59,26 @@ public class BcnfmRestController {
 		return map;
 	}
 	
+
+	// 관리자 승인 처리
+	@RequestMapping(value="/bookCnfrmCancel" , method=RequestMethod.POST) 
+	public void bookCnfrmCancel(Model model , @RequestBody List<BcnfmVO> lists , HttpSession session) {
+		
+		System.out.println("==========================>> ");
+		System.out.println(lists.toString());
+		System.out.println("==========================>> ");
+		
+		for(BcnfmVO vo : lists) {
+			
+			
+			
+			
+			
+			vo.setBcnfmStCd("01");
+			bcnfmDao.bcnfmDelete(vo);
+		}
+	}
+	
 	// 관리자 승인 처리
 	@RequestMapping(value="/bookAdminCnfm" , method=RequestMethod.POST) 
 	public void bookAdminCnfm(Model model , @RequestBody List<BcnfmVO> lists , HttpSession session) {
@@ -71,6 +91,19 @@ public class BcnfmRestController {
 			bcnfmDao.bcnfmUpdate(vo);
 		}
 	}	
+	
+	// 관리자 승인 처리
+	@RequestMapping(value="/bookAdminCnfmCancel" , method=RequestMethod.POST) 
+	public void bookAdminCnfmCancel(Model model , @RequestBody List<BcnfmVO> lists , HttpSession session) {
+		
+		System.out.println(lists.toString());
+		
+		for(BcnfmVO vo : lists) {
+			vo.setBcnfmStCd("01");
+			bcnfmDao.bcnfmCancelBookUpdate(vo);
+			bcnfmDao.bcnfmUpdate(vo);
+		}
+	}		
 	
 	// 관리자 승인 처리
 	@RequestMapping(value="/bookAdminReject" , method=RequestMethod.POST) 

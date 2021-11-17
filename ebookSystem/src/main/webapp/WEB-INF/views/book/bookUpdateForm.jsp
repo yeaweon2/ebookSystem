@@ -368,7 +368,7 @@
 									</div>
 								</div> 
 								<div class="row pull-right" style="margin-top:100px">
-									<div class="col-sm-12 pull-right">
+									<div class="col-sm-12">
 										<button type="button" id="bookUpdateBtn" class="btn ebookBtn">수 정</button>
 										<button type="button" id="bookDeleteBtn" class="btn ebookBtn" onclick="bookDelete()">삭 제</button>
 										<c:if test="${auth eq 'A' }">
