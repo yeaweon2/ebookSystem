@@ -106,20 +106,18 @@ $("#attchFile").on("change", function(){
                 confirmButtonText: '탈퇴',
                 cancelButtonText: '취소'
             }).then((result) => {
-                if (result.isConfirmed) {
+                if (result.isConfirmed == true) {
                     Swal.fire(
                         'E로운생활 회원탈퇴 되었습니다.',
                     )
-                    
-                    
-                }
+                    frm.action = "myDel";
+                } else {
+    				return false;
+    			}
+                frm.submit();
             })
         });
     });
-	
-	
-	
-	
 	
 
 });

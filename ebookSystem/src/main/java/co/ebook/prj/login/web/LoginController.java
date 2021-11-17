@@ -72,7 +72,7 @@ public class LoginController {
 				views = "main/loginFail";
 			}
 		}else {
-			model.addAttribute("message", "로그인 실패 !!");
+			model.addAttribute("message", "로그인 실패하셨습니다. 아이디와 패스워드를 확인해주세요.");
 			views = "main/loginFail";
 		}
 

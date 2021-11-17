@@ -152,13 +152,26 @@ public class MemberController {
 		return memberDao.nickNnCheck(vo); 
 	}
 	
-//	멤버삭제
+//	멤버삭제(관리자)
 	@RequestMapping("/memberDelete")
 	public String memberDelete(Model model, MemberVO vo) {
 		memberDao.memberDelete(vo);
 		
 		return "redirect:memberList";
 	}
+	
+	
+//	탈퇴
+	@RequestMapping("/myDel")
+	public String myDel(Model model, MemberVO vo, HttpSession session) {
+		
+		memberDao.memberDelete(vo);
+		
+		session.invalidate();
+		
+		return "main/home";
+	}
+	
 	
 	
 //	멤버수정폼
@@ -288,14 +301,15 @@ public class MemberController {
 		vo.setMemberId((String)session.getAttribute("id"));
 		sVo.setMemberId((String)session.getAttribute("id"));
 
-		System.out.println("여기야여기==============================>"+vo.toString());
-		System.out.println("여기야여기============================>"+sVo.toString());
 		
 		
 		model.addAttribute("member", memberDao.memSubUpdate(vo));
 		model.addAttribute("sub", subDao.subInsert(sVo));
-		System.out.println("==============================?????????????????????" + vo);
+		sVo = subDao.subSelect(sVo);
 		
+		session.setAttribute("subYn", "'Y'");
+		session.setAttribute("sube" , sVo.getSubspEdt());
+		session.setAttribute("mile", sVo.getSubspMile());
 		
 		
 		return "redirect:myInfo";

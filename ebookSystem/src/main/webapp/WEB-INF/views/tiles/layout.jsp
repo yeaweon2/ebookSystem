@@ -106,7 +106,7 @@
                     </div>
 					<div align="center" ><br>
 						<table>
-							<tr id="st">
+							<tr id="st"> 
 								<th id="st" onclick="location.href='myInfo'" >내정보보기</th>
 								<c:if test="${auth eq 'U'}">
 								<th id="st">월정액종료일<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sube}" /></p></th>

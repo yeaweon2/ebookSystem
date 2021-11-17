@@ -30,7 +30,11 @@ $(document).ready(function(){
 	 
     $("#memberId").keydown(function(e) {
 		if (e.keyCode == 13) {
-			alert("비밀번호를 입력하세요");
+			Swal.fire({
+                icon: 'error',
+                title: '비밀번호 오류.',
+                text: '비밀번호를 입력하세요.',
+            });
 		}
 	});
 

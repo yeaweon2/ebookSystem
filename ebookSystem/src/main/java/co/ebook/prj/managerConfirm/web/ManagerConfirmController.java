@@ -144,14 +144,14 @@ public class ManagerConfirmController {
 		
 		System.out.println("!!!!!!-----------------------" +mVo.toString());
 		
-		
 		manCoDao.payInsert(mVo);
-		
-		model.addAttribute("pay", manCoDao.paySelect(mVo));
+		mVo = manCoDao.paySelect(mVo);
+		model.addAttribute("pay", mVo);
 		
 		System.out.println("??????????==============================?????????????????????" + vo);
 		
 		session.setAttribute("subYn", "'Y'");
+		session.setAttribute("mcnEd"    , mVo.getMcnfmCntrEdt());
 		
 		return "redirect:myInfo";
 	} 
