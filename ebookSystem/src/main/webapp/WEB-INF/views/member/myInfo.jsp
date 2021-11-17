@@ -112,7 +112,6 @@
 					<h5 align="left" style="margin-left: 25px;">실 결제금액 : ${sub.subspPayAmt} 원</h5>
 					<h5 align="left" style="margin-left: 25px;">사용 마일리지 : ${sub.subspMile} point</h5>
 					<h5 align="left" style="margin-left: 25px;">현재 마일리지 : ${member.memberMile} point</h5>
-					<h5 align="left" style="margin-left: 25px;">결제코드 : ${sub.impUid} </h5>
 			    </div><br><br>
 			   </div> 
 			   	</c:if>		
@@ -145,16 +144,6 @@
 			    </div><br><br>
 			   </div> 
 			    
-			    <c:if test="${not empty pay.impUid}">
-			     <div class="col-lg-8 mb-8 mb-lg-0" style="margin-left: 270px;">
-				<div style="height:150px; width:600px; background-color: SeaShell; border-radius: 20px; border-width: 1px;"><br>
-			    	<h4 align="left" style="margin-left: 20px; font-weight: bold">매니저계약 결제내역</h4>
-					<h5 align="left" style="margin-left: 25px;">계약 금액 : ${pay.payAmt} 원</h5>
-					<h5 align="left" style="margin-left: 25px;">결제코드 : ${pay.impUid} </h5>
-			     </div><br><br>
-			   </div> 
-			   	</c:if>	
-			   
 			   	</c:if>
 			    
 			   	

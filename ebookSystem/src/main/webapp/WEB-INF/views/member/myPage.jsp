@@ -80,17 +80,29 @@ $("#attchFile").on("change", function(){
 	// 수정내용 저장
 	
 	$("#profileUpdate").on("click" , function(){
-		if(confirm('수정하시겠습니까?') == true) {
-			console.log("--------");
-			frm.action = "myPageUpdate";
-			frm.submit();  
-		} else {
-			$("#frm").action = "myPage";
-				return false;
-			}
-		});
-	
-	
+		 Swal.fire({
+             title: '수정하시겠습니까?',
+             text: "확인버튼 클릭 시 수정됩니다.",
+             icon: 'warning',
+             showCancelButton: true,
+             confirmButtonColor: '#3085d6',
+             cancelButtonColor: '#d33',
+             confirmButtonText: '수정',
+             cancelButtonText: '취소'
+         }).then((result) => {
+        	 if(result.isConfirmed == true) {
+        		 Swal.fire(
+                         '회원정보가 수정 되었습니다.',
+                     )
+                 frm.action = "myPageUpdate";
+        	 } else {
+     			$("#frm").action = "myPage";
+     				return false;
+     			}
+     		});
+	});
+		
+		
 	
 	// 회원탈퇴
 		
