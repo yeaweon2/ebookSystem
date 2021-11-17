@@ -28,12 +28,12 @@ public class FaqController {
 	String faqList(Model model, CmmntyVO vo, Paging paging) {
 		vo.setCmmntyFlCd("02");
 		
-		//페이징처리
+		// 페이징처리
 		vo.setStart(paging.getFirst());
 		vo.setEnd(paging.getLast()); 
 		paging.setTotalRecord(cmmntyDao.getCount(vo));
 		
-		List<CmmntyVO> lists = cmmntyDao.cmmntyList(vo);
+		List<CmmntyVO> lists = cmmntyDao.cmmntyContents(vo);
 		System.out.println(lists);
 		model.addAttribute("faqs", lists);
 		return "cmmnty/faqList";

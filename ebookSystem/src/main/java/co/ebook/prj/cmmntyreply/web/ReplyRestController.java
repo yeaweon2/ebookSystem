@@ -22,18 +22,19 @@ public class ReplyRestController {
 
 	@Autowired
 	private ReplyService replyDao;
-		
-
+	
 	// 댓글조회
 	@RequestMapping(value = "/replyList", method = RequestMethod.GET)
-	public List<ReplyVO> replyList(Model model, ReplyVO vo) {
+	public List<ReplyVO> replyList(Model model, ReplyVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		vo.setCreplyWriter((String) session.getAttribute("id"));
 		List<ReplyVO> lists = replyDao.replyList(vo);
 		
 		for(ReplyVO v : lists) {
 			System.out.println(v.toString());	
 		}
-		
 		model.addAttribute("list", lists);
+
 		return lists;
 	}
 

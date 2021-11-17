@@ -8,6 +8,9 @@ public interface CmmntyMapper {
 	//전체조회
 	List<CmmntyVO> cmmntyList(CmmntyVO vo);
 	
+	//FAQ전체조회
+	List<CmmntyVO> cmmntyContents(CmmntyVO vo);
+	
 	//단건조회
 	CmmntyVO cmmntySelectList(CmmntyVO vo);
 	int cmmntyInsert(CmmntyVO vo);

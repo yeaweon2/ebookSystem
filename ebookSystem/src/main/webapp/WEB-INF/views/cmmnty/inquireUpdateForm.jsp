@@ -20,19 +20,15 @@
 					<h2>1:1문의</h2><br><br>
 				</div>
 			</div>
-			<div style="width : 800px">
+			<div>
 				<form id="frm" name="frm" action="inquireUpdate" method="post">
 					<div>
 						<label for="title">제목</label>
 						<input type="text" class="form-control" name="cmmntyTitle" id="cmmntyTitle" value ="${inquires.cmmntyTitle}" >
 					</div>
 					<div>
-						<label for="reg_id">작성자</label>
-						<input type="text" class="form-control" name="cmmntyWriter" id="cmmntyWriter" value="${inquires.cmmntyWriter}" readonly="readonly">
-					</div>
-					<div>
 						<label for="content">내용</label>
-					<textarea name="cmmntyContents" id="summernote" class="summernote">${inquires.cmmntyContents }</textarea>
+					<textarea name="cmmntyContents" id="summernote" class="summernote" cols="13"	>${inquires.cmmntyContents }</textarea>
 					</div>
 					<div >
 						<label for="reg_id">파일첨부</label>

@@ -26,6 +26,30 @@
         ]]>
 	</select>
 	
+	<select id="cmmntyContents" resultType="co.ebook.prj.cmmnty.vo.CmmntyVO">
+		SELECT B.* FROM ( SELECT A.* , ROWNUM CMMNTY_NO FROM ( SELECT 
+			  CMMNTY_ID
+			, CMMNTY_TITLE 
+			, CMMNTY_REPLY_CNT
+			, CMMNTY_WRITER
+			, CMMNTY_CONTENTS
+			, INS_DT
+			, UDT_DT
+			, CMMNTY_HIT
+			, CMMNTY_ATCH_NM
+			, CMMNTY_ATCH_PATH
+			, PROC_DONE_YN
+		 FROM COMMUNITY
+		WHERE CMMNTY_FL_CD = #{cmmntyFlCd}
+		  AND CMMNTY_DELYN ='N'
+		   
+		ORDER BY CMMNTY_ID DESC
+		
+		<![CDATA[ 
+        ) A ) B WHERE CMMNTY_NO >= #{start} and CMMNTY_NO <= #{end} 
+        ]]>
+	</select>
+	
 	<!-- 211019 공지사항 상세조회 -->
 	<select id="cmmntySelectList" resultType="co.ebook.prj.cmmnty.vo.CmmntyVO">
 		SELECT CMMNTY_TITLE

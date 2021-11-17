@@ -31,11 +31,12 @@
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
 					<h2><img width="40px" height="40px" src="resources/img/note.png"> 공지사항</h2><br><br>
+					<c:if test="${auth eq 'A'|| auth eq 'M'}">   
+				<button type="button" onclick="location.href='noticeInsertForm'" class="ebookBtn-sm pull-right">글쓰기</button>
+				</c:if>
 				</div>
 			</div>
-				<c:if test="${auth eq 'A'|| auth eq 'M'}">   
-				<button type="button" onclick="location.href='noticeInsertForm'" class="btn-primary pull-right">글쓰기</button>
-				</c:if>
+				
 				<div class="row">
 					<table class="table table-hover" style="cursor:pointer" >
 						<thead>

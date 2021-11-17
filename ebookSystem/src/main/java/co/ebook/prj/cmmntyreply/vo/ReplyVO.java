@@ -13,4 +13,7 @@ public class ReplyVO {
 	private int creplyClass; 		 //댓글클래스(부모0/자식1 들여쓰기)
 	private int creplyOrd;			 //댓글순서(정렬)
 	private int creplyGr; 			 //댓글그룹(부모-자식묶기)
+	
+	private String memberProfileNm;
+	private String memberProfilePath;
 }

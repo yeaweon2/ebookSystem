@@ -96,7 +96,7 @@ $(function() {
 	<!-- 리뷰 리스트--><br><br>
 		<div class="reviewList">
 		<c:if test="${not empty id || auth eq 'M'}">
-			<input type="button" onclick="location.href='reviewInsertForm'" class="btn-primary pull-right"  value="글쓰기">
+			<input type="button" onclick="location.href='reviewInsertForm'" class="ebookBtn-sm	 pull-right"  value="글쓰기">
 			</c:if>
 			<table class="table table-hover" style="cursor:pointer" >
 					<thead>
@@ -121,7 +121,9 @@ $(function() {
 						</c:forEach>
 					</tbody>
 				</table>
+				<div class="row text-center">
 				<my:paging jsFunc="goList" paging="${paging}" />
+				</div>
 		</div>
 		<form action="reviewSelectList" method="post" id="frm">
 		<input type="hidden" id="reviewId" name="reviewId">

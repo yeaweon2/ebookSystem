@@ -160,7 +160,11 @@
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
 					<h2><img width="40px" height="40px" src="resources/img/note.png"> 자주 묻는 질문</h2>
-					<br> <br>
+					
+					<br><br>
+					<c:if test="${auth eq 'A'}">   
+					<button type="button" class="faqInsert pull-right ebookBtn-sm" style="margin-right:150px">글쓰기</button>
+				</c:if>
 				</div>
 			</div>
 			<div class="row mb-1">
@@ -168,24 +172,24 @@
 					<div class="faq">
 						<div class="accordion" id="btnImg" onclick="imgUp()">
 							<span id="title">${faq.cmmntyTitle}</span><i
-								class="fa fa-angle-down pull-right" aria-hidden="true"></i>
+								class="fa fa-angle-down pull-right" aria-hidden="true" ></i>
 							<c:if test="${auth eq 'A'}">   
 								<!-- Trigger/Open The Modal -->
-								<button class="myBtn pull-right btn-info"
+								<button class="myBtn pull-right ebookBtn-sm" style="margin-top :-6px"
 									data-id="${faq.cmmntyId}" data-writer="${faq.cmmntyWriter}">수정</button>
-								<button class="faqDelete btn-danger pull-right"
+								<button class="faqDelete ebookBtn-sm pull-right" style="margin-top :-6px"
 									data-id="${faq.cmmntyId}">삭제</button>
 							</c:if>
 						</div>
-						<div class="ac_panel">${faq.cmmntyContents}</div>
+						<div class="ac_panel" style="margin:20px"> ${faq.cmmntyContents}</div>
 					</div>
 				</c:forEach>
-				<hr>
-				<c:if test="${auth eq 'A'}">   
-					<button type="button" class="faqInsert btn-primary">글쓰기</button>
-				</c:if>
+			
+				
 			</div>
+			<div class="row text-center">
 			<my:paging jsFunc="goList" paging="${paging}" />
+			</div>
 		</div>
 	</div>
 
@@ -194,6 +198,7 @@
 	<div id="myModal" class="modal">
 		<!-- Modal content -->
 		<div class="modal-content">
+			<span class="close">&times;</span>
 			<form id="frm" name="frm" action="faqUpdate" method="post">
 				<div>
 					<label for="title">제목</label> <input type="text"

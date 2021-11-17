@@ -284,11 +284,11 @@
 			<hr>
 			<input type="button" onclick="location.href='inquireList'"
 				class="btn-primary" value="목록보기">
-			<c:if test="${ id eq board.cmmntyWriter}">
+			<c:if test="${ id eq inquire.cmmntyWriter}">
 				<input type="button" onclick="inquireEdit('U')" class="btn-primary"
 					value="수정">
 			</c:if>
-			<c:if test="${id eq board.cmmntyWriter || auth eq 'A'}">
+			<c:if test="${id eq inquire.cmmntyWriter || auth eq 'A'}">
 				<input type="button" onclick="inquireEdit('D')" class="btn-primary"
 					value="삭제">
 			</c:if><br><br>

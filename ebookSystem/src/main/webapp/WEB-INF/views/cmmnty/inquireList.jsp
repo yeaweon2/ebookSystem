@@ -37,7 +37,7 @@
 
 			</div>
 			<c:if test="${not empty id}">
-				<button type="button" onclick="location.href='inquireInsertForm'" class="btn-primary pull-right">글쓰기</button>
+				<button type="button" onclick="location.href='inquireInsertForm'" class="ebookBtn-sm pull-right">글쓰기</button>
 			</c:if>
 			<table class="table table-hover" style="cursor: pointer">
 				<thead>
@@ -63,7 +63,9 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div class="row text-center">
 			<my:paging jsFunc="goList" paging="${paging}" />
+			</div>
 		</div>
 	</div>
 	<form action="inquireSelectList" method="post" id="frm">

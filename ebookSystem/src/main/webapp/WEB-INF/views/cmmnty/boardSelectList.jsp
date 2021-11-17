@@ -253,7 +253,7 @@
 					</tr>
 					<tr>
 						<td colspan="2"></td>
-						<td class="pull-right"><button type="button" id="replyInputBtn" data-cmmntyId="${board.cmmntyId}"class="btn-primary" >댓글등록</button></td>
+						<td class="pull-right"><button type="button" id="replyInputBtn" data-cmmntyId="${board.cmmntyId}"class="ebookBtn-sm" >댓글등록</button></td>
 					</tr>
 				</table>
 			</c:if>

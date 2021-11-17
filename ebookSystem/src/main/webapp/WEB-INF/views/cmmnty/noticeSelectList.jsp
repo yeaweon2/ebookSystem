@@ -13,6 +13,12 @@
 .pointer {
 	cursor: pointer;
 }
+
+.circle{
+width: 80px;
+height: 80px;
+border-radius : 50%;
+}
 </style>
 
 <script>
@@ -98,7 +104,10 @@
       $('#comments-list').empty();
       $.each(data,function(idx, item) {
 	      $('#comments-list').append(
-	         $('<table class="table">').append($('<tr>').append('<td>').html(item.creplyWriter),
+	         
+	    		  $('<table class="table replyTb">')
+	    		  			.append($('<tr class="noimg">').append( $('<td>').append($('<img class="circle">'))),
+	         						($('<tr>').append('<td>').html(item.creplyWriter)),
 	        		             			   $('<tr>').append($('<td id="rContents">').html(item.creplyContents)),
 	        		     					   $('<tr>').append($('<td>').append('<small>').html(item.insDt),
 				        		     				   		   // $('<td>').html($("<a class='rreplyInputBtn pointer' id='rreplyInputBtn'>").html("답글쓰기")),
@@ -118,7 +127,16 @@
 	        ).attr("id", "rplyTb" + item.creplyId),// 댓글table끝
 	         $('<table class="table">').attr("id", "rRplyTb" + item.creplyId)
 	      
-	      )//comments-list
+	      );//comments-list
+	      
+	      console.log(idx + " / " + item.memberProfileNm);
+	      console.log("/prj/fileUp/profile/" + item.memberProfileNm);
+	      console.log($(".replyTb:last").find("tr:first"));
+	      if(item.memberProfileNm != null){
+	    	  $(".replyTb:last").find("tr:first").find("img").attr("src","/prj/fileUp/profile/" + item.memberProfileNm);
+	      }else{
+	    	  $(".replyTb:last").find("tr:first").find("img").attr("src","/prj/fileUp/profile/" + "기본이미지.png");
+	      }
       })
    }
    

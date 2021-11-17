@@ -4,15 +4,18 @@
 
 	<!-- 댓글조회 -->
 	<select id="replyList" resultType="co.ebook.prj.cmmntyreply.vo.ReplyVO">
-	SELECT CREPLY_ID	 	
-		 , CMMNTY_ID
-		 , CREPLY_WRITER 	
-	 	 , CREPLY_CONTENTS
-		 , INS_DT			
-		 , UDT_DT
-	  FROM COMMUNITY_REPLY
-	 WHERE CMMNTY_ID = #{cmmntyId}
-	 ORDER BY CREPLY_ID DESC
+	SELECT A.CREPLY_ID	 	
+		 , A.CMMNTY_ID
+		 , A.CREPLY_WRITER 	
+	 	 , A.CREPLY_CONTENTS
+		 , A.INS_DT			
+		 , A.UDT_DT
+         , B.MEMBER_PROFILE_NM
+         , B.MEMBER_PROFILE_PATH
+	  FROM COMMUNITY_REPLY A,  MEMBER B  
+	 WHERE A.CREPLY_WRITER = B.MEMBER_ID 
+	   AND A.CMMNTY_ID = #{cmmntyId}
+  ORDER BY CREPLY_ID DESC
 	</select>
 	
 	<!-- 댓글입력 -->

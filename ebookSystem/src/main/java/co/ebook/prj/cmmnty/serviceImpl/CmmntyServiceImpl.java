@@ -45,6 +45,11 @@ public class CmmntyServiceImpl implements CmmntyService {
 	public int getCount(CmmntyVO vo) {
 		return map.getCount(vo);
 	}
+
+	@Override
+	public List<CmmntyVO> cmmntyContents(CmmntyVO vo) {
+		return map.cmmntyContents(vo);
+	}
 	
 	
 

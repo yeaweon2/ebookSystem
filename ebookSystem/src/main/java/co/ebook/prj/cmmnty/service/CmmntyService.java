@@ -10,7 +10,7 @@ public interface CmmntyService {
 	List<CmmntyVO> cmmntyList(CmmntyVO vo); 
 	
 	//FAQ전체조회
-
+	List<CmmntyVO> cmmntyContents(CmmntyVO vo);
 	
 	//한건 상세조회
 	CmmntyVO cmmntySelectList(CmmntyVO vo);
