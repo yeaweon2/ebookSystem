@@ -102,7 +102,7 @@
 	</table>	
 	<table id="mlist" style="visibility: hidden;">
 		<c:forEach var="ml" items="${mlist}">
-			<tr data-months="${ml.months}" data-lendcnt="${ml.lendCnt}" data-bucketcnt="${ml.bucketCnt}" data-bookcnt="${ml.bookCnt}" ><td>1</td></tr>
+			<tr data-mon="${ml.mon}" data-lendcnt="${ml.lendCnt}" data-bucketcnt="${ml.bucketCnt}" data-bookcnt="${ml.bookCnt}" data-reviewcnt="${ml.reviewCnt}" ><td>1</td></tr>
 		</c:forEach>
 	</table>		
 </section>
@@ -151,10 +151,11 @@
   $("#mlist").find("tr").each(function(){
 
 	  var data = {
-					  period: $(this).data("months"),
+					  period: $(this).data("mon"),
 					  book: $(this).data("bookcnt"), 
 					  lend: $(this).data("lendcnt"),
-					  bucket: $(this).data("bucketcnt"), 
+					  bucket: $(this).data("bucketcnt"),
+					  review: $(this).data("reviewcnt") 
 					};  
 	  monthList.push(data);
   });  
@@ -185,8 +186,8 @@
       element: 'hero-area',
       data: monthList,
       xkey: 'period',
-      ykeys: ['book', 'lend', 'bucket'],
-      labels: ['BOOK', '대여', '버킷'],
+      ykeys: ['book', 'lend', 'bucket', 'review'],
+      labels: ['BOOK', '대여', '버킷', '리뷰'],
       lineWidth: 2,
       hideHover: 'auto',
       lineColors: ["#81d5d9", "#a6e182", "#67bdf8"]

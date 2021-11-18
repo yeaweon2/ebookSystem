@@ -44,13 +44,13 @@
 	
 	<select id="getBookMonthReport" resultType="co.ebook.prj.report.vo.BookReportVO">
 		<![CDATA[
-			SELECT MONTHS 
-	             , ( SELECT COUNT(1) FROM BOOK where to_char(ins_dt , 'yyyymm') = months ) AS BOOK_CNT
-	             , ( SELECT COUNT(1) FROM LEND where to_char(ins_dt , 'yyyymm') = months ) AS LEND_CNT
-	             , ( SELECT COUNT(1) FROM BUCKET_BOOK where to_char(ins_dt , 'yyyymm') = months ) AS  BUCKET_CNT
-	             , ( SELECT COUNT(1) FROM REVIEW where to_char(ins_dt , 'yyyymm') = months  ) AS  REVIEW_CNT
-	             , ( select count(1) from book_confirm where to_char(ins_dt , 'yyyymm') = months ) as bcnfm_cnt
-  			  FROM  (  SELECT TO_CHAR(ADD_MONTHS(TO_DATE( to_char(sysdate,'yyyy')||'01', 'YYYYMM'), LEVEL - 1 ),'YYYYMM') AS MONTHS
+			SELECT MON
+	             , ( SELECT COUNT(1) FROM BOOK where to_char(ins_dt , 'yyyymm') = mon ) AS BOOK_CNT
+	             , ( SELECT COUNT(1) FROM LEND where to_char(ins_dt , 'yyyymm') = mon ) AS LEND_CNT
+	             , ( SELECT COUNT(1) FROM BUCKET_BOOK where to_char(ins_dt , 'yyyymm') = mon ) AS  BUCKET_CNT
+	             , ( SELECT COUNT(1) FROM REVIEW where to_char(ins_dt , 'yyyymm') = mon  ) AS  REVIEW_CNT
+	             , ( select count(1) from book_confirm where to_char(ins_dt , 'yyyymm') = mon ) as bcnfm_cnt
+  			  FROM  (  SELECT TO_CHAR(ADD_MONTHS(TO_DATE( to_char(sysdate,'yyyy')||'01', 'YYYYMM'), LEVEL - 1 ),'YYYYMM') AS MON
 			             FROM DUAL
 			          CONNECT BY LEVEL <= MONTHS_BETWEEN( TO_DATE(to_char(sysdate,'yyyy')||'12', 'YYYYMM' ), TO_DATE(to_char(sysdate,'yyyy')||'01', 'YYYYMM' ) ) + 1
 					) A

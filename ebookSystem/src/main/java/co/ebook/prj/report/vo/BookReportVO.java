@@ -8,5 +8,5 @@ public class BookReportVO {
 	private int lendCnt;
 	private int bucketCnt;
 	private int reviewCnt;
-	private int months;
+	private String mon;
 }
