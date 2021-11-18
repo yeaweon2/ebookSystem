@@ -44,7 +44,7 @@ public class LoginController {
 		
 		if( vo != null ) {
 			if(vo.getMemberStCd().equals("01")) {
-				session.setAttribute("id"		, vo.getMemberId());
+				session.setAttribute("id"		, vo.getMemberId());     
 				session.setAttribute("name"		, vo.getMemberNm());
 				session.setAttribute("nicknm"	, vo.getMemberNicknm());
 				session.setAttribute("auth"		, vo.getMemberFlCd());
@@ -63,20 +63,22 @@ public class LoginController {
 				session.setAttribute("payA"     , vo.getPayAmt());	
 				session.setAttribute("imp"      , vo.getImpUid());	
 				
-				// 회원수 가져오기
-				LoginVO memCnt = loginDao.getMemberCnt();
-				session.setAttribute("todayRegCnt", memCnt.getTodayRegCnt());	// 오늘 회원가입수
-				session.setAttribute("userCnt", memCnt.getUserCnt());			// 일반 회원수            
-				session.setAttribute("managerCnt", memCnt.getManagerCnt());		// 메니저 회원수           
-				session.setAttribute("adminCnt", memCnt.getAdminCnt());			// 관리자 회원수           
-				                                                 
-				// 게시글수 가져오기
-				LoginVO cmuCnt = loginDao.getComunutyCnt();
-				session.setAttribute("todayRepCnt", cmuCnt.getTodayRepCnt());	// 오늘 등록된 댓글수        
-				session.setAttribute("todayNotiCnt", cmuCnt.getTodayNotiCnt());	// 오늘 등록된 공지사항 수     
-				session.setAttribute("todayQustCnt", cmuCnt.getTodayQustCnt());	// 오늘 등록된 1:1 문의사항 수 
-				session.setAttribute("comunityCnt", cmuCnt.getComunityCnt());	// 전체 게시글수           
+				if( vo.getMemberFlCd().equals("A") ) {
+					// 회원수 가져오기
+					LoginVO memCnt = loginDao.getMemberCnt();
+					session.setAttribute("todayRegCnt", memCnt.getTodayRegCnt());	// 오늘 회원가입수
+					session.setAttribute("userCnt", memCnt.getUserCnt());			// 일반 회원수            
+					session.setAttribute("managerCnt", memCnt.getManagerCnt());		// 메니저 회원수           
+					session.setAttribute("adminCnt", memCnt.getAdminCnt());			// 관리자 회원수           
+					                                                 
+					// 게시글수 가져오기
+					LoginVO cmuCnt = loginDao.getComunutyCnt();
+					session.setAttribute("todayRepCnt", cmuCnt.getTodayRepCnt());	// 오늘 등록된 댓글수        
+					session.setAttribute("todayNotiCnt", cmuCnt.getTodayNotiCnt());	// 오늘 등록된 공지사항 수     
+					session.setAttribute("todayQustCnt", cmuCnt.getTodayQustCnt());	// 오늘 등록된 1:1 문의사항 수 
+					session.setAttribute("comunityCnt", cmuCnt.getComunityCnt());	// 전체 게시글수           
 				
+				}
 				
 				views = "redirect:home"; 
 			} else  {
@@ -97,6 +99,7 @@ public class LoginController {
 //	아이디 찾기 페이지 이동
 	@RequestMapping(value="find_id_form")
 	public String findIdView() {
+		
 		return "main/findId";
 	}
 	
@@ -147,11 +150,10 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		vo.setMemberId(vo.getUpdateid());
 		vo.setMemberPw(vo.getUpdatePw());
-		System.out.println("=====================================null???");
-		System.out.println("===================================================="+vo);
+		
 		loginDao.updatePwd(vo);
 		model.addAttribute("login", loginDao.updatePwd(vo));
-		System.out.println("======================>>>>" +loginDao.updatePwd(vo));
+
 		return "main/findPasswordConfirm";
 	}
 	
