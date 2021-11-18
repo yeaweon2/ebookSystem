@@ -8,5 +8,6 @@ public class BookReportVO {
 	private int lendCnt;
 	private int bucketCnt;
 	private int reviewCnt;
+	
 	private String mon;
 }

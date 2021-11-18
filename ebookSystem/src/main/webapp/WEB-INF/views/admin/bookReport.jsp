@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>        
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>       
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +103,9 @@
 	</table>	
 	<table id="mlist" style="visibility: hidden;">
 		<c:forEach var="ml" items="${mlist}">
-			<tr data-mon="${ml.mon}" data-lendcnt="${ml.lendCnt}" data-bucketcnt="${ml.bucketCnt}" data-bookcnt="${ml.bookCnt}" data-reviewcnt="${ml.reviewCnt}" ><td>1</td></tr>
+			<tr data-mon="${ml.mon}" data-lendcnt="${ml.lendCnt}" data-bucketcnt="${ml.bucketCnt}" data-bookcnt="${ml.bookCnt}" data-reviewcnt="${ml.reviewCnt}" >
+				<td>${ml.mon}</td>
+			</tr>
 		</c:forEach>
 	</table>		
 </section>
@@ -149,9 +152,9 @@
   
   var monthList = [];
   $("#mlist").find("tr").each(function(){
-
+	  var mon = $(this).find("td").html();
 	  var data = {
-					  period: $(this).data("mon"),
+					  period: mon,
 					  book: $(this).data("bookcnt"), 
 					  lend: $(this).data("lendcnt"),
 					  bucket: $(this).data("bucketcnt"),
