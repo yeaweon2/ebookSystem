@@ -6,6 +6,10 @@ import co.ebook.prj.login.vo.LoginVO;
 
 public interface LoginService {
 	LoginVO getLoginInfo(LoginVO vo);
+	
+	LoginVO getMemberCnt();
+	
+	LoginVO getComunutyCnt();
 
 //	아이디 찾기
 	LoginVO findId(LoginVO vo);

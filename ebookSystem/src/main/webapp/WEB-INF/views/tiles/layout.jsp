@@ -118,6 +118,33 @@
 							</tr>
                    		</table>
                    	</div>
+                   	<c:if test="${auth eq 'A' }">
+                    <div align="left" style="margin-top: 50px" >
+                   		<h4><b>Today 회원가입 : ${todayRegCnt } 명 </b></h4>
+                    </div>
+                    <div align="left" >
+                   		<b>일반 회원수 : ${userCnt } 명 </b>
+                    </div>
+                     <div align="left" >
+                   		<b>매니저 회원수 : ${managerCnt } 명 </b>
+                    </div>
+                    <div align="left" >
+                   		<b>관리자 회원수 : ${adminCnt } 명 </b>
+                    </div>
+		            <div align="left" style="margin-top: 50px" >
+                   		<h4><b>Today 1:1 문의사항 : ${todayQustCnt } 건</b></h4>
+                    </div> 
+                    <div align="left" >
+                   		<h4><b>Today 공지사항 : ${todayNotiCnt } 건</b></h4>
+                    </div>       	
+                    <div align="left" >
+                   		<h4><b>Today 댓글 : ${todayRepCnt } 건</b></h4>
+                    </div> 
+                    <div align="left" >
+                   		<b>전체 게시글 : ${comunityCnt } 건 </b>
+                    </div>   
+		                     	
+                     </c:if>
                 </div>
             </div>
         </div>

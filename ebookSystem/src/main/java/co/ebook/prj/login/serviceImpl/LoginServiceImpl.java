@@ -35,6 +35,16 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return lVo;
 	}
+	
+	@Override
+	public LoginVO getMemberCnt() {
+		return map.getMemberCnt();	
+	}
+	
+	@Override
+	public LoginVO getComunutyCnt() {
+		return map.getComunutyCnt();	
+	}
 
 //	비밀번호변경
 	@Override

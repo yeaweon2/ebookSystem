@@ -1,7 +1,5 @@
 package co.ebook.prj.login.web;
 
-import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import co.ebook.prj.login.mapper.LoginMapper;
 import co.ebook.prj.login.service.LoginService;
@@ -65,6 +62,21 @@ public class LoginController {
 				session.setAttribute("flNm"     , vo.getMemberFlNm());	
 				session.setAttribute("payA"     , vo.getPayAmt());	
 				session.setAttribute("imp"      , vo.getImpUid());	
+				
+				// 회원수 가져오기
+				LoginVO memCnt = loginDao.getMemberCnt();
+				session.setAttribute("todayRegCnt", memCnt.getTodayRegCnt());	// 오늘 회원가입수
+				session.setAttribute("userCnt", memCnt.getUserCnt());			// 일반 회원수            
+				session.setAttribute("managerCnt", memCnt.getManagerCnt());		// 메니저 회원수           
+				session.setAttribute("adminCnt", memCnt.getAdminCnt());			// 관리자 회원수           
+				                                                 
+				// 게시글수 가져오기
+				LoginVO cmuCnt = loginDao.getComunutyCnt();
+				session.setAttribute("todayRepCnt", cmuCnt.getTodayRepCnt());	// 오늘 등록된 댓글수        
+				session.setAttribute("todayNotiCnt", cmuCnt.getTodayNotiCnt());	// 오늘 등록된 공지사항 수     
+				session.setAttribute("todayQustCnt", cmuCnt.getTodayQustCnt());	// 오늘 등록된 1:1 문의사항 수 
+				session.setAttribute("comunityCnt", cmuCnt.getComunityCnt());	// 전체 게시글수           
+				
 				
 				views = "redirect:home"; 
 			} else  {

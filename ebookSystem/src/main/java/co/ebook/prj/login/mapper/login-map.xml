@@ -24,6 +24,75 @@
 	
 	</select>
 	
+	<select id="getMemberCnt" resultType="co.ebook.prj.login.vo.LoginVO">
+		SELECT SUM(TODAY_REG_CNT) AS TODAY_REG_CNT  /* 오늘 회원가입 */
+		     , SUM(USER_CNT) AS USER_CNT          	/* 일반 */
+             , SUM(MANAGER_CNT) AS M_CNT          	/* 매니저 */
+             , SUM(ADMIN_CNT) AS ADMIN_CNT          /* 관리자 */
+          FROM (
+          		 /* 오늘 회원가입 */
+                 SELECT COUNT(*) AS TODAY_REG_CNT, 0 AS USER_CNT, 0 AS MANAGER_CNT, 0 AS ADMIN_CNT
+                   FROM MEMBER
+                  WHERE TO_CHAR(INS_DT,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+              
+              UNION ALL
+              
+                 /* 일반 */
+                 SELECT 0 AS TODAY_REG_CNT, COUNT(*) AS USER_CNT, 0 AS MANAGER_CNT, 0 AS ADMIN_CNT
+                   FROM MEMBER
+                  WHERE MEMBER_FL_CD = 'U'
+              
+              UNION ALL
+              
+                 /* 매니저 */
+                 SELECT 0 AS TODAY_REG_CNT, 0 AS USER_CNT, COUNT(*) AS MANAGER_CNT, 0 AS ADMIN_CNT
+                   FROM MEMBER
+                  WHERE MEMBER_FL_CD = 'M'
+              
+              UNION ALL
+              
+                 /* 관리자 */
+                 SELECT 0 AS TODAY_REG_CNT, 0 AS USER_CNT, 0 AS MANAGER_CNT, COUNT(*) AS ADMIN_CNT
+                   FROM MEMBER
+                  WHERE MEMBER_FL_CD = 'A'
+          )
+	</select>
+	
+	<select id="getComunutyCnt" resultType="co.ebook.prj.login.vo.LoginVO">
+		SELECT SUM(TODAY_REP_CNT) AS TODAY_REP_CNT      /* 오늘 등록된 댓글수 */
+             , SUM(TODAY_NOTI_CNT) AS TODAY_NOTI_CNT    /* 오늘 등록된 공지사항 수 */
+             , SUM(TODAY_QUST_CNT) AS TODAY_QUST_CNT    /* 오늘 등록된 1:1 문의사항 수 */
+             , SUM(COMUNITY_CNT) AS COMUNITY_CNT        /* 전체 게시글수 */
+          FROM (
+                 /* 오늘 등록된 댓글수 */
+                 SELECT COUNT(*) AS TODAY_REP_CNT, 0 AS TODAY_NOTI_CNT, 0 AS TODAY_QUST_CNT, 0 AS COMUNITY_CNT
+                   FROM COMMUNITY_REPLY
+                  WHERE TO_CHAR(INS_DT,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+              
+              UNION ALL
+              
+                 /* 오늘 등록된 공지사항 게시글수 */
+                 SELECT 0 AS TODAY_REP_CNT, COUNT(*) AS TODAY_NOTI_CNT, 0 AS TODAY_QUST_CNT, 0 AS COMUNITY_CNT
+                   FROM COMMUNITY
+                  WHERE TO_CHAR(INS_DT,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+                    AND CMMNTY_FL_CD = '01'
+              
+              UNION ALL
+              
+                 /* 오늘 등록된 1:1문의 게시글수 */
+                 SELECT 0 AS TODAY_REP_CNT, 0 AS TODAY_NOTI_CNT, COUNT(*) AS TODAY_QUST_CNT, 0 AS COMUNITY_CNT
+                   FROM COMMUNITY
+                  WHERE TO_CHAR(INS_DT,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+                    AND CMMNTY_FL_CD = '02'
+              
+              UNION ALL
+              
+               /* 전체 게시글수 */
+                 SELECT 0 AS TODAY_REP_CNT, 0 AS TODAY_NOTI_CNT, 0 AS TODAY_QUST_CNT, COUNT(*) AS COMUNITY_CNT
+                   FROM COMMUNITY
+        )
+	</select>
+	
 	
 	<!-- 로그인시 아이디와 비밀번호 확인 -->
 	<select id="findId" resultType="co.ebook.prj.login.vo.LoginVO">

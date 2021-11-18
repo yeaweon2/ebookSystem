@@ -50,7 +50,8 @@ $(function() {
 			data : { managerArr : managerArr },
 			success: function(res){
 				alert("success");
-				},
+				location.reload();
+			},
 			error : function(rej){
 				console.log(rej);
 			}
@@ -92,7 +93,7 @@ fieldset, img {
 </style>
 </head>
 <body>
-<div class="site-section">
+	<div class="site-section">
 		<div class="container">
 			<div class="row mb-1" style="margin-top: 40px">
 				<div class="section-header">
