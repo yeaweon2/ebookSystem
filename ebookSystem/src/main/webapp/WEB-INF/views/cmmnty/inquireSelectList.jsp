@@ -13,6 +13,12 @@
 .pointer {
 	cursor: pointer;
 }
+
+.circle{
+width: 25px;
+height: 25px;
+border-radius : 50%;
+}
 </style>
 
 <script>
@@ -20,10 +26,10 @@
       replySelect();			//댓글 조회
       deletReply(); 			//댓글 삭제
       updateReply();			//댓글 수정
-      rBtnCancle();				//댓글 취소
+      rBtnCancle();			//댓글 취소
       
       rRBtnCancle(); 			//대댓글 취소
-      rReplyInputForm(); 		//대댓글양식 작성
+      rReplyInputForm(); 	//대댓글양식 작성
       
       //댓글 입력
       $("#replyInputBtn").on("click", function(){
@@ -50,45 +56,39 @@
             }); 
       }//else끝 
     });
+      
+      //다운로드
+      $("#download").click(function(){
+    	  var filePath = "";
+    	  var fileName = "";
+    	  
+    	  location.href="fileUp/notice/?"
+    	  
+      })
   });
    
-   //대댓글 입력양식
-   function rReplyInputForm(){
-	   $("#rList").on("click", "#rreplyInputBtn",function(){
+   //댓글 입력양식
+    function rReplyInputForm(){
+	   $("#comments-list").on("click", "#rreplyInputBtn",function(){
 		   event.stopPropagation();
 		
 		$(this).closest('table').next().append(
 			    		  $('<table class="table">').append($('<tr>').html()),
-		        		             $('<tr>').append($('<td>').html($("<textarea id='rReplyinput' placeholder='답글을 입력해보세요'>"))),
+		        		             $('<tr>').append($('<td>').html($("<textarea id='rReplyinput' cols='150' placeholder='답글을 입력해보세요'>"))),
 		        		     		 $('<tr>').append($('<td>').html(),
 		        		     					$('<td class="pull-right">').html($("<a class='pointer' id='rRbtnSave'>").html("등록")),
 		        		     					$('<td>').html($("<a class='pointer' id='rRbtnCancle' >").html("취소")),
 		        		     				    $('<td>').html($("<a class='rRbtnUp pointer' id='rRbtnUp' style='display :none'>").html("수정")),
 		        		     				    $('<td>').html($("<a class='rRbtnDel pointer' id='rRbtnDel' style='display :none'>").html("삭제"))		   						        		     				   
 		        		     					)
-			)//rRList 끝 
+			)
 	   }); 
-   }
+   } 
    
-   //대댓글 입력
-
-
-	/* $.ajax({
-            url : 'replyInsert',
-            method : 'POST',
-             ,
-            dataType : 'json',
-            data : JSON.stringify({creplyContents : creplyContents , cmmntyId : cmmntyId }),
-            success : function(data){
-               		 replySelect();
-               	     $("#rRbtnSave").val('');
-                     }
-         });  */      
- 
 
    //댓글 조회
    function replySelect() {
-      console.log($('#cmmntyId').val());
+    
       $.ajax({
          url : 'replyList',
          method : 'GET',
@@ -99,17 +99,19 @@
       });
    }
    function makeReply(data) {
-      $('#rList').empty();
+      $('#comments-list').empty();
       $.each(data,function(idx, item) {
-	      $('#rList').append(
-	         $('<table class="table">').append($('<tr>').html(item.creplyWriter),
-	        		             $('<tr>').append($('<td id="rContents">').html(item.creplyContents)),
-	        		     		 $('<tr>').append($('<td>').html(item.insDt),
-	        		     				   		  $('<td>').html($("<a class='rreplyInputBtn pointer' id='rreplyInputBtn'>").html("답글쓰기")),
-	        		     				 		  $('<td>').html($("<a class='btnUp pointer' id='btnUp'>").html("수정")),
-	        		     				 		  $('<td>').html($("<a class='pointer' id='btnSave' style='display :none'>").html("저장")),
-	        		     				 		  $('<td>').html($("<a class='btnDel pointer' id='btnDel' >").html("삭제")),		   				
-	        		     				 		  $('<td>').html($("<a class='pointer' id='btnCancle' style='display :none'>").html("취소")),
+	      $('#comments-list').append(
+	         
+	    		  $('<table class="table replyTb" style="board: 1px">')
+	    		  			.append($('<tr class="noimg col-xs-2" rowspan="3">').append( $('<td>').append($('<img class="circle">')),
+	    		  				   	  							   			  $('<td>').html(item.creplyWriter)))
+	         				.append($('<tr class="text" rowspan="2">').append($('<td id="rContents" colspan="6">').html(item.creplyContents)))
+	        		     	.append($('<tr>').append($('<td>').append('<small>').html(item.insDt),
+				        		     				 	   $('<td class="col-xs-2">').html($("<a class='btnUp pointer pull-right' id='btnUp'>").html("수정")),
+				        		     				 	   $('<td class="col-xs-2">').html($("<a class='pointer' id='btnSave' style='display :none'>").html("저장")),
+				        		     				 	   $('<td class="col-xs-2">').html($("<a class='btnDel pointer pull-right' id='btnDel' >").html("삭제")),
+				        		     				 	   $('<td class="col-xs-2">').html($("<a class='pointer' id='btnCancle' style='display :none'>").html("취소"))
 	        		     				)//마지막 tr행끝
 	        		     				.data("cid", item.cmmntyId )
 	        		     				.data("id", item.creplyId )
@@ -120,15 +122,22 @@
 	        		    	            .data("udtDt", item.udtDt)
 	        		    	            .data("insDt", item.insDt)		
 	        ).attr("id", "rplyTb" + item.creplyId),// 댓글table끝
-	      $('<table class="table">').attr("id", "rRplyTb" + item.creplyId)
+	         $('<table class="table">').attr("id", "rRplyTb" + item.creplyId)
+	      );//comments-list
 	      
-	      )//RList
+	      //프로필사진유무
+	      if(item.memberProfileNm != null){
+	    	  $(".replyTb:last").find("tr:first").find("img").attr("src","/prj/fileUp/profile/" + item.memberProfileNm);
+	      }else{
+	    	  $(".replyTb:last").find("tr:first").find("img").attr("src","/prj/fileUp/profile/" + "기본이미지.png");
+	      }
+	      
       })
    }
    
    //댓글 삭제
    function deletReply(){
-      $("#rList").on("click", '.btnDel', function(){
+      $("#comments-list").on("click", '.btnDel', function(){
          event.stopPropagation();
          var creplyId = $(this).closest('tr').data("id");
          var cmmntyId = $(this).closest('tr').data("cid");
@@ -150,15 +159,14 @@
    
    //댓글 수정
    function updateReply(){
-	   $("#rList").on("click", '.btnUp', function(){
+	   $("#comments-list").on("click", '.btnUp', function(){
 		   event.stopPropagation();
 		   
 		   var creplyId = $(this).closest('tr').data("id");
 		   var contents = $(this).closest('tr').data("contents");
-		   console.log(contents);
-		   
+
 		   $(this).closest('tr').prev().find("#rContents").empty();
-		   $(this).closest('tr').prev().find("#rContents").append($("<textarea rows='3' >").html(contents));
+		   $(this).closest('tr').prev().find("#rContents").append($("<textarea row='3' cols='150' >").html(contents));
 		   $(this).closest('tr').find("#btnDel").css('display', 'none');
 		   $(this).closest('tr').find("#btnUp").css('display', 'none');
 		   $(this).closest('tr').find("#btnSave").css('display', 'block');
@@ -171,7 +179,7 @@
 			   contentType: 'application/json',
 			   dataType : 'json' ,
 			   success : function(data){
-				   		   rBtnSave();
+				   rBtnSave();
 
 			   }
 				
@@ -181,7 +189,7 @@
    
    //댓글 취소
    function rBtnCancle(){
-	   $("#rList").on("click", '#btnCancle', function(){
+	   $("#comments-list").on("click", '#btnCancle', function(){
 		   event.stopPropagation();
 		   
 		   var contents = $(this).closest('tr').data("contents");
@@ -197,7 +205,7 @@
    
    //대댓글 취소
    function rRBtnCancle(){
-	   $("#rList").on("click", '#rRbtnCancle', function(){
+	   $("#comments-list").on("click", '#rRbtnCancle', function(){
 		   event.stopPropagation();
 			 $(this).closest('tr').prev().prev().remove();
 			 $(this).closest('tr').prev().remove();
@@ -208,7 +216,7 @@
    
    //댓글 저장(수정후 등록)
    function rBtnSave(){
-	   $("#rList").on("click", '#btnSave', function(){
+	   $("#comments-list").on("click", '#btnSave', function(){
 		   event.stopPropagation();
 		   
 		   var creplyId = $(this).closest('tr').data("id");
@@ -231,7 +239,6 @@
    
    
 </script>
-
 </head>
 <body>
 	<div class="inner-page pt-6">
@@ -265,36 +272,35 @@
 			<div id="replyput">
 				<c:if test="${auth eq 'A'}">
 					<table class="table">
-						<tr>
-							<th>${nicknm}</th>
-						</tr>
-						<tr>
-							<td colspan="3"><textarea id="replyinput" name="replyinput"
-									placeholder="댓글입력.." rows="3" cols="160"></textarea>
-						</tr>
-						<tr>
-							<td colspan="2"></td>
-							<td class="pull-right"><button type="button"
-									id="replyInputBtn" data-cmmntyId="${inquire.cmmntyId}"
-									class="btn-primary">댓글등록</button></td>
-						</tr>
-					</table>
+				<tr><td>
+					<c:if test="${empty memf}">
+						<img id="proimg1" src="resources/assets/img/noimg.jpg" >
+					</c:if>
+					<c:if test="${not empty memf}">
+						<img id="proimg1" src="${pageContext.request.contextPath}/fileUp/profile/${memfn}" >&nbsp;&nbsp;
+					</c:if></td>
+					<td>
+					<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="150"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>${nicknm}</th>
+					<td colspan="2"></td>
+					<td class="pull-right"><button type="button" id="replyInputBtn" data-cmmntyId="${notice.cmmntyId}"class="btn-primary" >댓글등록</button></td>
+				</tr>
+				</table>
 				</c:if>
 			</div>
 			<hr>
-			<input type="button" onclick="location.href='inquireList'"
-				class="btn-primary" value="목록보기">
+			<input type="button" onclick="location.href='inquireList'" class="ebookBtn-sm" value="목록보기">
 			<c:if test="${ id eq inquire.cmmntyWriter}">
-				<input type="button" onclick="inquireEdit('U')" class="btn-primary"
-					value="수정">
+				<input type="button" onclick="inquireEdit('U')" class="ebookBtn-sm" value="수정">
 			</c:if>
 			<c:if test="${id eq inquire.cmmntyWriter || auth eq 'A'}">
-				<input type="button" onclick="inquireEdit('D')" class="btn-primary"
-					value="삭제">
+				<input type="button" onclick="inquireEdit('D')" class="ebookBtn-sm" value="삭제">
 			</c:if><br><br>
 			<!--  댓글 조회 -->
-			<div id="rList" class="rList">
-			
+			<div id="comments-list" class="rList" style="margin : auto">
 			</div>
 			
 		</div>

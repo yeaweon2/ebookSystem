@@ -35,8 +35,8 @@
 						<input type="file" class="form-control" multiple id="cmmntyAtchNm" value ="${inquires.cmmntyAtchNm }">
 					</div><br>	
 							<input type="hidden" id="cmmntyId" name="cmmntyId" value="${inquires.cmmntyId}">
-							<input type="submit" value="수정" class="btn-primary">
-							<input type="button" onclick="location.href='inquireList'" value="취소" class="btn-danger">
+							<input type="submit" value="수정" class="ebookBtn-sm">
+							<input type="button" onclick="location.href='inquireList'" value="취소" class="ebookBtn-sm">
 				</form>
 			</div>
 		</div>

@@ -15,8 +15,8 @@
 }
 
 .circle{
-width: 80px;
-height: 80px;
+width: 25px;
+height: 25px;
 border-radius : 50%;
 }
 </style>
@@ -26,12 +26,10 @@ border-radius : 50%;
       replySelect();			//댓글 조회
       deletReply(); 			//댓글 삭제
       updateReply();			//댓글 수정
-      rBtnCancle();				//댓글 취소
+      rBtnCancle();			//댓글 취소
       
       rRBtnCancle(); 			//대댓글 취소
-      rReplyInputForm(); 		//대댓글양식 작성
-      
-      
+      rReplyInputForm(); 	//대댓글양식 작성
       
       //댓글 입력
       $("#replyInputBtn").on("click", function(){
@@ -76,7 +74,7 @@ border-radius : 50%;
 		
 		$(this).closest('table').next().append(
 			    		  $('<table class="table">').append($('<tr>').html()),
-		        		             $('<tr>').append($('<td>').html($("<textarea id='rReplyinput' cols='100' placeholder='답글을 입력해보세요'>"))),
+		        		             $('<tr>').append($('<td>').html($("<textarea id='rReplyinput' cols='150' placeholder='답글을 입력해보세요'>"))),
 		        		     		 $('<tr>').append($('<td>').html(),
 		        		     					$('<td class="pull-right">').html($("<a class='pointer' id='rRbtnSave'>").html("등록")),
 		        		     					$('<td>').html($("<a class='pointer' id='rRbtnCancle' >").html("취소")),
@@ -90,7 +88,7 @@ border-radius : 50%;
 
    //댓글 조회
    function replySelect() {
-      console.log($('#cmmntyId').val());
+    
       $.ajax({
          url : 'replyList',
          method : 'GET',
@@ -105,18 +103,15 @@ border-radius : 50%;
       $.each(data,function(idx, item) {
 	      $('#comments-list').append(
 	         
-	    		  $('<table class="table replyTb">')
-	    		  			.append($('<tr class="noimg">').append( $('<td>').append($('<img class="circle">'))
-	    		  					$('<tr>').append($('<td id="rContents">').html(item.creplyContents)),		
-	    		  			),
-	         						($('<tr>').append('<td>').html(item.creplyWriter)),
-	        		             			   $('<tr>').append($('<td id="rContents">').html(item.creplyContents)),
-	        		     					   $('<tr>').append($('<td>').append('<small>').html(item.insDt),
-				        		     				   		   // $('<td>').html($("<a class='rreplyInputBtn pointer' id='rreplyInputBtn'>").html("답글쓰기")),
-				        		     				 		    $('<td>').html($("<a class='btnUp pointer' id='btnUp'>").html("수정")),
-				        		     				 		    $('<td>').html($("<a class='pointer' id='btnSave' style='display :none'>").html("저장")),
-				        		     				 		    $('<td>').html($("<a class='btnDel pointer' id='btnDel' >").html("삭제")),
-				        		     				 		    $('<td>').html($("<a class='pointer' id='btnCancle' style='display :none'>").html("취소")),
+	    		  $('<table class="table replyTb" style="board: 1px">')
+	    		  			.append($('<tr class="noimg col-xs-2" rowspan="3">').append( $('<td>').append($('<img class="circle">')),
+	    		  				   	  							   			  $('<td>').html(item.creplyWriter)))
+	         				.append($('<tr class="text" rowspan="2">').append($('<td id="rContents" colspan="6">').html(item.creplyContents)))
+	        		     	.append($('<tr>').append($('<td>').append('<small>').html(item.insDt),
+				        		     				 	   $('<td class="col-xs-2">').html($("<a class='btnUp pointer pull-right' id='btnUp'>").html("수정")),
+				        		     				 	   $('<td class="col-xs-2">').html($("<a class='pointer' id='btnSave' style='display :none'>").html("저장")),
+				        		     				 	   $('<td class="col-xs-2">').html($("<a class='btnDel pointer pull-right' id='btnDel' >").html("삭제")),
+				        		     				 	   $('<td class="col-xs-2">').html($("<a class='pointer' id='btnCancle' style='display :none'>").html("취소"))
 	        		     				)//마지막 tr행끝
 	        		     				.data("cid", item.cmmntyId )
 	        		     				.data("id", item.creplyId )
@@ -128,17 +123,15 @@ border-radius : 50%;
 	        		    	            .data("insDt", item.insDt)		
 	        ).attr("id", "rplyTb" + item.creplyId),// 댓글table끝
 	         $('<table class="table">').attr("id", "rRplyTb" + item.creplyId)
-	      
 	      );//comments-list
 	      
-	      console.log(idx + " / " + item.memberProfileNm);
-	      console.log("/prj/fileUp/profile/" + item.memberProfileNm);
-	      console.log($(".replyTb:last").find("tr:first"));
+	      //프로필사진유무
 	      if(item.memberProfileNm != null){
 	    	  $(".replyTb:last").find("tr:first").find("img").attr("src","/prj/fileUp/profile/" + item.memberProfileNm);
 	      }else{
 	    	  $(".replyTb:last").find("tr:first").find("img").attr("src","/prj/fileUp/profile/" + "기본이미지.png");
 	      }
+	      
       })
    }
    
@@ -171,10 +164,9 @@ border-radius : 50%;
 		   
 		   var creplyId = $(this).closest('tr').data("id");
 		   var contents = $(this).closest('tr').data("contents");
-		   console.log(contents);
-		   
+
 		   $(this).closest('tr').prev().find("#rContents").empty();
-		   $(this).closest('tr').prev().find("#rContents").append($("<textarea rows='3' >").html(contents));
+		   $(this).closest('tr').prev().find("#rContents").append($("<textarea row='3' cols='150' >").html(contents));
 		   $(this).closest('tr').find("#btnDel").css('display', 'none');
 		   $(this).closest('tr').find("#btnUp").css('display', 'none');
 		   $(this).closest('tr').find("#btnSave").css('display', 'block');
@@ -187,7 +179,7 @@ border-radius : 50%;
 			   contentType: 'application/json',
 			   dataType : 'json' ,
 			   success : function(data){
-				   		   rBtnSave();
+				   rBtnSave();
 
 			   }
 				
@@ -285,13 +277,13 @@ border-radius : 50%;
 				<table class="table">
 				<tr><td>
 					<c:if test="${empty memf}">
-							<img id="proimg1" src="resources/assets/img/noimg.jpg" >
-						</c:if>
+						<img id="proimg1" src="resources/assets/img/noimg.jpg" >
+					</c:if>
 					<c:if test="${not empty memf}">
-							<img id="proimg1" src="${pageContext.request.contextPath}/fileUp/profile/${memfn}" >&nbsp;&nbsp;
+						<img id="proimg1" src="${pageContext.request.contextPath}/fileUp/profile/${memfn}" >&nbsp;&nbsp;
 					</c:if></td>
 					<td>
-					<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="160"></textarea>
+					<td colspan="3"><textarea id="replyinput" name="replyinput" placeholder="댓글입력.." rows="3" cols="150"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -302,10 +294,10 @@ border-radius : 50%;
 				</table>
 			</c:if>
 			</div><hr><div>
-					<input type="button" onclick="location.href='noticeList'" class="btn-primary" value="목록보기"> 
+					<input type="button" onclick="location.href='noticeList'" class="ebookBtn-sm" value="목록보기"> 
 					<c:if test="${auth eq 'A'}">
-					<input type="button" onclick="NoticeEdit('U')" class="btn-primary" value="수정">
-					<input type="button" onclick="NoticeEdit('D')"class="btn-primary" value="삭제">
+					<input type="button" onclick="NoticeEdit('U')" class="ebookBtn-sm" value="수정">
+					<input type="button" onclick="NoticeEdit('D')"class="ebookBtn-sm" value="삭제">
 					</c:if>
 					</div><br><br>
 			<!--  댓글 조회 -->

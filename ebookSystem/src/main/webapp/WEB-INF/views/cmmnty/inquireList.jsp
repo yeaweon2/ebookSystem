@@ -54,7 +54,7 @@
  					<c:if test="${auth eq 'A' || id eq inquire.cmmntyWriter}">
 					<tr class="inquireSelect" data-id="${inquire.cmmntyId}">
 						<td>${inquire.cmmntyNo}</td>
-						<td>${inquire.cmmntyTitle}(${inquire.cmmntyReplyCnt})</td>
+						<td>${inquire.cmmntyTitle}</td>
 						<td>${inquire.cmmntyWriter}</td>
 						<td>${inquire.procDoneYn}</td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${inquire.insDt}" /></td>

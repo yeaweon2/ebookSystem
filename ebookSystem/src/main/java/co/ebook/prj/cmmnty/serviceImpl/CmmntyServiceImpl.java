@@ -38,6 +38,7 @@ public class CmmntyServiceImpl implements CmmntyService {
 
 	@Override //커뮤니티 글삭제
 	public int cmmntyDelete(CmmntyVO vo) {
+		
 		return map.cmmntyDelete(vo);
 	}
 

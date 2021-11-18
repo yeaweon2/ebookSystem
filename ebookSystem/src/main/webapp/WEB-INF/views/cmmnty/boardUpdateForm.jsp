@@ -37,12 +37,11 @@
 					<textarea name="cmmntyContents" id="summernote" class="summernote">${board.cmmntyContents }</textarea>
 					</div>
 					<div >
-						<label for="reg_id">파일첨부</label>
 						<input type="file" class="form-control" multiple id="cmmntyAtchNm" value ="${board.cmmntyAtchNm }">
 					</div><br>	
 							<input type="hidden" id="cmmntyId" name="cmmntyId" value="${board.cmmntyId}">
-							<input type="button" id="boardUpdateBtn" value="수정" class="btn-primary">
-							<input type="button" onclick="location.href='boardList'" value="취소" class="btn-danger">
+							<input type="button" id="boardUpdateBtn" value="수정" class="ebookBtn-sm">
+							<input type="button" onclick="location.href='boardList'" value="취소" class="ebookBtn-sm">
 				</form>
 			</div>
 		</div>

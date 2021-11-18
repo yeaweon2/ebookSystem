@@ -36,10 +36,11 @@
 				<div>
 					<label for="content">내용</label>
 					<textarea name="cmmntyContents" id="summernote" class="summernote" placeholder="내용을 입력해 주세요" ></textarea>
+					<br>
 				</div>
-					<input type="file" name="uploadfile" placeholder="파일 선택" multiple>
-					<input type="button" id="inquireInputBtn" value="등록" class="btn-primary">
-					<input type="button" onclick="location.href='inquireList'" value="취소" class="btn-danger">
+					<input type="file" name="uploadfile" placeholder="파일 선택" multiple><br>
+					<input type="button" id="inquireInputBtn" value="등록" class="ebookBtn-sm">
+					<input type="button" onclick="location.href='inquireList'" value="취소" class="ebookBtn-sm">
 				</form>		
 			</div>
 		</div>

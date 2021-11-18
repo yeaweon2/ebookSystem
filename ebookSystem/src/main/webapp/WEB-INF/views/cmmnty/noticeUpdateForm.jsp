@@ -38,27 +38,25 @@
 			</div>
 				<form id="frm" name="frm" action="noticeUpdate" method="post" enctype="multipart/form-data">
 					<div>
-						<label for="title">제목</label>
 						<input type="text" class="form-control" name="cmmntyTitle" id="cmmntyTitle" value ="${notice.cmmntyTitle }" >
 					</div>
 					
 					<div>
-						<label for="content">내용</label>
 					<textarea name="cmmntyContents" id="summernote" class="summernote">${notice.cmmntyContents }</textarea>
 					</div>
 					<div>
 					<div class="fileNm">
+					<button type="button" id="AtchBtn" class="AtchBtn ebookBtn-sm">파일등록</button>
+					<input type="file" multiple id="attchFile" name="attchFile" value="파일조회" class="form-control ebookBtn-sm" style="display: none">
 					<c:if test="${not empty notice.cmmntyAtchNm }">
 					첨부파일 : <a id="fileName" href="#" >${notice.cmmntyAtchNm}</a>
 					</c:if>
-					<button type="button" id="AtchBtn" class="AtchBtn">파일등록</button>
-					<input type="file" multiple id="attchFile" name="attchFile" value="파일조회" class="form-control" style="display: none">
 					</div>
 					</div><br>	
 							<input type="hidden" id="cmmntyId" name="cmmntyId" value="${notice.cmmntyId}">
 							<input type="hidden" id="cmmntyAtchNm" name="cmmntyAtchNm" value="${notice.cmmntyAtchNm}">
-							<input id="noticeUpdateBtn" type="button" value="수정" class="btn-primary">
-							<input type="button" onclick="location.href='noticeList'" value="취소" class="btn-danger">
+							<input id="noticeUpdateBtn" type="button" value="수정" class="ebookBtn-sm">
+							<input type="button" onclick="location.href='noticeList'" value="취소" class="ebookBtn-sm">
 				</form>
 			</div>
 		</div>
