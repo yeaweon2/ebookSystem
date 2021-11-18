@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.ebook.prj.report.mapper.BookReportMapper">
+
+	<select id="getBookReport" resultType="co.ebook.prj.report.vo.BookReportVO">
+	   SELECT ( SELECT COUNT(1) FROM BOOK  ) AS BOOK_CNT
+            , ( SELECT COUNT(1) FROM LEND ) AS LEND_CNT
+            , ( SELECT COUNT(1) FROM BUCKET_BOOK ) AS  BUCKET_CNT
+            , ( SELECT COUNT(1) FROM REVIEW ) AS  REVIEW_CNT
+		 FROM DUAL
+	</select> 
+	
+	<select id="getCtgyBookCnt" resultType="co.ebook.prj.report.vo.CtgyBookReportVO" >
+		SELECT CTGY
+		     , b.ctgy_nm
+		     , a.ctgy_cnt
+		FROM ( SELECT SUBSTR(CTGY_ID,0,1) CTGY
+				    , COUNT(1) AS ctgy_cnt
+				 FROM BOOK 
+				GROUP BY SUBSTR(CTGY_ID,0,1)
+			  ) A , category b
+		WHERE a.ctgy||'00' = b.ctgy_id
+		ORDER BY CTGY
+	</select>
+	
+	<select id="getBcnfmCnt" resultType="co.ebook.prj.report.vo.BcnfmReportVO">
+		SELECT BCNFM_ST_CD , S.SCODE_NM as BCNFM_ST_NM , BCNFM_ST_CNT, ( select count(1) from BOOK_CONFIRM ) as bcnfm_st_all
+		 FROM ( SELECT BCNFM_ST_CD , COUNT(BCNFM_ST_CD) AS BCNFM_ST_CNT
+				 FROM ( SELECT A.BOOK_ID , A.BCNFM_ST_CD
+				          FROM BOOK_CONFIRM A 
+				             , (  SELECT BOOK_ID ,  MAX(BCNFM_ID) AS BCNFM_ID
+				                    FROM BOOK_CONFIRM
+				                   GROUP BY BOOK_ID 
+				                ) B
+				          WHERE A.BOOK_ID = B.BOOK_ID
+				            AND A.BCNFM_ID = B.BCNFM_ID 
+				        ) GROUP BY BCNFM_ST_CD 
+				) TEMP 
+				, SCODES S 
+			WHERE TEMP.BCNFM_ST_CD  = S.SCODE 
+			  AND S.LCODE = 'BC'
+	</select>
+	
+	
+	<select id="getBookMonthReport" resultType="co.ebook.prj.report.vo.BookReportVO">
+		<![CDATA[
+			SELECT MONTHS 
+	             , ( SELECT COUNT(1) FROM BOOK where to_char(ins_dt , 'yyyymm') = months ) AS BOOK_CNT
+	             , ( SELECT COUNT(1) FROM LEND where to_char(ins_dt , 'yyyymm') = months ) AS LEND_CNT
+	             , ( SELECT COUNT(1) FROM BUCKET_BOOK where to_char(ins_dt , 'yyyymm') = months ) AS  BUCKET_CNT
+	             , ( SELECT COUNT(1) FROM REVIEW where to_char(ins_dt , 'yyyymm') = months  ) AS  REVIEW_CNT
+	             , ( select count(1) from book_confirm where to_char(ins_dt , 'yyyymm') = months ) as bcnfm_cnt
+  			  FROM  (  SELECT TO_CHAR(ADD_MONTHS(TO_DATE( to_char(sysdate,'yyyy')||'01', 'YYYYMM'), LEVEL - 1 ),'YYYYMM') AS MONTHS
+			             FROM DUAL
+			          CONNECT BY LEVEL <= MONTHS_BETWEEN( TO_DATE(to_char(sysdate,'yyyy')||'12', 'YYYYMM' ), TO_DATE(to_char(sysdate,'yyyy')||'01', 'YYYYMM' ) ) + 1
+					) A
+		]]>
+	</select>	
+</mapper>

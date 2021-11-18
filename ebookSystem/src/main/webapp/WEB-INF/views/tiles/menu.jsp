@@ -98,6 +98,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="ctgyList">카테고리관리</a></li>
                                 <li><a href="bcnfmList">BOOK승인목록</a></li>
+                                <li><a href="bookReport">BOOK현황</a></li>
                             </ul>
                         </li>
 					</c:if>
