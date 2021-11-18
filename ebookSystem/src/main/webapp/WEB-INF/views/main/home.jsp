@@ -354,6 +354,7 @@ $(function(){
 													<div class="col-xs-12 hover-item-caption smoothie">
 														<div class="vertical-center">
 															<h5 class="smoothie"><a href="#" title="view project">${bestbook.bookNm}</a></h5>
+															<br/><span style="color:blue">${bestbook.lendCnt}</span>명이 읽는중
 														</div>
 													</div>
 												</div>
@@ -386,6 +387,7 @@ $(function(){
 													<div class="col-xs-12 hover-item-caption smoothie">
 														<div class="vertical-center">
 															<h5 class="smoothie"><a href="#" title="view project">${likesbook.bookNm}</a></h5>
+															<br/><span>${likesbook.bookLikeit}</span>명이 추천
 														</div>
 													</div>
 												</div>

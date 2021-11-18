@@ -466,7 +466,7 @@ function goList(p) {
 								<td class="chkTd" ><input type="checkbox" id="chkInput" ></td>
 								<td>${list.bookNo}</td>
 								<td>${list.bookFlCd}</td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"  value="${list.insDt}"/></td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${list.insDt}"/></td>
 								<td>
 									<c:if test="${not empty list.bookCoverPath}">
 										<img width="50" height="70" src="${pageContext.request.contextPath}/fileUp${list.bookCoverPath}${list.bookCover}">&nbsp;&nbsp;

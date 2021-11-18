@@ -166,8 +166,7 @@
 			
 			// 수정버튼 클릭시 -----------------------------------------------------------
 			$("#bookUpdateBtn").on("click",function(){
-			    $("#bookUpdateBtn").prop("disabled", true);   
-				
+			    
 			    if( ! attchUpFlag ){
 			    	$("attchFile").val("");	
 			    }
@@ -183,18 +182,15 @@
 					contentType: false, 
 					processData: false,
 					success : function(res){
-						$("#bookUpdateBtn").prop("disabled", false);
-						console.log(res.msg);
-						if($("#msg").val() == "success"){
-							alert("수정이 완료되었습니다.");
-						}else{
-							alert("수정시 오류가 발생하였습니다.");
-						}
-						
+						console.log(res);
+						Swal.fire({ 
+						   icon: 'success',  
+						   title: '수정완료',  
+						   text: '정상적으로 수정처리되었습니다.',  
+						});						
 					},
 					error : function(rej){
 						console.log(rej);
-						$("#bookUpdateBtn").prop("disabled", false);
 					}
 				}); 
 			});
@@ -361,23 +357,23 @@
 										<input type="text" id="bookIsbn" name="bookIsbn" value="${books.bookIsbn}" class="form-control">				
 									</div>
 								</div>
-								<div class="row"></div>
-								<div class="row pull-right">
+								
+								<div class="row " style="margin-bottom:20px">
 									<div class="col-sm-12">
-										<button id="bookFileForm" type="button" class="btn ebookBtn"> BOOK파일등록 </button>
+										<button id="bookFileForm" type="button" class="btn ebookBtn pull-right"> BOOK파일등록 </button>
 									</div>
 								</div> 
-								<div class="row pull-right" style="margin-top:100px">
-									<div class="col-sm-12">
-										<button type="button" id="bookUpdateBtn" class="btn ebookBtn">수 정</button>
-										<button type="button" id="bookDeleteBtn" class="btn ebookBtn" onclick="bookDelete()">삭 제</button>
+								<div class="row" style="margin-bottom:20px">
+									<div class="col-md-12">
+										<button type="button" id="bookDeleteBtn" class="btn ebookBtn-sm pull-right" onclick="bookDelete()">삭 제</button>
+										<button type="button" id="bookUpdateBtn" class="btn ebookBtn-sm pull-right">수 정</button>
 										<c:if test="${auth eq 'A' }">
-											<button type="button" id="cnfmBtn" class="btn ebookBtn">승 인</button>
-											<button type="button" id="rejectModalBtn" class="btn ebookBtn">보 류</button>
-											<button type="button" class="btn ebookBtn" onclick="location.href='bcnfmList'">BOOK승인목록</button>
+											<button type="button" id="cnfmBtn" class="btn ebookBtn-sm pull-right">승 인</button>
+											<button type="button" id="rejectModalBtn-sm pull-right" class="btn ebookBtn">보 류</button>
+											<button type="button" class="btn ebookBtn-sm pull-right" onclick="location.href='bcnfmList'">BOOK승인목록</button>
 										</c:if>
 										<c:if test="${auth eq 'M' }">
-											<button type="button" class="btn ebookBtn" onclick="location.href='bookList'">BOOK목록</button>
+											<button type="button" class="btn ebookBtn-sm pull-right" onclick="location.href='bookList'">BOOK목록</button>
 										</c:if>
 										
 									</div>

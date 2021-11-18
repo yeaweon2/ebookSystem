@@ -63,27 +63,8 @@ img {
                                               </div>
                                               <div class="col-xs-12 hover-item-caption smoothie">
                                                   <div class="vertical-center">
-                                                      <h3 class="smoothie"><a href="single-portfolio.html" title="view project">${bestbook.bookNm}</a></h3>
-                                                      <ul class="smoothie list-inline social-links wow">
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-twitter"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-pinterest"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-dribbble"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-facebook"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-behance"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                          </li>
-                                                      </ul>
+                                                      <h5 class="smoothie"><a href="single-portfolio.html" title="view project">${bestbook.bookNm}</a></h5>
+                                                      <br/><span style="color:blue">${bestbook.lendCnt}</span>명이 읽는중
                                                   </div>
                                               </div>
                                           </div>
@@ -116,27 +97,7 @@ img {
                                               </div>
                                               <div class="col-xs-12 hover-item-caption smoothie">
                                                   <div class="vertical-center">
-                                                      <h3 class="smoothie"><a href="single-portfolio.html" title="view project">${newbook.bookNm}</a></h3>
-                                                      <ul class="smoothie list-inline social-links wow">
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-twitter"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-pinterest"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-dribbble"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-facebook"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-behance"></i></a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                          </li>
-                                                      </ul>
+                                                      <h5 class="smoothie"><a href="single-portfolio.html" title="view project">${newbook.bookNm}</a></h5>
                                                   </div>
                                               </div>
                                           </div>
@@ -169,27 +130,8 @@ img {
                                             </div>
                                             <div class="col-xs-12 hover-item-caption smoothie">
                                                 <div class="vertical-center">
-                                                    <h3 class="smoothie"><a href="single-portfolio.html" title="view project">${likebook.bookNm}</a></h3>
-                                                    <ul class="smoothie list-inline social-links wow">
-                                                        <li>
-                                                            <a href="#"><i class="fa fa-twitter"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><i class="fa fa-dribbble"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><i class="fa fa-facebook"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><i class="fa fa-behance"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                        </li>
-                                                    </ul>
+                                                    <h5 class="smoothie"><a href="single-portfolio.html" title="view project">${likebook.bookNm}</a></h5>
+                                                    <br/><span>${likebook.bookLikeit}</span>명이 추천
                                                 </div>
                                             </div>
                                         </div>

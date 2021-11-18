@@ -105,6 +105,7 @@
 			  , BOOK_WRITER_INTRO
 			  , BOOK_DESC
 			  , BCNFM_ID
+			  , NVL(( SELECT COUNT(1) FROM LEND WHERE BOOK_ID = B.BOOK_ID ), 0) AS LEND_CNT
               , ( SELECT ROUND(AVG(BREPLY_STAR),1)
                     FROM BOOK_REPLY
                    WHERE BOOK_ID = #{bookId} 
@@ -252,7 +253,9 @@
                         , B.BOOK_PUBL_CO
                         , B.BOOK_WRITER
                         , B.BOOK_COVER
-                        , B.BOOK_COVER_PATH                    
+                        , B.BOOK_COVER_PATH   
+                        , a.lend_cnt
+                        , b.book_likeit                 
 			    FROM ( SELECT BOOK_ID 
                             , COUNT(BOOK_ID) AS LEND_CNT
                          FROM LEND 
@@ -274,6 +277,7 @@
 	             , B.BOOK_WRITER
 	             , B.BOOK_COVER
 	             , B.BOOK_COVER_PATH 
+	             , b.BOOK_PUBL_DT
 			FROM ( 
 					SELECT BOOK_ID  
 				         , ROW_NUMBER() OVER (ORDER BY BOOK_PUBL_DT DESC) AS RN
@@ -296,6 +300,7 @@
 	             , B.BOOK_WRITER
 	             , B.BOOK_COVER
 	             , B.BOOK_COVER_PATH 
+                 , b.book_likeit       
 			FROM ( 
 					SELECT BOOK_ID  
 			             , ROW_NUMBER() OVER (ORDER BY BOOK_LIKEIT DESC) AS RN

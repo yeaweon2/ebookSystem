@@ -97,6 +97,8 @@ public class BookRestController {
 			
 			vo.setBookCover(fileName);
 			vo.setBookCoverPath(folder);
+	   }else {
+		   vo.setAttchFile(null);
 	   }
 		
 	   int result = bookDao.bookUpdate(vo);

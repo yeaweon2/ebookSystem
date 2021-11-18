@@ -599,12 +599,24 @@ ul.sidenav li a:hover {
 								<h1 class="display-5 fw-bold">${book.bookNm}</h1>
 								<h3>${book.bookPublCo} ( ${book.bookWriter} )</h3>
 							</div>
+							<c:if test="${not empty book.bookPublDt }">
+								<div class="row" style="margin-top:10px">
+								   출간일 : ${book.bookPublDt}
+								</div>							
+							</c:if>
+							<c:if test="${book.lendCnt > 0 }">
+							<div class="row" style="margin-top:10px">
+								<span style="color:blue">${book.lendCnt}</span>명이 읽는중
+							</div>
+							</c:if>
 							<div class="row" style="margin-top:10px">
 								추 천 : <span id="likeIt">${book.bookLikeit}</span>
 							</div>
+							<c:if test="${not empty book.bookAvg }">
 							<div class="row" id="bookAvg" style="margin-top:10px">
 								BOOK 평 점 :   ${book.bookAvg}
 							</div>
+							</c:if>
 							<c:if test="${auth eq 'U' || auth eq 'A'}">
 								<div class="pull-right" style="margin-top:70px;padding-left:0">
 									<button type="button" class="button" id="bookCartForm"><span>카트담기 </span></button>
