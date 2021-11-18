@@ -42,6 +42,11 @@
 				dataType : 'json' ,
 				success : function(data){
 					console.log(data);
+					Swal.fire({ 
+					   icon: 'success',  
+					   title: '삭제완료',  
+					   text: '정상적으로 처리되었습니다.',  
+					});						
 					card.remove();
 				}
 			});
@@ -51,10 +56,21 @@
 		
 		$("#mainDiv").on("click", ".bookReading", function(){
 			event.preventDefault();
-			$("#frm").find("#bookId").val($(this).data("bookid"));
-			console.log($("#frm").find("#bookId").val());
-			frm.action = "bookReading";
-			frm.submit();
+			
+			if( `${subYn}` == 'N' ){
+				Swal.fire({ 
+				   icon: 'error',  
+				   title: '리딩오류',  
+				   text: '월정액 구매후 진행해주세요.',  
+				});	
+			} else{
+				$("#frm").find("#bookId").val($(this).data("bookid"));
+				console.log($("#frm").find("#bookId").val());
+				frm.action = "bookReading";
+				frm.submit();	
+			}
+			
+			
 		});
 	});
 </script>
