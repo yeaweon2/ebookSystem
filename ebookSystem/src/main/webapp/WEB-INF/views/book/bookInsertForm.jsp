@@ -288,26 +288,29 @@
 
 	
 <div class="modal fade" id="bookApiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg"  role="document">
-		<div class="modal-content" style="padding:40px">
+	<div class="modal-dialog modal-md"  role="document">
+		<div class="modal-content" style="padding:20px">
 				<!--Header-->
 			    <div class="modal-header">
-			    	<h4 class="modal-title" id="myModalLabel">BOOK검색</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-			        </button>
+			    	<div class="row">
+			    		<div class="col-sm-8">
+				    		<h4 class="modal-title" id="myModalLabel"><img width="40px" height="40px" src="resources/img/menuicon/menu1.png"> BOOK 검색</h4>
+				    	</div>
+				    	<div class="col-sm-4 pull-right">
+				    		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true" style="font-size: 30px;">×</span>
+					        </button>
+				    	</div>
+			        </div>
 			    </div>
 				<!--Body-->
 				<div class="modal-body">
 					<div class="row" style="margin-left:0px">
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="bookApiNm" placeholder=""  required>
-							<div class="invalid-feedback">
-								검색할 BOOK명을 입력해주세요.
-							</div>
+							<input type="text" class="form-control" id="bookApiNm" placeholder="검색할 BOOK명을 입력해주세요."  style="font-size: 18px" required>
 						</div>
 						<div class="col-sm-4">
-							<button type="submit" id="bookApiSearch" class="btn btn-primary" onclick="bookApi()" >&nbsp;&nbsp;검 색&nbsp;&nbsp;</button>
+							<button type="submit" id="bookApiSearch" class="btn ebookBtn-sm" onclick="bookApi()" >&nbsp;&nbsp;검 색&nbsp;&nbsp;</button>
 						</div>	
 					</div>
 					<div class="row">
@@ -319,8 +322,7 @@
 								<th>저자</th>
 								<th>정가</th>
 								<th>ISBN</th>
-								<th>상태</th>
-								<th>책소개</th>
+								<th></th>
 							</tr>
 							<tbody id="apiTbody">
 							</tbody>
@@ -329,7 +331,7 @@
 				</div>
 	      		<!--Footer-->
 		      	<div class="modal-footer">
-		        	<button id="apiCloseBtn" type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+		        	<button id="apiCloseBtn" type="button" class="btn ebookBtn-sm" data-dismiss="modal">Close</button>
 				</div>
 		
 		</div>
@@ -357,7 +359,6 @@
 								.append( $("<td class='apiAuthors'>").html(item.authors) )
 								.append( $("<td class='apiPrice'>").html(item.price) )
 								.append( $("<td class='apiIsbn'>").html(item.isbn) )
-								.append( $("<td class='apiStatus'>").html(item.status))
 								.append( $("<td class='apiIntro'>").append( $("<input type='hidden' id='apiIntroTxt'>").val(item.contents)))					
 					);	
 				});
