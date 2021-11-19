@@ -17,7 +17,7 @@
 </head>
 <body>
 <div align="center">
-	<img id="img" src="resources/img/월정액이미지.png"  onclick="location.href='subscription'" /><br>
+	<img id="img" src="resources/img/월정액이미지.png"  onclick="location.href='subscription'" class="pointer"/><br>
 </div><br><br><br>	
 </body>
 </html> 

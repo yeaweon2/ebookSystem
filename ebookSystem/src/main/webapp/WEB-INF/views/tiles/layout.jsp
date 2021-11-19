@@ -107,7 +107,7 @@
 					<div align="center" ><br>
 						<table>
 							<tr id="st"> 
-								<th id="st" onclick="location.href='myInfo'" >내정보보기</th>
+								<th id="st" onclick="location.href='myInfo'" class="pointer">내정보보기</th>
 								<c:if test="${auth eq 'U'}">
 								<th id="st">월정액종료일<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sube}" /></p></th>
 								<th id="st">마일리지<p id="p">${mile} p</p></th>
