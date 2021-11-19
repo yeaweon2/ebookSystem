@@ -93,7 +93,7 @@ $(function() {
 					<c:if test="${id eq list.reviewWriter}">
 					<input type="button" onclick="reviewEdit('U')" class="btn-primary" value="수정">
 					</c:if>
-					<c:if test="${auth eq 'A' || id eq board.cmmntyWriter }">
+					<c:if test="${id eq list.reviewWriter || auth eq 'A' }">
 					<input type="button" onclick="reviewEdit('D')"class="btn-primary" value="삭제">
 					</c:if>
 					</div><br><br>

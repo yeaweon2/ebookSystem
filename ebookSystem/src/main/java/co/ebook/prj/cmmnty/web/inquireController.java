@@ -80,7 +80,6 @@ public class inquireController {
 	@PostMapping("/inquireDelete")
 	public String inquireDelete(Model model, CmmntyVO vo) {
 		vo.setCmmntyFlCd("03");
-		vo.setCmmntyWriter("admin");
 		cmmntyDao.cmmntyDelete(vo);
 
 		return "redirect:inquireList";

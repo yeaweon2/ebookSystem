@@ -36,6 +36,7 @@
              , INS_DT
              , UDT_DT
       FROM REVIEW
+     WHERE REVIEW_DEL_YN = 'N'
        
 	</select>
 	

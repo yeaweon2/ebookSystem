@@ -35,6 +35,7 @@ public class BookReviewController {
 	
 	@Autowired
 	MemberService memberDao;
+
 	
 	//전체리스트
 	@RequestMapping("/bookReviewList")
@@ -98,6 +99,9 @@ public class BookReviewController {
 		int lists = bookReviewDao.bookReviewInsert(vo);
 		
 		if (lists > 0) {
+			int mile = (int)session.getAttribute("mile");
+			session.setAttribute("mile", mile+500 );
+			
 			model.addAttribute("msg", "성공");
 		} else {
 			model.addAttribute("msg", "실패");
@@ -130,8 +134,13 @@ public class BookReviewController {
 	
 	// 리뷰 삭제
 	@PostMapping("/bookReviewDelete")
-	public String bookReviewDelete(Model model, BookReviewVO vo) {
+	public String bookReviewDelete(Model model, BookReviewVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		vo.setReviewWriter((String)session.getAttribute("id"));
+		int mile = (int)session.getAttribute("mile");
+		session.setAttribute("mile", mile-500 );
 		bookReviewDao.bookReviewDelete(vo);
+		
 
 		return "redirect:bookReviewList";
 	}
