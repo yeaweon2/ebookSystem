@@ -219,13 +219,19 @@ font-weight: bold;
 						
 						return false;
 					}else{
+						Swal.fire({ 
+							   icon: 'success',  
+							   title: '버킷BOOK 등록',  
+							   text: '정상적으로 처리되었습니다.',  
+							});
+						
 						$("#bucketList").append(
 								$("<tr>").append($("<td style='width:20%'>")
 													.append( $("<div style='position: relative;'>")
 																.append( $("<img class='media-object' height='210' width='160'>")
 																			.attr("src", "/prj/fileUp" + res.bucket.bookCoverPath + res.bucket.bookCover) )))	
 										 .append($("<td id='contentsTd" + res.bucket.bucketId + " '>")
-												 	.append($("<div>").append($("<h4>").html(res.bucket.bucketOrd + ". " + res.bucket.bookNm)  )
+												 	.append($("<div>").append($("<h4>").append($("<a href='#' class='bookClick'>").data("bookid", res.bucket.bookId).html(res.bucket.bucketOrd + ". " + res.bucket.bookNm)))
 												 					  .append($("<h5>").html(res.bucket.bookPublCo + " / " + res.bucket.bookWriter ))
 												 					  .append($("<button id='bucketDel' class='btn ebookBtn-sm pull-right'>").append($("<i class='fa fa-trash-o'>").html("지우기") ) )
 												 					  .append($("<button id='bucketDone' class='btn ebookBtn-sm pull-right'>").append($("<i class='fa fa-check-square-o'>").html("버킷완료") ) )
@@ -233,6 +239,8 @@ font-weight: bold;
 												 	
 												 						))
 							);
+						
+						
 							
 							$("#bucketList").find("#contentsTd" + res.bucket.bucketId ).data("bookid", res.bucket.bookId); 
 							$("#bucketList").find("#contentsTd" + res.bucket.bucketId ).data("bucketid", res.bucket.bucketId);
@@ -243,6 +251,12 @@ font-weight: bold;
 					
 				}
 			});	
+		});
+		
+		$("#bucketList").on("click", ".bookClick",function(){
+			event.preventDefault();
+			$("#frm").find("#bookId").val($(this).data("bookid"));
+			frm.submit();
 		});
 	});
 	
@@ -286,7 +300,7 @@ font-weight: bold;
 								</td>
 								<td id="contentsTd" data-bookid="${bucket.bookId}" data-bucketid="${bucket.bucketId}">
 									<div>
-										<h4>${bucket.bucketNo}. ${bucket.bookNm}</h4>
+										<h4><a href="#" class="bookClick" data-bookid="${bucket.bookId}">${bucket.bucketNo}. ${bucket.bookNm}</a></h4>
 										<h5>${bucket.bookPublCo} / ${bucket.bookWriter}</h5>
 										<div class="doneYn" style="color:red">
 											<c:if test="${ not empty bucket.bucketDoneDt }">
@@ -311,6 +325,9 @@ font-weight: bold;
 			</div>
 		</div>
 	</div>
+<form action="bookDetail" method="post" id="frm">
+	<input type="hidden" id="bookId" name="bookId" >
+</form>	
 </section>		
 </body>
 </html>
