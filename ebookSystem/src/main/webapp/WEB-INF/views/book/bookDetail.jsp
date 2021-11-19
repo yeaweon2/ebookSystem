@@ -596,6 +596,13 @@ ul.sidenav li a:hover {
 						</div>
 						<div class="col-sm-8 bInfo">
 							<div class="row">
+								<c:if test="${book.bookFlCd == 'E'}">
+									<h4 style="color:blue">eBOOK</h4>
+								</c:if>
+								<c:if test="${book.bookFlCd == 'A'}">
+									<h4 style="color:blue">오디오북</h4>
+								</c:if>
+								
 								<h1 class="display-5 fw-bold">${book.bookNm}</h1>
 								<h3>${book.bookPublCo} ( ${book.bookWriter} )</h3>
 							</div>
