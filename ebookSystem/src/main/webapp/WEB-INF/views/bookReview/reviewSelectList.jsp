@@ -115,14 +115,23 @@ $(function() {
       function reviewEdit(str) {
          if (str == 'U') {
             frm.action = "reviewUpdateForm";
+            frm.submit();
      	 } else {
-              if (confirm('삭제하시면 적립된 500포인트가 소멸됩니다.') == true) {
-               frm.action = "bookReviewDelete";
-              } else {
-               return false;
-            } //else
+     		Swal.fire({
+     			  title: '삭제하시겠습니까?',
+     			  text: "삭제하시면 적립된 500포인트가 소멸됩니다.",
+     			  icon: 'warning',
+     			  showCancelButton: true,
+     			  confirmButtonColor: '#3085d6',
+     			  cancelButtonColor: '#d33',
+     			  confirmButtonText: '확인'
+     			}).then((result) => {
+     			  if (result.isConfirmed) {
+     				 frm.action = "bookReviewDelete";
+     				  frm.submit();
+     			  }
+     			})     		 
          }//else
-         frm.submit();
       }
    </script>
 </body>
