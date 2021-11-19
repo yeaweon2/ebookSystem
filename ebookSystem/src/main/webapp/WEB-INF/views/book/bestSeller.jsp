@@ -26,8 +26,6 @@ img {
 		});   
 		  
 		
-		
-		
 		$("#bestUl").on("click", "li", function(){
 			$("#bookId").val($(this).data("id"));
 			frm.submit();
@@ -131,7 +129,7 @@ img {
                                             <div class="col-xs-12 hover-item-caption smoothie">
                                                 <div class="vertical-center">
                                                     <h5 class="smoothie"><a href="single-portfolio.html" title="view project">${likebook.bookNm}</a></h5>
-                                                    <br/><span>${likebook.bookLikeit}</span>명이 추천
+                                                    <br/><span style="color:red">${likebook.bookLikeit}</span>명이 추천
                                                 </div>
                                             </div>
                                         </div>
