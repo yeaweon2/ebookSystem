@@ -66,7 +66,6 @@ public class MemberController {
 //	멤버상세조회  
 	@RequestMapping("/memberSelect")
 	String memberSelect(Model model, MemberVO vo) {
-		System.out.println("============>>>>>>>>>>>>>>>여기여기>>>>" + vo.toString());
 		
 		SubscriptionVO sVo =  new SubscriptionVO();
 		sVo.setMemberId(vo.getMemberId());
@@ -225,7 +224,7 @@ public class MemberController {
 
 					// UUID.randomUUID().toString() + "_" +
 					File fileSave = new File( real_filePath , fileName);
-					System.out.println("----------------------------------------------> fileSave");
+					System.out.println("!!!!!!!!!!!!!!----------------------------------------------> fileSave");
 					System.out.println(fileSave);
 					System.out.println("----------------------------------------------> fileSave");
 					
@@ -309,7 +308,7 @@ public class MemberController {
 		
 		session.setAttribute("subYn", "'Y'");
 		session.setAttribute("sube" , sVo.getSubspEdt());
-		session.setAttribute("mile", sVo.getSubspMile());
+		session.setAttribute("mile", vo.getMemberMile());
 		
 		
 		return "redirect:myInfo";

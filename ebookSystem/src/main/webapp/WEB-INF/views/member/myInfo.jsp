@@ -28,8 +28,8 @@
 		<div class="row">
 			<div class="col-lg-2 mb-2 mb-lg-0" style="margin-right: 40px;">
 				<div id="Card" class="row" style="height:250px; width:200px; border-style: solid; border-width: 1px; margin:2px; padding:10px"><br><br>
-					<c:if test="${not empty member.memberProfilePath}">
-						<img id="proimg" src="${pageContext.request.contextPath}/fileUp/profile/${member.memberProfileNm}" >&nbsp;&nbsp;
+					<c:if test="${not empty memf}">
+						<img id="proimg" src="${pageContext.request.contextPath}/fileUp/profile/${memfn}" >&nbsp;&nbsp;
 					</c:if>
 					
 					<form id="frm" name="frm" action="#" style="margin-top: 220px">

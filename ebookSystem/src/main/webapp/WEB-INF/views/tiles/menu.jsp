@@ -7,9 +7,10 @@
                     <div class="clearfix">
                         <ul class="list-inline social-links wow pull-left">
                             <c:if test="${auth eq 'U'}">   
+                            		<c:if test="${subYn eq 'N'}">   
                             	<li><a href="ticketList"><i class="fa fa-credit-card"></i> 월정액구매</a></li>
-								<li><a href="bucketList"><i class="fa fa-star"></i> 버킷BOOK</a></li>
-								
+									</c:if>
+                            	<li><a href="bucketList"><i class="fa fa-star"></i> 버킷BOOK</a></li>
 								<li><a href="cartList"><i class="fa fa-shopping-cart"></i>
 									<c:if test="${empty cartCnt}">
 									Cart
