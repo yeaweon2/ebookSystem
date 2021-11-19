@@ -44,8 +44,8 @@ public class BookController {
 	@Autowired 
 	CtgyService ctgyDao;
 	
-	@Autowired
-	String filePath;
+	//@Autowired
+	//String filePath;
 
 	@InitBinder
     protected void initBinder(WebDataBinder binder){
@@ -97,12 +97,13 @@ public class BookController {
 		String fileName = "";
 		String real_filePath = "";
 		String folder = "/book/";
+		String filePath = "";
 		
 		try {
 			if ( attchFile != null ) {
 				if (!attchFile.getOriginalFilename().isEmpty()) {
 					fileName = attchFile.getOriginalFilename();	
-					//filePath = request.getServletContext().getRealPath("/fileUp");	// 파일 저장경로
+					filePath = request.getServletContext().getRealPath("/fileUp");	// 파일 저장경로
 					real_filePath =  filePath + folder;								// 파일이 저장될 최종폴더
 
 					// UUID.randomUUID().toString() + "_" +

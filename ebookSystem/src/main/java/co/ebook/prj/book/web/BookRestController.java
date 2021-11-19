@@ -34,7 +34,7 @@ public class BookRestController {
 	BookService bookDao;
 	
 	
-	@Autowired private String filePath;
+	//@Autowired private String filePath;
 			
 	
     @InitBinder
@@ -44,7 +44,7 @@ public class BookRestController {
     }
    
 	@RequestMapping(value="/bookUpdate", method=RequestMethod.POST )
-   public BookVO bookUpdate(Model model, BookVO vo ) {
+   public BookVO bookUpdate(Model model, BookVO vo, HttpServletRequest request ) {
 		
 		System.out.println("===============================>> 수정전");
 		System.out.println(vo.toString());
@@ -55,14 +55,15 @@ public class BookRestController {
 			System.out.println("===============================>> 첨부파일 수정중 >> ");	
 			MultipartFile attchFile = vo.getAttchFile();
 			String fileName = "";
+			String filePath = "";
 			String real_filePath = "";
-			String folder = "/book/";
+			String folder = "/book/"; 
 			
 			try {
 				if ( attchFile != null ) {
 					if (!attchFile.getOriginalFilename().isEmpty()) {
 						fileName = attchFile.getOriginalFilename();	
-						//filePath = request.getServletContext().getRealPath("/");	// 파일 저장경로
+						filePath = request.getServletContext().getRealPath("/fileUp");	// 파일 저장경로
 						real_filePath =  filePath + folder;								// 파일이 저장될 최종폴더
 	
 						// UUID.randomUUID().toString() + "_" +

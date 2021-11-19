@@ -262,14 +262,14 @@ select {
 			
 			 var rejectMsg = "";
 			Swal.fire({
-				  title: '보유사유 입력',
+				  title: '보류사유 입력',
 				  html: `<input type="text" id="rejectmsg" class="swal2-input" placeholder="입력해주세요..">`,
 				  confirmButtonText: '확인',
 				  focusConfirm: false,
 				  preConfirm: () => {
 				    const rejectmsg = Swal.getPopup().querySelector('#rejectmsg').value
 				    if (!rejectmsg ) {
-				      Swal.showValidationMessage(`보유사유를 입력해주세요`);
+				      Swal.showValidationMessage(`보류사유를 입력해주세요`);
 				    }
 				    return { rejectmsg: rejectmsg }
 				  }
