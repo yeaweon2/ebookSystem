@@ -180,6 +180,7 @@ $(function () {
     });
     
     $("#fileInsert").on("click", function(){
+    	event.preventDefault()
     	if( files == null ){
     		Swal.fire({ 
 			   icon: 'error',  
@@ -228,8 +229,6 @@ $(function () {
 			    		.append($("<tr data-batchid='" + item.batchId + "'>")
 			    					.append( $("<td class='bfileNoTd'>").html(item.batchOrd))
 			    					.append( $("<td>").html(item.batchNm))
-			    					.append( $("<td>").html(item.batchWriterNm))
-			    					.append( $("<td>").html(item.insDt))
 			    					.append( $("<td>").append($("<button class='bfileUpBtn btn btn-default'>")
 			    												.append($("<i class='fa fa-chevron-up'>")) ))
 			    					.append( $("<td>").append($("<button class='bfileDownBtn btn btn-default'>")
@@ -483,8 +482,6 @@ function F_FileMultiUpload_Callback(files) {
 				        			<tr>
 				        				<th>NO</th>
 				        				<th>파일명</th>
-				        				<th>등록자</th>
-				        				<th>등록일자</th>
 				        				<th colspan="2">순서변경</th>
 				        				<th>삭제</th>
 				        			</tr>
@@ -494,8 +491,6 @@ function F_FileMultiUpload_Callback(files) {
 				        				<tr data-batchid="${bfile.batchId}">
 				        					<td class="bfileNoTd">${bfile.batchOrd}</td>
 				        					<td>${bfile.batchNm}</td>
-				        					<td>${bfile.batchWriterNm}</td>
-				        					<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"  value="${bfile.insDt}"/></td>
 				        					<td><button class='bfileUpBtn btn btn-default'><i class='fa fa-chevron-up'></i></button></td>
 				        					<td><button class='bfileDownBtn btn btn-default'><i class='fa fa-chevron-down'></i></button></td>
 				        					<td><button class='bfileDelBtn btn btn-default'><i class='fa fa-trash-o'></i></button></td>

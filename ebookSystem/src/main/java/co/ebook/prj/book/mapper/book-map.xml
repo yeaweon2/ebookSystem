@@ -263,7 +263,6 @@
 				    , BOOK B
 				WHERE A.BOOK_ID= B.BOOK_ID
 				  AND ROWNUM < 11
-
 				  AND B.BOOK_CNFM_YN = 'Y' 
 			      AND B.BOOK_USEYN = 'Y'
 		]]>
@@ -281,7 +280,9 @@
 			FROM ( 
 					SELECT BOOK_ID  
 				         , ROW_NUMBER() OVER (ORDER BY BOOK_PUBL_DT DESC) AS RN
-					  FROM BOOK 
+					  FROM BOOK
+					 WHERE BOOK_CNFM_YN = 'Y' 
+			 		   AND BOOK_USEYN = 'Y' 
 		  		 ) A
 			   , BOOK B
 		   WHERE  A.BOOK_ID = B.BOOK_ID
@@ -305,6 +306,8 @@
 					SELECT BOOK_ID  
 			             , ROW_NUMBER() OVER (ORDER BY BOOK_LIKEIT DESC) AS RN
 					  FROM BOOK 
+					 WHERE BOOK_CNFM_YN = 'Y' 
+				       AND BOOK_USEYN = 'Y'	  
 				  ) A
 				, BOOK B
 			WHERE A.BOOK_ID = B.BOOK_ID
