@@ -350,66 +350,86 @@ $(function () {
 
 //파일 멀티 업로드
 function F_FileMultiUpload(files, obj) {
-     if(confirm(files.length + "개의 파일을 업로드 하시겠습니까?") ) {
-         var data = new FormData();
-         
-         if( files.length > 0){
-        	 
-        	 $("#noFileTxt").html("");
-	         $("#attchFiles").empty();
-	         $("#attchFiles").append( $("<table id='fileList' class='table'>")
-	         							.append($("<tr id='headTr'>")
-	         									.append($("<td>").html("No"))
-	         									.append($("<td>").html("File"))
-	         									.append($("<td>").html("순서"))
-	         									.append($("<td>").html(""))
-	         									.append($("<td>").html("삭제"))
-	         									
-	         									));
-         }
-         
-         for (var i = 0; i < files.length; i++) {
-        	 
-       	 	data.append('file', files[i]);
-            
-            var fileNm = files[i].name;
-            var ext = fileNm.split(".").pop().toLowerCase();
-				console.log(ext);
-				
-				if( `${book.bookFlCd}` == 'E' ){
-					if($.inArray(ext, ["epub"]) == -1) {
-						alert("epub 파일만 등록 가능합니다.");
-						$("#attchFiles").empty();
-						$("#noFileTxt").html("Drag & Drop Files Here");
-						return false;
-					}	
-				}else{
-					if($.inArray(ext, ["mp3"]) == -1) {
-						alert("mp3 파일만 등록 가능합니다.");
-						$("#attchFiles").empty();
-						$("#noFileTxt").html("Drag & Drop Files Here");
-						return false;
+	
+	Swal.fire({
+		  title: '파일업로드?',
+		  text: files.length + "개의 파일을 업로드 하시겠습니까?",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '확인'
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    
+			  var data = new FormData();
+		         
+		         if( files.length > 0){
+		        	 
+		        	 $("#noFileTxt").html("");
+			         $("#attchFiles").empty();
+			         $("#attchFiles").append( $("<table id='fileList' class='table'>")
+			         							.append($("<tr id='headTr'>")
+			         									.append($("<td>").html("No"))
+			         									.append($("<td>").html("File"))
+			         									.append($("<td>").html("순서"))
+			         									.append($("<td>").html(""))
+			         									.append($("<td>").html("삭제"))
+			         									
+			         									));
+		         }
+		         
+		         for (var i = 0; i < files.length; i++) {
+		        	 
+		       	 	data.append('file', files[i]);
+		            
+		            var fileNm = files[i].name;
+		            var ext = fileNm.split(".").pop().toLowerCase();
+						console.log(ext);
+						
+						if( `${book.bookFlCd}` == 'E' ){
+							if($.inArray(ext, ["epub"]) == -1) {
+								
+								Swal.fire({ 
+								   icon: 'error',  
+								   title: '파일형식오류',  
+								   text: 'epub 파일만 등록 가능합니다.',  
+								});
+							
+								$("#attchFiles").empty();
+								$("#noFileTxt").html("Drag & Drop Files Here");
+								return false;
+							}	
+						}else{
+							if($.inArray(ext, ["mp3"]) == -1) {
+								Swal.fire({ 
+								   icon: 'error',  
+								   title: '파일형식오류',  
+								   text: 'mp3 파일만 등록 가능합니다.',  
+								});
+								
+								$("#attchFiles").empty();
+								$("#noFileTxt").html("Drag & Drop Files Here");
+								return false;
+							}
+						}
+		            
+					$("#fileList")
+					.append($("<tr id='bodyTr' class='fileTr' data-filename='"+ fileNm +"'>")
+								.append( $("<td class='filenoTd'>").html(i+1))
+								.append( $("<td class='fileNmTd'>").html(fileNm))
+								.append( $("<td>").append( $("<button class='upBtn btn btn-default'>").append( $("<i class='fa fa-chevron-up'>")) ))
+								.append( $("<td>").append( $("<button class='downBtn btn btn-default'>").append( $("<i class='fa fa-chevron-down'>")) ))
+								.append( $("<td>").append($("<button type='button' class='fileDelBtn btn btn-default'>").append($("<i class='fa fa-trash-o'>")) )));
+				 	
+					var reader = new FileReader();
+					reader.onload = function(e){
+						
 					}
-				}
-            
-			$("#fileList")
-			.append($("<tr id='bodyTr' class='fileTr' data-filename='"+ fileNm +"'>")
-						.append( $("<td class='filenoTd'>").html(i+1))
-						.append( $("<td class='fileNmTd'>").html(fileNm))
-						.append( $("<td>").append( $("<button class='upBtn btn btn-default'>").append( $("<i class='fa fa-chevron-up'>")) ))
-						.append( $("<td>").append( $("<button class='downBtn btn btn-default'>").append( $("<i class='fa fa-chevron-down'>")) ))
-						.append( $("<td>").append($("<button type='button' class='fileDelBtn btn btn-default'>").append($("<i class='fa fa-trash-o'>")) )));
-		 	
-			var reader = new FileReader();
-			reader.onload = function(e){
-				
+					reader.readAsDataURL(files[i]);
+		         }
 			}
-			reader.readAsDataURL(files[i]);
-         }
-         
-         
-      
-     }
+		})
 }
 
 // 파일 멀티 업로드 Callback

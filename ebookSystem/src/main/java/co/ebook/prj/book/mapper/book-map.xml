@@ -264,8 +264,8 @@
 				WHERE A.BOOK_ID= B.BOOK_ID
 				  AND ROWNUM < 11
 
-				  --AND B.BOOK_CNFM_YN = 'Y' 
-			      --AND B.BOOK_USEYN = 'Y'
+				  AND B.BOOK_CNFM_YN = 'Y' 
+			      AND B.BOOK_USEYN = 'Y'
 		]]>
 	</select>	
 	
@@ -286,8 +286,8 @@
 			   , BOOK B
 		   WHERE  A.BOOK_ID = B.BOOK_ID
 			 AND RN < 11
-			 --AND B.BOOK_CNFM_YN = 'Y' 
-			 --AND B.BOOK_USEYN = 'Y'
+			 AND B.BOOK_CNFM_YN = 'Y' 
+			 AND B.BOOK_USEYN = 'Y'
 		   ORDER BY RN
 		]]>
 	</select>
@@ -309,8 +309,8 @@
 				, BOOK B
 			WHERE A.BOOK_ID = B.BOOK_ID
 			  AND RN < 11
-			--AND B.BOOK_CNFM_YN = 'Y' 
-			--AND B.BOOK_USEYN = 'Y'			  
+			  AND B.BOOK_CNFM_YN = 'Y' 
+			  AND B.BOOK_USEYN = 'Y'			  
 			ORDER BY RN
 		]]>
 	</select>
@@ -370,7 +370,9 @@
 					
 					<if test="ctgyGrId != null and ctgyGrId != ''">
 						and b.ctgy_id in ( select ctgy_id from category where ctgy_Gr_id = #{ctgyGrId}  )
-					</if>					
+					</if>	
+					 AND B.BOOK_CNFM_YN = 'Y' 
+					 AND B.BOOK_USEYN = 'Y'			
 				</where>	
 		<![CDATA[				
 		        ORDER BY rownum DESC 
@@ -430,7 +432,9 @@
 					
 					<if test="ctgyGrId != null and ctgyGrId != ''">
 						and b.ctgy_id in ( select ctgy_id from category where ctgy_Gr_id = #{ctgyGrId}  )
-					</if>					
+					</if>	
+					AND B.BOOK_CNFM_YN = 'Y' 
+			 		AND B.BOOK_USEYN = 'Y'				
 				</where>	
 					
 		        ORDER BY rownum DESC 
@@ -471,6 +475,7 @@
              , ( select ctgy_nm from category where ctgy_id = b.ctgy_id  )  ctgy_nm
 		  FROM BOOK B 
 	     WHERE BOOK_USEYN = 'Y' 
+		   AND BOOK_CNFM_YN = 'Y' 
 			<if test="ctgyId != null and ctgyId != ''">
 				and ctgy_id = #{ctgyId}
 			</if>
