@@ -69,8 +69,6 @@
 				frm.action = "bookReading";
 				frm.submit();	
 			}
-			
-			
 		});
 	});
 </script>
@@ -89,12 +87,17 @@
 					<div id="card" class="col-md-5" >
 						<div id="lendCard" class="row" style="height:220px;border-style: solid;border-width: 1px;margin:2px;padding:10px">	
 							<div class="col-md-7">
-								<strong class="">${lend.bookPublCo} / ${lend.bookWriter}</strong>
+								<c:if test="${lend.bookFlCd == 'E'}">
+									<strong style="color:blue">eBOOK</strong>
+								</c:if>
+								<c:if test="${lend.bookFlCd == 'A'}">
+									<strong style="color:blue">오디오북</strong>
+								</c:if>
 								<h4><a href="#" class="bookClick" data-bookid="${lend.bookId}">${lend.bookNm}</a></h4>
+								<strong class="">${lend.bookPublCo} / ${lend.bookWriter}</strong>
 								<h5>대여일자 : <fmt:formatDate pattern="yyyy-MM-dd"  value="${lend.lendDate}"/></h5>
 								<h5>리딩횟수 : ${lend.lendHit} 번</h5>
-								<br/>
-								<a class="bookReading" href="#" class="stretched-link hover" data-bookid="${lend.bookId}"><i class="fa fa-hand-o-right" style="font-size:15px"></i> BOOK READING <i class="fa fa-hand-o-left" style="font-size:15px"></i></a>
+								<a class="bookReading" href="#" class="stretched-link hover" data-bookid="${lend.bookId}" style="font-weight: bold;"><i class="fa fa-hand-o-right" style="font-size:15px"></i> BOOK READING <i class="fa fa-hand-o-left" style="font-size:15px"></i></a>
 								<a href="#" class="lendDel pull-right" data-lendid="${lend.lendId}" ><i class="fa fa-trash-o"></i>삭제</a>
 							</div>
 							<div class="col-md-5">
