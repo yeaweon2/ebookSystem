@@ -12,6 +12,7 @@
 	  background-color:black;
 	  text-align: center; 
 	  width:120px;
+	  padding-top:15px;
 	  
 	}
 
@@ -28,8 +29,8 @@
 	
 	#proimg1{
 		border-radius:400px; 
-		width:80px; 
-		height:80px;
+		width:130px; 
+		height:130px;
 	}
 </style>	
     <meta charset="utf-8">
@@ -107,7 +108,7 @@
 					<div align="center" ><br>
 						<table>
 							<tr id="st"> 
-								<th id="st" onclick="location.href='myInfo'" class="pointer">내정보보기</th>
+								<th id="st" onclick="location.href='myInfo'" class="pointer" style="padding-top:0px;">내정보보기</th>
 								<c:if test="${auth eq 'U'}">
 								<th id="st">월정액종료일<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${sube}" /></p></th>
 								<th id="st">마일리지<p id="p">${mile} p</p></th>
@@ -115,7 +116,7 @@
 								<c:if test="${auth eq 'M'}">
 								<th id="st">계약만료일자<p id="p"><fmt:formatDate pattern="yyyy-MM-dd"  value="${mcnEd }" /></p></th>
 								</c:if>
-							</tr>
+							</tr>						
                    		</table>
                    	</div>
                    	<c:if test="${auth eq 'A' }">

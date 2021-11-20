@@ -61,6 +61,12 @@ img {
                                               </div>
                                               <div class="col-xs-12 hover-item-caption smoothie">
                                                   <div class="vertical-center">
+														<c:if test="${bestbook.bookFlCd == 'E'}">
+															<h6 style="color:blue">eBOOK</h6>
+														</c:if>
+														<c:if test="${bestbook.bookFlCd == 'A'}">
+															<h6 style="color:blue">오디오북</h6>
+														</c:if>                                                  
                                                       <h5 class="smoothie"><a href="single-portfolio.html" title="view project">${bestbook.bookNm}</a></h5>
                                                       <br/><span style="color:blue">${bestbook.lendCnt}</span>명이 읽는중
                                                   </div>
@@ -95,7 +101,13 @@ img {
                                               </div>
                                               <div class="col-xs-12 hover-item-caption smoothie">
                                                   <div class="vertical-center">
-                                                      <h5 class="smoothie"><a href="single-portfolio.html" title="view project">${newbook.bookNm}</a></h5>
+														<c:if test="${newbook.bookFlCd == 'E'}">
+															<h6 style="color:blue">eBOOK</h6>
+														</c:if>
+														<c:if test="${newbook.bookFlCd == 'A'}">
+															<h6 style="color:blue">오디오북</h6>
+														</c:if>	                                                  
+                                                      	<h5 class="smoothie"><a href="single-portfolio.html" title="view project">${newbook.bookNm}</a></h5>
                                                   </div>
                                               </div>
                                           </div>
@@ -128,6 +140,12 @@ img {
                                             </div>
                                             <div class="col-xs-12 hover-item-caption smoothie">
                                                 <div class="vertical-center">
+													<c:if test="${likebook.bookFlCd == 'E'}">
+														<h6 style="color:blue">eBOOK</h6>
+													</c:if>
+													<c:if test="${likebook.bookFlCd == 'A'}">
+														<h6 style="color:blue">오디오북</h6>
+													</c:if>	                                                
                                                     <h5 class="smoothie"><a href="single-portfolio.html" title="view project">${likebook.bookNm}</a></h5>
                                                     <br/><span style="color:red">${likebook.bookLikeit}</span>명이 추천
                                                 </div>

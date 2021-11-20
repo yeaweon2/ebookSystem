@@ -255,7 +255,8 @@
                         , B.BOOK_COVER
                         , B.BOOK_COVER_PATH   
                         , a.lend_cnt
-                        , b.book_likeit                 
+                        , b.book_likeit   
+                        , b.book_fl_cd              
 			    FROM ( SELECT BOOK_ID 
                             , COUNT(BOOK_ID) AS LEND_CNT
                          FROM LEND 
@@ -277,6 +278,7 @@
 	             , B.BOOK_COVER
 	             , B.BOOK_COVER_PATH 
 	             , b.BOOK_PUBL_DT
+	             , b.book_fl_cd
 			FROM ( 
 					SELECT BOOK_ID  
 				         , ROW_NUMBER() OVER (ORDER BY BOOK_PUBL_DT DESC) AS RN
@@ -301,7 +303,8 @@
 	             , B.BOOK_WRITER
 	             , B.BOOK_COVER
 	             , B.BOOK_COVER_PATH 
-                 , b.book_likeit       
+                 , b.book_likeit   
+                 , b.book_fl_cd    
 			FROM ( 
 					SELECT BOOK_ID  
 			             , ROW_NUMBER() OVER (ORDER BY BOOK_LIKEIT DESC) AS RN
